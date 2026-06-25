@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TP Probabilités - 3 thèmes</title>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)'],
+          ],
+        },
+        svg: { fontCache: 'global' },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Kalam:wght@300;400&family=Courier+Prime&display=swap');
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 18px;
+        background: #525659;
+        color: #111;
+        font-size: 9.6pt;
+        line-height: 1.22;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      /* IMPORTANT :
+         On fixe la hauteur à 297mm (A4) pour éviter tout débordement à l'impression.
+         On réduit légèrement les paddings, et on compacte un peu les espacements. */
+      .page {
+        width: 210mm;
+        height: 297mm;
+        padding: 11mm 12mm;
+        margin: 0 auto 14px auto;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
+        position: relative;
+        overflow: hidden;
+        page-break-after: always;
+      }
+
+      h1 {
+        font-size: 15pt;
+        margin: 0 0 5px 0;
+        font-weight: 900;
+        letter-spacing: 0.2px;
+      }
+      .subtitle {
+        margin: 0 0 8px 0;
+        font-style: italic;
+        color: #333;
+      }
+
+      h2 {
+        font-size: 11.4pt;
+        background: #2c3e50;
+        color: #fff;
+        padding: 5px 9px;
+        margin: 8px 0 6px 0;
+        border-left: 7px solid #f1c40f;
+      }
+
+      h3 {
+        font-size: 10.6pt;
+        color: #d35400;
+        margin: 8px 0 5px 0;
+        border-bottom: 1px solid #d35400;
+        padding-bottom: 2px;
+      }
+
+      p {
+        margin: 5px 0;
+      }
+      ul {
+        margin: 5px 0;
+        padding-left: 16px;
+      }
+      li {
+        margin: 2px 0;
+      }
+
+      .print-btn {
+        position: fixed;
+        top: 18px;
+        right: 18px;
+        padding: 10px 14px;
+        background: #d35400;
+        color: #fff;
+        border: 2px solid #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 800;
+        z-index: 9999;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+      }
+
+      .tag {
+        display: inline-block;
+        border: 1px solid #000;
+        padding: 3px 8px;
+        border-radius: 999px;
+        font-size: 9pt;
+        font-weight: 700;
+        background: #f7f7f7;
+        margin-bottom: 6px;
+      }
+
+      .doc {
+        border: 1px solid #000;
+        padding: 9px;
+        margin: 6px 0;
+        background: #fff;
+      }
+
+      .handwritten {
+        font-family: 'Kalam', cursive;
+        color: #0b2a7a;
+        font-size: 11.6pt;
+        line-height: 1.5;
+      }
+      .notebook-lines {
+        background-image: linear-gradient(#e1e1e1 1px, transparent 1px);
+        background-size: 100% 1.85em;
+        padding: 8px;
+      }
+
+      .email-header {
+        border-bottom: 1px solid #bbb;
+        padding-bottom: 7px;
+        margin-bottom: 8px;
+        font-family: Arial, sans-serif;
+      }
+      .email-field {
+        margin: 2px 0;
+      }
+      .email-label {
+        display: inline-block;
+        width: 54px;
+        color: #666;
+        font-weight: 800;
+      }
+
+      .excel-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: Arial, sans-serif;
+        font-size: 9.2pt;
+      }
+      .excel-table th,
+      .excel-table td {
+        border: 1px solid #ccc;
+        padding: 6px 7px;
+        text-align: left;
+        vertical-align: top;
+      }
+      .excel-table th {
+        background: #f2f2f2;
+      }
+
+      .memo-box {
+        border: 4px solid #c0392b;
+        padding: 10px;
+        text-align: center;
+      }
+      .memo-title {
+        color: #c0392b;
+        font-weight: 900;
+        font-size: 15pt;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+      }
+      .stamp {
+        display: inline-block;
+        margin-top: 7px;
+        padding: 7px 9px;
+        border: 3px double #c0392b;
+        color: #c0392b;
+        font-weight: 900;
+        transform: rotate(-6deg);
+      }
+
+      .mission {
+        border: 2px solid #c0392b;
+        background: #fff5f5;
+        padding: 9px;
+        border-radius: 6px;
+        margin: 8px 0;
+        position: relative;
+      }
+      .mission::before {
+        content: 'MISSION';
+        position: absolute;
+        top: -10px;
+        left: 14px;
+        background: #c0392b;
+        color: #fff;
+        padding: 1px 8px;
+        font-weight: 900;
+        font-size: 9pt;
+      }
+
+      .work-box {
+        border: 1px solid #000;
+        background: #fff;
+        padding: 9px;
+        border-radius: 6px;
+        margin: 6px 0;
+      }
+
+      .write-area {
+        border: 1px solid #000;
+        background-image: linear-gradient(#e9e9e9 1px, transparent 1px);
+        background-size: 100% 18px;
+        border-radius: 4px;
+        padding: 8px;
+      }
+      .write-area.small {
+        height: 52mm;
+      }
+      .write-area.medium {
+        height: 88mm;
+      }
+      .write-area.large {
+        height: 122mm;
+      }
+      .write-area.xlarge {
+        height: 150mm;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+        margin-top: 6px;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 9px;
+        margin-top: 6px;
+      }
+
+      .hint {
+        font-size: 9pt;
+        color: #333;
+        font-style: italic;
+        margin-top: 4px;
+      }
+
+      .steps {
+        border: 1px dashed #000;
+        padding: 7px;
+        background: #fafafa;
+        margin: 7px 0;
+      }
+
+      .mini-title {
+        font-weight: 900;
+        text-transform: uppercase;
+        font-size: 9.2pt;
+        margin: 0 0 4px 0;
+      }
+
+      .footer {
+        position: absolute;
+        left: 12mm;
+        right: 12mm;
+        bottom: 7mm;
+        border-top: 1px solid #000;
+        padding-top: 3px;
+        font-size: 8.4pt;
+        display: flex;
+        justify-content: space-between;
+        background: #fff;
+      }
+
+      @media print {
+        body {
+          padding: 0;
+          background: #fff;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+          border: none;
+          width: 210mm;
+          height: 297mm;
+          page-break-after: always;
+        }
+        .print-btn {
+          display: none;
+        }
+      }
+    </style>
+    <style>
+      /* Page "serrée" : on réduit uniquement les hauteurs d'écriture et quelques marges
+         pour éviter que le Thème 3 Page 2 déborde, sans toucher aux autres pages. */
+      .page.tight .steps {
+        margin: 5px 0;
+        padding: 6px;
+      }
+      .page.tight .work-box {
+        margin: 5px 0;
+        padding: 8px;
+      }
+      .page.tight p {
+        margin: 4px 0;
+      }
+      .page.tight .grid-2 {
+        gap: 8px;
+        margin-top: 5px;
+      }
+
+      /* Hauteurs ajustées uniquement sur la page .tight */
+      .page.tight .write-area.medium {
+        height: 80mm;
+      }
+      .page.tight .write-area.small {
+        height: 44mm;
+      }
+    </style>
+  </head>
+
+  <body>
+    <button class="print-btn" id="printBtn" onclick="window.print()">
+      🖨️ IMPRIMER TOUT
+    </button>
+
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        const n = document.querySelectorAll('.page').length;
+        document.getElementById('printBtn').textContent =
+          '🖨️ IMPRIMER TOUT (' + n + ' pages)';
+      });
+    </script>
+
+    <!-- ===================== THEME 1 - DES (DOCS) ===================== -->
+    <div class="page">
+      <div class="tag">Thème 1 - Stand de dés (documents)</div>
+      <h1>TP Probabilités - Dossier ressources</h1>
+      <p class="subtitle">
+        Lis les documents. Tu récupères les infos utiles, puis tu construis ton
+        modèle.
+      </p>
+
+      <h2>Stand "Double Défi"</h2>
+
+      <div class="doc">
+        <div class="email-header">
+          <div class="email-field">
+            <span class="email-label">De :</span> organisateurs@fete-locale.fr
+          </div>
+          <div class="email-field">
+            <span class="email-label">À :</span> equipe-stand@fete-locale.fr
+          </div>
+          <div class="email-field">
+            <span class="email-label">Date :</span> Samedi 09:10
+          </div>
+          <div class="email-field">
+            <span class="email-label">Objet :</span>
+            <strong>Règles officielles - Double Défi</strong>
+          </div>
+        </div>
+        <p>Rappel des règles affichées au public :</p>
+        <ul>
+          <li>Le joueur lance <strong>2 dés</strong>.</li>
+          <li>Le joueur paie <strong>2 euros</strong> pour jouer.</li>
+          <li>
+            Somme <strong>7</strong> : le stand verse <strong>5 euros</strong>.
+          </li>
+          <li>Sinon : <strong>0 euro</strong>.</li>
+        </ul>
+      </div>
+
+      <div class="doc">
+        <h3 style="margin-top: 0">Affiche du stand (extrait)</h3>
+        <p style="margin: 0; font-family: 'Courier Prime', monospace">
+          "Tu as de bonnes chances de gagner, le 7 tombe souvent."<br />
+          "Un lancer, c'est rapide. Rejoue autant que tu veux."
+        </p>
+      </div>
+
+      <div class="doc">
+        <h3 style="margin-top: 0">Carnet du stand (extrait)</h3>
+        <div class="handwritten notebook-lines handwritten">
+          <p>
+            Pour répondre sérieusement : deux dés, donc 36 chemins possibles.<br />
+            Méthode : arbre 6 branches puis 6 branches, ou liste (dé1;dé2).<br />
+            Ensuite, on compte les chemins qui donnent 7, puis on conclut.
+          </p>
+        </div>
+      </div>
+
+      <div class="doc">
+        <h3 style="margin-top: 0">Message du trésorier (extrait)</h3>
+        <p style="margin: 0; font-family: 'Courier Prime', monospace">
+          Objectif : que les gens rejouent.<br />
+          Quand quelqu'un gagne 5 euros, ça marque les esprits.
+        </p>
+      </div>
+
+      <div class="footer">
+        <div>TP Probabilités</div>
+        <div>Thème 1</div>
+        <div>Page 1</div>
+      </div>
+    </div>
+
+    <!-- ===================== THEME 1 - DES (TRAVAIL) ===================== -->
+    <div class="page">
+      <div class="tag">Thème 1 - Stand de dés (travail)</div>
+      <h2>Travail</h2>
+
+      <div class="mission">
+        À partir des documents, répondre :
+        <strong
+          >le stand exagère-t-il quand il dit que "le 7 tombe souvent"</strong
+        >
+        ? Tu dois construire un modèle et justifier par des probabilités.
+      </div>
+
+      <div class="steps">
+        <p style="margin: 0">
+          <strong>Ce que tu dois produire :</strong>
+          un arbre (ou une liste) qui montre les 36 cas + un calcul de
+          probabilité + une conclusion en mots.
+        </p>
+      </div>
+
+      <div class="work-box">
+        <p class="mini-title">1) Ton modèle (arbre ou liste)</p>
+        <div class="write-area xlarge"></div>
+      </div>
+
+      <div class="work-box">
+        <div class="grid-2">
+          <div>
+            <p class="mini-title">2) Comptage</p>
+            <div class="write-area medium"></div>
+          </div>
+          <div>
+            <p class="mini-title">3) Probabilité + conclusion</p>
+            <div class="write-area medium"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>TP Probabilités</div>
+        <div>Thème 1</div>
+        <div>Page 2</div>
+      </div>
+    </div>
+
+    <!-- ===================== THEME 2 - YEUX (DOCS) ===================== -->
+    <div class="page">
+      <div class="tag">Thème 2 - Discussion en famille (documents)</div>
+      <h1>Dossier ressources</h1>
+      <p class="subtitle">
+        On prend un modèle simple pour faire un calcul et arrêter les débats au
+        hasard.
+      </p>
+
+      <h2>Une histoire de famille</h2>
+
+      <div class="doc">
+        <h3 style="margin-top: 0">Discussion du dimanche (retranscrit)</h3>
+        <div class="handwritten notebook-lines handwritten">
+          <p>
+            "Deux parents aux yeux marron, l'enfant aura forcément marron."<br />
+            "On a déjà vu des yeux bleus dans la famille."<br />
+            "Oui mais c'est rare, quasi impossible."<br />
+            "Ok, on calcule avec un modèle simple."
+          </p>
+        </div>
+      </div>
+
+      <div class="doc">
+        <div class="email-header">
+          <div class="email-field">
+            <span class="email-label">De :</span> fiche-famille@exemple.fr
+          </div>
+          <div class="email-field">
+            <span class="email-label">À :</span> groupe-famille@exemple.fr
+          </div>
+          <div class="email-field">
+            <span class="email-label">Objet :</span>
+            <strong>Modèle de calcul (simple)</strong>
+          </div>
+        </div>
+
+        <ul>
+          <li>Chaque parent peut transmettre "marron" ou "bleu".</li>
+          <li>
+            Pour chaque parent : <strong>1 chance sur 2</strong> pour chaque
+            couleur.
+          </li>
+          <li>
+            L'enfant a les yeux bleus seulement si
+            <strong>les deux transmissions</strong> sont "bleu".
+          </li>
+        </ul>
+      </div>
+
+      <div class="doc">
+        <h3 style="margin-top: 0">Question qui revient toujours</h3>
+        <p style="margin: 0; font-family: 'Courier Prime', monospace">
+          "Quasi impossible" = 1 sur 10 ? 1 sur 100 ?<br />
+          On veut un chiffre et une phrase simple.
+        </p>
+      </div>
+
+      <div class="footer">
+        <div>TP Probabilités</div>
+        <div>Thème 2</div>
+        <div>Page 1</div>
+      </div>
+    </div>
+
+    <!-- ===================== THEME 2 - YEUX (TRAVAIL) ===================== -->
+    <div class="page">
+      <div class="tag">Thème 2 - Discussion en famille (travail)</div>
+      <h2>Travail</h2>
+
+      <div class="mission">
+        Répondre : <strong>est-ce exagéré de dire "quasi impossible"</strong> ?
+        Donne une probabilité et une conclusion claire.
+      </div>
+
+      <div class="steps">
+        <p style="margin: 0">
+          <strong>Ce que tu dois produire :</strong>
+          un arbre + une probabilité + une interprétation en mots.
+        </p>
+      </div>
+
+      <div class="work-box">
+        <p class="mini-title">1) Ton arbre (2 étapes)</p>
+        <div class="write-area large"></div>
+      </div>
+
+      <div class="work-box">
+        <div class="grid-2">
+          <div>
+            <p class="mini-title">2) Calcul</p>
+            <div class="write-area medium"></div>
+          </div>
+          <div>
+            <p class="mini-title">3) Interprétation</p>
+            <div class="write-area medium"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>TP Probabilités</div>
+        <div>Thème 2</div>
+        <div>Page 2</div>
+      </div>
+    </div>
+
+    <!-- ===================== THEME 3 - CHANTIER (DOCS) ===================== -->
+    <div class="page">
+      <div class="tag">Thème 3 - Rapport chantier (documents)</div>
+      <h1>Dossier ressources</h1>
+      <p class="subtitle">
+        Objectif : répondre en réunion avec une conclusion juste. Il faut lire,
+        organiser, puis calculer.
+      </p>
+
+      <h2>Défauts sur interventions (1 mois)</h2>
+
+      <div class="doc">
+        <div class="email-header">
+          <div class="email-field">
+            <span class="email-label">De :</span> direction@entreprise-btp.fr
+          </div>
+          <div class="email-field">
+            <span class="email-label">À :</span> encadrants@entreprise-btp.fr
+          </div>
+          <div class="email-field">
+            <span class="email-label">Objet :</span>
+            <strong>Préparation réunion qualité</strong>
+          </div>
+        </div>
+        <p style="margin-top: 0">
+          Question sensible : "Ça vient surtout de qui ?" Certains domaines font
+          beaucoup plus d'interventions. Donc il faut comparer correctement et
+          construire une réponse claire.
+        </p>
+      </div>
+
+      <div class="doc">
+        <h3 style="margin-top: 0">Extrait du suivi (1 500 interventions)</h3>
+        <table class="excel-table">
+          <thead>
+            <tr>
+              <th>Domaine</th>
+              <th>Interventions</th>
+              <th>Avec défaut</th>
+              <th>Exemples terrain</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Plomberie</td>
+              <td><strong>700</strong></td>
+              <td><strong>140</strong></td>
+              <td>fuite, joint, pente, serrage, étanchéité</td>
+            </tr>
+            <tr>
+              <td>Électricité</td>
+              <td><strong>300</strong></td>
+              <td><strong>30</strong></td>
+              <td>serrage, repérage, protection, raccord</td>
+            </tr>
+            <tr>
+              <td>Carrelage</td>
+              <td><strong>120</strong></td>
+              <td><strong>18</strong></td>
+              <td>planéité, joint, casse, alignement</td>
+            </tr>
+            <tr>
+              <td>Peinture</td>
+              <td><strong>90</strong></td>
+              <td><strong>12</strong></td>
+              <td>coulure, reprise, teinte, protection</td>
+            </tr>
+            <tr>
+              <td>Menuiserie</td>
+              <td><strong>110</strong></td>
+              <td><strong>22</strong></td>
+              <td>réglage, jeu, étanchéité, fixation</td>
+            </tr>
+            <tr>
+              <td>Plâtrerie</td>
+              <td><strong>80</strong></td>
+              <td><strong>16</strong></td>
+              <td>fissure, planéité, bandes, vis</td>
+            </tr>
+            <tr>
+              <td>CVC</td>
+              <td><strong>60</strong></td>
+              <td><strong>9</strong></td>
+              <td>débit, réglage, fixation, fuite</td>
+            </tr>
+            <tr>
+              <td>Couverture</td>
+              <td><strong>40</strong></td>
+              <td><strong>8</strong></td>
+              <td>étanchéité, recouvrement, fixation</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="doc">
+        <h3 style="margin-top: 0">Note atelier (extrait)</h3>
+        <div class="handwritten notebook-lines handwritten">
+          <p>
+            Deux lectures utiles :<br />
+            1) "Qui a le plus de défauts en nombre ?"<br />
+            2) "Qui a le plus gros taux de défaut ?"<br />
+            On veut une conclusion avec au moins deux angles.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>TP Probabilités</div>
+        <div>Thème 3</div>
+        <div>Page 1</div>
+      </div>
+    </div>
+
+    <!-- ===================== THEME 3 - CHANTIER (TRAVAIL) ===================== -->
+    <div class="page tight">
+      <div class="tag">Thème 3 - Rapport chantier (travail)</div>
+      <h2>Travail</h2>
+
+      <div class="mission">
+        Produire une conclusion utilisable en réunion :
+        <strong>quels domaines posent le plus de problèmes</strong> ? Tu dois
+        justifier avec des probabilités et une lecture "juste".
+      </div>
+
+      <div class="steps">
+        <p style="margin: 0">
+          <strong>Ce que tu dois produire :</strong>
+          1) choisir 2 ou 3 probabilités à comparer, 2) faire un modèle, 3)
+          faire des calculs, 4) conclure avec 2 angles.
+        </p>
+      </div>
+
+      <div class="work-box">
+        <p class="mini-title">1) Tes probabilités à comparer</p>
+        <div class="write-area medium"></div>
+      </div>
+
+      <div class="work-box">
+        <div class="grid-2">
+          <div>
+            <p class="mini-title">2) Modèle (arbre ou schéma)</p>
+            <div class="write-area medium"></div>
+          </div>
+          <div>
+            <p class="mini-title">3) Calculs (au moins 3) + sens</p>
+            <div class="write-area medium"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="work-box">
+        <p class="mini-title">4) Conclusion type réunion (2 angles)</p>
+        <div class="write-area small"></div>
+      </div>
+
+      <div class="footer">
+        <div>TP Probabilités</div>
+        <div>Thème 3</div>
+        <div>Page 2</div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ordre de Mission - Moreau & Fils</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Kalam:wght@400&family=Courier+Prime&family=Montserrat:wght@700;900&display=swap');
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #525659;
+        font-size: 9pt;
+        color: #222;
+        line-height: 1.4;
+      }
+      .page {
+        width: 210mm;
+        height: 297mm;
+        padding: 12mm;
+        margin: 10px auto;
+        background: #fff;
+        position: relative;
+        overflow: hidden;
+        page-break-after: always;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #000;
+      }
+
+      .corp-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 3px solid #c0392b;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+      }
+      .logo-area h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 24pt;
+        color: #c0392b;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .logo-area p {
+        margin: 0;
+        font-weight: bold;
+        font-size: 8.5pt;
+        color: #555;
+        letter-spacing: 2px;
+      }
+      .doc-type {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16pt;
+        font-weight: 900;
+        text-align: right;
+        background: #c0392b;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 4px;
+      }
+
+      .meta-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      .meta-table th,
+      .meta-table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+      }
+      .meta-table th {
+        background: #f4f4f4;
+        width: 20%;
+        font-size: 8pt;
+        text-transform: uppercase;
+        color: #555;
+      }
+      .meta-table td {
+        font-weight: bold;
+        font-size: 9.5pt;
+      }
+
+      .section-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 12pt;
+        color: #c0392b;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 5px;
+        margin: 20px 0 10px 0;
+        text-transform: uppercase;
+      }
+      .box-grey {
+        background: #f9f9f9;
+        padding: 15px;
+        border-left: 4px solid #c0392b;
+        margin-bottom: 15px;
+      }
+
+      /* Grille Graphique avec graduations amorcées */
+      .graph-container {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        margin-top: 15px;
+        padding: 10px;
+        position: relative;
+      }
+      .y-axis-label {
+        position: absolute;
+        top: -15px;
+        left: -10px;
+        font-weight: bold;
+        font-size: 8.5pt;
+        color: #000;
+      }
+      .x-axis-label {
+        position: absolute;
+        bottom: -20px;
+        right: 0;
+        font-weight: bold;
+        font-size: 8.5pt;
+        color: #000;
+      }
+      .graph-wrapper {
+        position: relative;
+        flex-grow: 1;
+        margin: 20px 20px 30px 40px;
+      }
+
+      .graph-grid {
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        background-image: linear-gradient(to right, #888 1px, transparent 1px),
+          linear-gradient(to top, #888 1px, transparent 1px),
+          linear-gradient(to right, #e0e0e0 1px, transparent 1px),
+          linear-gradient(to top, #e0e0e0 1px, transparent 1px);
+        background-size: 50px 100%, 100% 50px, 10px 100%, 100% 10px;
+        background-position: left bottom;
+        border-left: 2px solid #000;
+        border-bottom: 2px solid #000;
+      }
+      .graph-grid::before {
+        content: '▲';
+        position: absolute;
+        top: -12px;
+        left: -6px;
+        font-size: 10px;
+        color: #000;
+      }
+      .graph-grid::after {
+        content: '▶';
+        position: absolute;
+        bottom: -6px;
+        right: -12px;
+        font-size: 10px;
+        color: #000;
+      }
+
+      /* Amorce des graduations */
+      .grad-origin {
+        position: absolute;
+        bottom: -15px;
+        left: -10px;
+        font-size: 8pt;
+        font-weight: bold;
+      }
+      .grad-x1 {
+        position: absolute;
+        bottom: -15px;
+        left: 47px;
+        font-size: 8pt;
+        font-weight: bold;
+      }
+      .grad-x2 {
+        position: absolute;
+        bottom: -15px;
+        left: 97px;
+        font-size: 8pt;
+        font-weight: bold;
+      }
+      .grad-y1 {
+        position: absolute;
+        bottom: 43px;
+        left: -15px;
+        font-size: 8pt;
+        font-weight: bold;
+      }
+      .grad-y2 {
+        position: absolute;
+        bottom: 93px;
+        left: -20px;
+        font-size: 8pt;
+        font-weight: bold;
+      }
+
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        text-align: center;
+      }
+      .data-table th,
+      .data-table td {
+        border: 1px solid #000;
+        padding: 8px;
+        font-size: 10pt;
+      }
+      .data-table th {
+        background: #eee;
+        font-weight: bold;
+      }
+      .handwritten {
+        font-family: 'Kalam', cursive;
+        color: #0b2a7a;
+        font-size: 11pt;
+        background: #fff9c4;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #e6db55;
+        transform: rotate(-1deg);
+        margin-top: 10px;
+      }
+
+      .tech-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+      .tech-box {
+        border: 1px solid #ccc;
+        padding: 15px;
+        position: relative;
+      }
+      .mini-title {
+        font-weight: 900;
+        text-transform: uppercase;
+        font-size: 8.5pt;
+        color: #333;
+        margin-bottom: 8px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 4px;
+      }
+
+      /* Zone de rédaction guidée */
+      .drafting-box {
+        background: #fff;
+        border: 2px solid #c0392b;
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: 4px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .footer {
+        border-top: 1px solid #ccc;
+        padding-top: 8px;
+        font-size: 7.5pt;
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+        color: #777;
+        margin-top: auto;
+      }
+      @media print {
+        body {
+          background: #fff;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+          border: none;
+        }
+        .btn-print {
+          display: none;
+        }
+      }
+      .btn-print {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        padding: 12px 25px;
+        background: #c0392b;
+        color: #fff;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 100;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="btn-print" onclick="window.print()">
+      🖨️ IMPRIMER DOSSIER MAÇON
+    </button>
+
+    <div class="page">
+      <div class="corp-header">
+        <div class="logo-area">
+          <h1>MOREAU & FILS</h1>
+          <p>GROUPE CONSTRUCTION GRAND EST</p>
+        </div>
+        <div class="doc-type">ORDRE DE MISSION</div>
+      </div>
+
+      <table class="meta-table">
+        <tr>
+          <th>Réf. Dossier</th>
+          <td>MA-2026-03</td>
+          <th>Date de la séance</th>
+          <td>............ / ............ / 2026</td>
+        </tr>
+        <tr>
+          <th>Lieu d'intervention</th>
+          <td>Chantier Principal - Secteur B</td>
+          <th>Superviseur</th>
+          <td>Chef de Chantier (M. Laurent)</td>
+        </tr>
+        <tr>
+          <th>Équipe assignée</th>
+          <td colspan="3">
+            Groupe d'apprentis :
+            ....................................................................................
+          </td>
+        </tr>
+      </table>
+
+      <h2 class="section-title">1. Contexte de l'intervention</h2>
+      <p>
+        Nos équipes viennent de terminer le coulage d'une dalle de béton. Avant
+        de valider l'intervention de l'entreprise sous-traitante chargée de
+        poser le revêtement de sol, le bureau d'études doit s'assurer que la
+        dalle respecte les conditions de séchage et de solidité requises.
+      </p>
+
+      <h2 class="section-title">2. Objectif de la séance</h2>
+      <div class="box-grey">
+        <p>
+          <strong
+            >Votre groupe doit établir un diagnostic technique précis.</strong
+          >
+          Pour cela, vous allez devoir :
+        </p>
+        <ul style="margin-bottom: 0">
+          <li>
+            Tracer l'évolution du taux d'humidité de la dalle (Graphique 1).
+          </li>
+          <li>
+            Tracer l'évolution de la résistance mécanique du béton (Graphique
+            2).
+          </li>
+          <li>
+            Déterminer l'intervalle de temps sur lequel les travaux de pose
+            peuvent débuter.
+          </li>
+        </ul>
+      </div>
+
+      <h2 class="section-title">
+        3. Document de référence : Spécifications du béton
+      </h2>
+      <p>
+        Après le coulage, l'eau contenue dans le mélange s'évapore
+        progressivement. Le taux d'humidité diminue donc avec le temps. La
+        résistance, quant à elle, augmente à mesure que le béton prend.
+      </p>
+      <p>
+        <em>Attention au risque de non-conformité :</em> Si l'humidité est trop
+        élevée lors de la pose, les revêtements (carrelage, parquet) risquent de
+        se décoller, ce qui peut entraîner des reprises de chantier très
+        coûteuses.
+      </p>
+
+      <div class="handwritten">
+        "Suivez bien les 4 étapes de construction pour vos graphiques. Les axes
+        sont déjà amorcés pour vous aider à démarrer l'échelle !"
+      </div>
+
+      <div class="footer">
+        <span>MOREAU & FILS - DOCUMENT INTERNE</span
+        ><span>PAGE 1/4 - ORDRE DE MISSION</span>
+      </div>
+    </div>
+
+    <div class="page">
+      <div
+        class="corp-header"
+        style="
+          padding-bottom: 5px;
+          margin-bottom: 10px;
+          border-bottom: 1px solid #ccc;
+        "
+      >
+        <div class="logo-area">
+          <h1 style="font-size: 14pt">MOREAU & FILS</h1>
+        </div>
+        <div style="font-size: 10pt; font-weight: bold">ANNEXE TECHNIQUE 1</div>
+      </div>
+
+      <div class="tech-box">
+        <div class="mini-title">Relevés de terrain : Humidité de la dalle</div>
+        <table class="data-table">
+          <tr>
+            <th>Jours après coulage</th>
+            <td>2</td>
+            <td>4</td>
+            <td>6</td>
+            <td>8</td>
+            <td>10</td>
+            <td>12</td>
+            <td>14</td>
+            <td>16</td>
+            <td>18</td>
+            <td>20</td>
+          </tr>
+          <tr>
+            <th>Humidité (%)</th>
+            <td>22</td>
+            <td>21</td>
+            <td>19</td>
+            <td>18</td>
+            <td>17</td>
+            <td>16</td>
+            <td>15</td>
+            <td>14</td>
+            <td>13</td>
+            <td>12</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="graph-container">
+        <div class="mini-title">TRAVAIL DE L'ÉQUIPE : TRACÉ DU GRAPHIQUE 1</div>
+        <p style="margin: 5px 0; font-size: 8.5pt; color: #555">
+          <strong>Consignes :</strong> 1. Continuer de graduer l'axe horizontal.
+          | 2. Continuer de graduer l'axe vertical. | 3. Placer les points du
+          tableau. | 4. Relier les points.
+        </p>
+        <div class="graph-wrapper">
+          <div class="y-axis-label">Humidité (%)</div>
+          <div class="graph-grid"></div>
+          <div class="grad-origin">0</div>
+          <div class="grad-x1">2</div>
+          <div class="grad-x2">4</div>
+          <div class="grad-y1">5</div>
+          <div class="grad-y2">10</div>
+          <div class="x-axis-label">Temps (Jours)</div>
+        </div>
+      </div>
+
+      <div class="box-grey" style="margin-top: 15px">
+        <div class="mini-title">
+          QUESTIONS D'ANALYSE (À remplir par le groupe)
+        </div>
+        <p>
+          • Quelle est l'humidité au jour 10 ?
+          ..........................................................................................
+        </p>
+        <p>
+          • À quel jour l'humidité atteint-elle 15 % ?
+          ................................................................................
+        </p>
+        <p>
+          • L'humidité augmente-t-elle ou diminue-t-elle ?
+          ......................................................................
+        </p>
+        <p>
+          • Peut-on poser le revêtement au jour 8 ? Pourquoi ?
+          ................................................................
+        </p>
+        <p>
+          • Compléter la phrase : "L'humidité est décroissante sur l'intervalle
+          [ ........ ; ........ ]."
+        </p>
+      </div>
+      <div class="footer">
+        <span>ARCHIVES CHANTIER</span><span>PAGE 2/4 - TRACÉ HUMIDITÉ</span>
+      </div>
+    </div>
+
+    <div class="page">
+      <div
+        class="corp-header"
+        style="
+          padding-bottom: 5px;
+          margin-bottom: 10px;
+          border-bottom: 1px solid #ccc;
+        "
+      >
+        <div class="logo-area">
+          <h1 style="font-size: 14pt">MOREAU & FILS</h1>
+        </div>
+        <div style="font-size: 10pt; font-weight: bold">ANNEXE TECHNIQUE 2</div>
+      </div>
+
+      <div class="tech-box">
+        <div class="mini-title">Relevés de terrain : Résistance mécanique</div>
+        <table class="data-table">
+          <tr>
+            <th>Jours après coulage</th>
+            <td>2</td>
+            <td>4</td>
+            <td>6</td>
+            <td>8</td>
+            <td>10</td>
+            <td>12</td>
+            <td>14</td>
+            <td>16</td>
+            <td>20</td>
+            <td>28</td>
+          </tr>
+          <tr>
+            <th>Résistance (MPa)</th>
+            <td>5</td>
+            <td>9</td>
+            <td>14</td>
+            <td>18</td>
+            <td>21</td>
+            <td>24</td>
+            <td>27</td>
+            <td>29</td>
+            <td>31</td>
+            <td>34</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="graph-container">
+        <div class="mini-title">TRAVAIL DE L'ÉQUIPE : TRACÉ DU GRAPHIQUE 2</div>
+        <p style="margin: 5px 0; font-size: 8.5pt; color: #555">
+          <strong>Consignes :</strong> 1. Continuer de graduer l'axe horizontal.
+          | 2. Continuer de graduer l'axe vertical. | 3. Placer les points du
+          tableau. | 4. Relier les points.
+        </p>
+        <div class="graph-wrapper">
+          <div class="y-axis-label">Résistance (MPa)</div>
+          <div class="graph-grid"></div>
+          <div class="grad-origin">0</div>
+          <div class="grad-x1">2</div>
+          <div class="grad-x2">4</div>
+          <div class="grad-y1">10</div>
+          <div class="grad-y2">20</div>
+          <div class="x-axis-label">Temps (Jours)</div>
+        </div>
+      </div>
+
+      <div class="box-grey" style="margin-top: 15px">
+        <div class="mini-title">
+          QUESTIONS D'ANALYSE (À remplir par le groupe)
+        </div>
+        <p>
+          • Quelle est la résistance au jour 14 ?
+          ......................................................................................
+        </p>
+        <p>
+          • À partir de quel jour la résistance dépasse-t-elle 25 MPa ?
+          .................................................
+        </p>
+        <p>
+          • Entre quels jours la résistance augmente-t-elle le plus rapidement ?
+          .....................................
+        </p>
+        <p>
+          • Compléter la phrase : "La résistance est croissante sur l'intervalle
+          [ ........ ; ........ ]."
+        </p>
+      </div>
+      <div class="footer">
+        <span>ARCHIVES CHANTIER</span><span>PAGE 3/4 - TRACÉ RÉSISTANCE</span>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="corp-header">
+        <div class="logo-area">
+          <h1>MOREAU & FILS</h1>
+        </div>
+        <div class="doc-type" style="background: #333">SYNTHÈSE TECHNIQUE</div>
+      </div>
+
+      <h2 class="section-title">4. Consignes techniques de pose</h2>
+      <div class="tech-box">
+        <p>
+          Pour qu'un revêtement de sol puisse être posé en toute sécurité et
+          validé par notre assurance, deux conditions strictes doivent être
+          réunies simultanément :
+        </p>
+        <ul>
+          <li>
+            <strong>Condition 1 :</strong> L'humidité doit être
+            <strong>strictement inférieure à 15 %</strong>.
+          </li>
+          <li>
+            <strong>Condition 2 :</strong> La résistance mécanique doit être
+            <strong>supérieure à 25 MPa</strong>.
+          </li>
+        </ul>
+      </div>
+
+      <h2 class="section-title">5. Avis de l'équipe (Diagnostic final)</h2>
+      <p>
+        <strong>Mission :</strong> À partir de quel jour précis le chef de
+        chantier peut-il donner le feu vert pour la pose du revêtement ? Croisez
+        les informations de vos deux graphiques pour rédiger le rapport de
+        conformité ci-dessous.
+      </p>
+
+      <div class="drafting-box">
+        <div
+          class="mini-title"
+          style="border: none; color: #c0392b; font-size: 11pt"
+        >
+          RAPPORT DE CONFORMITÉ :
+        </div>
+
+        <p style="font-weight: bold; margin-top: 10px; margin-bottom: 5px">
+          1. Bilan de l'humidité (Graphique 1)
+        </p>
+        <p style="margin-top: 0">
+          D'après notre tracé, l'humidité descend sous le seuil critique de 15 %
+          à partir du jour ........................
+        </p>
+
+        <p style="font-weight: bold; margin-top: 15px; margin-bottom: 5px">
+          2. Bilan de la résistance (Graphique 2)
+        </p>
+        <p style="margin-top: 0">
+          La résistance mécanique dépasse le minimum exigé de 25 MPa à partir du
+          jour ........................
+        </p>
+
+        <p
+          style="
+            font-weight: bold;
+            margin-top: 15px;
+            color: #c0392b;
+            margin-bottom: 5px;
+          "
+        >
+          3. Décision finale du groupe
+        </p>
+        <p
+          style="
+            font-size: 8.5pt;
+            color: #555;
+            margin-top: 0;
+            font-style: italic;
+          "
+        >
+          Consigne : Rédigez votre recommandation pour le chef de chantier.
+          Justifiez votre réponse et précisez l'intervalle de temps sur lequel
+          les DEUX conditions sont valables.
+        </p>
+
+        <div
+          style="
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+          "
+        >
+          <div
+            style="border-bottom: 1px dotted #888; width: 100%; height: 25px"
+          ></div>
+          <div
+            style="border-bottom: 1px dotted #888; width: 100%; height: 25px"
+          ></div>
+          <div
+            style="border-bottom: 1px dotted #888; width: 100%; height: 25px"
+          ></div>
+          <div
+            style="border-bottom: 1px dotted #888; width: 100%; height: 25px"
+          ></div>
+        </div>
+      </div>
+
+      <div
+        style="
+          border: 1px dashed #ccc;
+          height: 60px;
+          margin-top: 15px;
+          display: flex;
+          align-items: flex-end;
+          padding: 10px;
+          color: #999;
+        "
+      >
+        Visa du groupe d'apprentis (Signatures) :
+      </div>
+      <div class="footer">
+        <span>VALIDATION CHEF DE CHANTIER</span
+        ><span>PAGE 4/4 - DIAGNOSTIC</span>
+      </div>
+    </div>
+  </body>
+</html>

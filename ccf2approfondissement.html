@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dossier Approfondissement - Mathématiques & Algorithmique</title>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)'],
+          ],
+          displayMath: [
+            ['$$', '$$'],
+            ['\\[', '\\]'],
+          ],
+        },
+        svg: { fontCache: 'global' },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Kalam:wght@400&family=Oswald:wght@500&family=Courier+Prime&display=swap');
+
+      :root {
+        --primary: #2c3e50;
+        --accent: #d35400;
+        --accent-2: #00b0f0;
+        --bg-page: #ffffff;
+        --soft: #eaf2f8;
+        --soft-2: #fff8f0;
+        --alert: #fadbd8;
+      }
+
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #525659;
+        margin: 0;
+        padding: 20px;
+        color: #111;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      .controls {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        z-index: 9999;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .ctrl-btn {
+        border: none;
+        border-radius: 6px;
+        padding: 12px 18px;
+        font-weight: 700;
+        cursor: pointer;
+        color: #fff;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+      }
+
+      .ctrl-btn.primary {
+        background: var(--accent);
+      }
+
+      .doc {
+        display: block;
+      }
+
+      .page {
+        width: 210mm;
+        height: 297mm;
+        margin: 0 auto 20px auto;
+        background: var(--bg-page);
+        padding: 15mm;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.45);
+        page-break-after: always;
+        overflow: hidden;
+      }
+
+      .cover-page {
+        border: 4px solid var(--accent-2);
+        padding: 10mm;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .cover-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .student-info-box {
+        border: 2px solid #000;
+        padding: 15px;
+        width: 60%;
+        font-size: 12pt;
+        font-weight: bold;
+      }
+
+      .student-info-box div {
+        margin-bottom: 12px;
+      }
+
+      .logo-btp {
+        width: 180px;
+      }
+
+      .cover-titles {
+        text-align: center;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .main-title {
+        font-family: 'Kalam', cursive;
+        font-size: 30pt;
+        font-weight: bold;
+        margin-bottom: 20px;
+        line-height: 1.15;
+      }
+
+      .sub-title {
+        font-family: 'Kalam', cursive;
+        font-size: 23pt;
+        margin-bottom: 15px;
+      }
+
+      .part-title {
+        font-family: 'Kalam', cursive;
+        font-size: 18pt;
+        color: var(--accent);
+      }
+
+      .objectives-box {
+        border: 3px solid #000;
+        padding: 15px;
+        font-size: 11pt;
+      }
+
+      .objectives-title {
+        font-weight: bold;
+        text-decoration: underline;
+        margin-bottom: 10px;
+      }
+
+      .header-strip {
+        border-bottom: 2px solid #000;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 10pt;
+        color: #555;
+      }
+
+      h2 {
+        font-family: 'Oswald', sans-serif;
+        background-color: var(--primary);
+        color: white;
+        padding: 8px 15px;
+        border-radius: 4px;
+        font-size: 14pt;
+        margin-top: 0;
+        margin-bottom: 14px;
+        border-left: 10px solid #f1c40f;
+      }
+
+      p {
+        margin: 8px 0;
+        line-height: 1.45;
+      }
+
+      .context-box {
+        padding: 11px 13px;
+        margin: 10px 0 14px 0;
+        font-size: 10.5pt;
+        line-height: 1.5;
+        border-radius: 4px;
+        background-color: var(--soft);
+        border-left: 5px solid #2980b9;
+        font-style: italic;
+      }
+
+      .exercise {
+        border: 2px solid #ccc;
+        padding: 13px 13px 12px 13px;
+        margin: 10px 0 16px 0;
+        background: #fff;
+      }
+
+      .exercise-title {
+        font-weight: bold;
+        color: var(--primary);
+        display: inline-block;
+        background: #ecf0f1;
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
+
+      .line {
+        border-bottom: 2px dotted #000;
+        display: inline-block;
+        min-width: 80px;
+        margin: 0 4px;
+        height: 1.25em;
+        vertical-align: bottom;
+      }
+
+      .line.short {
+        min-width: 45px;
+      }
+
+      .line.long {
+        width: 100%;
+        margin: 8px 0 14px 0;
+        display: block;
+      }
+
+      .full-dot-line {
+        border-bottom: 2px dotted #000;
+        width: 100%;
+        height: 10px;
+        margin: 18px 0;
+        display: block;
+      }
+
+      .algo-box,
+      .algo-read-box {
+        display: block;
+        border: 2px solid #333;
+        padding: 12px;
+        margin: 10px 0;
+        background-color: #f4f4f4;
+        font-family: 'Courier Prime', monospace;
+        font-size: 9.5pt;
+        line-height: 1.6;
+        word-break: normal;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.08);
+      }
+
+      .word-bank {
+        border: 2px dashed #000;
+        padding: 10px;
+        margin: 10px 0;
+        text-align: center;
+        font-weight: bold;
+        background-color: #e8f4f8;
+        font-family: 'Courier Prime', monospace;
+        font-size: 10pt;
+      }
+
+      .word-item {
+        display: inline-block;
+        margin: 4px 6px;
+        padding: 6px 10px;
+        background: #fff;
+        border: 1px solid #999;
+        border-radius: 4px;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+      }
+
+      @media print {
+        body {
+          background: none;
+          padding: 0;
+        }
+        .controls {
+          display: none !important;
+        }
+        .page {
+          box-shadow: none;
+          margin: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="controls">
+      <button class="ctrl-btn primary" onclick="window.print()">
+        🖨️ Imprimer
+      </button>
+    </div>
+
+    <div id="dossier" class="doc active">
+      <div class="page">
+        <div class="cover-page">
+          <div class="cover-header">
+            <div class="student-info-box">
+              <div>NOM : ............................................</div>
+              <div>Prénom : ........................................</div>
+              <div>Groupe : ........................................</div>
+              <div>Semestre : ....................................</div>
+              <div>Date : ............................................</div>
+            </div>
+            <img
+              src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+              alt="Logo BTP CFA"
+              class="logo-btp"
+            />
+          </div>
+
+          <div class="cover-titles">
+            <div class="main-title">
+              DOSSIER D'APPROFONDISSEMENT<br />MATHÉMATIQUES
+            </div>
+            <div class="sub-title">Équations & Algorithmique</div>
+            <div class="part-title">Niveau Avancé</div>
+          </div>
+
+          <div class="objectives-box">
+            <div class="objectives-title">Objectifs de la séance :</div>
+            <ul style="margin: 0; padding-left: 20px">
+              <li>
+                Retrouver une valeur inconnue avec des nombres décimaux et des
+                soustractions.
+              </li>
+              <li>
+                Comparer deux situations professionnelles en posant une équation
+                ($x$ de chaque côté).
+              </li>
+              <li>
+                Lire et comprendre un algorithme intégrant des calculs de
+                pourcentage (TVA, remises).
+              </li>
+              <li>Reconstruire un algorithme de facturation complexe.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="header-strip">
+          <span>PARTIE 1 - Résolution avancée</span>
+          <span class="page-number">Page 2</span>
+        </div>
+
+        <h2>Situation 1 - Menuiserie Aluminium (Soustraction)</h2>
+
+        <div class="context-box">
+          Un menuisier prépare <strong>4 profilés identiques</strong> à partir
+          d'une grande barre. Lors des coupes, il perd au total
+          <strong>1,5 cm</strong> de matière. La longueur restante mesurée bout
+          à bout est de <strong>248,5 cm</strong>.
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-title">On obtient l'équation</div>
+          <p style="text-align: center; font-size: 14pt">
+            <strong>$4x - 1,5 = 248,5$</strong>
+          </p>
+
+          <p><strong>Complète pour trouver $x$ :</strong></p>
+          <p style="text-align: center">
+            $4x = 248,5 +$ <span class="line short"></span>
+          </p>
+          <p style="text-align: center">
+            $4x =$ <span class="line short"></span>
+          </p>
+          <p style="text-align: center">
+            $x =$ <span class="line short"></span> $\div$
+            <span class="line short"></span>
+          </p>
+          <p style="text-align: center">
+            $x =$ <span class="line short"></span> cm
+          </p>
+
+          <p><strong>Un profilé mesure :</strong></p>
+          <span class="line long"></span>
+        </div>
+
+        <h2>Situation 2 - Comparaison de devis (Deux inconnues)</h2>
+
+        <div class="context-box">
+          Une entreprise de gros œuvre doit louer une mini-pelle pour $x$ jours.
+          <br />- <strong>Fournisseur A</strong> : 120 € / jour + 80 € de
+          livraison. <br />- <strong>Fournisseur B</strong> : 140 € / jour avec
+          livraison gratuite (0 €). <br />Pour quel nombre de jours les deux
+          devis sont-ils identiques ?
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-title">On obtient l'équation</div>
+          <p style="text-align: center; font-size: 14pt">
+            <strong>$120x + 80 = 140x$</strong>
+          </p>
+
+          <p><strong>Résous l'équation :</strong></p>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+
+          <p>
+            <strong>Les tarifs sont identiques pour une location de :</strong>
+          </p>
+          <span class="line long"></span>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="header-strip">
+          <span>PARTIE 2 - Algorithmes et Pourcentages</span>
+          <span class="page-number">Page 3</span>
+        </div>
+
+        <h2>Situation 3 - Fournisseur de Peinture (Remise)</h2>
+
+        <div class="algo-read-box">
+          DEBUT<br />
+          PrixLitre prend la valeur 15<br />
+          Lire Volume<br />
+          Total prend la valeur Volume * PrixLitre<br />
+          SI Total > 200 ALORS<br />
+          &nbsp;&nbsp;// Application d'une remise de 10%<br />
+          &nbsp;&nbsp;Total prend la valeur Total * 0.90<br />
+          FIN SI<br />
+          Afficher "A payer :"<br />
+          Afficher Total<br />
+          FIN
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-title">
+            Cas A - L'apprenti commande Volume = 10 litres
+          </div>
+          <p>Calcul avant remise : <span class="line short"></span></p>
+          <p>
+            Condition (Total > 200) vraie ou fausse ?
+            <span class="line short"></span>
+          </p>
+          <p>Prix final affiché :</p>
+          <span class="line long"></span>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-title">
+            Cas B - L'apprenti commande Volume = 20 litres
+          </div>
+          <p>Calcul avant remise : <span class="line short"></span></p>
+          <p>
+            Condition (Total > 200) vraie ou fausse ?
+            <span class="line short"></span>
+          </p>
+          <p>Calcul du prix final :</p>
+          <span class="full-dot-line"></span>
+          <p>Prix final affiché :</p>
+          <span class="line long"></span>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="header-strip">
+          <span>PARTIE 3 - Construction complète</span>
+          <span class="page-number">Page 4</span>
+        </div>
+
+        <h2>Situation 4 - Facturation TTC avec pénalité</h2>
+
+        <div class="context-box">
+          Règles de l'entreprise :
+          <br />- Heure de main d'œuvre : <strong>45 € / h</strong>. <br />- Si
+          l'intervention se passe en week-end (Reponse = "OUI"), on ajoute une
+          majoration de <strong>50 €</strong>. <br />- À la fin, on applique une
+          <strong>TVA de 20%</strong> (c'est-à-dire multiplier par 1,20).
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-title">
+            Complète l'algorithme avec la banque de mots
+          </div>
+
+          <div class="algo-box">
+            DEBUT<br />
+            Afficher "Nombre d'heures ?"<br />
+            Lire Heures<br />
+            Afficher "Intervention le week-end (OUI/NON) ?"<br />
+            Lire Reponse<br />
+            <br />
+            TotalHT prend la valeur .................................... &larr;
+            Trou 1<br />
+            <br />
+            SI .................................... &larr; Trou 2 ALORS<br />
+            &nbsp;&nbsp;TotalHT prend la valeur ................................
+            &larr; Trou 3<br />
+            FIN SI<br />
+            <br />
+            TotalTTC prend la valeur .................................... &larr;
+            Trou 4<br />
+            Afficher "Le prix TTC est :"<br />
+            Afficher .................................... &larr; Trou 5<br />
+            FIN
+          </div>
+
+          <div class="word-bank">
+            <span class="word-item">TotalTTC</span>
+            <span class="word-item">Reponse == "OUI"</span>
+            <span class="word-item">TotalHT + 50</span>
+            <span class="word-item">Heures * 45</span>
+            <span class="word-item">TotalHT * 1.20</span>
+          </div>
+        </div>
+      </div>
+      <div class="page">
+        <div class="header-strip">
+          <span>PARTIE 4 - Équations complexes (Développement)</span>
+          <span class="page-number">Page 5</span>
+        </div>
+
+        <h2>Situation 5 - Charpente (Mise en équation complexe)</h2>
+
+        <div class="context-box">
+          Deux méthodes de conception de charpente utilisent des poutres de
+          longueur inconnue $x$.
+          <br />- <strong>Méthode A</strong> : On prend 3 poutres, et on ajoute
+          12 cm à *chacune* d'elles. <br />- <strong>Méthode B</strong> : On
+          prend 5 poutres, mais on doit retirer 8 cm au total sur l'ensemble.
+          <br />Les deux méthodes donnent exactement la même longueur totale.
+        </div>
+
+        <div class="exercise answer-space-5">
+          <div class="exercise-title">
+            On obtient l'équation avec parenthèses
+          </div>
+          <p style="text-align: center; font-size: 14pt">
+            <strong>$3(x + 12) = 5x - 8$</strong>
+          </p>
+
+          <p><strong>1. Développe le côté gauche de l'équation :</strong></p>
+          <span class="full-dot-line"></span>
+
+          <p>
+            <strong
+              >2. Résous l'équation pour trouver $x$ (écris toutes les étapes)
+              :</strong
+            >
+          </p>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+
+          <p><strong>La longueur d'une poutre de base est de :</strong></p>
+          <span class="line long"></span>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="header-strip">
+          <span>PARTIE 5 - Algorithmique Avancée (Boucles)</span>
+          <span class="page-number">Page 6</span>
+        </div>
+
+        <h2>Situation 6 - Amortissement de matériel (Boucle TANT QUE)</h2>
+
+        <div class="context-box">
+          Un apprenti artisan souhaite acheter une machine professionnelle
+          coûtant <strong>1 500 €</strong>. <br />Chaque mois, il met de côté
+          <strong>250 €</strong>. <br />L'algorithme ci-dessous permet de
+          calculer combien de mois seront nécessaires pour pouvoir acheter la
+          machine.
+        </div>
+
+        <div class="algo-read-box">
+          DEBUT<br />
+          Cagnotte prend la valeur 0<br />
+          Mois prend la valeur 0<br />
+          <br />
+          TANT QUE Cagnotte < 1500 FAIRE<br />
+          &nbsp;&nbsp;Cagnotte prend la valeur Cagnotte + 250<br />
+          &nbsp;&nbsp;Mois prend la valeur Mois + 1<br />
+          FIN TANT QUE<br />
+          <br />
+          Afficher "Nombre de mois nécessaires :"<br />
+          Afficher Mois<br />
+          FIN
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-title">Trace d'exécution</div>
+          <p>
+            Complète le tableau de suivi des variables à chaque tour de la
+            boucle :
+          </p>
+
+          <table
+            style="
+              width: 100%;
+              border-collapse: collapse;
+              text-align: center;
+              margin-top: 10px;
+            "
+          >
+            <tr style="background-color: #ecf0f1">
+              <th style="border: 1px solid #333; padding: 8px">Tour n°</th>
+              <th style="border: 1px solid #333; padding: 8px">
+                Valeur de Cagnotte
+              </th>
+              <th style="border: 1px solid #333; padding: 8px">
+                Valeur de Mois
+              </th>
+              <th style="border: 1px solid #333; padding: 8px">
+                Condition (Cagnotte < 1500)
+              </th>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #333; padding: 8px">Départ</td>
+              <td style="border: 1px solid #333; padding: 8px">0</td>
+              <td style="border: 1px solid #333; padding: 8px">0</td>
+              <td style="border: 1px solid #333; padding: 8px">VRAI</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #333; padding: 8px">1</td>
+              <td style="border: 1px solid #333; padding: 8px">250</td>
+              <td style="border: 1px solid #333; padding: 8px">1</td>
+              <td style="border: 1px solid #333; padding: 8px">VRAI</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #333; padding: 8px">2</td>
+              <td style="border: 1px solid #333; padding: 8px">...</td>
+              <td style="border: 1px solid #333; padding: 8px">...</td>
+              <td style="border: 1px solid #333; padding: 8px">...</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #333; padding: 8px">3</td>
+              <td style="border: 1px solid #333; padding: 8px">...</td>
+              <td style="border: 1px solid #333; padding: 8px">...</td>
+              <td style="border: 1px solid #333; padding: 8px">...</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #333; padding: 8px">4</td>
+              <td style="border: 1px solid #333; padding: 8px">...</td>
+              <td style="border: 1px solid #333; padding: 8px">...</td>
+              <td style="border: 1px solid #333; padding: 8px">...</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #333; padding: 8px">5</td>
+              <td style="border: 1px solid #333; padding: 8px">...</td>
+              <td style="border: 1px solid #333; padding: 8px">...</td>
+              <td style="border: 1px solid #333; padding: 8px">...</td>
+            </tr>
+            <tr>
+              <td style="border: 1px solid #333; padding: 8px">6</td>
+              <td style="border: 1px solid #333; padding: 8px">...</td>
+              <td style="border: 1px solid #333; padding: 8px">...</td>
+              <td style="border: 1px solid #333; padding: 8px">...</td>
+            </tr>
+          </table>
+
+          <p style="margin-top: 15px">
+            <strong>Que va afficher l'algorithme à la toute fin ?</strong>
+          </p>
+          <span class="line long"></span>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="header-strip">
+          <span>PARTIE 6 - Le Défi Final</span>
+          <span class="page-number">Page 7</span>
+        </div>
+
+        <h2 style="background-color: #c0392b; border-left-color: #e74c3c">
+          Situation 7 - Le Défi du Chef de Chantier (Autonomie Totale)
+        </h2>
+
+        <div class="alert-box">
+          <strong>Consigne :</strong> Pour ce dernier exercice, aucune aide
+          n'est fournie. Tu dois lire la situation, poser l'équation toi-même,
+          la résoudre, et construire l'algorithme correspondant de A à Z.
+        </div>
+
+        <div class="context-box">
+          Le chef de chantier compare deux fournisseurs de béton pour couler une
+          dalle :
+          <br />- <strong>Béton Express</strong> facture la toupie
+          <strong>180 € le m³</strong>, plus un forfait de livraison fixe de
+          <strong>150 €</strong>. <br />- <strong>Pro Béton</strong> facture
+          <strong>210 € le m³</strong>, mais offre la livraison (<strong
+            >0 €</strong
+          >). <br /><br />
+          <em
+            >Mission : Déterminer pour quel volume exact (en m³) les deux
+            fournisseurs coûteront exactement le même prix.</em
+          >
+        </div>
+
+        <div class="exercise answer-space-5">
+          <div class="exercise-title">1. Résolution Mathématique</div>
+          <p><strong>Pose l'équation et résous-la :</strong></p>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+
+          <p><strong>Phrase réponse :</strong></p>
+          <span class="line long"></span>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-title">2. Création de l'Algorithme</div>
+          <p>
+            Écris un algorithme qui demande à l'utilisateur de saisir un volume
+            en m³, qui calcule le prix chez <strong>Béton Express</strong>, puis
+            qui affiche le résultat final.
+          </p>
+
+          <div
+            style="
+              border: 1px solid #999;
+              padding: 15px;
+              min-height: 250px;
+              margin-top: 10px;
+              background-image: linear-gradient(transparent 95%, #ccc 95%);
+              background-size: 100% 30px;
+              line-height: 30px;
+              font-family: 'Courier Prime', monospace;
+            "
+          >
+            <br /><br /><br /><br /><br /><br /><br />
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

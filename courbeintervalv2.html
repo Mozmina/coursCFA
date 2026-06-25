@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dossier CAP - Repérage & Intervalles - M. OZMINA</title>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)'],
+          ],
+          displayMath: [
+            ['$$', '$$'],
+            ['\\[', '\\]'],
+          ],
+        },
+        svg: {
+          fontCache: 'global',
+        },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Oswald:wght@500&display=swap');
+
+      :root {
+        --primary: #2c3e50; /* Bleu chantier */
+        --accent: #d35400; /* Orange sécurité */
+        --bg-page: #ffffff;
+        --grid-line: #bdc3c7;
+      }
+
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #525659;
+        margin: 0;
+        padding: 20px;
+        color: #111;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      .page {
+        width: 210mm;
+        height: 297mm;
+        margin: 0 auto 20px auto;
+        background: var(--bg-page);
+        padding: 15mm;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+        page-break-after: always;
+        overflow: hidden;
+      }
+
+      /* --- PAGE DE GARDE --- */
+      .cover-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 40px;
+      }
+      .logo {
+        width: 100px;
+      }
+
+      .cover-title {
+        text-align: center;
+        border: 4px solid var(--primary);
+        padding: 30px;
+        margin-bottom: 40px;
+        background: #f8f9fa;
+      }
+      .cover-title h1 {
+        font-family: 'Oswald', sans-serif;
+        font-size: 36pt;
+        margin: 0;
+        text-transform: uppercase;
+        color: var(--primary);
+        line-height: 1.2;
+      }
+      .cover-subtitle {
+        font-size: 18pt;
+        color: var(--accent);
+        font-weight: bold;
+        margin-top: 10px;
+      }
+
+      .goals-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 40px;
+      }
+      .goal-card {
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        padding: 20px;
+        text-align: center;
+        background: #fff;
+      }
+      .goal-icon {
+        font-size: 40pt;
+        display: block;
+        margin-bottom: 10px;
+      }
+      .goal-text {
+        font-weight: bold;
+        color: var(--primary);
+        font-size: 14pt;
+      }
+
+      .student-section {
+        margin-top: auto;
+        border-top: 2px solid #000;
+        padding-top: 20px;
+        font-size: 14pt;
+        line-height: 1.8;
+      }
+
+      /* --- PAGES CONTENU --- */
+      .header-mini {
+        border-bottom: 1px solid #aaa;
+        margin-bottom: 20px;
+        padding-bottom: 5px;
+        font-size: 10pt;
+        color: #555;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      h2 {
+        font-family: 'Oswald', sans-serif;
+        background: var(--primary);
+        color: #fff;
+        padding: 10px 15px;
+        font-size: 16pt;
+        border-left: 10px solid var(--accent);
+        margin: 0 0 20px 0;
+      }
+
+      .box {
+        padding: 15px;
+        margin: 15px 0;
+        border-radius: 4px;
+        font-size: 11pt;
+        line-height: 1.4;
+      }
+      .lesson {
+        background: #f0f4f8;
+        border-left: 6px solid var(--primary);
+      }
+      .method {
+        background: #fff8f0;
+        border: 2px dashed var(--accent);
+      }
+      .context {
+        background: #eee;
+        border-left: 6px solid #555;
+        font-style: italic;
+      }
+
+      .exercise {
+        border: 1px solid #ccc;
+        padding: 15px;
+        margin-bottom: 15px;
+        background: #fff;
+      }
+
+      .line {
+        border-bottom: 2px dotted #000;
+        display: inline-block;
+        min-width: 60px;
+        margin: 0 5px;
+        height: 1.2em;
+        vertical-align: bottom;
+      }
+      .line.long {
+        min-width: 100%;
+        margin-top: 5px;
+      }
+      .line.med {
+        min-width: 150px;
+      }
+
+      /* SVG GRAPHIQUES */
+      .graph-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin: 10px 0;
+      }
+      .graph-svg {
+        background: #fff;
+        border: 1px solid #000;
+      }
+
+      /* Styles SVG internes */
+      .axis {
+        stroke: #000;
+        stroke-width: 2;
+      }
+      .grid-major {
+        stroke: #999;
+        stroke-width: 1;
+      }
+      .grid-minor {
+        stroke: #eee;
+        stroke-width: 1;
+      }
+      .curve {
+        fill: none;
+        stroke: var(--accent);
+        stroke-width: 3;
+        stroke-linecap: round;
+      }
+      .point {
+        fill: var(--primary);
+        stroke: #fff;
+        stroke-width: 2;
+      }
+      .label {
+        font-family: Roboto, sans-serif;
+        font-size: 12px;
+        fill: #000;
+        font-weight: bold;
+      }
+
+      /* TABLEAUX */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0;
+      }
+      th,
+      td {
+        border: 1px solid #000;
+        padding: 10px;
+        text-align: center;
+        font-size: 11pt;
+      }
+      th {
+        background: #e0e0e0;
+      }
+
+      /* BOUTON IMPRESSION */
+      .print-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 30px;
+        background: var(--accent);
+        color: white;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        z-index: 9999;
+      }
+
+      @media print {
+        body {
+          background: none;
+          padding: 0;
+        }
+        .page {
+          box-shadow: none;
+          margin: 0;
+          page-break-after: always;
+          width: 100%;
+          height: 100%;
+        }
+        .print-btn {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button class="print-btn" onclick="window.print()">
+      🖨️ IMPRIMER LE DOSSIER
+    </button>
+
+    <div class="page">
+      <div class="cover-header">
+        <img
+          src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+          alt="Logo CFA"
+          class="logo"
+        />
+        <div style="text-align: right">
+          <strong>CAP 1ère année</strong><br />
+          Mathématiques
+        </div>
+      </div>
+
+      <div class="cover-title">
+        <h1>Dossier de Compétences</h1>
+        <div class="cover-subtitle">Repérage - Intervalles - Variations</div>
+      </div>
+
+      <div class="goals-container">
+        <div class="goal-card">
+          <span class="goal-icon">📍</span>
+          <div class="goal-text">SE REPÉRER</div>
+          <div>Lire un plan, un graphique</div>
+        </div>
+        <div class="goal-card">
+          <span class="goal-icon">📏</span>
+          <div class="goal-text">CONTRÔLER</div>
+          <div>Respecter les tolérances</div>
+        </div>
+        <div class="goal-card">
+          <span class="goal-icon">📈</span>
+          <div class="goal-text">ANALYSER</div>
+          <div>Comprendre les évolutions</div>
+        </div>
+      </div>
+
+      <div class="box context">
+        <strong>Contexte Professionnel :</strong><br />
+        Sur chantier, vous devez vérifier l'humidité d'un mur sur un graphique,
+        respecter une épaisseur de peinture (intervalle de tolérance), repérer
+        des éléments sur plan et comprendre le temps de séchage lors d'une
+        séance.
+      </div>
+
+      <div class="student-section">
+        <strong>NOM :</strong> <span class="line long"></span><br /><br />
+        <strong>Prénom :</strong> <span class="line long"></span><br /><br />
+        <strong>Groupe :</strong> <span class="line med"></span>
+        <strong>Date :</strong> <span class="line med"></span><br /><br />
+        <strong>Formateur :</strong> M. OZMINA
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="header-mini">Séquence 1 - Repérage | Page 2/16</div>
+      <h2>1. Le Repère (Vocabulaire)</h2>
+
+      <div class="box lesson">
+        <strong>À RETENIR PAR CŒUR :</strong>
+        <ul>
+          <li>
+            <strong>Axe Horizontal :</strong> C'est l'axe des
+            <strong>ABSCISSES ($x$)</strong>. (Le sol)
+          </li>
+          <li>
+            <strong>Axe Vertical :</strong> C'est l'axe des
+            <strong>ORDONNÉES ($y$)</strong>. (Le mur)
+          </li>
+          <li>
+            <strong>L'Origine :</strong> C'est le point zéro, noté
+            <strong>(0 ; 0)</strong>.
+          </li>
+        </ul>
+      </div>
+
+      <div class="exercise">
+        <p>
+          <strong>Exercice 1 :</strong> Complétez les légendes du graphique.
+        </p>
+        <div class="graph-container">
+          <svg
+            class="graph-svg js-graph"
+            data-xmin="-1"
+            data-xmax="6"
+            data-ymin="-1"
+            data-ymax="5"
+            width="500"
+            height="300"
+          ></svg>
+        </div>
+        <p>
+          1) L'axe horizontal s'appelle l'axe des :
+          <span class="line long"></span>
+        </p>
+        <p>
+          2) L'axe vertical s'appelle l'axe des :
+          <span class="line long"></span>
+        </p>
+        <p>3) Entourez l'origine du repère sur le dessin.</p>
+      </div>
+
+      <div class="box method">
+        <strong>Astuce Mémo-technique :</strong><br />
+        - <strong>Abscisse</strong> commence comme <strong>"Assis"</strong> (à
+        plat, horizontal).<br />
+        - <strong>Ordonnée</strong> commence comme
+        <strong>"Haut"</strong> (vertical).
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="header-mini">Séquence 1 - Repérage | Page 3/16</div>
+      <h2>2. Lecture de Courbe</h2>
+
+      <div class="box context">
+        <strong>Situation :</strong> On mesure la température dans l'atelier de
+        peinture entre 8h et 18h. La température idéale doit être stable.
+      </div>
+
+      <div class="exercise">
+        <div class="graph-container">
+          <svg
+            class="graph-svg js-graph"
+            data-xmin="8"
+            data-xmax="18"
+            data-ymin="10"
+            data-ymax="25"
+            data-points="(8,12);(10,15);(12,20);(14,22);(16,21);(18,18)"
+            width="550"
+            height="350"
+          ></svg>
+        </div>
+
+        <p>
+          <strong>Méthode :</strong> Pour lire la température à 14h, je pars de
+          14 en bas, je monte jusqu'au trait, puis je vais à gauche pour lire la
+          valeur.
+        </p>
+        <hr />
+        <p><strong>À vous de jouer :</strong></p>
+        <p>
+          a) À 10h, la température est de : <span class="line med"></span> °C.
+        </p>
+        <p>
+          b) À 16h, la température est de : <span class="line med"></span> °C.
+        </p>
+        <p>
+          c) À quelle heure la température atteint-elle 20°C ? À
+          <span class="line med"></span> h.
+        </p>
+        <p>
+          d) La température maximale est de : <span class="line med"></span> °C.
+        </p>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="header-mini">Séquence 1 - Repérage | Page 4/16</div>
+      <h2>3. Coordonnées et Placement</h2>
+
+      <div class="box lesson">
+        Un point se note toujours : <strong>$( x ; y )$</strong>.<br />
+        Exemple : $A(3 ; 5)$ signifie <strong>3 en horizontal</strong> et
+        <strong>5 en vertical</strong>.
+      </div>
+
+      <div class="exercise">
+        <p>
+          <strong>Exercice :</strong> Placez les points suivants sur le
+          quadrillage.
+        </p>
+        <ul>
+          <li>Point A $( 2 ; 3 )$</li>
+          <li>Point B $( 5 ; 1 )$</li>
+          <li>
+            Point C $( 0 ; 4 )$ <-
+            <em>Attention, il est sur l'axe vertical !</em>
+          </li>
+          <li>
+            Point D $( 4 ; 0 )$ <-
+            <em>Attention, il est sur l'axe horizontal !</em>
+          </li>
+        </ul>
+
+        <div class="graph-container">
+          <svg
+            class="graph-svg js-graph"
+            data-xmin="-1"
+            data-xmax="6"
+            data-ymin="-1"
+            data-ymax="6"
+            width="500"
+            height="350"
+          ></svg>
+        </div>
+      </div>
+
+      <div class="exercise">
+        <p>
+          <strong>Application :</strong> Donnez les coordonnées du point mystère
+          M déjà placé ci-dessus (s'il n'y est pas, inventez ses coordonnées).
+        </p>
+        <p>
+          M ( <span class="line med"></span> ; <span class="line med"></span> )
+        </p>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="header-mini">Séquence 1 - Repérage | Page 5/16</div>
+      <h2>4. Application Métier : Plan d'Implantation</h2>
+
+      <div class="box context">
+        <strong>Contexte Professionnel :</strong> Vous devez implanter des
+        équipements électriques sur un mur lors de cette séance. Les unités sur
+        les axes sont en mètres.
+      </div>
+
+      <div class="exercise">
+        <p><strong>Exercice :</strong></p>
+        <p>
+          1) Placez des croix pour repérer l'emplacement des futurs équipements
+          :
+        </p>
+        <ul>
+          <li>Prise P1 : $( 1 ; 1 )$</li>
+          <li>Prise P2 : $( 6 ; 1 )$</li>
+          <li>Interrupteur I1 : $( 7 ; 3 )$</li>
+        </ul>
+
+        <div class="graph-container">
+          <svg
+            class="graph-svg js-graph"
+            data-xmin="0"
+            data-xmax="8"
+            data-ymin="0"
+            data-ymax="5"
+            data-points="(4,4)"
+            width="550"
+            height="350"
+          ></svg>
+        </div>
+
+        <p>
+          2) Le point déjà tracé représente la Boîte de Dérivation (D). Lisez
+          ses coordonnées sur le plan :
+        </p>
+        <p>
+          D( <span class="line med"></span> ; <span class="line med"></span> )
+        </p>
+
+        <p>
+          3) À quelle hauteur du sol (axe $x$) se situe l'interrupteur I1 ?
+          <span class="line med"></span> mètres.
+        </p>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="header-mini">Séquence 1 - Intervalles | Page 6/16</div>
+      <h2>5. Les Intervalles (Compréhension)</h2>
+
+      <div class="box lesson">
+        Un intervalle, c'est une <strong>zone</strong> comprise entre deux
+        nombres.<br />
+        En peinture, on parle souvent de "fourchette" ou de "tolérance".<br />
+        Exemple : "Entre 10 et 20".
+      </div>
+
+      <div class="exercise">
+        <p><strong>Exemple visuel :</strong> L'intervalle $[ 2 ; 6 ]$</p>
+        <div class="graph-container">
+          <svg
+            class="graph-svg js-numberline"
+            data-min="0"
+            data-max="10"
+            data-a="2"
+            data-b="6"
+            width="500"
+            height="80"
+          ></svg>
+        </div>
+        <p>Cela signifie tous les nombres de 2 jusqu'à 6.</p>
+      </div>
+
+      <div class="exercise">
+        <p>
+          <strong>À vous :</strong> Représentez l'intervalle $[ 3 ; 8 ]$ en
+          coloriant la zone sur l'axe.
+        </p>
+        <div class="graph-container">
+          <svg
+            class="graph-svg js-numberline"
+            data-min="0"
+            data-max="10"
+            width="500"
+            height="80"
+          ></svg>
+        </div>
+        <br />
+        <p>
+          <strong>À vous :</strong> Représentez l'intervalle $[ 1 ; 5 ]$
+          ci-dessous.
+        </p>
+        <div class="graph-container">
+          <svg
+            class="graph-svg js-numberline"
+            data-min="0"
+            data-max="10"
+            width="500"
+            height="80"
+          ></svg>
+        </div>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="header-mini">Séquence 1 - Intervalles | Page 7/16</div>
+      <h2>6. Sens des Crochets [ et ]</h2>
+
+      <div class="box lesson">
+        Les crochets indiquent si on <strong>prend</strong> ou si on
+        <strong>rejette</strong> le nombre du bord.
+        <ul>
+          <li>
+            <strong>$[ 2 ; 5 ]$</strong> : Les crochets "mordent" le nombre
+            $\rightarrow$ <strong>FERMÉ</strong> (les nombres sont pris).
+          </li>
+          <li>
+            <strong>$] 2 ; 5 [$</strong> : Les crochets tournent le dos
+            $\rightarrow$ <strong>OUVERT</strong> (les nombres sont exclus).
+          </li>
+        </ul>
+      </div>
+
+      <div class="exercise">
+        <p>
+          <strong>Exercice :</strong> Complétez le tableau avec "Inclus" ou
+          "Exclu".
+        </p>
+        <table>
+          <tr>
+            <th>Écriture</th>
+            <th>La borne de gauche</th>
+            <th>La borne de droite</th>
+          </tr>
+          <tr>
+            <td>$[ 10 ; 20 ]$</td>
+            <td>10 est INCLUS</td>
+            <td>20 est INCLUS</td>
+          </tr>
+          <tr>
+            <td>$] 10 ; 20 [$</td>
+            <td>10 est EXCLU</td>
+            <td>20 est EXCLU</td>
+          </tr>
+          <tr>
+            <td>$[ 5 ; 12 [$</td>
+            <td>5 est <span class="line med"></span></td>
+            <td>12 est <span class="line med"></span></td>
+          </tr>
+          <tr>
+            <td>$] 0 ; 8 ]$</td>
+            <td>0 est <span class="line med"></span></td>
+            <td>8 est <span class="line med"></span></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="header-mini">Séquence 1 - Intervalles | Page 8/16</div>
+      <h2>7. Application Métier : La Conformité</h2>
+
+      <div class="box context">
+        <strong>Situation :</strong> Pour qu'une peinture antirouille soit
+        efficace, son épaisseur doit être comprise dans l'intervalle de
+        tolérance <strong>$[ 120 ; 140 ]$</strong> microns.
+      </div>
+
+      <div class="exercise">
+        <p>
+          <strong>Consigne :</strong> Vérifiez les mesures effectuées par 5
+          apprentis et indiquez si le travail est CONFORME (OK) ou NON CONFORME
+          (KO).
+        </p>
+
+        <table>
+          <tr>
+            <th>Apprenti</th>
+            <th>Mesure (microns)</th>
+            <th>Dans l'intervalle $[120;140]$ ?</th>
+            <th>Décision</th>
+          </tr>
+          <tr>
+            <td>Théo</td>
+            <td>135</td>
+            <td>OUI</td>
+            <td><strong>CONFORME</strong></td>
+          </tr>
+          <tr>
+            <td>Sarah</td>
+            <td>118</td>
+            <td><span class="line med"></span></td>
+            <td><span class="line med"></span></td>
+          </tr>
+          <tr>
+            <td>Enzo</td>
+            <td>120</td>
+            <td><span class="line med"></span></td>
+            <td><span class="line med"></span></td>
+          </tr>
+          <tr>
+            <td>Léa</td>
+            <td>142</td>
+            <td><span class="line med"></span></td>
+            <td><span class="line med"></span></td>
+          </tr>
+          <tr>
+            <td>Karim</td>
+            <td>139</td>
+            <td><span class="line med"></span></td>
+            <td><span class="line med"></span></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="box method">
+        <strong>Attention :</strong> Observez bien le sens des crochets pour les
+        valeurs limites 120 et 140 pour prendre votre décision. Sont-elles
+        acceptées ou refusées ?
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="header-mini">Séquence 1 - Intervalles | Page 9/16</div>
+      <h2>8. Inégalités et Intervalles</h2>
+
+      <div class="box lesson">
+        On utilise des symboles pour écrire plus vite :
+        <ul>
+          <li>
+            $x \ge 5$ : $x$ est <strong>supérieur ou égal</strong> à 5
+            $\rightarrow$ Intervalle $[ 5 ; +\infty [$
+          </li>
+          <li>
+            $x \le 10$ : $x$ est <strong>inférieur ou égal</strong> à 10
+            $\rightarrow$ Intervalle $] -\infty ; 10 ]$
+          </li>
+          <li>
+            $2 < x < 5$ : $x$ est strictement entre 2 et 5 $\rightarrow$
+            Intervalle $] 2 ; 5 [$
+          </li>
+        </ul>
+        <em>Note : L'infini ($\infty$) a toujours un crochet ouvert !</em>
+      </div>
+
+      <div class="exercise">
+        <p>
+          <strong>Exercice :</strong> Traduisez les inégalités en intervalles.
+        </p>
+
+        <p>1) La température ($T$) doit être supérieure ou égale à 10°C.</p>
+        <p>
+          Inégalité : $T \ge 10$ | Intervalle : <span class="line med"></span>
+        </p>
+        <br />
+        <p>
+          2) Le taux d'humidité ($h$) doit être strictement inférieur à 20%.
+        </p>
+        <p>
+          Inégalité : $h < 20$ | Intervalle : <span class="line med"></span>
+        </p>
+        <br />
+        <p>3) La pression ($P$) est comprise entre 3 et 5 bars (inclus).</p>
+        <p>
+          Inégalité : $3 \le P \le 5$ | Intervalle :
+          <span class="line med"></span>
+        </p>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="header-mini">Séquence 1 - Intervalles | Page 10/16</div>
+      <h2>9. Application Métier : Tolérances</h2>
+
+      <div class="box context">
+        <strong>Contexte Professionnel :</strong> Le chef de chantier demande de
+        couper des rails métalliques (ou tuyaux) à 150 cm. Il accepte une marge
+        d'erreur (tolérance) de $\pm 2$ cm.
+      </div>
+
+      <div class="exercise">
+        <p><strong>1) Calculez les dimensions limites :</strong></p>
+        <p>
+          Longueur minimale autorisée : $150 - 2 =$
+          <span class="line med"></span> cm.
+        </p>
+        <p>
+          Longueur maximale autorisée : $150 + 2 =$
+          <span class="line med"></span> cm.
+        </p>
+        <br />
+        <p>
+          <strong
+            >2) Déduisez-en l'intervalle de tolérance (les valeurs acceptées)
+            :</strong
+          >
+        </p>
+        <p>
+          $I = [$ <span class="line med"></span> ;
+          <span class="line med"></span> $]$
+        </p>
+      </div>
+
+      <div class="exercise">
+        <p>
+          <strong>3) Contrôle Qualité :</strong> Un apprenti a découpé 4
+          éléments. Cochez si la pièce est gardée ou jetée.
+        </p>
+        <table>
+          <tr>
+            <th>Pièce</th>
+            <th>Mesure réelle (cm)</th>
+            <th>Dans l'intervalle ? (Oui/Non)</th>
+            <th>Décision (Garder/Jeter)</th>
+          </tr>
+          <tr>
+            <td>Pièce 1</td>
+            <td>149</td>
+            <td><span class="line med"></span></td>
+            <td><span class="line med"></span></td>
+          </tr>
+          <tr>
+            <td>Pièce 2</td>
+            <td>153</td>
+            <td><span class="line med"></span></td>
+            <td><span class="line med"></span></td>
+          </tr>
+          <tr>
+            <td>Pièce 3</td>
+            <td>148</td>
+            <td><span class="line med"></span></td>
+            <td><span class="line med"></span></td>
+          </tr>
+          <tr>
+            <td>Pièce 4</td>
+            <td>151,5</td>
+            <td><span class="line med"></span></td>
+            <td><span class="line med"></span></td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="header-mini">Séquence 1 - Variations | Page 11/16</div>
+      <h2>10. Variations d'une courbe</h2>
+
+      <div class="box lesson">
+        On regarde la courbe de <strong>gauche à droite</strong> (comme on lit
+        une phrase).
+        <ul>
+          <li>
+            Si ça monte $\nearrow$ : La fonction est
+            <strong>CROISSANTE</strong>.
+          </li>
+          <li>
+            Si ça descend $\searrow$ : La fonction est
+            <strong>DÉCROISSANTE</strong>.
+          </li>
+          <li>
+            Si c'est plat $\rightarrow$ : La fonction est
+            <strong>CONSTANTE</strong>.
+          </li>
+        </ul>
+      </div>
+
+      <div class="exercise">
+        <div class="graph-container">
+          <svg
+            class="graph-svg js-graph"
+            data-xmin="0"
+            data-xmax="10"
+            data-ymin="0"
+            data-ymax="10"
+            data-points="(0,2);(3,8);(6,4);(10,4)"
+            width="550"
+            height="300"
+          ></svg>
+        </div>
+
+        <p><strong>Analysez la courbe ci-dessus :</strong></p>
+        <p>
+          1) De $x=0$ à $x=3$, la courbe
+          <span class="line med"></span> (monte/descend). Elle est donc
+          croissante.
+        </p>
+        <p>
+          2) De $x=3$ à $x=6$, la courbe <span class="line med"></span>. Elle
+          est donc décroissante.
+        </p>
+        <p>
+          3) De $x=6$ à $x=10$, la courbe est <span class="line med"></span>.
+        </p>
+
+        <p>
+          4) Quel est le <strong>MAXIMUM</strong> (le point le plus haut) ? $y
+          =$ <span class="line med"></span>.
+        </p>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="header-mini">Séquence 1 - Variations | Page 12/16</div>
+      <h2>11. Le Tableau de Variation</h2>
+
+      <div class="box method">
+        C'est un résumé de la courbe. On y met les valeurs de x importantes
+        (début, fin, sommets) et des flèches.
+      </div>
+
+      <div class="exercise">
+        <p>
+          <strong>Exercice :</strong> Remplissez le tableau qui correspond à la
+          courbe de la page précédente.
+        </p>
+
+        <table style="height: 150px">
+          <tr>
+            <th style="width: 20%">$x$</th>
+            <th style="width: 20%">0</th>
+            <th style="width: 20%">3</th>
+            <th style="width: 20%">6</th>
+            <th style="width: 20%">10</th>
+          </tr>
+          <tr>
+            <td style="vertical-align: middle"><strong>Variations</strong></td>
+            <td colspan="4">
+              <br /><br /><br />
+              (Dessinez les flèches $\nearrow$, $\searrow$ ou $\rightarrow$ ici)
+            </td>
+          </tr>
+        </table>
+
+        <p>
+          Indiquez au bout des flèches les valeurs de $y$ correspondantes (les
+          hauteurs).
+        </p>
+      </div>
+
+      <div class="box context">
+        <strong>À quoi ça sert ?</strong> Sur une fiche technique, cela permet
+        de voir rapidement le pic de température ou le temps minimum de séchage
+        sans avoir le dessin sous les yeux.
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="header-mini">Séquence 1 - Variations | Page 13/16</div>
+      <h2>12. Application : Suivi de Nuisance</h2>
+
+      <div class="box context">
+        <strong>Contexte Professionnel :</strong> Un capteur de chantier
+        enregistre le niveau d'intensité sonore (sur une échelle de 0 = très
+        calme, à 5 = danger) émis par une machine lors d'une séance de 4 heures.
+      </div>
+
+      <div class="exercise">
+        <div class="graph-container">
+          <svg
+            class="graph-svg js-graph"
+            data-xmin="0"
+            data-xmax="4"
+            data-ymin="0"
+            data-ymax="5"
+            data-points="(0,1);(1,3);(2,3);(3,4.5);(4,2)"
+            width="550"
+            height="300"
+          ></svg>
+        </div>
+
+        <p><strong>Analyse du graphique :</strong></p>
+        <p>
+          1) Le bruit est <strong>constant</strong> (stable) entre l'heure
+          <span class="line"></span> et l'heure <span class="line"></span>.
+        </p>
+        <p>
+          2) Le pic de bruit (le niveau maximum) est atteint à l'heure
+          <span class="line"></span>. L'intensité mesurée est de
+          <span class="line"></span>.
+        </p>
+        <p>
+          3) À quelle heure l'intensité sonore retombe-t-elle exactement au
+          niveau 2 ? À l'heure <span class="line"></span>.
+        </p>
+        <p>
+          4) L'intensité est-elle croissante ou décroissante lors de la dernière
+          heure ? <span class="line med"></span>.
+        </p>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="header-mini">Séquence 1 - Bilan | Page 14/16</div>
+      <h2>13. Exercice Bilan : Le Chantier</h2>
+
+      <div class="box context">
+        On suit le taux d'humidité d'un mur (%) pendant 12 jours avant de
+        peindre. Il faut strictement moins de 15% d'humidité pour peindre.
+      </div>
+
+      <div class="graph-container">
+        <svg
+          class="graph-svg js-graph"
+          data-xmin="0"
+          data-xmax="12"
+          data-ymin="0"
+          data-ymax="30"
+          data-points="(0,28);(2,25);(4,20);(6,18);(8,14);(10,12);(12,10)"
+          width="550"
+          height="300"
+        ></svg>
+      </div>
+
+      <div class="exercise">
+        <p>
+          <strong>Q1. Repérage :</strong> Quelle est l'humidité au jour 0 ?
+          <span class="line med"></span> %
+        </p>
+        <p>
+          <strong>Q2. Variation :</strong> L'humidité est-elle croissante ou
+          décroissante ? <span class="line long"></span>
+        </p>
+        <p>
+          <strong>Q3. Lecture :</strong> À partir de quel jour l'humidité
+          passe-t-elle sous la barre des 15% ? (Regardez le jour 8)
+          <span class="line long"></span>
+        </p>
+        <p>
+          <strong>Q4. Décision :</strong> L'apprenti veut peindre le jour 4.
+          A-t-il le droit ? Pourquoi ?
+        </p>
+        <p class="line long"></p>
+        <p class="line long"></p>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="header-mini">Séquence 1 - Synthèse | Page 15/16</div>
+      <h2>14. QCM de Révision</h2>
+
+      <div class="box context">
+        <strong>Objectif :</strong> Faire le point sur les connaissances de la
+        séance avant le projet final et la fin du semestre. Cochez la ou les
+        bonnes réponses.
+      </div>
+
+      <div class="exercise">
+        <p><strong>1) L'axe des ordonnées est :</strong></p>
+        <p>☐ L'axe horizontal (le sol)</p>
+        <p>☐ L'axe vertical (le mur)</p>
+        <hr />
+
+        <p><strong>2) Le point $A(4 ; 0)$ se situe :</strong></p>
+        <p>☐ Sur l'axe des abscisses</p>
+        <p>☐ Sur l'axe des ordonnées</p>
+        <p>☐ Exactement à l'origine</p>
+        <hr />
+
+        <p><strong>3) L'intervalle $] 5 ; 10 ]$ signifie que :</strong></p>
+        <p>☐ Le chiffre 5 est inclus et le chiffre 10 est exclu</p>
+        <p>☐ Le chiffre 5 est exclu et le chiffre 10 est inclus</p>
+        <p>☐ Les deux sont exclus</p>
+        <hr />
+
+        <p>
+          <strong
+            >4) Une fonction qui "descend" sur le graphique de gauche à droite
+            est dite :</strong
+          >
+        </p>
+        <p>☐ Décroissante</p>
+        <p>☐ Constante</p>
+        <p>☐ Croissante</p>
+      </div>
+
+      <div class="box method">
+        <strong>Note pour le formateur :</strong> Les résultats de ce QCM
+        permettront d'ajuster les rappels pour le prochain groupe.
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="header-mini">Séquence 1 - Projet | Page 16/16</div>
+      <h2>15. Projet : Tracer une Arche</h2>
+
+      <div class="box context">
+        Vous devez reproduire le tracé d'une arche décorative sur un mur. Voici
+        les points de repère relevés par l'architecte.
+      </div>
+
+      <div class="exercise">
+        <strong>Points à placer :</strong>
+        <ul style="display: flex; gap: 20px; list-style: none; padding: 0">
+          <li>$A(0 ; 0)$</li>
+          <li>$B(1 ; 3)$</li>
+          <li>$C(3 ; 4)$</li>
+          <li>$D(5 ; 3)$</li>
+          <li>$E(6 ; 0)$</li>
+        </ul>
+
+        <p>
+          <strong>Consigne :</strong> Placez les croix, puis reliez-les à main
+          levée pour former une belle courbe arrondie.
+        </p>
+
+        <div class="graph-container">
+          <svg
+            class="graph-svg js-graph"
+            data-xmin="-1"
+            data-xmax="7"
+            data-ymin="-1"
+            data-ymax="5"
+            width="550"
+            height="400"
+          ></svg>
+        </div>
+
+        <p>
+          Quelle est la hauteur maximale de l'arche ?
+          <span class="line med"></span> mètres.
+        </p>
+        <p>
+          Quelle est la largeur totale au sol (entre A et E) ?
+          <span class="line med"></span> mètres.
+        </p>
+      </div>
+
+      <div class="box lesson" style="text-align: center; margin-top: auto">
+        <strong>FIN DU DOSSIER</strong><br />
+        Auto-évaluation : ☐ Aquis ☐ En cours ☐ Non acquis
+      </div>
+    </div>
+
+    <script>
+      const SVG_NS = 'http://www.w3.org/2000/svg';
+
+      function createSVGElement(name, attrs) {
+        const el = document.createElementNS(SVG_NS, name);
+        for (const [key, val] of Object.entries(attrs)) {
+          el.setAttribute(key, val);
+        }
+        return el;
+      }
+
+      function drawGraphs() {
+        const graphs = document.querySelectorAll('.js-graph');
+
+        graphs.forEach((svg) => {
+          const w = parseInt(svg.getAttribute('width'));
+          const h = parseInt(svg.getAttribute('height'));
+          const xmin = parseFloat(svg.dataset.xmin);
+          const xmax = parseFloat(svg.dataset.xmax);
+          const ymin = parseFloat(svg.dataset.ymin);
+          const ymax = parseFloat(svg.dataset.ymax);
+
+          const padding = 40;
+          const graphW = w - 2 * padding;
+          const graphH = h - 2 * padding;
+
+          // Fonction de conversion coordonnée -> pixel
+          const toPxX = (x) => padding + ((x - xmin) / (xmax - xmin)) * graphW;
+          const toPxY = (y) =>
+            h - padding - ((y - ymin) / (ymax - ymin)) * graphH;
+
+          // 1. Grille
+          // Verticales
+          for (let i = Math.ceil(xmin); i <= Math.floor(xmax); i++) {
+            const px = toPxX(i);
+            svg.appendChild(
+              createSVGElement('line', {
+                x1: px,
+                y1: padding,
+                x2: px,
+                y2: h - padding,
+                class: 'grid-minor',
+              })
+            );
+            // Légende X
+            const text = createSVGElement('text', {
+              x: px - 5,
+              y: h - padding + 20,
+              class: 'label',
+            });
+            text.textContent = i;
+            svg.appendChild(text);
+          }
+          // Horizontales
+          for (let i = Math.ceil(ymin); i <= Math.floor(ymax); i++) {
+            const py = toPxY(i);
+            svg.appendChild(
+              createSVGElement('line', {
+                x1: padding,
+                y1: py,
+                x2: w - padding,
+                y2: py,
+                class: 'grid-minor',
+              })
+            );
+            // Légende Y
+            const text = createSVGElement('text', {
+              x: padding - 25,
+              y: py + 5,
+              class: 'label',
+            });
+            text.textContent = i;
+            svg.appendChild(text);
+          }
+
+          // 2. Axes principaux (0)
+          if (xmin <= 0 && xmax >= 0) {
+            const x0 = toPxX(0);
+            svg.appendChild(
+              createSVGElement('line', {
+                x1: x0,
+                y1: padding,
+                x2: x0,
+                y2: h - padding,
+                class: 'axis',
+              })
+            );
+          } else {
+            // Si 0 n'est pas dans le graph, on trace le bord gauche
+            svg.appendChild(
+              createSVGElement('line', {
+                x1: padding,
+                y1: padding,
+                x2: padding,
+                y2: h - padding,
+                class: 'axis',
+              })
+            );
+          }
+
+          if (ymin <= 0 && ymax >= 0) {
+            const y0 = toPxY(0);
+            svg.appendChild(
+              createSVGElement('line', {
+                x1: padding,
+                y1: y0,
+                x2: w - padding,
+                y2: y0,
+                class: 'axis',
+              })
+            );
+          } else {
+            // Si 0 n'est pas dans le graph, on trace le bord bas
+            svg.appendChild(
+              createSVGElement('line', {
+                x1: padding,
+                y1: h - padding,
+                x2: w - padding,
+                y2: h - padding,
+                class: 'axis',
+              })
+            );
+          }
+
+          // 3. Tracer la courbe si data-points existe
+          if (svg.dataset.points) {
+            const rawPoints = svg.dataset.points.split(';');
+            let d = '';
+            rawPoints.forEach((pt, index) => {
+              const coords = pt.match(/\(([\d.-]+),([\d.-]+)\)/);
+              if (coords) {
+                const x = parseFloat(coords[1]);
+                const y = parseFloat(coords[2]);
+                const px = toPxX(x);
+                const py = toPxY(y);
+
+                // Point
+                svg.appendChild(
+                  createSVGElement('circle', {
+                    cx: px,
+                    cy: py,
+                    r: 5,
+                    class: 'point',
+                  })
+                );
+
+                // Ligne
+                if (index === 0) d += `M ${px} ${py}`;
+                else d += ` L ${px} ${py}`;
+              }
+            });
+
+            // Ajouter le chemin sous les points
+            const path = createSVGElement('path', { d: d, class: 'curve' });
+            svg.insertBefore(path, svg.querySelector('.point')); // Insérer avant les points
+          }
+        });
+
+        // 4. Dessiner les droites graduées (Intervalles)
+        document.querySelectorAll('.js-numberline').forEach((svg) => {
+          const w = parseInt(svg.getAttribute('width'));
+          const h = parseInt(svg.getAttribute('height'));
+          const min = parseFloat(svg.dataset.min);
+          const max = parseFloat(svg.dataset.max);
+          const a = svg.dataset.a ? parseFloat(svg.dataset.a) : null;
+          const b = svg.dataset.b ? parseFloat(svg.dataset.b) : null;
+
+          const pad = 20;
+          const y = h / 2;
+          const toPx = (v) => pad + ((v - min) / (max - min)) * (w - 2 * pad);
+
+          // Axe principal
+          svg.appendChild(
+            createSVGElement('line', {
+              x1: pad,
+              y1: y,
+              x2: w - pad,
+              y2: y,
+              stroke: '#000',
+              'stroke-width': 2,
+            })
+          );
+
+          // Graduations
+          for (let i = min; i <= max; i++) {
+            const px = toPx(i);
+            svg.appendChild(
+              createSVGElement('line', {
+                x1: px,
+                y1: y - 5,
+                x2: px,
+                y2: y + 5,
+                stroke: '#000',
+              })
+            );
+            const t = createSVGElement('text', {
+              x: px - 4,
+              y: y + 20,
+              'font-size': '12px',
+              'font-family': 'Roboto',
+            });
+            t.textContent = i;
+            svg.appendChild(t);
+          }
+
+          // Intervalle coloré si défini
+          if (a !== null && b !== null) {
+            const xa = toPx(a);
+            const xb = toPx(b);
+            svg.appendChild(
+              createSVGElement('line', {
+                x1: xa,
+                y1: y,
+                x2: xb,
+                y2: y,
+                stroke: '#d35400',
+                'stroke-width': 6,
+                opacity: 0.6,
+              })
+            );
+            // Crochets (simplifiés par des gros points pour CAP)
+            svg.appendChild(
+              createSVGElement('circle', {
+                cx: xa,
+                cy: y,
+                r: 6,
+                fill: '#d35400',
+              })
+            );
+            svg.appendChild(
+              createSVGElement('circle', {
+                cx: xb,
+                cy: y,
+                r: 6,
+                fill: '#d35400',
+              })
+            );
+          }
+        });
+      }
+
+      window.onload = drawGraphs;
+    </script>
+  </body>
+</html>

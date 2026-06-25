@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dossier révision + CCF - Mathématiques & Algorithmique</title>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)'],
+          ],
+          displayMath: [
+            ['$$', '$$'],
+            ['\\[', '\\]'],
+          ],
+        },
+        svg: { fontCache: 'global' },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Kalam:wght@400&family=Oswald:wght@500&family=Courier+Prime&display=swap');
+
+      :root {
+        --primary: #2c3e50;
+        --accent: #d35400;
+        --accent-2: #00b0f0;
+        --bg-page: #ffffff;
+        --soft: #eaf2f8;
+        --soft-2: #fff8f0;
+        --alert: #fadbd8;
+      }
+
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #525659;
+        margin: 0;
+        padding: 20px;
+        color: #111;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      .controls {
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        z-index: 9999;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+
+      .ctrl-btn {
+        border: none;
+        border-radius: 6px;
+        padding: 12px 18px;
+        font-weight: 700;
+        cursor: pointer;
+        color: #fff;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+      }
+
+      .ctrl-btn.primary {
+        background: var(--accent);
+      }
+
+      .ctrl-btn.secondary {
+        background: var(--primary);
+      }
+
+      .ctrl-btn.active {
+        outline: 3px solid #fff;
+      }
+
+      .doc {
+        display: none;
+      }
+
+      .doc.active {
+        display: block;
+      }
+
+      .page {
+        width: 210mm;
+        height: 297mm;
+        margin: 0 auto 20px auto;
+        background: var(--bg-page);
+        padding: 15mm;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.45);
+        page-break-after: always;
+        overflow: hidden;
+      }
+
+      .cover-page {
+        border: 4px solid var(--accent-2);
+        padding: 10mm;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .cover-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .student-info-box {
+        border: 2px solid #000;
+        padding: 15px;
+        width: 50%;
+        font-size: 12pt;
+        font-weight: bold;
+      }
+
+      .student-info-box div {
+        margin-bottom: 12px;
+      }
+
+      .logo-btp {
+        width: 180px;
+      }
+
+      .cover-titles {
+        text-align: center;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .main-title {
+        font-family: 'Kalam', cursive;
+        font-size: 30pt;
+        font-weight: bold;
+        margin-bottom: 20px;
+        line-height: 1.15;
+      }
+
+      .sub-title {
+        font-family: 'Kalam', cursive;
+        font-size: 23pt;
+        margin-bottom: 15px;
+      }
+
+      .part-title {
+        font-family: 'Kalam', cursive;
+        font-size: 18pt;
+      }
+
+      .objectives-box {
+        border: 3px solid #000;
+        padding: 15px;
+        font-size: 11pt;
+      }
+
+      .objectives-title {
+        font-weight: bold;
+        text-decoration: underline;
+        margin-bottom: 10px;
+      }
+
+      .header-strip {
+        border-bottom: 2px solid #000;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 10pt;
+        color: #555;
+      }
+
+      h2 {
+        font-family: 'Oswald', sans-serif;
+        background-color: var(--primary);
+        color: white;
+        padding: 8px 15px;
+        border-radius: 4px;
+        font-size: 14pt;
+        margin-top: 0;
+        margin-bottom: 14px;
+        border-left: 10px solid #f1c40f;
+      }
+
+      h3 {
+        color: var(--accent);
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 3px;
+        margin-top: 12px;
+        margin-bottom: 8px;
+        font-size: 12pt;
+      }
+
+      p {
+        margin: 8px 0;
+        line-height: 1.45;
+      }
+
+      .context-box,
+      .lesson-box,
+      .method-box,
+      .alert-box {
+        padding: 11px 13px;
+        margin: 10px 0 14px 0;
+        font-size: 10.5pt;
+        line-height: 1.5;
+        border-radius: 4px;
+      }
+
+      .context-box {
+        background-color: var(--soft);
+        border-left: 5px solid #2980b9;
+        font-style: italic;
+      }
+
+      .lesson-box {
+        background: #eef6ff;
+        border-left: 5px solid #3498db;
+      }
+
+      .method-box {
+        background: var(--soft-2);
+        border: 2px dashed var(--accent);
+      }
+
+      .alert-box {
+        background: var(--alert);
+        border-left: 5px solid #c0392b;
+      }
+
+      .exercise {
+        border: 2px solid #ccc;
+        padding: 13px 13px 12px 13px;
+        margin: 10px 0 16px 0;
+        background: #fff;
+      }
+
+      .exercise-title {
+        font-weight: bold;
+        color: var(--primary);
+        display: inline-block;
+        background: #ecf0f1;
+        padding: 4px 8px;
+        border-radius: 4px;
+      }
+
+      .line {
+        border-bottom: 2px dotted #000;
+        display: inline-block;
+        min-width: 80px;
+        margin: 0 4px;
+        height: 1.25em;
+        vertical-align: bottom;
+      }
+
+      .line.short {
+        min-width: 45px;
+      }
+
+      .line.med {
+        min-width: 180px;
+      }
+
+      .line.long {
+        width: 100%;
+        margin: 8px 0 14px 0;
+        display: block;
+      }
+
+      .full-dot-line {
+        border-bottom: 2px dotted #000;
+        width: 100%;
+        height: 10px;
+        margin: 18px 0;
+        display: block;
+      }
+
+      .answer-space-2 .full-dot-line {
+        margin: 16px 0;
+      }
+
+      .answer-space-3 .full-dot-line {
+        margin: 15px 0;
+      }
+
+      .answer-space-4 .full-dot-line {
+        margin: 13px 0;
+      }
+
+      .answer-space-5 .full-dot-line {
+        margin: 11px 0;
+      }
+
+      .algo-box,
+      .algo-read-box {
+        display: block;
+        border: 2px solid #333;
+        padding: 12px;
+        margin: 10px 0;
+        background-color: #f4f4f4;
+        font-family: 'Courier Prime', monospace;
+        font-size: 9.5pt;
+        line-height: 1.6;
+        word-break: normal;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.08);
+      }
+
+      .algo-box.compact,
+      .algo-read-box.compact {
+        line-height: 1.55;
+        font-size: 9.2pt;
+      }
+
+      .word-bank {
+        border: 2px dashed #000;
+        padding: 10px;
+        margin: 10px 0;
+        text-align: center;
+        font-weight: bold;
+        background-color: #e8f4f8;
+        font-family: 'Courier Prime', monospace;
+        font-size: 10pt;
+      }
+
+      .word-item {
+        display: inline-block;
+        margin: 4px 6px;
+        padding: 6px 10px;
+        background: #fff;
+        border: 1px solid #999;
+        border-radius: 4px;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.15);
+      }
+
+      .header-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #000;
+        margin-bottom: 18px;
+      }
+
+      .header-table td {
+        border: 1px solid #000;
+        padding: 5px 10px;
+        vertical-align: middle;
+      }
+
+      .title-main {
+        font-size: 16pt;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: block;
+        text-align: center;
+      }
+
+      .title-sub {
+        font-size: 12pt;
+        font-style: italic;
+        display: block;
+        text-align: center;
+        margin-top: 5px;
+      }
+
+      .cell-note {
+        text-align: center;
+        font-weight: bold;
+        background-color: #f9f9f9;
+        width: 80px;
+      }
+
+      .note-val {
+        font-size: 16pt;
+        display: block;
+        margin-top: 5px;
+      }
+
+      .footer-page {
+        margin-top: auto;
+        border-top: 1px solid #000;
+        padding-top: 5px;
+        font-size: 9pt;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .tight p {
+        margin: 9px 0;
+      }
+
+      .page-number {
+        font-weight: 700;
+      }
+
+      /* Compactage spécifique au CCF pour tenir en 4 pages */
+      #ccf .page {
+        padding: 12mm;
+      }
+
+      #ccf h2 {
+        margin-bottom: 5px;
+        padding: 4px 12px;
+        font-size: 10pt;
+      }
+
+      #ccf .exercise {
+        margin: 8px 0 12px 0;
+        padding: 4px 11px 4px 11px;
+      }
+
+      #ccf .context-box,
+      #ccf .lesson-box,
+      #ccf .method-box,
+      #ccf .alert-box {
+        margin: 8px 0 10px 0;
+        padding: 4px 11px;
+        font-size: 10pt;
+      }
+
+      #ccf p {
+        margin: 6px 0;
+        line-height: 1.35;
+      }
+
+      #ccf .full-dot-line {
+        margin: 12px 0;
+      }
+
+      #ccf .answer-space-5 .full-dot-line {
+        margin: 10px 0;
+      }
+
+      #ccf .answer-space-3 .full-dot-line {
+        margin: 9px 0;
+      }
+
+      #ccf .algo-box,
+      #ccf .algo-read-box {
+        margin: 8px 0;
+        padding: 4px 10px;
+        font-size: 9.2pt;
+        line-height: 1.45;
+      }
+
+      #ccf .word-bank {
+        margin: 8px 0;
+        padding: 8px;
+      }
+
+      #ccf .word-item {
+        margin: 3px 4px;
+        padding: 5px 8px;
+      }
+
+      #ccf .header-table {
+        margin-bottom: 12px;
+      }
+
+      #ccf .footer-page {
+        font-size: 8.5pt;
+        padding-top: 4px;
+      }
+
+      @media print {
+        body {
+          background: none;
+          padding: 0;
+        }
+
+        .controls {
+          display: none !important;
+        }
+
+        .page {
+          box-shadow: none;
+          margin: 0;
+        }
+
+        .doc {
+          display: none !important;
+        }
+
+        .doc.active {
+          display: block !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="controls">
+      <button
+        class="ctrl-btn secondary active"
+        id="btn-dossier"
+        onclick="showDoc('dossier')"
+      >
+        Afficher le dossier
+      </button>
+      <button class="ctrl-btn secondary" id="btn-ccf" onclick="showDoc('ccf')">
+        Afficher le CCF
+      </button>
+      <button class="ctrl-btn primary" onclick="window.print()">
+        🖨️ Imprimer
+      </button>
+    </div>
+
+    <div id="dossier" class="doc active">
+      <div class="page">
+        <div class="cover-page">
+          <div class="cover-header">
+            <div class="student-info-box">
+              <div>NOM : ............................................</div>
+              <div>Prénom : ........................................</div>
+              <div>Section : ........................................</div>
+              <div>Date : ............................................</div>
+            </div>
+            <img
+              src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+              alt="Logo BTP CFA"
+              class="logo-btp"
+            />
+          </div>
+
+          <div class="cover-titles">
+            <div class="main-title">DOSSIER DE RÉVISION</br>MATHÉMATIQUES</div>
+            <div class="sub-title">Équations & Algorithmique</div>
+            <div class="part-title">Préparation au CCF 2 - 2 heures</div>
+          </div>
+
+          <div class="objectives-box">
+            <div class="objectives-title">Objectifs :</div>
+            <ul style="margin: 0; padding-left: 20px">
+              <li>
+                Retrouver une valeur inconnue à partir d'une équation simple.
+              </li>
+              <li>
+                Passer d'une situation professionnelle à une égalité
+                mathématique.
+              </li>
+              <li>Lire un algorithme et exploiter ses résultats.</li>
+              <li>Compléter ou reconstruire un algorithme de calcul.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="header-strip">
+          <span>PARTIE 1 - Retrouver une valeur</span>
+          <span class="page-number">Page 2</span>
+        </div>
+
+        <h2>Situation 1 - Charpente</h2>
+
+        <div class="context-box">
+          Un charpentier assemble <strong>4 poutres identiques</strong>. Il
+          ajoute <strong>20 cm</strong>. La longueur totale est de
+          <strong>180 cm</strong>.
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-title">On obtient l'équation</div>
+          <p style="text-align: center; font-size: 14pt">
+            <strong>$4x + 20 = 180$</strong>
+          </p>
+
+          <p><strong>Complète :</strong></p>
+          <p style="text-align: center">
+            $4x = 180 -$ <span class="line short"></span>
+          </p>
+          <p style="text-align: center">
+            $4x =$ <span class="line short"></span>
+          </p>
+          <p style="text-align: center">
+            $x =$ <span class="line short"></span> $\div$
+            <span class="line short"></span>
+          </p>
+          <p style="text-align: center">
+            $x =$ <span class="line short"></span> cm
+          </p>
+
+          <p><strong>Une poutre mesure :</strong></p>
+          <span class="line long"></span>
+        </div>
+
+        <h2>Situation 2 - Couverture</h2>
+
+        <div class="context-box">
+          Un couvreur utilise <strong>5 éléments identiques</strong>. Il ajoute
+          <strong>15 cm</strong>. La longueur totale est de
+          <strong>140 cm</strong>.
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-title">On obtient l'équation</div>
+          <p style="text-align: center; font-size: 14pt">
+            <strong>$5x + 15 = 140$</strong>
+          </p>
+
+          <p><strong>Complète :</strong></p>
+          <p style="text-align: center">
+            $5x = 140 -$ <span class="line short"></span>
+          </p>
+          <p style="text-align: center">
+            $5x =$ <span class="line short"></span>
+          </p>
+          <p style="text-align: center">
+            $x =$ <span class="line short"></span> $\div$
+            <span class="line short"></span>
+          </p>
+          <p style="text-align: center">
+            $x =$ <span class="line short"></span>
+          </p>
+
+          <p><strong>Chaque élément mesure :</strong></p>
+          <span class="line long"></span>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="header-strip">
+          <span>PARTIE 1 - Retrouver une valeur</span>
+          <span class="page-number">Page 3</span>
+        </div>
+
+        <h2>Situation 3 - Menuiserie</h2>
+
+        <div class="context-box">
+          Un menuisier pose <strong>6 planches identiques</strong>. Il laisse
+          <strong>18 cm</strong> d'espace. La longueur totale est de
+          <strong>168 cm</strong>.
+        </div>
+
+        <div class="exercise answer-space-5">
+          <div class="exercise-title">On obtient l'équation</div>
+          <p style="text-align: center; font-size: 14pt">
+            <strong>$6x + 18 = 168$</strong>
+          </p>
+
+          <p><strong>Écris les 5 lignes du calcul :</strong></p>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+
+          <p><strong>Une planche mesure :</strong></p>
+          <span class="line long"></span>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="header-strip">
+          <span>PARTIE 2 - Comprendre une situation</span>
+          <span class="page-number">Page 4</span>
+        </div>
+
+        <h2>Situation 4 - Plomberie</h2>
+
+        <div class="context-box">
+          Un plombier facture :
+          </br>- <strong>50 €</strong> de déplacement </br>-
+          <strong>30 €</strong> par intervention </br>- la facture totale est
+          de <strong>170 €</strong>
+        </div>
+
+        <div class="exercise tight">
+          <div class="exercise-title">Complète</div>
+          <p>$x$ représente : <span class="line med"></span></p>
+          <p>Partie fixe : <span class="line med"></span></p>
+          <p>Partie variable : <span class="line med"></span></p>
+          <p>Total : <span class="line med"></span></p>
+
+          <p><strong>Complète l'équation :</strong></p>
+          <p style="text-align: center">
+            $30x +$ <span class="line short"></span> $=$
+            <span class="line short"></span>
+          </p>
+
+          <p><strong>Complète le calcul :</strong></p>
+          <p style="text-align: center">
+            $30x =$ <span class="line short"></span> $-$
+            <span class="line short"></span>
+          </p>
+          <p style="text-align: center">
+            $30x =$ <span class="line short"></span>
+          </p>
+          <p style="text-align: center">
+            $x =$ <span class="line short"></span> $\div$
+            <span class="line short"></span>
+          </p>
+          <p style="text-align: center">
+            $x =$ <span class="line short"></span>
+          </p>
+        </div>
+
+        <h2>Situation 5 - Isolation</h2>
+
+        <div class="context-box">
+          Un artisan facture :
+          </br>- <strong>14 €</strong> par m² </br>- <strong>60 €</strong> de
+          frais fixes </br>- la facture est de <strong>186 €</strong>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-title">Complète</div>
+          <p style="text-align: center">
+            $14x +$ <span class="line short"></span> $= 186$
+          </p>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="header-strip">
+          <span>PARTIE 2 - Comprendre une situation</span>
+          <span class="page-number">Page 5</span>
+        </div>
+
+        <h2>Situation 5 - Isolation</h2>
+
+        <div class="exercise answer-space-5">
+          <div class="exercise-title">Écris les 5 lignes du calcul</div>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+
+          <p><strong>La surface facturée est de :</strong></p>
+          <span class="line long"></span>
+        </div>
+
+        <h2>Situation 6 - Électricité</h2>
+
+        <div class="context-box">
+          Un électricien facture :
+          </br>- <strong>18 €</strong> par prise </br>-
+          <strong>25 €</strong> de déplacement </br>- la facture totale est de
+          <strong>133 €</strong>
+        </div>
+
+        <div class="exercise answer-space-5">
+          <div class="exercise-title">Travail</div>
+          <p><strong>Écris une égalité :</strong></p>
+          <span class="full-dot-line"></span>
+
+          <p><strong>Écris les 5 lignes des calculs :</strong></p>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="header-strip">
+          <span>PARTIE 3 - Lecture d'algorithme</span>
+          <span class="page-number">Page 6</span>
+        </div>
+
+        <h2>Situation 7 - Carrelage</h2>
+
+        <div class="algo-read-box">
+          DEBUT</br>
+          PrixM2 prend la valeur 20</br>
+          Frais prend la valeur 30</br>
+          Lire Surface</br>
+          Total prend la valeur Surface * PrixM2</br>
+          Total prend la valeur Total + Frais</br>
+          Afficher Total</br>
+          FIN
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-title">Surface = 8</div>
+          <p>Prix des m² :</p>
+          <span class="line long"></span>
+          <p>Prix final :</p>
+          <span class="line long"></span>
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-title">Surface = 12</div>
+          <p>Prix des m² :</p>
+          <span class="line long"></span>
+          <p>Prix final :</p>
+          <span class="line long"></span>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="header-strip">
+          <span>PARTIE 3 - Lecture d'algorithme</span>
+          <span class="page-number">Page 7</span>
+        </div>
+
+        <h2>Situation 8 - Couverture</h2>
+
+        <div class="algo-read-box">
+          DEBUT</br>
+          PrixTuile prend la valeur 9</br>
+          Frais prend la valeur 50</br>
+          Lire NbTuiles</br>
+          Total prend la valeur NbTuiles * PrixTuile</br>
+          SI NbTuiles &gt; 15 ALORS</br>
+          &nbsp;&nbsp;Total prend la valeur Total - 20</br>
+          SINON</br>
+          &nbsp;&nbsp;Total prend la valeur Total + 10</br>
+          FIN SI</br>
+          Total prend la valeur Total + Frais</br>
+          Afficher Total</br>
+          FIN
+        </div>
+
+        <div class="exercise answer-space-3">
+          <div class="exercise-title">Cas 1 - NbTuiles = 20</div>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+        </div>
+
+        <div class="exercise answer-space-3">
+          <div class="exercise-title">Cas 2 - NbTuiles = 10</div>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="header-strip">
+          <span>PARTIE 4 - Construire un calcul / algorithme</span>
+          <span class="page-number">Page 8</span>
+        </div>
+
+        <h2>Situation 9 - Chauffage</h2>
+
+        <div class="context-box">
+          Un technicien facture :
+          </br>- <strong>45 €</strong> de déplacement </br>-
+          <strong>28 €</strong> par radiateur
+        </div>
+
+        <div class="exercise tight">
+          <div class="exercise-title">Complète</div>
+
+          <p>Prix total = <span class="line med"></span></p>
+
+          <p style="text-align: center">
+            $Total =$ <span class="line short"></span>$x +$
+            <span class="line short"></span>
+          </p>
+
+          <p><strong>Complète l'algorithme :</strong></p>
+          <div class="algo-box">
+            DEBUT</br>
+            Afficher "Nombre de radiateurs ?"</br>
+            Lire x</br>
+            Total prend la valeur ....................................</br>
+            Afficher Total</br>
+            FIN
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="header-strip">
+          <span>PARTIE 4 - Construire un calcul / algorithme</span>
+          <span class="page-number">Page 9</span>
+        </div>
+
+        <h2>Situation 10 - Peinture</h2>
+
+        <div class="context-box">
+          Un peintre facture :
+          </br>- <strong>18 €</strong> par m² </br>- <strong>70 €</strong> de
+          déplacement </br>Si le total dépasse <strong>250 €</strong>, il
+          retire <strong>20 €</strong>.
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-title">Travail</div>
+          <p><strong>Écris le calcul :</strong></p>
+          <span class="full-dot-line"></span>
+
+          <p><strong>Complète l'algorithme :</strong></p>
+          <div class="algo-box">
+            DEBUT</br>
+            Afficher "Surface ?"</br>
+            Lire x</br>
+            Total prend la valeur ....................................</br>
+            SI .................................... ALORS</br>
+            &nbsp;&nbsp;....................................</br>
+            FIN SI</br>
+            Afficher Total</br>
+            FIN
+          </div>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="header-strip">
+          <span>PARTIE 4 - Construire un calcul / algorithme</span>
+          <span class="page-number">Page 10</span>
+        </div>
+
+        <h2>Situation 11 - Problème complet</h2>
+
+        <div class="context-box">
+          Une entreprise facture :
+          </br>- <strong>16 €</strong> par m² </br>-
+          <strong>80 €</strong> fixe </br>La facture est de
+          <strong>240 €</strong>.
+        </div>
+
+        <div class="exercise answer-space-5">
+          <div class="exercise-title">Travail</div>
+          <p><strong>Écris une égalité :</strong></p>
+          <span class="full-dot-line"></span>
+
+          <p><strong>Écris les 5 lignes des calculs :</strong></p>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="header-strip">
+          <span>PARTIE 5 - Type CCF</span>
+          <span class="page-number">Page 11</span>
+        </div>
+
+        <h2>Situation 12 - Budget</h2>
+
+        <div class="context-box">
+          Un technicien facture :
+          </br>- <strong>20 €</strong> de déplacement </br>-
+          <strong>15 €</strong> par intervention </br>Budget :
+          <strong>140 €</strong>
+        </div>
+
+        <div class="exercise answer-space-5">
+          <div class="exercise-title">Complète</div>
+          <p style="text-align: center">
+            $15x +$ <span class="line short"></span> $=$
+            <span class="line short"></span>
+          </p>
+          <p><strong>Écris les 5 lignes des calculs :</strong></p>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+
+          <p><strong>Phrase :</strong></p>
+          <span class="line long"></span>
+        </div>
+      </div>
+
+      <div class="page">
+        <div class="header-strip">
+          <span>PARTIE 5 - Type CCF</span>
+          <span class="page-number">Page 12</span>
+        </div>
+
+        <h2>Situation 13 - Devis isolation</h2>
+
+        <div class="context-box">
+          Règles métier :
+          </br>- 18 € par m² </br>- 50 € de frais fixes </br>- si Surface
+          &gt; 20, réduction de 30 €
+        </div>
+
+        <div class="exercise">
+          <div class="exercise-title">Complète l'algorithme avec la banque</div>
+
+          <div class="algo-box compact">
+            DEBUT</br>
+            Afficher "Surface ?"</br>
+            Lire Surface</br>
+            Prix prend la valeur .................................... &larr;
+            Trou 1</br>
+            Prix prend la valeur .................................... &larr;
+            Trou 2</br>
+            SI .................................... &larr; Trou 3 ALORS</br>
+            &nbsp;&nbsp;Prix prend la valeur ................................
+            &larr; Trou 4</br>
+            FIN SI</br>
+            Afficher "Prix total : " + ............................... &larr;
+            Trou 5</br>
+            FIN
+          </div>
+
+          <div class="word-bank">
+            <span class="word-item">Surface * 18</span>
+            <span class="word-item">Prix</span>
+            <span class="word-item">Surface &gt; 20</span>
+            <span class="word-item">Prix - 30</span>
+            <span class="word-item">Prix + 50</span>
+          </div>
+
+          <p><strong>Ton résultat final s'affiche sur :</strong></p>
+          <span class="line long"></span>
+        </div>
+
+        <div class="footer-page">
+          <div>BTP CFA - Révision CCF</div>
+          <div>Mathématiques & Algorithmique</div>
+          <div>Page 12/12</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="ccf" class="doc">
+      <div class="page">
+        <table class="header-table">
+          <tr>
+            <td style="width: 20%; text-align: center; border-bottom: 0">
+              <img
+                src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+                alt="Logo BTP"
+                class="logo-btp"
+                style="width: 145px"
+              />
+            </td>
+            <td style="width: 60%; border-bottom: 0">
+              <span class="title-main"
+                >CCF : MATHÉMATIQUES & ALGORITHMIQUE</span
+              >
+              <span class="title-sub"
+                >Équations, lecture d'algorithme et reconstruction</span
+              >
+            </td>
+            <td style="width: 20%; border-bottom: 0">
+              <strong>Date :</strong></br>...../...../20.....
+            </td>
+          </tr>
+          <tr>
+            <td class="cell-note">
+              NOTE
+              <span class="note-val">/ 20</span>
+            </td>
+            <td colspan="2" style="padding: 12px; vertical-align: bottom">
+              <strong>NOM :</strong>
+              ........................... &nbsp;&nbsp;&nbsp;
+              <strong>Prénom :</strong>
+              ...........................
+              </br></br>
+              <strong>Section :</strong>
+              .............................................................
+            </td>
+          </tr>
+        </table>
+
+        <div class="method-box">
+          <p><strong>Consignes :</strong></p>
+          <p>- La calculatrice est autorisée.</p>
+          <p>
+            - Les calculs doivent être rédigés clairement dans les espaces
+            prévus.
+          </p>
+          <p>
+            - Les réponses finales doivent être compréhensibles et soignées.
+          </p>
+          <p>- Lire attentivement chaque consigne avant de commencer.</p>
+        </div>
+
+        <h2>EXERCICE 1 - RETROUVER UNE VALEUR</h2>
+
+        <div class="exercise">
+          <p>
+            Un technicien utilise plusieurs pièces identiques, qu'il facture 6€/pièce. Il ajoute
+            <strong>24 €</strong> de frais fixes. La facture totale est de
+            <strong>168 €</strong>.
+          </p>
+          <p style="text-align: center">
+            <strong>$6x + 24 = 168$</strong>
+          </p>
+
+          <p>Complète les étapes :</p>
+          <p style="text-align: center">
+            $6x = 168 -$ <span class="line short"></span>
+          </p>
+          <p style="text-align: center">
+            $6x =$ <span class="line short"></span>
+          </p>
+          <p style="text-align: center">
+            $x =$ <span class="line short"></span> $\div$
+            <span class="line short"></span>
+          </p>
+          <p style="text-align: center">
+            $x =$ <span class="line short"></span>
+          </p>
+
+          <p>Phrase réponse :</p>
+          <span class="line long"></span>
+        </div>
+
+        <h2>EXERCICE 2 - PASSER DU TEXTE À L'ÉQUATION</h2>
+
+        <div class="exercise answer-space-5">
+          <p>
+            Un artisan facture <strong>17 €</strong> par m² et
+            <strong>45 €</strong> de frais fixes. La facture totale est de
+            <strong>198 €</strong>.
+          </p>
+
+          <p>Écris une égalité :</p>
+          <span class="full-dot-line"></span>
+
+          <p>Écris les 5 lignes des calculs :</p>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+
+          <p>Phrase réponse :</p>
+          <span class="line long"></span>
+        </div>
+
+        <div class="footer-page">
+          <div>BTP CFA - CCF</div>
+          <div>Mathématiques & Algorithmique</div>
+          <div>Page 1/3</div>
+        </div>
+      </div>
+
+      <div class="page">
+        <h2>EXERCICE 3 - LECTURE D'ALGORITHME</h2>
+        <div class="exercise answer-space-5">
+        <p>
+          Dans chacun des cas, donner le prix total.
+        </p>
+
+        <div class="algo-read-box">
+        DEBUT</br>
+        PrixM2 prend la valeur 19</br>
+        Frais prend la valeur 35</br>
+        Lire Surface</br>
+        Total prend la valeur Surface * PrixM2</br>
+        SI Surface &gt; 10 </br>&nbsp;&nbsp;ALORS</br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Total prend la valeur Total - 15</br>
+        &nbsp;&nbsp;SINON</br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Total prend la valeur Total + 5</br>
+        FIN SI</br>
+        Total prend la valeur Total + Frais</br>
+        Afficher Total</br>
+        FIN
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">Cas A - Surface = 12</div>
+        <span class="full-dot-line"></span>
+        <span class="full-dot-line"></span>
+        <span class="full-dot-line"></span>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">Cas B - Surface = 8</div>
+        <span class="full-dot-line"></span>
+        <span class="full-dot-line"></span>
+        <span class="full-dot-line"></span>
+      </div>
+      </div>
+        
+
+        <h2>EXERCICE 4 - ALGORITHME À COMPLÉTER</h2>
+
+        <div class="context-box">
+          Règles métier :
+          </br>- 22 € par m² </br>- 55 € de déplacement </br>- si Surface
+          &gt; 15, réduction de 25 €
+        </div>
+
+        <div class="algo-box compact">
+          DEBUT</br>
+          Afficher "Surface ?"</br>
+          Lire Surface</br>
+          Prix prend la valeur ....................................</br>
+          Prix prend la valeur ....................................
+          </br>
+          SI ....................................</br>
+          &nbsp;&nbsp;ALORS</br>
+          &nbsp;&nbsp;&nbsp;&nbsp;Prix prend la valeur
+          .................................... </br>
+          FIN SI</br>
+          Afficher ................................................</br>
+          FIN
+        </div>
+
+        <div class="word-bank">
+          <span class="word-item">Prix</span>
+          <span class="word-item">Prix + 55</span>
+          <span class="word-item">Surface &gt; 15</span>
+          <span class="word-item">Prix - 25</span>
+          <span class="word-item">Surface * 22</span>
+        </div>
+
+        <div class="footer-page">
+          <div>BTP CFA - CCF</div>
+          <div>Mathématiques & Algorithmique</div>
+          <div>Page 2/3</div>
+        </div>
+      </div>
+
+      <div class="page">
+        <h2>EXERCICE 5 - PROBLÈME COMPLET</h2>
+
+        <div class="exercise answer-space-5">
+          <p>
+            Un technicien facture <strong>25 €</strong> de déplacement et
+            <strong>18 €</strong> par intervention. Le client dispose d'un
+            budget de <strong>151 €</strong>. Complète l'égalité :
+          </p>
+
+          
+          <p style="text-align: center">
+            <span class="line short"></span>$x +$ <span class="line short"></span> $=$
+            <span class="line short"></span>
+          </p>
+
+          <p>Écris les 5 lignes des calculs :</p>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          
+
+          <p>Phrase réponse :</p>
+          <span class="line long"></span>
+        </div>
+
+
+        <h2>EXERCICE 6 - ÉCRIRE UN CALCUL</h2>
+
+        <div class="exercise answer-space-3">
+          <p>
+            Un chauffagiste facture <strong>48 €</strong> de déplacement et
+            <strong>32 €</strong> par radiateur.
+          </p>
+          <p>Écris le calcul du prix total avec $x$ radiateurs :</p>
+          <span class="full-dot-line"></span>
+
+          <p>Complète ensuite l'algorithme. <strong>ATTENTION : Bien lire le nom des variables !</strong></p>
+          <div class="algo-box">
+            DEBUT</br>
+            Afficher "Nombre de radiateurs ?"</br>
+            Lire rad</br>
+            Total prend la valeur ....................................</br>
+            Afficher Total</br>
+            FIN
+          </div>
+        </div>
+
+        <h2>EXERCICE 7 - Rechercher une solution</h2>
+        <div class="exercise answer-space-3">
+          <p>
+            Pour un chantier, un apprenti utilise un programme qui calcule le coût de location de matériel en fonction du nombre de jours :
+            </br>- <strong>15 €</strong> par jour de location
+            &nbsp;&nbsp;&nbsp;&nbsp;- <strong>70 €</strong> de frais de dossier (fixes)
+            </br>- Si le total dépasse <strong>200 €</strong>, le programme applique une remise de <strong>25 €</strong>.
+          </p>
+          <p>Le programme affiche finalement un prix total de <strong>195 €</strong>.</p>
+          <p>Déterminez le nombre de jours. <strong> ATTENTION : Laissez apparaître toutes les traces de vos recherches.</strong></p>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          <span class="full-dot-line"></span>
+          
+          <p>Phrase réponse :</p>
+          <span class="line long"></span>
+        </div>
+
+        <div class="footer-page">
+          <div>BTP CFA - CCF</div>
+          <div>Mathématiques & Algorithmique</div>
+          <div>Page 3/3</div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <script>
+      function showDoc(which) {
+        document.getElementById('dossier').classList.remove('active');
+        document.getElementById('ccf').classList.remove('active');
+        document.getElementById('btn-dossier').classList.remove('active');
+        document.getElementById('btn-ccf').classList.remove('active');
+
+        document.getElementById(which).classList.add('active');
+        document.getElementById('btn-' + which).classList.add('active');
+
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    </script>
+  </body>
+</html>

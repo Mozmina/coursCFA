@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Défi Intergroupes - Audit de Chantier</title>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)'],
+          ],
+        },
+        svg: { fontCache: 'global' },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Kalam:wght@300;400&family=Courier+Prime&family=Oswald:wght@400;600&display=swap');
+
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 18px;
+        background: #525659;
+        color: #111;
+        font-size: 9.6pt;
+        line-height: 1.23;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      .page {
+        width: 210mm;
+        height: 297mm;
+        padding: 11mm 12mm;
+        margin: 0 auto 14px auto;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
+        position: relative;
+        overflow: hidden;
+        page-break-after: always;
+      }
+
+      .print-btn {
+        position: fixed;
+        top: 18px;
+        right: 18px;
+        padding: 10px 14px;
+        background: #c0392b;
+        color: #fff;
+        border: 2px solid #fff;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: 800;
+        z-index: 9999;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35);
+      }
+
+      h1 {
+        font-size: 16pt;
+        margin: 0 0 5px 0;
+        font-weight: 900;
+        letter-spacing: 0.2px;
+      }
+
+      .subtitle {
+        margin: 0 0 8px 0;
+        font-style: italic;
+        color: #333;
+      }
+
+      h2 {
+        font-size: 11.3pt;
+        background: #243447;
+        color: #fff;
+        padding: 5px 9px;
+        margin: 8px 0 6px 0;
+        border-left: 7px solid #f1c40f;
+      }
+
+      h3 {
+        font-size: 10.5pt;
+        color: #b03a2e;
+        margin: 8px 0 5px 0;
+        border-bottom: 1px solid #b03a2e;
+        padding-bottom: 2px;
+      }
+
+      p {
+        margin: 5px 0;
+      }
+
+      ul {
+        margin: 5px 0;
+        padding-left: 17px;
+      }
+
+      li {
+        margin: 2px 0;
+      }
+
+      .tag {
+        display: inline-block;
+        border: 1px solid #000;
+        padding: 3px 8px;
+        border-radius: 999px;
+        font-size: 9pt;
+        font-weight: 700;
+        background: #f7f7f7;
+        margin-bottom: 6px;
+      }
+
+      .hero-box {
+        border: 2px solid #000;
+        background: linear-gradient(135deg, #fdf2e9 0%, #ffffff 100%);
+        padding: 10px;
+        margin: 8px 0;
+      }
+
+      .score-box {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      .score-item {
+        border: 2px solid #1f618d;
+        background: #ebf5fb;
+        padding: 8px;
+        text-align: center;
+        border-radius: 6px;
+      }
+
+      .score-item strong {
+        display: block;
+        font-size: 13pt;
+        margin-bottom: 3px;
+      }
+
+      .doc {
+        border: 1px solid #000;
+        padding: 9px;
+        margin: 6px 0;
+        background: #fff;
+      }
+
+      .email-header {
+        border-bottom: 1px solid #bbb;
+        padding-bottom: 7px;
+        margin-bottom: 8px;
+        font-family: Arial, sans-serif;
+      }
+
+      .email-field {
+        margin: 2px 0;
+      }
+
+      .email-label {
+        display: inline-block;
+        width: 54px;
+        color: #666;
+        font-weight: 800;
+      }
+
+      .handwritten {
+        font-family: 'Kalam', cursive;
+        color: #123b79;
+        font-size: 11.4pt;
+        line-height: 1.45;
+      }
+
+      .notebook-lines {
+        background-image: linear-gradient(#e1e1e1 1px, transparent 1px);
+        background-size: 100% 1.8em;
+        padding: 8px;
+      }
+
+      .excel-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: Arial, sans-serif;
+        font-size: 9pt;
+      }
+
+      .excel-table th,
+      .excel-table td {
+        border: 1px solid #ccc;
+        padding: 5px 6px;
+        text-align: left;
+        vertical-align: top;
+      }
+
+      .excel-table th {
+        background: #f2f2f2;
+      }
+
+      .alert-box {
+        border: 3px solid #c0392b;
+        background: #fff4f4;
+        padding: 9px;
+        margin: 7px 0;
+      }
+
+      .memo-box {
+        border: 4px solid #c0392b;
+        padding: 10px;
+        text-align: center;
+        margin-top: 8px;
+      }
+
+      .memo-title {
+        color: #c0392b;
+        font-weight: 900;
+        font-size: 15pt;
+        text-transform: uppercase;
+        margin-bottom: 5px;
+      }
+
+      .stamp {
+        display: inline-block;
+        margin-top: 7px;
+        padding: 7px 9px;
+        border: 3px double #c0392b;
+        color: #c0392b;
+        font-weight: 900;
+        transform: rotate(-6deg);
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+        margin-top: 6px;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 9px;
+        margin-top: 6px;
+      }
+
+      .mini-card {
+        border: 1px solid #000;
+        padding: 7px;
+        background: #fcfcfc;
+      }
+
+      .mission {
+        border: 2px solid #c0392b;
+        background: #fff5f5;
+        padding: 9px;
+        border-radius: 6px;
+        margin: 8px 0;
+        position: relative;
+      }
+
+      .mission::before {
+        content: 'MISSION';
+        position: absolute;
+        top: -10px;
+        left: 14px;
+        background: #c0392b;
+        color: #fff;
+        padding: 1px 8px;
+        font-weight: 900;
+        font-size: 9pt;
+      }
+
+      .steps {
+        border: 1px dashed #000;
+        padding: 7px;
+        background: #fafafa;
+        margin: 7px 0;
+      }
+
+      .work-box {
+        border: 1px solid #000;
+        background: #fff;
+        padding: 8px;
+        border-radius: 6px;
+        margin: 6px 0;
+      }
+
+      .mini-title {
+        font-weight: 900;
+        text-transform: uppercase;
+        font-size: 9.2pt;
+        margin: 0 0 4px 0;
+      }
+
+      .hint {
+        font-size: 9pt;
+        color: #333;
+        font-style: italic;
+        margin-top: 4px;
+      }
+
+      .write-area {
+        border: 1px solid #000;
+        background-image: linear-gradient(#e9e9e9 1px, transparent 1px);
+        background-size: 100% 18px;
+        border-radius: 4px;
+        padding: 8px;
+      }
+
+      .write-area.xsmall {
+        height: 28mm;
+      }
+
+      .write-area.small {
+        height: 42mm;
+      }
+
+      .write-area.medium {
+        height: 68mm;
+      }
+
+      .write-area.large {
+        height: 96mm;
+      }
+
+      .write-area.xlarge {
+        height: 128mm;
+      }
+
+      .write-area.poster {
+        height: 145mm;
+      }
+
+      .plan-box {
+        border: 2px solid #2c3e50;
+        padding: 8px;
+        background: #f8fbff;
+        margin-top: 6px;
+      }
+
+      .svg-wrap {
+        border: 1px solid #000;
+        background: #fff;
+        padding: 5px;
+        margin-top: 6px;
+      }
+
+      .footer {
+        position: absolute;
+        left: 12mm;
+        right: 12mm;
+        bottom: 7mm;
+        border-top: 1px solid #000;
+        padding-top: 3px;
+        font-size: 8.4pt;
+        display: flex;
+        justify-content: space-between;
+        background: #fff;
+      }
+
+      @media print {
+        body {
+          padding: 0;
+          background: #fff;
+        }
+
+        .page {
+          margin: 0;
+          box-shadow: none;
+          border: none;
+          width: 210mm;
+          height: 297mm;
+          page-break-after: always;
+        }
+
+        .print-btn {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <button class="print-btn" id="printBtn" onclick="window.print()">
+      🖨️ IMPRIMER TOUT
+    </button>
+
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        const n = document.querySelectorAll('.page').length;
+        document.getElementById('printBtn').textContent =
+          '🖨️ IMPRIMER TOUT (' + n + ' pages)';
+      });
+    </script>
+
+    <!-- PAGE 1 -->
+    <div class="page">
+      <div class="tag">Défi intergroupes - Dossier général</div>
+      <h1>Audit du chantier "Les Hauts de Verneuil"</h1>
+      <p class="subtitle">
+        Deux groupes s'affrontent. Votre mission est la même : analyser un
+        chantier, vérifier les calculs, repérer les incohérences et préparer une
+        synthèse claire.
+      </p>
+
+      <div class="hero-box">
+        <p>
+          <strong>Contexte :</strong> l'entreprise <strong>BatiEst</strong>
+          prépare une réunion importante. Des écarts ont été repérés sur un
+          chantier de maison individuelle. Avant de lancer la suite des travaux,
+          la direction veut une équipe capable de :
+        </p>
+        <ul>
+          <li>relire les documents techniques ;</li>
+          <li>vérifier les calculs ;</li>
+          <li>comparer plusieurs choix ;</li>
+          <li>justifier une décision finale ;</li>
+          <li>préparer une affiche récapitulative claire et convaincante.</li>
+        </ul>
+      </div>
+
+      <h2>Organisation du défi</h2>
+      <div class="score-box">
+        <div class="score-item">
+          <strong>3 h</strong>
+          Calculs, analyses, vérifications
+        </div>
+        <div class="score-item">
+          <strong>1 h</strong>
+          Préparation d'une affiche en groupe de 4
+        </div>
+        <div class="score-item">
+          <strong>1 h</strong>
+          Finale et présentation
+        </div>
+      </div>
+
+      <div class="alert-box">
+        <p style="margin: 0">
+          <strong>Important :</strong> tous les groupes travaillent sur
+          exactement le même dossier. Ce qui fera la différence sera la rigueur,
+          l'organisation, la qualité des justifications et la clarté de
+          l'affiche finale.
+        </p>
+      </div>
+
+      <h2>Barème conseillé</h2>
+      <div class="grid-2">
+        <div class="mini-card">
+          <p class="mini-title">Travail écrit</p>
+          <ul>
+            <li>Résultats justes</li>
+            <li>Méthodes visibles</li>
+            <li>Unités cohérentes</li>
+            <li>Conclusion argumentée</li>
+          </ul>
+        </div>
+        <div class="mini-card">
+          <p class="mini-title">Affiche finale</p>
+          <ul>
+            <li>Infos essentielles</li>
+            <li>Calculs expliqués</li>
+            <li>Choix argumentés</li>
+            <li>Présentation claire</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="memo-box">
+        <div class="memo-title">Objectif</div>
+        <p style="margin: 0">
+          Être l'équipe retenue pour présenter le chantier en réunion.
+        </p>
+        <div class="stamp">DOSSIER CONFIDENTIEL</div>
+      </div>
+
+      <div class="footer">
+        <div>Audit de Chantier</div>
+        <div>Présentation</div>
+        <div>Page 1</div>
+      </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="page">
+      <div class="tag">Document 1 - Mail de lancement</div>
+      <h2>Message de la direction</h2>
+
+      <div class="doc">
+        <div class="email-header">
+          <div class="email-field">
+            <span class="email-label">De :</span> direction@batiest.fr
+          </div>
+          <div class="email-field">
+            <span class="email-label">À :</span> equipes.audit@batiest.fr
+          </div>
+          <div class="email-field">
+            <span class="email-label">Date :</span> Lundi 7h45
+          </div>
+          <div class="email-field">
+            <span class="email-label">Objet :</span>
+            <strong>Audit urgent - Chantier Les Hauts de Verneuil</strong>
+          </div>
+        </div>
+
+        <p>
+          Bonjour, plusieurs documents transmis par les équipes chantier ne sont
+          pas totalement cohérents. Avant la réunion de 16h, nous avons besoin
+          d'une vérification complète sur les points suivants :
+        </p>
+        <ul>
+          <li>dimensions de la dalle et aire totale ;</li>
+          <li>volume de béton prévu ;</li>
+          <li>quantités de matériaux ;</li>
+          <li>charge supportée par la dalle ;</li>
+          <li>lecture d'un tableau de défauts ;</li>
+          <li>interprétation d'un risque météo pour la suite du chantier.</li>
+        </ul>
+        <p>
+          Merci de produire une réponse sérieuse, exploitable en réunion, avec
+          une synthèse claire.
+        </p>
+      </div>
+
+      <div class="doc">
+        <h3 style="margin-top: 0">Consigne orale retranscrite</h3>
+        <div class="handwritten notebook-lines handwritten">
+          <p>
+            On ne veut pas juste des résultats. Il faut voir la logique :
+            calculs, schéma, unités, et phrase de conclusion. Si un document
+            semble bizarre, il faut le signaler.
+          </p>
+        </div>
+      </div>
+
+      <div class="doc">
+        <h3 style="margin-top: 0">Composition des équipes</h3>
+        <p>
+          Le travail se fait en <strong>groupes de 4</strong>. Chaque groupe
+          s'organise comme il veut mais doit prévoir :
+        </p>
+        <ul>
+          <li>un lecteur des documents ;</li>
+          <li>un responsable des calculs ;</li>
+          <li>un vérificateur ;</li>
+          <li>un rapporteur pour l'affiche finale.</li>
+        </ul>
+      </div>
+
+      <div class="footer">
+        <div>Audit de Chantier</div>
+        <div>Documents</div>
+        <div>Page 2</div>
+      </div>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="page">
+      <div class="tag">Document 2 - Plan simplifié</div>
+      <h2>Plan de la dalle à couler</h2>
+
+      <div class="plan-box">
+        <p style="margin-top: 0">
+          Le bureau d'études a transmis ce schéma simplifié. La dalle a la forme
+          d'un grand rectangle auquel on a retiré un coin rectangulaire.
+        </p>
+
+        <div class="svg-wrap">
+          <svg viewBox="0 0 650 300" width="100%" height="215">
+            <!-- forme -->
+            <polygon
+              points="80,50 530,50 530,220 340,220 340,150 80,150"
+              fill="#eef6ff"
+              stroke="#1f3a5f"
+              stroke-width="3"
+            />
+
+            <!-- cotes -->
+            <line
+              x1="80"
+              y1="30"
+              x2="530"
+              y2="30"
+              stroke="#000"
+              stroke-width="1.5"
+            />
+            <line
+              x1="80"
+              y1="24"
+              x2="80"
+              y2="36"
+              stroke="#000"
+              stroke-width="1.5"
+            />
+            <line
+              x1="530"
+              y1="24"
+              x2="530"
+              y2="36"
+              stroke="#000"
+              stroke-width="1.5"
+            />
+            <text
+              x="285"
+              y="22"
+              text-anchor="middle"
+              font-size="18"
+              font-family="Arial"
+            >
+              12 m
+            </text>
+
+            <line
+              x1="545"
+              y1="50"
+              x2="545"
+              y2="220"
+              stroke="#000"
+              stroke-width="1.5"
+            />
+            <line
+              x1="539"
+              y1="50"
+              x2="551"
+              y2="50"
+              stroke="#000"
+              stroke-width="1.5"
+            />
+            <line
+              x1="539"
+              y1="220"
+              x2="551"
+              y2="220"
+              stroke="#000"
+              stroke-width="1.5"
+            />
+            <text x="560" y="140" font-size="18" font-family="Arial">8 m</text>
+
+            <line
+              x1="80"
+              y1="165"
+              x2="340"
+              y2="165"
+              stroke="#000"
+              stroke-width="1.5"
+            />
+            <line
+              x1="80"
+              y1="159"
+              x2="80"
+              y2="171"
+              stroke="#000"
+              stroke-width="1.5"
+            />
+            <line
+              x1="340"
+              y1="159"
+              x2="340"
+              y2="171"
+              stroke="#000"
+              stroke-width="1.5"
+            />
+            <text
+              x="210"
+              y="160"
+              text-anchor="middle"
+              font-size="18"
+              font-family="Arial"
+            >
+              7 m
+            </text>
+
+            <line
+              x1="355"
+              y1="150"
+              x2="355"
+              y2="220"
+              stroke="#000"
+              stroke-width="1.5"
+            />
+            <line
+              x1="349"
+              y1="150"
+              x2="361"
+              y2="150"
+              stroke="#000"
+              stroke-width="1.5"
+            />
+            <line
+              x1="349"
+              y1="220"
+              x2="361"
+              y2="220"
+              stroke="#000"
+              stroke-width="1.5"
+            />
+            <text x="370" y="190" font-size="18" font-family="Arial">3 m</text>
+
+            <!-- repères -->
+            <circle cx="80" cy="50" r="3.5" fill="#c0392b" />
+            <circle cx="530" cy="50" r="3.5" fill="#c0392b" />
+            <circle cx="530" cy="220" r="3.5" fill="#c0392b" />
+            <circle cx="340" cy="220" r="3.5" fill="#c0392b" />
+            <circle cx="340" cy="150" r="3.5" fill="#c0392b" />
+            <circle cx="80" cy="150" r="3.5" fill="#c0392b" />
+          </svg>
+        </div>
+
+        <div class="grid-2">
+          <div class="mini-card">
+            <p class="mini-title">Donnée complémentaire</p>
+            <p style="margin: 0">
+              Épaisseur prévue de la dalle :
+              <strong>18 cm</strong>
+            </p>
+          </div>
+          <div class="mini-card">
+            <p class="mini-title">Attention</p>
+            <p style="margin: 0">
+              Toutes les unités devront être cohérentes pour les calculs de
+              volume.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="doc">
+        <h3 style="margin-top: 0">Note du chef de chantier</h3>
+        <div class="handwritten notebook-lines handwritten">
+          <p>
+            Certains ont parlé de 96 m² de dalle. Je ne suis pas sûr. Vérifier
+            avec une méthode propre, pas juste "à vue".
+          </p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>Audit de Chantier</div>
+        <div>Plan</div>
+        <div>Page 3</div>
+      </div>
+    </div>
+
+    <!-- PAGE 4 -->
+    <div class="page">
+      <div class="tag">Document 3 - Fiche matériaux</div>
+      <h2>Prévision béton et matériaux</h2>
+
+      <div class="doc">
+        <h3 style="margin-top: 0">Fiche dosage transmise au chantier</h3>
+        <table class="excel-table">
+          <thead>
+            <tr>
+              <th>Pour 1 m³ de béton</th>
+              <th>Quantité</th>
+              <th>Unité</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Ciment</td>
+              <td><strong>350</strong></td>
+              <td>kg</td>
+            </tr>
+            <tr>
+              <td>Sable</td>
+              <td><strong>0,50</strong></td>
+              <td>m³</td>
+            </tr>
+            <tr>
+              <td>Gravier</td>
+              <td><strong>0,80</strong></td>
+              <td>m³</td>
+            </tr>
+            <tr>
+              <td>Eau</td>
+              <td><strong>175</strong></td>
+              <td>L</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="doc">
+        <h3 style="margin-top: 0">Commande provisoire déjà envisagée</h3>
+        <table class="excel-table">
+          <thead>
+            <tr>
+              <th>Produit</th>
+              <th>Quantité prévue</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Ciment</td>
+              <td>48 sacs de 35 kg</td>
+            </tr>
+            <tr>
+              <td>Sable</td>
+              <td>2,4 m³</td>
+            </tr>
+            <tr>
+              <td>Gravier</td>
+              <td>3,8 m³</td>
+            </tr>
+            <tr>
+              <td>Eau</td>
+              <td>840 L</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="alert-box">
+        <p style="margin: 0">
+          <strong>Consigne de sécurité logistique :</strong> prévoir
+          <strong>8 % de marge</strong> sur les matériaux pour tenir compte des
+          pertes et petits écarts de chantier.
+        </p>
+      </div>
+
+      <div class="doc">
+        <h3 style="margin-top: 0">Message radio retranscrit</h3>
+        <p style="margin: 0; font-family: 'Courier Prime', monospace">
+          "Si la dalle réelle dépasse ce qui a été prévu, on risque d'être juste
+          en ciment."
+        </p>
+      </div>
+
+      <div class="footer">
+        <div>Audit de Chantier</div>
+        <div>Matériaux</div>
+        <div>Page 4</div>
+      </div>
+    </div>
+
+    <!-- PAGE 5 -->
+    <div class="page">
+      <div class="tag">Document 4 - Charges</div>
+      <h2>Charges prévues sur la dalle</h2>
+
+      <div class="doc">
+        <p style="margin-top: 0">
+          Après coulage, certains éléments seront stockés temporairement sur la
+          dalle pendant <strong>24 h</strong>.
+        </p>
+
+        <table class="excel-table">
+          <thead>
+            <tr>
+              <th>Élément stocké</th>
+              <th>Masse</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Palette de blocs</td>
+              <td>850 kg</td>
+            </tr>
+            <tr>
+              <td>Palette de tuiles</td>
+              <td>620 kg</td>
+            </tr>
+            <tr>
+              <td>Big bag de sable</td>
+              <td>1 100 kg</td>
+            </tr>
+            <tr>
+              <td>Lot d'outillage et petit matériel</td>
+              <td>180 kg</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="doc">
+        <h3 style="margin-top: 0">Rappel physique</h3>
+        <p>
+          Pour convertir une masse en poids, on utilise la relation :
+          <strong>$P = m \times g$</strong>
+        </p>
+        <ul>
+          <li>$P$ en newtons (N)</li>
+          <li>$m$ en kilogrammes (kg)</li>
+          <li>$g \approx 10$ N/kg</li>
+        </ul>
+      </div>
+
+      <div class="doc">
+        <h3 style="margin-top: 0">Consigne du bureau d'études</h3>
+        <p style="margin: 0">
+          La zone de stockage provisoire étudiée ne doit pas dépasser
+          <strong>28 000 N</strong>.
+        </p>
+      </div>
+
+      <div class="doc">
+        <h3 style="margin-top: 0">Note du conducteur de travaux</h3>
+        <div class="handwritten notebook-lines handwritten">
+          <p>
+            On entend parfois "2 000 kg, ça va". Non. Il faut comparer avec la
+            bonne grandeur et garder les unités propres.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>Audit de Chantier</div>
+        <div>Charges</div>
+        <div>Page 5</div>
+      </div>
+    </div>
+
+    <!-- PAGE 6 -->
+    <div class="page">
+      <div class="tag">Document 5 - Qualité chantier</div>
+      <h2>Suivi des interventions et défauts</h2>
+
+      <div class="doc">
+        <div class="email-header">
+          <div class="email-field">
+            <span class="email-label">De :</span> qualite@batiest.fr
+          </div>
+          <div class="email-field">
+            <span class="email-label">À :</span> direction@batiest.fr
+          </div>
+          <div class="email-field">
+            <span class="email-label">Objet :</span>
+            <strong>Préparation réunion qualité</strong>
+          </div>
+        </div>
+        <p style="margin-top: 0">
+          Certaines équipes disent : "le plus gros problème vient forcément de
+          l'activité qui a le plus de défauts en nombre". D'autres disent qu'il
+          faut plutôt comparer les fréquences.
+        </p>
+      </div>
+
+      <div class="doc">
+        <table class="excel-table">
+          <thead>
+            <tr>
+              <th>Domaine</th>
+              <th>Interventions</th>
+              <th>Avec défaut</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Maçonnerie</td>
+              <td><strong>240</strong></td>
+              <td><strong>36</strong></td>
+            </tr>
+            <tr>
+              <td>Couverture</td>
+              <td><strong>90</strong></td>
+              <td><strong>18</strong></td>
+            </tr>
+            <tr>
+              <td>Plomberie</td>
+              <td><strong>180</strong></td>
+              <td><strong>27</strong></td>
+            </tr>
+            <tr>
+              <td>Électricité</td>
+              <td><strong>150</strong></td>
+              <td><strong>15</strong></td>
+            </tr>
+            <tr>
+              <td>Menuiserie</td>
+              <td><strong>100</strong></td>
+              <td><strong>14</strong></td>
+            </tr>
+            <tr>
+              <td>Peinture</td>
+              <td><strong>70</strong></td>
+              <td><strong>7</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="doc">
+        <h3 style="margin-top: 0">Remarque importante</h3>
+        <div class="handwritten notebook-lines handwritten">
+          <p>
+            Deux lectures possibles :<br />
+            1) qui a le plus de défauts en nombre ?<br />
+            2) qui a le plus gros taux de défaut ?<br />
+            Les deux ne racontent pas forcément la même histoire.
+          </p>
+        </div>
+      </div>
+
+      <div class="footer">
+        <div>Audit de Chantier</div>
+        <div>Qualité</div>
+        <div>Page 6</div>
+      </div>
+    </div>
+
+    <!-- PAGE 7 -->
+    <div class="page">
+      <div class="tag">Document 6 - Météo et décision</div>
+      <h2>Risque météo pour l'étape suivante</h2>
+
+      <div class="doc">
+        <h3 style="margin-top: 0">Prévision sur 10 créneaux possibles</h3>
+        <p style="margin-top: 0">
+          La pose de la membrane d'étanchéité ne peut se faire que sur un
+          créneau sans pluie. Les 10 créneaux possibles de la semaine sont
+          classés ainsi :
+        </p>
+
+        <table class="excel-table">
+          <thead>
+            <tr>
+              <th>Type de météo prévu</th>
+              <th>Nombre de créneaux</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Sec sans risque</td>
+              <td><strong>4</strong></td>
+            </tr>
+            <tr>
+              <td>Ciel variable mais exploitable</td>
+              <td><strong>3</strong></td>
+            </tr>
+            <tr>
+              <td>Averse possible</td>
+              <td><strong>2</strong></td>
+            </tr>
+            <tr>
+              <td>Pluie certaine</td>
+              <td><strong>1</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="doc">
+        <h3 style="margin-top: 0">Règle interne</h3>
+        <p>
+          L'entreprise considère comme
+          <strong>créneaux acceptables</strong> :
+        </p>
+        <ul>
+          <li>les créneaux "Sec sans risque" ;</li>
+          <li>les créneaux "Ciel variable mais exploitable".</li>
+        </ul>
+      </div>
+
+      <div class="doc">
+        <h3 style="margin-top: 0">Question posée par la direction</h3>
+        <p style="margin: 0; font-family: 'Courier Prime', monospace">
+          "A-t-on de bonnes chances de pouvoir intervenir cette semaine, ou
+          vaut-il mieux reporter ?"
+        </p>
+      </div>
+
+      <div class="footer">
+        <div>Audit de Chantier</div>
+        <div>Météo</div>
+        <div>Page 7</div>
+      </div>
+    </div>
+
+    <!-- PAGE 8 -->
+    <div class="page">
+      <div class="tag">Mission 1 - Géométrie et volume</div>
+      <h2>Mission 1 - Vérifier la dalle</h2>
+
+      <div class="mission">
+        À partir du plan, déterminer l'aire réelle de la dalle puis le volume de
+        béton nécessaire.
+      </div>
+
+      <div class="steps">
+        <p style="margin: 0">
+          <strong>À produire :</strong> une méthode lisible, les calculs, les
+          unités et une conclusion sur la valeur "96 m²" évoquée dans le
+          dossier.
+        </p>
+      </div>
+
+      <div class="work-box">
+        <p class="mini-title">1) Décomposer la forme et calculer l'aire</p>
+        <div class="write-area large"></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="work-box">
+          <p class="mini-title">2) Conversion de l'épaisseur</p>
+          <div class="write-area small"></div>
+        </div>
+        <div class="work-box">
+          <p class="mini-title">3) Calcul du volume de béton</p>
+          <div class="write-area small"></div>
+        </div>
+      </div>
+
+      <div class="work-box">
+        <p class="mini-title">4) Conclusion argumentée</p>
+        <div class="write-area medium"></div>
+      </div>
+
+      <div class="footer">
+        <div>Audit de Chantier</div>
+        <div>Mission 1</div>
+        <div>Page 8</div>
+      </div>
+    </div>
+
+    <!-- PAGE 9 -->
+    <div class="page">
+      <div class="tag">Mission 2 - Proportionnalité</div>
+      <h2>Mission 2 - Vérifier la commande de matériaux</h2>
+
+      <div class="mission">
+        En utilisant le volume trouvé à la mission 1, calculer les quantités
+        théoriques nécessaires, puis tenir compte de la marge de 8 %.
+      </div>
+
+      <div class="steps">
+        <p style="margin: 0">
+          <strong>À produire :</strong> au moins 4 calculs détaillés et une
+          réponse claire : la commande provisoire est-elle suffisante ou non ?
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="work-box">
+          <p class="mini-title">1) Quantités théoriques sans marge</p>
+          <div class="write-area large"></div>
+        </div>
+        <div class="work-box">
+          <p class="mini-title">2) Quantités avec marge de 8 %</p>
+          <div class="write-area large"></div>
+        </div>
+      </div>
+
+      <div class="work-box">
+        <p class="mini-title">3) Comparaison avec la commande déjà prévue</p>
+        <div class="write-area medium"></div>
+      </div>
+
+      <div class="work-box">
+        <p class="mini-title">4) Décision finale sur les matériaux</p>
+        <div class="write-area small"></div>
+      </div>
+
+      <div class="footer">
+        <div>Audit de Chantier</div>
+        <div>Mission 2</div>
+        <div>Page 9</div>
+      </div>
+    </div>
+
+    <!-- PAGE 10 -->
+    <div class="page">
+      <div class="tag">Mission 3 - Mécanique</div>
+      <h2>Mission 3 - Vérifier la charge stockée</h2>
+
+      <div class="mission">
+        Calculer le poids total correspondant aux éléments stockés sur la dalle
+        et dire si la limite autorisée est respectée.
+      </div>
+
+      <div class="steps">
+        <p style="margin: 0">
+          <strong>À produire :</strong> le total des masses, le calcul du poids
+          total, la comparaison avec 28 000 N, puis une conclusion exploitable
+          en réunion.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="work-box">
+          <p class="mini-title">1) Somme des masses</p>
+          <div class="write-area medium"></div>
+        </div>
+        <div class="work-box">
+          <p class="mini-title">2) Conversion masse - poids</p>
+          <div class="write-area medium"></div>
+        </div>
+      </div>
+
+      <div class="work-box">
+        <p class="mini-title">3) Comparaison avec la limite</p>
+        <div class="write-area medium"></div>
+      </div>
+
+      <div class="work-box">
+        <p class="mini-title">4) Conclusion de sécurité</p>
+        <div class="write-area small"></div>
+      </div>
+
+      <div class="footer">
+        <div>Audit de Chantier</div>
+        <div>Mission 3</div>
+        <div>Page 10</div>
+      </div>
+    </div>
+
+    <!-- PAGE 11 -->
+    <div class="page">
+      <div class="tag">Mission 4 - Statistiques et probabilités</div>
+      <h2>Mission 4 - Lire correctement le tableau qualité</h2>
+
+      <div class="mission">
+        La direction veut une réponse juste. Il ne suffit pas de dire quel
+        domaine a le plus de défauts en nombre. Il faut aussi comparer les
+        fréquences de défaut.
+      </div>
+
+      <div class="steps">
+        <p style="margin: 0">
+          <strong>À produire :</strong> au moins 4 fréquences ou probabilités
+          calculées, une comparaison, puis une conclusion en deux angles.
+        </p>
+      </div>
+
+      <div class="work-box">
+        <p class="mini-title">1) Calcul de 4 fréquences de défaut</p>
+        <div class="write-area large"></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="work-box">
+          <p class="mini-title">2) Qui a le plus de défauts en nombre ?</p>
+          <div class="write-area medium"></div>
+        </div>
+        <div class="work-box">
+          <p class="mini-title">3) Qui a le plus gros taux de défaut ?</p>
+          <div class="write-area medium"></div>
+        </div>
+      </div>
+
+      <div class="work-box">
+        <p class="mini-title">4) Conclusion type réunion</p>
+        <div class="write-area medium"></div>
+      </div>
+
+      <div class="footer">
+        <div>Audit de Chantier</div>
+        <div>Mission 4</div>
+        <div>Page 11</div>
+      </div>
+    </div>
+
+    <!-- PAGE 12 -->
+    <div class="page">
+      <div class="tag">Mission 5 - Décision météo</div>
+      <h2>Mission 5 - Décider si l'intervention peut avoir lieu</h2>
+
+      <div class="mission">
+        À partir des 10 créneaux proposés, déterminer la probabilité de pouvoir
+        intervenir dans un créneau acceptable.
+      </div>
+
+      <div class="steps">
+        <p style="margin: 0">
+          <strong>À produire :</strong> le repérage des cas favorables, le
+          calcul de la probabilité, puis une phrase de décision.
+        </p>
+      </div>
+
+      <div class="grid-2">
+        <div class="work-box">
+          <p class="mini-title">1) Cas favorables et cas possibles</p>
+          <div class="write-area medium"></div>
+        </div>
+        <div class="work-box">
+          <p class="mini-title">2) Probabilité d'un créneau acceptable</p>
+          <div class="write-area medium"></div>
+        </div>
+      </div>
+
+      <div class="work-box">
+        <p class="mini-title">3) Interprétation en langage courant</p>
+        <div class="write-area medium"></div>
+      </div>
+
+      <div class="work-box">
+        <p class="mini-title">4) Décision finale</p>
+        <div class="write-area small"></div>
+      </div>
+
+      <div class="footer">
+        <div>Audit de Chantier</div>
+        <div>Mission 5</div>
+        <div>Page 12</div>
+      </div>
+    </div>
+
+    <!-- PAGE 13 -->
+    <div class="page">
+      <div class="tag">Mission finale - Synthèse</div>
+      <h2>Mission 6 - Préparer la réponse globale</h2>
+
+      <div class="mission">
+        Vous êtes maintenant l'équipe d'audit. Vous devez formuler une réponse
+        globale à la direction.
+      </div>
+
+      <div class="steps">
+        <p style="margin: 0">
+          <strong>Consigne :</strong> rédiger une synthèse courte mais solide,
+          réutilisable en réunion, qui répond aux grandes questions du dossier.
+        </p>
+      </div>
+
+      <div class="work-box">
+        <p class="mini-title">1) Ce que vous avez vérifié</p>
+        <div class="write-area small"></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="work-box">
+          <p class="mini-title">2) Principal problème repéré</p>
+          <div class="write-area medium"></div>
+        </div>
+        <div class="work-box">
+          <p class="mini-title">3) Décision la plus urgente</p>
+          <div class="write-area.medium"></div>
+        </div>
+      </div>
+
+      <div class="work-box">
+        <p class="mini-title">4) Synthèse finale prête à lire à l'oral</p>
+        <div class="write-area xlarge"></div>
+      </div>
+
+      <div class="footer">
+        <div>Audit de Chantier</div>
+        <div>Mission 6</div>
+        <div>Page 13</div>
+      </div>
+    </div>
+
+    <!-- PAGE 14 -->
+    <div class="page">
+      <div class="tag">Préparation affiche</div>
+      <h2>Affiche récapitulative du groupe</h2>
+
+      <div class="mission">
+        En 1 heure, votre groupe doit préparer une affiche claire, visuelle et
+        convaincante pour la finale.
+      </div>
+
+      <div class="steps">
+        <p style="margin: 0">
+          <strong>L'affiche doit obligatoirement contenir :</strong>
+        </p>
+        <ul>
+          <li>un titre clair ;</li>
+          <li>un schéma ou un mini-plan du chantier ;</li>
+          <li>3 résultats importants ;</li>
+          <li>1 incohérence ou point de vigilance repéré ;</li>
+          <li>1 décision finale argumentée.</li>
+        </ul>
+      </div>
+
+      <div class="grid-3">
+        <div class="mini-card">
+          <p class="mini-title">Conseil 1</p>
+          <p style="margin: 0">
+            Faire apparaître les unités et les résultats utiles.
+          </p>
+        </div>
+        <div class="mini-card">
+          <p class="mini-title">Conseil 2</p>
+          <p style="margin: 0">
+            Ne pas recopier tout le dossier. Sélectionner l'essentiel.
+          </p>
+        </div>
+        <div class="mini-card">
+          <p class="mini-title">Conseil 3</p>
+          <p style="margin: 0">
+            Prévoir qui parle pendant la présentation finale.
+          </p>
+        </div>
+      </div>
+
+      <div class="work-box">
+        <p class="mini-title">Brouillon de l'affiche</p>
+        <div class="write-area poster"></div>
+      </div>
+
+      <div class="footer">
+        <div>Audit de Chantier</div>
+        <div>Affiche</div>
+        <div>Page 14</div>
+      </div>
+    </div>
+  </body>
+</html>

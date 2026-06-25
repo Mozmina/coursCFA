@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dossiers Investigation - Densité Maximale</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Kalam:wght@400&family=Courier+Prime&family=Playfair+Display:wght@700;900&display=swap');
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #525659;
+        font-size: 8.2pt;
+        color: #111;
+        line-height: 1.2;
+      }
+      .page {
+        width: 210mm;
+        height: 297mm;
+        padding: 8mm;
+        margin: 10px auto;
+        background: #fff;
+        position: relative;
+        overflow: hidden;
+        page-break-after: always;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #000;
+      }
+
+      /* Style Journal */
+      .journal-header {
+        text-align: center;
+        border-bottom: 5px double #000;
+        margin-bottom: 8px;
+        padding-bottom: 5px;
+      }
+      .journal-name {
+        font-family: 'Playfair Display', serif;
+        font-size: 32pt;
+        margin: 0;
+        text-transform: uppercase;
+        font-weight: 900;
+        letter-spacing: -1px;
+      }
+      .journal-meta {
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+        font-size: 7.5pt;
+        border-top: 1px solid #000;
+        padding: 2px 0;
+        margin-top: 3px;
+      }
+
+      .main-content {
+        display: grid;
+        grid-template-columns: 1fr 1.8fr 1fr;
+        gap: 10px;
+        flex-grow: 1;
+      }
+      .col {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+      .col-border {
+        border-right: 1px solid #ddd;
+        padding-right: 8px;
+      }
+
+      /* Articles */
+      .article {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 8px;
+      }
+      .article-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 14pt;
+        line-height: 1.1;
+        margin: 0 0 5px 0;
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+      .article-subtitle {
+        font-weight: bold;
+        color: #c0392b;
+        font-size: 7pt;
+        margin-bottom: 3px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .lead {
+        font-weight: bold;
+        font-size: 8.5pt;
+        margin-bottom: 5px;
+        font-style: italic;
+      }
+
+      /* Blocs annexes */
+      .box-grey {
+        background: #f4f4f4;
+        padding: 8px;
+        border: 1px solid #ccc;
+        margin-bottom: 8px;
+      }
+      .box-black {
+        background: #111;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+        margin-bottom: 8px;
+        font-weight: bold;
+      }
+      .mini-title {
+        font-weight: 900;
+        text-transform: uppercase;
+        font-size: 7.5pt;
+        border-bottom: 1px solid #000;
+        margin-bottom: 4px;
+        padding-bottom: 2px;
+      }
+      .ad {
+        font-size: 7.2pt;
+        margin-bottom: 6px;
+        border-bottom: 1px dashed #ccc;
+        padding-bottom: 4px;
+        line-height: 1.1;
+      }
+
+      /* Handwriting */
+      .handwritten {
+        font-family: 'Kalam', cursive;
+        color: #0b2a7a;
+        font-size: 10pt;
+        background: #fff9c4;
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #e6db55;
+      }
+
+      /* Admin Page */
+      .admin-title {
+        background: #111;
+        color: #fff;
+        padding: 15px;
+        margin: 0;
+        font-family: 'Playfair Display';
+        font-size: 18pt;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+      .tech-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 15px;
+        padding: 15px;
+      }
+      .tech-box {
+        border: 1px solid #000;
+        padding: 12px;
+        position: relative;
+      }
+      .tech-content {
+        font-family: 'Courier Prime', monospace;
+        font-size: 8.5pt;
+        background: #f9f9f9;
+        padding: 10px;
+        border: 1px solid #ddd;
+      }
+      .work-zone {
+        flex-grow: 1;
+        border: 2px dashed #bbb;
+        margin: 15px;
+        padding: 15px;
+        background: #fafafa;
+      }
+
+      .footer {
+        border-top: 1px solid #000;
+        padding-top: 4px;
+        font-size: 7pt;
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+      }
+
+      @media print {
+        body {
+          background: #fff;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+        }
+        .btn-print {
+          display: none;
+        }
+      }
+      .btn-print {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        padding: 12px 25px;
+        background: #c0392b;
+        color: #fff;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 100;
+        border-radius: 4px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+      }
+    </style>
+  </head>
+  <body>
+    <button class="btn-print" onclick="window.print()">
+      🖨️ IMPRIMER LE DOSSIER COMPLET (8 PAGES)
+    </button>
+
+    <div class="page">
+      <div class="journal-header">
+        <h1 class="journal-name">L'Écho des Chantiers</h1>
+        <div class="journal-meta">
+          <span>EDITION MARNE-ARDENNES</span><span>LUNDI 16 FÉVRIER 2026</span
+          ><span>PRIX: 1,50€</span>
+        </div>
+      </div>
+      <div class="main-content">
+        <div class="col col-border">
+          <div class="box-grey">
+            <div class="mini-title">Faits Divers & Brèves</div>
+            <p class="ad">
+              <strong>SÉCURITÉ :</strong> Nouveau rappel sur les harnais de
+              sécurité défectueux. Vérifiez vos stocks ce
+              <strong>semestre</strong>.
+            </p>
+            <p class="ad">
+              <strong>REIMS :</strong> Chantier de la cathédrale. Le
+              <strong>groupe</strong> maçonnerie intervient demain.
+            </p>
+            <p class="ad">
+              <strong>CFA :</strong> La cafétéria fermée pour travaux jusqu'à la
+              prochaine <strong>séance</strong>.
+            </p>
+          </div>
+          <div class="article">
+            <div class="article-subtitle">Économie locale</div>
+            <h3 class="article-title">Le bois en hausse, le béton stagne</h3>
+            <p>
+              Les tarifs des matériaux continuent de fluctuer. Pour les
+              <strong>apprentis</strong> en CAP MIT, la gestion des stocks
+              devient un exercice quotidien ardu.
+            </p>
+          </div>
+          <div class="box-black">
+            OFFRE SPÉCIALE : -25% sur l'outillage électroportatif au dépôt !
+          </div>
+        </div>
+        <div class="col col-border">
+          <div class="article">
+            <div class="article-subtitle">Vie Scolaire / Événement</div>
+            <h3 class="article-title">
+              POLÉMIQUE AU STAND N°1 : LA ROUE TOURNE-T-ELLE ROND ?
+            </h3>
+            <p class="lead">
+              Certains parlent de "jackpot trop facile", d'autres de "ruine
+              programmée" pour le budget du <strong>semestre</strong>.
+            </p>
+            <p>
+              Lors de la dernière <strong>séance</strong>, Lucas,
+              <strong>apprenti</strong>, a misé 5€ et remporté 15€ en un clin
+              d'œil. "C'est plus rentable que mon salaire !" rigole-t-il. Mais
+              le trésorier du <strong>groupe</strong> s'inquiète : si la
+              probabilité du rouge est trop élevée, le stand fermera.
+            </p>
+            <p>
+              Le responsable se défend : "Il y a 12 secteurs au total, tout est
+              équilibré par construction." La direction attend un rapport
+              mathématique précis.
+            </p>
+          </div>
+          <div
+            style="
+              border: 2px solid #000;
+              padding: 10px;
+              text-align: center;
+              font-style: italic;
+              background: #fefefe;
+            "
+          >
+            [IMAGE : SCHÉMA TECHNIQUE DE LA ROUE R-12 - VOIR PAGE ADMINISTRATIVE
+            SUIVANTE]
+          </div>
+        </div>
+        <div class="col">
+          <div class="article">
+            <h3 class="article-title">MÉTÉO</h3>
+            <p>
+              <strong>REIMS :</strong> 12°C. Ciel dégagé. Idéal pour les
+              activités en extérieur de ce <strong>semestre</strong>.
+            </p>
+          </div>
+          <div class="box-grey">
+            <div class="mini-title">Petites Annonces</div>
+            <p class="ad">
+              <strong>VENDS :</strong> Mallette à outils Facom complète.
+              Contactez le <strong>groupe</strong> élec.
+            </p>
+            <p class="ad">
+              <strong>RECHERCHE :</strong> Stage pour le prochain
+              <strong>semestre</strong> en plomberie. Urgent.
+            </p>
+            <p class="ad">
+              <strong>INFO :</strong> Réunion des
+              <strong>apprentis</strong> demain 12h en salle B12.
+            </p>
+          </div>
+          <div class="handwritten">
+            "J'ai entouré l'article. Lucas dit qu'il a mis 5€, c'est notre mise
+            de départ. On doit calculer si c'est rentable pour nous !"
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <span>L'ÉCHO DES CHANTIERS - N°442</span><span>PAGE 1/2 - JEU 1</span>
+      </div>
+    </div>
+    <div class="page">
+      <h1 class="admin-title">ARCHIVES ADMINISTRATIVES - CFA BTP</h1>
+      <div class="tech-grid">
+        <div class="tech-box">
+          <div class="mini-title">Fiche d'Homologation Jeu R-12</div>
+          <p><strong>Approuvé par :</strong> Direction des Examens BTP</p>
+          <div class="tech-content">
+            OBJET : ROUE DE LOTERIE 80CM<br />
+            MATÉRIAU : CONTREPLAQUÉ MARINE 18MM<br />
+            NBRE SECTEURS : 12 (Angulations de 30°)<br />
+            RÉPARTITION COULEURS :<br />
+            - ROUGE : SECTEURS 6 ET 12<br />
+            - JAUNE : SECTEURS 2, 4, 8, 10<br />
+            - BLEU : TOUT LE RESTE<br />
+            ----------------------------<br />
+            GAINS PAR <strong>APPRENTI</strong> :<br />
+            - COULEUR R : 15,00 €<br />
+            - COULEUR J : 7,00 €<br />
+            - COULEUR B : 2,00 €
+          </div>
+        </div>
+        <div class="col">
+          <div class="box-grey">
+            <p class="mini-title">MAIL INTERNE - CONFIDENTIEL</p>
+            <p>
+              <strong>De :</strong> direction@cfa.fr<br /><strong
+                >Objet :</strong
+              >
+              Bilan <strong>séance</strong><br />Attention, la mise est fixée à
+              5€ par les <strong>apprentis</strong>. Vérifiez les probabilités.
+            </p>
+          </div>
+          <div class="handwritten" style="background: #e3f2fd">
+            "Note de réunion : On a 6 secteurs bleus si on compte bien le
+            'reste'. Ça fait 50% de chances de ne rendre que 2€ sur les 5€ de
+            mise !"
+          </div>
+        </div>
+      </div>
+      <div class="work-zone">
+        <div class="mini-title">Espace de travail du Groupe de Recherche</div>
+        <div
+          style="
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 20px;
+            margin-top: 40px;
+          "
+        >
+          <div style="border-bottom: 1px solid #ccc; height: 30px">
+            MISE : ............ €
+          </div>
+          <div style="border-bottom: 1px solid #ccc; height: 30px">
+            NB ISSUES : ............
+          </div>
+          <div style="border-bottom: 1px solid #ccc; height: 30px">
+            GAIN MAX : ............ €
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <span>ARCHIVES CFA - DOCUMENT TECHNIQUE</span
+        ><span>PAGE 2/2 - JEU 1</span>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="journal-header">
+        <h1 class="journal-name">La Voix du Bâtiment</h1>
+        <div class="journal-meta">
+          <span>N° 102 - GRAND EST</span><span>MARDI 17 FÉVRIER 2026</span
+          ><span>PRIX: 1,20€</span>
+        </div>
+      </div>
+      <div class="main-content">
+        <div class="col col-border">
+          <div class="box-black">
+            MÉTÉO : ATTENTION AU GEL SUR LES CHANTIERS
+          </div>
+          <div class="article">
+            <div class="article-subtitle">Innovation</div>
+            <h3 class="article-title">Le dé à 10 faces arrive au CFA</h3>
+            <p>
+              Le <strong>groupe</strong> Électricité innove pour ce
+              <strong>semestre</strong>. Exit le dé cubique, place au décagone !
+            </p>
+          </div>
+          <div class="box-grey">
+            <div class="mini-title">Bourse à l'emploi</div>
+            <p class="ad">
+              <strong>OFFRE :</strong> 12 postes d'<strong>apprentis</strong>
+              MIT à pourvoir sur Reims.
+            </p>
+          </div>
+        </div>
+        <div class="col col-border">
+          <div class="article">
+            <div class="article-subtitle">Loisirs & Mathématiques</div>
+            <h3 class="article-title">
+              DÉFI D10 : UN JEU REDOUTABLE POUR LES APPRENTIS
+            </h3>
+            <p class="lead">
+              Mise de 5€, un seul lancer. Tout se joue sur la parité des
+              chiffres.
+            </p>
+            <p>
+              Le règlement du stand Élec est strict. Si vous sortez un chiffre
+              impair (1, 3, 5, 7, 9), vous perdez tout. Mais les chiffres pairs
+              rapportent ! 7€ pour les plus courants, et un jackpot de 20€ pour
+              le chiffre 10.
+            </p>
+            <p>
+              "J'ai perdu 3 fois de suite, c'est une arnaque !" peste un
+              <strong>apprenti</strong>. Pourtant, le
+              <strong>groupe</strong> jure que le dé n'est pas lesté.
+            </p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="box-grey">
+            <div class="mini-title">Brèves de comptoir</div>
+            <p class="ad">
+              <strong>CFA :</strong> Le prochain <strong>semestre</strong> sera
+              chargé en examens.
+            </p>
+            <p class="ad">
+              <strong>SPORT :</strong> L'équipe de foot des
+              <strong>apprentis</strong> gagne 2-0.
+            </p>
+          </div>
+          <div class="handwritten">
+            "Attention : le chiffre 10 est pair, mais il ne rapporte pas 7€. Il
+            a son propre gain de 20€. Ne l'oublie pas dans l'arbre !"
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <span>LA VOIX DU BÂTIMENT - N°102</span><span>PAGE 1/2 - JEU 2</span>
+      </div>
+    </div>
+    <div class="page">
+      <h1 class="admin-title">DOCUMENTS TECHNIQUES - PROJET D10-26</h1>
+      <div class="tech-grid">
+        <div class="tech-box">
+          <div class="mini-title">Spécifications du matériel</div>
+          <div class="tech-content">
+            OBJET : DÉ POLYÉDRIQUE 10 FACES (D10)<br />
+            GRAVURE : Chiffres de 1 à 10<br />
+            ÉQUIPROBABILITÉ : Certifiée conforme<br />
+            P(chaque face) = 1/10 = 0,1<br />
+            ----------------------------<br />
+            GRILLE DES GAINS (VALIDÉE) :<br />
+            - {1, 3, 5, 7, 9} : Gain 0,00 €<br />
+            - {2, 4, 6, 8} : Gain 7,00 €<br />
+            - {10} : Gain 20,00 €<br />
+            MISE PAR <strong>SÉANCE</strong> : 5,00 €
+          </div>
+        </div>
+        <div class="col">
+          <div class="handwritten" style="background: #fff">
+            "Rappel : Une expérience est aléatoire si on connaît les issues mais
+            pas le résultat à l'avance. C'est bien le cas ici avec notre D10 !"
+          </div>
+        </div>
+      </div>
+      <div class="work-zone">
+        <div class="mini-title">Calculs préliminaires du Groupe</div>
+        <div
+          style="
+            margin-top: 40px;
+            border-bottom: 1px solid #ccc;
+            height: 30px;
+            width: 50%;
+          "
+        >
+          Nombre d'issues favorables au Jackpot : ............
+        </div>
+        <div
+          style="
+            margin-top: 20px;
+            border-bottom: 1px solid #ccc;
+            height: 30px;
+            width: 50%;
+          "
+        >
+          Probabilité de gagner plus que la mise : ............
+        </div>
+      </div>
+      <div class="footer">
+        <span>ARCHIVES CFA - PROJET D10</span><span>PAGE 2/2 - JEU 2</span>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="journal-header">
+        <h1 class="journal-name">Le Mag de l'Apprenti</h1>
+        <div class="journal-meta">
+          <span>HORS-SÉRIE SPÉCIAL JEUX</span><span>2026</span
+          ><span>MARNE</span>
+        </div>
+      </div>
+      <div class="main-content">
+        <div class="col col-border">
+          <div class="box-grey">
+            <strong>OFFRE :</strong> Stages pour le prochain
+            <strong>semestre</strong> dispo en carrelage.
+          </div>
+          <div class="article">
+            <h3 class="article-title">Le sac aux 20 cartes</h3>
+            <p>
+              Un jeu de mots simple mais efficace pour la
+              <strong>séance</strong> de demain.
+            </p>
+          </div>
+        </div>
+        <div class="col col-border">
+          <div class="article">
+            <div class="article-subtitle">Chantier & Hasard</div>
+            <h3 class="article-title">Tirez "BETON" et gagnez 25€ !</h3>
+            <p class="lead">
+              Mise de 5€. On pioche un mot au hasard dans l'urne opaque.
+            </p>
+            <p>
+              Le <strong>groupe</strong> des plaquistes a préparé 20 cartes. Si
+              vous tirez "BETON", c'est le jackpot. Si le mot pioché fait
+              exactement 6 lettres, vous gagnez 8€. Et pour le mot "BOIS", vous
+              récupérez 2€.
+            </p>
+            <p>
+              "C'est dur de gagner 25€ car il n'y a pas beaucoup de cartes
+              BETON" confie un <strong>apprenti</strong>.
+            </p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="handwritten">
+            "Fais bien le tri : BOIS fait 4 lettres, BRIQUE fait 6 lettres, et
+            BETON fait 5 lettres ! Calcule bien les issues !"
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <span>LE MAG DE L'APPRENTI</span><span>PAGE 1/2 - JEU 3</span>
+      </div>
+    </div>
+    <div class="page">
+      <h1 class="admin-title">INVENTAIRE DU SAC MYSTÈRE</h1>
+      <div class="tech-grid">
+        <div class="tech-box">
+          <div class="mini-title">Contenu certifié de l'urne</div>
+          <div class="tech-content">
+            TOTAL CARTES : 20<br />
+            RÉPARTITION :<br />
+            - 10 x Mot "BOIS" (4 lettres)<br />
+            - 6 x Mot "BRIQUE" (6 lettres)<br />
+            - 4 x Mot "BETON" (5 lettres)<br />
+            ----------------------------<br />
+            GAINS PAR TIRAGE :<br />
+            - MOT "BETON" : 25,00 €<br />
+            - MOT DE 6 LETTRES : 8,00 €<br />
+            - MOT "BOIS" : 2,00 €<br />
+            MISE : 5,00 €
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <span>ARCHIVES CFA - INVENTAIRE</span><span>PAGE 2/2 - JEU 3</span>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="journal-header">
+        <h1 class="journal-name">Journal du Bâtiment</h1>
+        <div class="journal-meta">
+          <span>INFO TRAVAIL</span><span>FÉVRIER 2026</span><span>MARNE</span>
+        </div>
+      </div>
+      <div class="main-content">
+        <div class="col col-border">
+          <div class="box-black">CUMUL DES GAINS EXCEPTIONNEL !</div>
+          <div class="article">
+            <h3 class="article-title">Bilan Semestre</h3>
+            <p>
+              Le <strong>groupe</strong> Maçonnerie présente son jeu de 50
+              jetons numérotés.
+            </p>
+          </div>
+        </div>
+        <div class="col col-border">
+          <div class="article">
+            <div class="article-subtitle">Le Défi du 50</div>
+            <h3 class="article-title">UNE CHANCE SUR 50 POUR LE GROS LOT</h3>
+            <p class="lead">
+              Mise 5€. On tire un numéro entre 1 et 50. Tout peut arriver.
+            </p>
+            <p>
+              Les règles sont uniques : les 30 premiers numéros ne rapportent
+              rien. Mais les multiples de 10 font gagner 10€. Et si vous tirez
+              le chiffre 50, vous gagnez 50€ de bonus ! "On peut gagner 60€ d'un
+              coup" explique un <strong>apprenti</strong>.
+            </p>
+          </div>
+        </div>
+        <div class="col">
+          <div class="handwritten">
+            "Attention, le 50 est un multiple de 10 ET le jackpot. Les gains se
+            cumulent vraiment !"
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <span>JOURNAL DU BÂTIMENT</span><span>PAGE 1/2 - JEU 4</span>
+      </div>
+    </div>
+    <div class="page">
+      <h1 class="admin-title">SPÉCIFICATIONS - JEU 1-50</h1>
+      <div class="tech-grid">
+        <div class="tech-box">
+          <div class="mini-title">Détail des issues gagnantes</div>
+          <div class="tech-content">
+            BOULES DANS L'URNE : 1 à 50<br />
+            RÈGLES DE GAIN :<br />
+            - Numéros 1 à 30 : 0,00 €<br />
+            - Multiples de 10 {10, 20, 30, 40, 50} : 10,00 €<br />
+            - Numéro {50} : Bonus Jackpot 50,00 €<br />
+            ----------------------------<br />
+            MISE PAR <strong>APPRENTI</strong> : 5,00 €
+          </div>
+        </div>
+      </div>
+      <div class="footer">
+        <span>ARCHIVES CFA - TIRAGE 1-50</span><span>PAGE 2/2 - JEU 4</span>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Page de Garde - Expertise Apprentissage</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background-color: #f3f4f6;
+        display: flex;
+        justify-content: center;
+        padding: 2rem 1rem;
+      }
+
+      .page {
+        background-color: white;
+        width: 100%;
+        max-w: 21cm; /* A4 width */
+        min-height: 29.7cm; /* A4 height */
+        padding: 4rem; /* Marges plus généreuses */
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15); /* Ombre plus douce et moderne */
+      }
+
+      .font-heading {
+        font-family: 'Poppins', sans-serif;
+      }
+
+      @media print {
+        body {
+          background-color: white;
+          padding: 0;
+        }
+        .page {
+          box-shadow: none;
+          padding: 2cm;
+          width: 21cm;
+          height: 29.7cm;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="page flex flex-col relative mx-auto bg-white overflow-hidden rounded-xl print:rounded-none z-0"
+    >
+      <!-- Formes abstraites en arrière-plan pour un look moderne -->
+      <div
+        class="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-yellow-200 rounded-full mix-blend-multiply filter blur-[80px] opacity-40 z-[-1] print:hidden"
+      ></div>
+      <div
+        class="absolute bottom-[-5%] left-[-10%] w-[400px] h-[400px] bg-amber-100 rounded-full mix-blend-multiply filter blur-[80px] opacity-60 z-[-1] print:hidden"
+      ></div>
+
+      <!-- HEADER (Logos officiels) -->
+      <header class="flex justify-between items-center mb-16">
+        <!-- Logo Left (CCCA BTP) -->
+        <div class="flex items-center">
+          <img
+            src="https://www.ccca-btp.fr/sites/default/files/icons/logo_couleurs.svg"
+            alt="Logo CCCA BTP"
+            class="h-14 object-contain"
+          />
+        </div>
+
+        <!-- Logo Right (BTP CFA GRAND EST) -->
+        <div class="flex flex-col items-end">
+          <img
+            src="https://btpcfa-grandest.fr/wp-content/uploads/2024/08/Logo-Campus-Header-x2.png"
+            alt="Logo BTP CFA Grand Est"
+            class="h-16 object-contain"
+          />
+        </div>
+      </header>
+
+      <!-- TITRE & GRILLE D'INFO (Remplace le vieux tableau) -->
+      <div class="mb-14 relative">
+        <div
+          class="inline-block px-4 py-1.5 rounded-full bg-yellow-100 text-yellow-800 font-bold text-sm tracking-wide mb-4 font-heading uppercase shadow-sm"
+        >
+          Session 2025–2027
+        </div>
+
+        <h2
+          class="text-[2.5rem] font-black text-gray-900 tracking-tight leading-tight mb-10 font-heading"
+        >
+          Expertise
+          <span
+            class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600"
+            >Apprentissage</span
+          >
+        </h2>
+
+        <!-- Grille d'information type "Cartes" -->
+        <div
+          class="grid grid-cols-2 gap-y-6 gap-x-8 bg-white/80 backdrop-blur-sm p-8 rounded-3xl shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100 relative overflow-hidden"
+        >
+          <!-- Ligne décorative jaune sur le côté -->
+          <div
+            class="absolute left-0 top-0 bottom-0 w-2 bg-gradient-to-b from-yellow-300 to-amber-500"
+          ></div>
+
+          <div>
+            <p
+              class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1"
+            >
+              Organisme de formation
+            </p>
+            <p class="text-gray-800 font-semibold text-lg">BTP CFA Grand Est</p>
+          </div>
+          <div>
+            <p
+              class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1"
+            >
+              Campus
+            </p>
+            <p class="text-gray-800 font-semibold text-lg">
+              Campus de la Marne - Reims
+            </p>
+          </div>
+          <div>
+            <p
+              class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1"
+            >
+              Dispositif
+            </p>
+            <p class="text-gray-800 font-semibold text-lg">
+              Expertise apprentissage
+            </p>
+          </div>
+          <div>
+            <p
+              class="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1"
+            >
+              Période
+            </p>
+            <p class="text-gray-800 font-semibold text-lg">2025 - 2027</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CONTENU PRINCIPAL : Image + Textes -->
+      <div class="flex flex-row flex-grow mt-2 gap-12 items-center">
+        <!-- Gauche : Image modernisée -->
+        <div class="w-5/12 relative">
+          <!-- Fond décalé jaune -->
+          <div
+            class="absolute inset-0 bg-yellow-400 rounded-[2rem] transform translate-x-4 translate-y-4 opacity-40 print:opacity-100 print:bg-yellow-200"
+          ></div>
+          <!-- Image principale -->
+          <div
+            class="relative w-full h-[380px] rounded-[2rem] overflow-hidden shadow-xl border-4 border-white"
+          >
+            <img
+              src="https://classwise-reservation.netlify.app/photocfa.jpg"
+              alt="Campus BTP CFA"
+              class="w-full h-full object-cover transition-transform duration-700 hover:scale-105"
+            />
+          </div>
+        </div>
+
+        <!-- Droite : Module & Auteur -->
+        <div class="w-7/12 flex flex-col justify-center py-4">
+          <!-- Info Module -->
+          <div class="mb-14">
+            <div class="inline-flex items-center gap-4 mb-5">
+              <span class="w-12 h-1.5 bg-amber-400 rounded-full"></span>
+              <h3
+                class="text-amber-500 text-2xl font-black font-heading tracking-widest uppercase"
+              >
+                US FA02
+              </h3>
+            </div>
+            <p
+              class="text-gray-900 font-extrabold text-3xl leading-snug font-heading"
+            >
+              L'alternance en formation <br />
+              <span class="text-gray-500 font-medium text-2xl mt-2 block"
+                >système, acteurs, partenaires</span
+              >
+            </p>
+          </div>
+
+          <!-- Info Auteur (Carte moderne) -->
+          <div
+            class="mt-auto bg-gray-50/80 rounded-2xl p-6 border border-gray-100 flex items-center gap-5 shadow-sm"
+          >
+            <div
+              class="w-16 h-16 rounded-full overflow-hidden border-2 border-white shadow-sm flex-shrink-0"
+            >
+              <img
+                src="https://classwise-reservation.netlify.app/matt.png"
+                alt="Photo Matthieu OZMINA"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div>
+              <h2 class="text-xl font-bold text-gray-900 font-heading">
+                Matthieu OZMINA
+              </h2>
+              <p class="text-amber-600 font-semibold text-sm mb-0.5">
+                Formateur Maths-Sciences
+              </p>
+              <p class="text-gray-500 text-sm font-medium">
+                BTP CFA GRAND EST - Marne
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

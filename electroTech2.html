@@ -1,0 +1,3553 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Électrotechnique CAP - Dossier complet</title>
+    <style>
+      :root {
+        --ink: #1f2937;
+        --muted: #5f6b7a;
+        --blue: #184f78;
+        --blue-2: #eaf3f8;
+        --cyan: #dff5f5;
+        --gold: #f2b84b;
+        --gold-2: #fff6df;
+        --green: #2f7d62;
+        --green-2: #e8f5ef;
+        --red: #a63d40;
+        --red-2: #fdecec;
+        --line: #c8d2dc;
+        --paper: #ffffff;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        margin: 0;
+        font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+        color: var(--ink);
+        background: #e7edf2;
+        line-height: 1.35;
+      }
+
+      .toolbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: center;
+        padding: 10px;
+        background: #102a3d;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+      }
+      .toolbar button {
+        border: 0;
+        border-radius: 8px;
+        padding: 10px 16px;
+        font-weight: 700;
+        cursor: pointer;
+        background: #fff;
+        color: #102a3d;
+      }
+      .toolbar button.primary {
+        background: var(--gold);
+      }
+      .toolbar .state {
+        color: #fff;
+        font-size: 13px;
+        opacity: 0.9;
+      }
+
+      .document {
+        padding: 18px 0 36px;
+      }
+      .page {
+        width: 210mm;
+        height: 297mm;
+        min-height: 297mm;
+        margin: 0 auto 18px;
+        background: var(--paper);
+        padding: 11mm 13mm 12mm;
+        position: relative;
+        box-shadow: 0 3px 18px rgba(32, 48, 64, 0.16);
+        overflow: hidden;
+        page-break-after: always;
+      }
+      .page:last-child {
+        page-break-after: auto;
+      }
+
+      .page-number {
+        position: absolute;
+        bottom: 5mm;
+        right: 13mm;
+        font-size: 10px;
+        color: #718096;
+      }
+      .footer-note {
+        position: absolute;
+        bottom: 5mm;
+        left: 13mm;
+        font-size: 9px;
+        color: #718096;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        margin: 0;
+        color: var(--blue);
+        line-height: 1.15;
+      }
+      h1 {
+        font-size: 30px;
+      }
+      h2 {
+        font-size: 22px;
+        margin-bottom: 8px;
+      }
+      h3 {
+        font-size: 16px;
+        margin: 12px 0 6px;
+      }
+      h4 {
+        font-size: 13px;
+        margin: 8px 0 4px;
+      }
+      p {
+        margin: 6px 0;
+      }
+      ul,
+      ol {
+        margin: 6px 0 6px 22px;
+        padding: 0;
+      }
+      li {
+        margin: 3px 0;
+      }
+
+      /* Première page - présentation habituelle des dossiers */
+      .first-page {
+        background: #fff;
+        color: #000;
+        padding: 10mm 12mm;
+      }
+      .first-page .header-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #000;
+        margin-bottom: 10px;
+      }
+      .first-page .header-table td {
+        border: 1px solid #000;
+        padding: 4px 8px;
+        vertical-align: top;
+        background: #fff;
+      }
+      .first-page .row-info td {
+        height: 30px;
+        font-weight: 700;
+        font-size: 9.5pt;
+        padding-top: 5px;
+      }
+      .first-page .logo-cell {
+        width: 25%;
+        padding: 4px !important;
+        text-align: center;
+        vertical-align: middle !important;
+        height: 72px;
+      }
+      .first-page .logo-btp {
+        max-width: 100%;
+        height: auto;
+        max-height: 62px;
+      }
+      .first-page .title-cell {
+        text-align: center;
+        vertical-align: middle !important;
+        padding: 4px !important;
+      }
+      .first-page .title-main {
+        display: block;
+        font-size: 15pt;
+        font-weight: 800;
+        text-transform: uppercase;
+        line-height: 1.1;
+        color: #000;
+      }
+      .first-page .title-sub {
+        display: block;
+        margin-top: 3px;
+        font-size: 10.5pt;
+        font-style: italic;
+        color: #000;
+      }
+      .first-page .objectives-box {
+        background: #eee;
+        padding: 10px;
+        border: 1px solid #000;
+        margin-bottom: 10px;
+      }
+      .first-page .objectives-box h4 {
+        margin: 0 0 6px 0;
+        text-decoration: underline;
+        color: #000;
+        font-size: 10.5pt;
+      }
+      .first-page .objectives-box ul {
+        padding-left: 18px;
+        margin: 0;
+      }
+      .first-page .first-title {
+        font-size: 12pt;
+        background: #2c3e50;
+        color: #fff;
+        padding: 5px 10px;
+        margin: 10px 0 7px;
+        border-left: 7px solid #f1c40f;
+      }
+      .first-page .intro-box {
+        border-left: 4px solid #27ae60;
+        background: #f0fff4;
+        padding: 7px 9px;
+        margin: 7px 0;
+        font-size: 9.5pt;
+      }
+      .first-page .key-box {
+        border: 2px solid #c0392b;
+        background: #fff5f5;
+        padding: 12px 10px 9px;
+        margin: 13px 0 9px;
+        position: relative;
+        border-radius: 4px;
+      }
+      .first-page .key-box::before {
+        content: 'RELATIONS À CONNAÎTRE';
+        position: absolute;
+        top: -10px;
+        left: 15px;
+        background: #c0392b;
+        color: #fff;
+        padding: 1px 8px;
+        font-weight: 700;
+        font-size: 9pt;
+      }
+      .first-page .first-formulas {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 4px;
+      }
+      .first-page .first-formula {
+        border: 1px solid #2980b9;
+        background: #eaf2f8;
+        border-radius: 5px;
+        padding: 10px 6px;
+        text-align: center;
+        color: #173f5b;
+        font-weight: 800;
+        font-size: 18px;
+      }
+      .first-page .method-box {
+        border: 1px solid #000;
+        padding: 8px 10px;
+        margin-top: 8px;
+        background: #fff;
+      }
+      .first-page .method-box h3 {
+        font-size: 11pt;
+        color: #d35400;
+        border-bottom: 1px solid #d35400;
+        padding-bottom: 2px;
+        margin: 0 0 6px;
+      }
+      .first-page .method-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px 18px;
+        font-size: 9.5pt;
+      }
+      .first-page .method-item {
+        display: flex;
+        gap: 7px;
+        align-items: flex-start;
+      }
+      .first-page .method-num {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #2c3e50;
+        color: #fff;
+        display: grid;
+        place-items: center;
+        flex: 0 0 auto;
+        font-weight: 700;
+        font-size: 9pt;
+      }
+      .first-page .footer-page {
+        position: absolute;
+        bottom: 7mm;
+        left: 12mm;
+        right: 12mm;
+        border-top: 1px solid #000;
+        padding-top: 4px;
+        font-size: 8.5pt;
+        display: flex;
+        justify-content: space-between;
+        background: #fff;
+        color: #000;
+      }
+      .first-page .formula-name {
+        display: block;
+        font-size: 8.5pt;
+        color: #5c6f7d;
+        margin-bottom: 4px;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+      }
+      .first-page .habitual-subtitle {
+        font-size: 11pt;
+        color: #d35400;
+        border-bottom: 1px solid #d35400;
+        padding-bottom: 2px;
+        margin: 10px 0 6px;
+      }
+      .first-page .method-box {
+        margin-top: 0;
+      }
+      .first-page .first-reminder {
+        border-left: 4px solid #d35400;
+        background: #fff7ef;
+        padding: 7px 9px;
+        margin-top: 9px;
+        font-size: 9.3pt;
+      }
+      .cover {
+        background: linear-gradient(
+          150deg,
+          #0e3b5b 0%,
+          #17648f 55%,
+          #2c8d9b 100%
+        );
+        color: #fff;
+      }
+      .cover h1,
+      .cover h2,
+      .cover h3 {
+        color: #fff;
+      }
+      .cover .kicker {
+        display: inline-block;
+        padding: 7px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.55);
+        border-radius: 999px;
+        font-weight: 700;
+        letter-spacing: 0.6px;
+        font-size: 12px;
+      }
+      .cover .title-wrap {
+        margin-top: 22mm;
+        max-width: 155mm;
+      }
+      .cover h1 {
+        font-size: 38px;
+        margin: 8px 0 10px;
+      }
+      .cover .subtitle {
+        font-size: 19px;
+        max-width: 145mm;
+        color: #eaf7fb;
+      }
+      .cover-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 12mm;
+        align-items: center;
+        margin-top: 20mm;
+      }
+      .cover-card {
+        background: rgba(255, 255, 255, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 14px;
+        padding: 14px;
+        backdrop-filter: blur(2px);
+      }
+      .cover-formulas {
+        display: grid;
+        gap: 10px;
+      }
+      .cover-formula {
+        background: #fff;
+        color: #14354b;
+        border-radius: 12px;
+        padding: 13px 16px;
+        font-size: 22px;
+        font-weight: 800;
+        text-align: center;
+        box-shadow: 0 5px 16px rgba(0, 0, 0, 0.15);
+      }
+      .identity {
+        margin-top: 16mm;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 16px;
+      }
+      .identity div {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.7);
+        padding: 8px 2px;
+        font-weight: 600;
+      }
+
+      .section-title {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        border-bottom: 3px solid var(--gold);
+        padding-bottom: 7px;
+        margin-bottom: 11px;
+      }
+      .section-number {
+        width: 34px;
+        height: 34px;
+        display: grid;
+        place-items: center;
+        border-radius: 9px;
+        background: var(--blue);
+        color: #fff;
+        font-weight: 800;
+        flex: 0 0 auto;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+      }
+      .grid-4 {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 8px;
+      }
+      .cols-65 {
+        display: grid;
+        grid-template-columns: 1.45fr 0.75fr;
+        gap: 14px;
+      }
+      .cols-60 {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 14px;
+      }
+      .mt8 {
+        margin-top: 8px;
+      }
+      .mt12 {
+        margin-top: 12px;
+      }
+      .mt16 {
+        margin-top: 16px;
+      }
+      .center {
+        text-align: center;
+      }
+      .small {
+        font-size: 11px;
+      }
+      .tiny {
+        font-size: 9.5px;
+      }
+      .muted {
+        color: var(--muted);
+      }
+
+      .card {
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 10px 12px;
+        background: #fff;
+      }
+      .card.blue {
+        background: var(--blue-2);
+        border-color: #b9d4e5;
+      }
+      .card.gold {
+        background: var(--gold-2);
+        border-color: #eed28f;
+      }
+      .card.green {
+        background: var(--green-2);
+        border-color: #b9ddcd;
+      }
+      .card.red {
+        background: var(--red-2);
+        border-color: #efc5c6;
+      }
+      .card h3:first-child,
+      .card h4:first-child {
+        margin-top: 0;
+      }
+
+      .notion {
+        border-left: 5px solid var(--blue);
+        background: #f4f8fb;
+        padding: 9px 11px;
+        border-radius: 0 8px 8px 0;
+        margin: 8px 0;
+      }
+      .warning {
+        border-left: 5px solid var(--red);
+        background: var(--red-2);
+        padding: 9px 11px;
+        border-radius: 0 8px 8px 0;
+        margin: 8px 0;
+      }
+      .tip {
+        border-left: 5px solid var(--green);
+        background: var(--green-2);
+        padding: 9px 11px;
+        border-radius: 0 8px 8px 0;
+        margin: 8px 0;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11.5px;
+      }
+      th,
+      td {
+        border: 1px solid #aebbc7;
+        padding: 6px 7px;
+        vertical-align: middle;
+      }
+      th {
+        background: #ddeaf2;
+        color: #173f5b;
+        font-weight: 800;
+      }
+      tr:nth-child(even) td {
+        background: #f8fafc;
+      }
+      .compact th,
+      .compact td {
+        padding: 4.5px 6px;
+        font-size: 10.5px;
+      }
+
+      .equation {
+        background: #102f45;
+        color: #fff;
+        border-radius: 10px;
+        padding: 10px 14px;
+        text-align: center;
+        font-size: 23px;
+        font-weight: 800;
+        letter-spacing: 0.4px;
+        margin: 8px 0;
+      }
+      .equation.light {
+        background: #eaf3f8;
+        color: #173f5b;
+        border: 1px solid #bcd4e4;
+      }
+      .formula-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      .formula-chip {
+        border: 1px solid #b9ccd9;
+        background: #f6fafc;
+        border-radius: 8px;
+        padding: 8px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: 800;
+        color: #173f5b;
+      }
+
+      .method {
+        counter-reset: step;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7px 10px;
+      }
+      .method div {
+        counter-increment: step;
+        display: flex;
+        gap: 8px;
+        align-items: flex-start;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 7px;
+        font-size: 11px;
+      }
+      .method div:before {
+        content: counter(step);
+        width: 21px;
+        height: 21px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        background: var(--blue);
+        color: white;
+        font-weight: 800;
+        flex: 0 0 auto;
+      }
+
+      .worked {
+        border: 2px solid #92b9d0;
+        border-radius: 11px;
+        overflow: hidden;
+        margin: 9px 0;
+      }
+      .worked .head {
+        background: #dcecf5;
+        padding: 7px 10px;
+        font-weight: 800;
+        color: #173f5b;
+      }
+      .worked .body {
+        padding: 9px 11px;
+      }
+      .calc {
+        background: #f7fafc;
+        border-left: 4px solid var(--gold);
+        padding: 7px 10px;
+        margin: 6px 0;
+        font-family: Consolas, 'Courier New', monospace;
+        font-size: 12px;
+      }
+
+      .exercise {
+        border: 1px solid #b8c4cf;
+        border-radius: 10px;
+        padding: 9px 11px;
+        margin: 8px 0;
+        break-inside: avoid;
+      }
+      .exercise .title {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        font-weight: 800;
+        color: #173f5b;
+        margin-bottom: 5px;
+      }
+      .badge {
+        display: inline-block;
+        border-radius: 999px;
+        padding: 3px 8px;
+        font-size: 9.5px;
+        font-weight: 800;
+        background: #e6eef4;
+        color: #173f5b;
+        white-space: nowrap;
+      }
+      .badge.easy {
+        background: #e6f4eb;
+        color: #2c6b50;
+      }
+      .badge.mid {
+        background: #fff0cc;
+        color: #805b0a;
+      }
+      .badge.hard {
+        background: #f9dddd;
+        color: #8c3438;
+      }
+
+      .answer-lines {
+        margin-top: 6px;
+      }
+      .answer-lines span {
+        display: block;
+        border-bottom: 1px dotted #8b98a5;
+        height: 15px;
+      }
+      .answer-lines.tight span {
+        height: 12px;
+      }
+
+      .fillbox {
+        display: inline-block;
+        min-width: 58px;
+        border-bottom: 1.5px solid #334155;
+        height: 16px;
+        vertical-align: bottom;
+      }
+
+      .svg-box {
+        border: 1px solid #c9d5df;
+        border-radius: 10px;
+        padding: 7px;
+        background: #fbfdfe;
+      }
+      svg {
+        max-width: 100%;
+        height: auto;
+        display: block;
+      }
+      .legend {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 12px;
+        font-size: 9.5px;
+        color: #44515d;
+        margin-top: 5px;
+      }
+      .legend span {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+      .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+      .dot.red {
+        background: #b43b41;
+      }
+      .dot.blue {
+        background: #1f6aa5;
+      }
+      .dot.green {
+        background: #2f7d62;
+      }
+      .dot.gold {
+        background: #d99b28;
+      }
+
+      .checklist {
+        display: grid;
+        grid-template-columns: 1fr auto auto auto;
+        gap: 0;
+        border: 1px solid #b9c5cf;
+        border-radius: 9px;
+        overflow: hidden;
+        font-size: 11px;
+      }
+      .checklist div {
+        padding: 7px;
+        border-right: 1px solid #cbd5dd;
+        border-bottom: 1px solid #cbd5dd;
+      }
+      .checklist div:nth-child(4n) {
+        border-right: 0;
+      }
+      .checklist div:nth-last-child(-n + 4) {
+        border-bottom: 0;
+      }
+      .checklist .head {
+        background: #e7f0f6;
+        font-weight: 800;
+        text-align: center;
+      }
+
+      .solution-page {
+        display: none;
+      }
+      body.show-solutions .solution-page {
+        display: block;
+      }
+      .solution-answer {
+        background: #f0f8f3;
+        border-left: 4px solid var(--green);
+        padding: 7px 9px;
+        margin: 5px 0;
+        font-size: 11px;
+      }
+
+      .mini-formula {
+        background: #eef5f9;
+        border: 1px solid #c6d9e5;
+        border-radius: 8px;
+        padding: 7px;
+        text-align: center;
+        font-weight: 800;
+        color: #153f5c;
+      }
+
+      .no-break {
+        break-inside: avoid;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      @media print {
+        html,
+        body {
+          margin: 0 !important;
+          padding: 0 !important;
+          background: #fff !important;
+        }
+        body {
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+          line-height: 1.29;
+        }
+        .toolbar {
+          display: none !important;
+        }
+        .document {
+          padding: 0 !important;
+          margin: 0 !important;
+        }
+        .page {
+          margin: 0 !important;
+          box-shadow: none !important;
+          width: 210mm !important;
+          height: 297mm !important;
+          min-height: 297mm !important;
+          padding: 9mm 12mm 13mm !important;
+          overflow: hidden !important;
+          page-break-after: always !important;
+          break-after: page !important;
+        }
+        .page:last-child {
+          page-break-after: auto !important;
+          break-after: auto !important;
+        }
+        .first-page {
+          padding: 8mm 11mm 12mm !important;
+        }
+        .section-title {
+          padding-bottom: 5px;
+          margin-bottom: 8px;
+        }
+        .section-number {
+          width: 31px;
+          height: 31px;
+        }
+        h2 {
+          font-size: 20px;
+          margin-bottom: 6px;
+        }
+        h3 {
+          margin: 9px 0 5px;
+        }
+        p {
+          margin: 4px 0;
+        }
+        ul,
+        ol {
+          margin-top: 4px;
+          margin-bottom: 4px;
+        }
+        li {
+          margin: 2px 0;
+        }
+        .card {
+          padding: 8px 10px;
+        }
+        .notion,
+        .warning,
+        .tip {
+          padding: 7px 9px;
+          margin: 6px 0;
+        }
+        .worked {
+          margin: 7px 0;
+        }
+        .worked .head {
+          padding: 6px 9px;
+        }
+        .worked .body {
+          padding: 7px 9px;
+        }
+        .calc {
+          padding: 6px 8px;
+          margin: 4px 0;
+        }
+        .exercise {
+          padding: 7px 9px;
+          margin: 6px 0;
+          break-inside: avoid-page;
+        }
+        .answer-lines {
+          margin-top: 4px;
+        }
+        .answer-lines span {
+          height: 13px;
+        }
+        .answer-lines.tight span {
+          height: 10px;
+        }
+        table {
+          font-size: 11px;
+        }
+        th,
+        td {
+          padding: 5px 6px;
+        }
+        .compact th,
+        .compact td {
+          padding: 4px 5px;
+          font-size: 10px;
+        }
+        .mt12 {
+          margin-top: 9px;
+        }
+        .mt16 {
+          margin-top: 12px;
+        }
+        .grid-2 {
+          gap: 10px;
+        }
+        .grid-3 {
+          gap: 8px;
+        }
+        .grid-4 {
+          gap: 7px;
+        }
+        .cols-65,
+        .cols-60 {
+          gap: 11px;
+        }
+        .page-number,
+        .footer-note {
+          bottom: 5mm;
+        }
+        .solution-page {
+          display: none !important;
+        }
+        body.show-solutions .solution-page {
+          display: block !important;
+        }
+
+        /* Pages d'exercices les plus chargées */
+        .document > .page:nth-of-type(8) .exercise,
+        .document > .page:nth-of-type(10) .exercise,
+        .document > .page:nth-of-type(13) .exercise {
+          margin: 5px 0;
+          padding: 6px 8px;
+        }
+        .document > .page:nth-of-type(8) .answer-lines span,
+        .document > .page:nth-of-type(10) .answer-lines span,
+        .document > .page:nth-of-type(13) .answer-lines span {
+          height: 11px;
+        }
+      }
+
+      /* Mise en page mobile uniquement à l'écran : ne doit jamais modifier l'impression */
+      @media screen and (max-width: 900px) {
+        .page {
+          width: 100%;
+          min-height: auto;
+          margin: 0 0 12px;
+          padding: 20px;
+        }
+        .grid-2,
+        .grid-3,
+        .grid-4,
+        .cols-65,
+        .cols-60,
+        .cover-grid {
+          grid-template-columns: 1fr;
+        }
+        .identity {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <button class="primary" onclick="window.print()">
+        Imprimer le dossier
+      </button>
+      <button onclick="toggleSolutions()">Afficher la correction finale</button>
+      <span class="state" id="solutionState">Correction finale masquée</span>
+    </div>
+
+    <div class="document">
+      <!-- PAGE 1 -->
+      <section class="page first-page">
+        <table class="header-table">
+          <tr class="row-info">
+            <td>Nom :</td>
+            <td>Prénom :</td>
+            <td>Groupe :</td>
+            <td>Date :</td>
+          </tr>
+          <tr>
+            <td class="logo-cell">
+              <img
+                src="data:image/png;base64,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"
+                alt="Logo BTP CFA"
+                class="logo-btp"
+              />
+            </td>
+            <td colspan="3" class="title-cell">
+              <span class="title-main">SCIENCES PHYSIQUES (CAP)</span>
+              <span class="title-sub"
+                >Électrotechnique - Tension, intensité, puissance et
+                énergie</span
+              >
+            </td>
+          </tr>
+        </table>
+
+        <div class="objectives-box">
+          <h4>OBJECTIFS DU DOSSIER (CAP)</h4>
+          <ul>
+            <li>
+              <strong>Reconnaître :</strong> les grandeurs électriques, leurs
+              symboles et leurs unités.
+            </li>
+            <li>
+              <strong>Calculer :</strong> une tension, une intensité ou une
+              résistance avec la loi d'Ohm.
+            </li>
+            <li>
+              <strong>Déterminer :</strong> la puissance et l'énergie consommée
+              par un appareil.
+            </li>
+            <li>
+              <strong>Choisir :</strong> la relation adaptée et présenter
+              correctement un calcul.
+            </li>
+            <li>
+              <strong>Appliquer :</strong> les lois des tensions et des
+              intensités dans un circuit.
+            </li>
+          </ul>
+        </div>
+
+        <h2 class="first-title">
+          0. Introduction - Les calculs essentiels en électrotechnique
+        </h2>
+
+        <div class="intro-box">
+          <strong>À quoi sert ce dossier ?</strong> Il rassemble les principales
+          notions d'électrotechnique étudiées en CAP. Chaque relation est
+          d'abord expliquée, puis utilisée dans un exemple corrigé avant les
+          exercices à réaliser en autonomie.
+        </div>
+
+        <div class="key-box">
+          <p style="margin-top: 0">
+            <strong>Les trois relations fondamentales du dossier :</strong>
+          </p>
+          <div class="first-formulas">
+            <div class="first-formula">
+              <span class="formula-name">Loi d'Ohm</span>U = R × I
+            </div>
+            <div class="first-formula">
+              <span class="formula-name">Puissance</span>P = U × I
+            </div>
+            <div class="first-formula">
+              <span class="formula-name">Énergie</span>E = P × t
+            </div>
+          </div>
+        </div>
+
+        <h3 class="habitual-subtitle">
+          La méthode à utiliser dans tous les exercices
+        </h3>
+        <div class="method-box">
+          <div class="method-grid">
+            <div class="method-item">
+              <span class="method-num">1</span
+              ><span>Relever les données et préciser ce que l'on cherche.</span>
+            </div>
+            <div class="method-item">
+              <span class="method-num">2</span
+              ><span>Convertir les valeurs dans des unités compatibles.</span>
+            </div>
+            <div class="method-item">
+              <span class="method-num">3</span
+              ><span>Choisir et écrire la relation littérale.</span>
+            </div>
+            <div class="method-item">
+              <span class="method-num">4</span
+              ><span>Remplacer les lettres par les valeurs numériques.</span>
+            </div>
+            <div class="method-item">
+              <span class="method-num">5</span
+              ><span>Effectuer le calcul et écrire l'unité.</span>
+            </div>
+            <div class="method-item">
+              <span class="method-num">6</span
+              ><span>Rédiger une phrase de conclusion.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="first-reminder">
+          <strong>Point de vigilance :</strong> une formule n'est utilisable que
+          si les valeurs sont exprimées dans des unités compatibles. Par
+          exemple, il faut convertir les milliampères en ampères et les watts en
+          kilowatts lorsque cela est nécessaire.
+        </div>
+
+        <div class="footer-page">
+          <div>M. OZMINA</div>
+          <div>CAP - Électrotechnique</div>
+          <div>Page 1</div>
+        </div>
+      </section>
+
+      <!-- PAGE 2 -->
+      <section class="page">
+        <div class="section-title">
+          <div class="section-number">1</div>
+          <div>
+            <h2>Les grandeurs électriques</h2>
+            <div class="muted small">
+              Reconnaître les symboles, les unités et les appareils de mesure
+            </div>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Grandeur</th>
+              <th>Symbole</th>
+              <th>Unité</th>
+              <th>Symbole de l'unité</th>
+              <th>Appareil de mesure</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Tension électrique</td>
+              <td class="center"><b>U</b></td>
+              <td>volt</td>
+              <td class="center"><b>V</b></td>
+              <td>voltmètre</td>
+            </tr>
+            <tr>
+              <td>Intensité électrique</td>
+              <td class="center"><b>I</b></td>
+              <td>ampère</td>
+              <td class="center"><b>A</b></td>
+              <td>ampèremètre</td>
+            </tr>
+            <tr>
+              <td>Résistance électrique</td>
+              <td class="center"><b>R</b></td>
+              <td>ohm</td>
+              <td class="center"><b>Ω</b></td>
+              <td>ohmmètre</td>
+            </tr>
+            <tr>
+              <td>Puissance électrique</td>
+              <td class="center"><b>P</b></td>
+              <td>watt</td>
+              <td class="center"><b>W</b></td>
+              <td>wattmètre ou plaque signalétique</td>
+            </tr>
+            <tr>
+              <td>Énergie électrique</td>
+              <td class="center"><b>E</b></td>
+              <td>wattheure ou kilowattheure</td>
+              <td class="center"><b>Wh ou kWh</b></td>
+              <td>compteur électrique</td>
+            </tr>
+            <tr>
+              <td>Durée</td>
+              <td class="center"><b>t</b></td>
+              <td>seconde ou heure</td>
+              <td class="center"><b>s ou h</b></td>
+              <td>chronomètre ou horloge</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="grid-3 mt12">
+          <div class="card blue">
+            <h3>La tension U</h3>
+            <p>
+              Elle représente la différence d'état électrique entre deux points.
+              Elle se mesure entre deux bornes.
+            </p>
+          </div>
+          <div class="card gold">
+            <h3>L'intensité I</h3>
+            <p>
+              Elle représente le débit de charges électriques qui circule dans
+              un conducteur.
+            </p>
+          </div>
+          <div class="card green">
+            <h3>La résistance R</h3>
+            <p>
+              Elle s'oppose au passage du courant électrique et limite
+              l'intensité.
+            </p>
+          </div>
+        </div>
+
+        <div class="cols-60 mt12">
+          <div>
+            <h3>Un circuit électrique simple</h3>
+            <div class="svg-box">
+              <svg
+                viewBox="0 0 640 260"
+                role="img"
+                aria-label="Circuit simple avec pile, interrupteur et lampe"
+              >
+                <defs>
+                  <marker
+                    id="arrowBlue"
+                    markerWidth="9"
+                    markerHeight="9"
+                    refX="7"
+                    refY="3"
+                    orient="auto"
+                  >
+                    <path d="M0,0 L0,6 L8,3 z" fill="#1f6aa5" />
+                  </marker>
+                </defs>
+                <rect
+                  x="8"
+                  y="8"
+                  width="624"
+                  height="244"
+                  rx="16"
+                  fill="#ffffff"
+                />
+                <path
+                  d="M110 70 H245"
+                  stroke="#283746"
+                  stroke-width="6"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M310 70 H515 V190 H370"
+                  stroke="#283746"
+                  stroke-width="6"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M270 70 L305 45"
+                  stroke="#283746"
+                  stroke-width="6"
+                  stroke-linecap="round"
+                />
+                <circle cx="250" cy="70" r="6" fill="#283746" />
+                <circle cx="315" cy="70" r="6" fill="#283746" />
+                <path
+                  d="M290 190 H110 V70"
+                  stroke="#283746"
+                  stroke-width="6"
+                  fill="none"
+                  stroke-linecap="round"
+                />
+                <line
+                  x1="290"
+                  y1="165"
+                  x2="290"
+                  y2="215"
+                  stroke="#283746"
+                  stroke-width="5"
+                />
+                <line
+                  x1="320"
+                  y1="155"
+                  x2="320"
+                  y2="225"
+                  stroke="#283746"
+                  stroke-width="9"
+                />
+                <path d="M320 190 H370" stroke="#283746" stroke-width="6" />
+                <circle
+                  cx="515"
+                  cy="130"
+                  r="42"
+                  fill="#fff7df"
+                  stroke="#283746"
+                  stroke-width="5"
+                />
+                <path
+                  d="M487 102 L543 158 M543 102 L487 158"
+                  stroke="#d99b28"
+                  stroke-width="7"
+                />
+                <path
+                  d="M145 70 H220"
+                  stroke="#1f6aa5"
+                  stroke-width="4"
+                  marker-end="url(#arrowBlue)"
+                />
+                <text
+                  x="178"
+                  y="55"
+                  font-size="21"
+                  fill="#1f6aa5"
+                  font-weight="700"
+                >
+                  I
+                </text>
+                <text
+                  x="278"
+                  y="242"
+                  font-size="18"
+                  fill="#263746"
+                  text-anchor="middle"
+                >
+                  générateur
+                </text>
+                <text
+                  x="515"
+                  y="235"
+                  font-size="18"
+                  fill="#263746"
+                  text-anchor="middle"
+                >
+                  lampe
+                </text>
+                <text
+                  x="282"
+                  y="31"
+                  font-size="18"
+                  fill="#263746"
+                  text-anchor="middle"
+                >
+                  interrupteur ouvert
+                </text>
+                <text
+                  x="83"
+                  y="133"
+                  font-size="18"
+                  fill="#263746"
+                  text-anchor="middle"
+                  transform="rotate(-90 83 133)"
+                >
+                  conducteur
+                </text>
+              </svg>
+            </div>
+          </div>
+          <div>
+            <div class="notion">
+              <b>Circuit fermé :</b> le courant peut circuler.
+            </div>
+            <div class="notion">
+              <b>Circuit ouvert :</b> le courant ne circule pas.
+            </div>
+            <div class="warning">
+              <b>Sécurité :</b> un ohmmètre s'utilise toujours sur un circuit
+              hors tension.
+            </div>
+            <div class="tip">
+              <b>À retenir :</b> le courant conventionnel circule du pôle + vers
+              le pôle - à l'extérieur du générateur.
+            </div>
+          </div>
+        </div>
+
+        <div class="page-number">2</div>
+      </section>
+
+      <!-- PAGE 3 -->
+      <section class="page">
+        <div class="section-title">
+          <div class="section-number">2</div>
+          <div>
+            <h2>Mesurer une tension et une intensité</h2>
+            <div class="muted small">Brancher correctement le multimètre</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card blue">
+            <h3>Mesure de l'intensité</h3>
+            <p>
+              L'ampèremètre se branche <b>en série</b>. Le courant traverse
+              l'appareil de mesure.
+            </p>
+            <div class="svg-box mt8">
+              <svg
+                viewBox="0 0 560 250"
+                role="img"
+                aria-label="Ampèremètre branché en série"
+              >
+                <defs>
+                  <marker
+                    id="a1"
+                    markerWidth="9"
+                    markerHeight="9"
+                    refX="7"
+                    refY="3"
+                    orient="auto"
+                  >
+                    <path d="M0,0 L0,6 L8,3 z" fill="#1f6aa5" />
+                  </marker>
+                </defs>
+                <path
+                  d="M70 60 H170"
+                  stroke="#263746"
+                  stroke-width="6"
+                  fill="none"
+                />
+                <circle
+                  cx="220"
+                  cy="60"
+                  r="38"
+                  fill="#eaf3f8"
+                  stroke="#263746"
+                  stroke-width="5"
+                />
+                <text
+                  x="220"
+                  y="70"
+                  font-size="34"
+                  text-anchor="middle"
+                  fill="#184f78"
+                  font-weight="800"
+                >
+                  A
+                </text>
+                <path
+                  d="M258 60 H465 V190 H340"
+                  stroke="#263746"
+                  stroke-width="6"
+                  fill="none"
+                />
+                <rect
+                  x="250"
+                  y="165"
+                  width="90"
+                  height="50"
+                  rx="10"
+                  fill="#fff6df"
+                  stroke="#263746"
+                  stroke-width="4"
+                />
+                <path d="M250 190 H120" stroke="#263746" stroke-width="6" />
+                <line
+                  x1="120"
+                  y1="160"
+                  x2="120"
+                  y2="220"
+                  stroke="#263746"
+                  stroke-width="5"
+                />
+                <line
+                  x1="95"
+                  y1="170"
+                  x2="95"
+                  y2="210"
+                  stroke="#263746"
+                  stroke-width="9"
+                />
+                <path
+                  d="M95 190 H70 V60"
+                  stroke="#263746"
+                  stroke-width="6"
+                  fill="none"
+                />
+                <path
+                  d="M90 60 H150"
+                  stroke="#1f6aa5"
+                  stroke-width="4"
+                  marker-end="url(#a1)"
+                />
+                <text
+                  x="119"
+                  y="44"
+                  font-size="20"
+                  fill="#1f6aa5"
+                  font-weight="700"
+                >
+                  I
+                </text>
+                <text
+                  x="295"
+                  y="197"
+                  font-size="17"
+                  text-anchor="middle"
+                  fill="#263746"
+                >
+                  récepteur
+                </text>
+                <text
+                  x="220"
+                  y="122"
+                  font-size="16"
+                  text-anchor="middle"
+                  fill="#184f78"
+                >
+                  branché en série
+                </text>
+              </svg>
+            </div>
+          </div>
+
+          <div class="card gold">
+            <h3>Mesure de la tension</h3>
+            <p>
+              Le voltmètre se branche <b>en dérivation</b> aux bornes du dipôle.
+            </p>
+            <div class="svg-box mt8">
+              <svg
+                viewBox="0 0 560 250"
+                role="img"
+                aria-label="Voltmètre branché en dérivation"
+              >
+                <path
+                  d="M70 60 H465 V190 H340"
+                  stroke="#263746"
+                  stroke-width="6"
+                  fill="none"
+                />
+                <rect
+                  x="250"
+                  y="165"
+                  width="90"
+                  height="50"
+                  rx="10"
+                  fill="#fff6df"
+                  stroke="#263746"
+                  stroke-width="4"
+                />
+                <path d="M250 190 H120" stroke="#263746" stroke-width="6" />
+                <line
+                  x1="120"
+                  y1="160"
+                  x2="120"
+                  y2="220"
+                  stroke="#263746"
+                  stroke-width="5"
+                />
+                <line
+                  x1="95"
+                  y1="170"
+                  x2="95"
+                  y2="210"
+                  stroke="#263746"
+                  stroke-width="9"
+                />
+                <path
+                  d="M95 190 H70 V60"
+                  stroke="#263746"
+                  stroke-width="6"
+                  fill="none"
+                />
+                <path
+                  d="M250 165 V100 H255"
+                  stroke="#a63d40"
+                  stroke-width="5"
+                  fill="none"
+                />
+                <path
+                  d="M340 165 V100 H335"
+                  stroke="#a63d40"
+                  stroke-width="5"
+                  fill="none"
+                />
+                <circle
+                  cx="295"
+                  cy="100"
+                  r="38"
+                  fill="#fdecec"
+                  stroke="#a63d40"
+                  stroke-width="5"
+                />
+                <text
+                  x="295"
+                  y="111"
+                  font-size="34"
+                  text-anchor="middle"
+                  fill="#a63d40"
+                  font-weight="800"
+                >
+                  V
+                </text>
+                <text
+                  x="295"
+                  y="198"
+                  font-size="17"
+                  text-anchor="middle"
+                  fill="#263746"
+                >
+                  récepteur
+                </text>
+                <text
+                  x="295"
+                  y="58"
+                  font-size="16"
+                  text-anchor="middle"
+                  fill="#a63d40"
+                >
+                  branché en dérivation
+                </text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2 mt12">
+          <div>
+            <h3>Conversions indispensables</h3>
+            <table class="compact">
+              <tr>
+                <th>Préfixe</th>
+                <th>Signification</th>
+                <th>Exemple</th>
+              </tr>
+              <tr>
+                <td>milli</td>
+                <td>diviser par 1 000</td>
+                <td>500 mA = 0,5 A</td>
+              </tr>
+              <tr>
+                <td>kilo</td>
+                <td>multiplier par 1 000</td>
+                <td>2,5 kW = 2 500 W</td>
+              </tr>
+              <tr>
+                <td>heure</td>
+                <td>60 minutes</td>
+                <td>30 min = 0,5 h</td>
+              </tr>
+            </table>
+            <div class="notion">
+              <b>Avant tout calcul :</b> les valeurs doivent être exprimées dans
+              des unités compatibles.
+            </div>
+          </div>
+          <div>
+            <h3>Exercice rapide</h3>
+            <div class="exercise">
+              <ol>
+                <li>750 mA = <span class="fillbox"></span> A</li>
+                <li>3,2 A = <span class="fillbox"></span> mA</li>
+                <li>1,8 kW = <span class="fillbox"></span> W</li>
+                <li>2 400 Wh = <span class="fillbox"></span> kWh</li>
+                <li>45 min = <span class="fillbox"></span> h</li>
+                <li>1 h 30 min = <span class="fillbox"></span> h</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="mt12">Méthode de résolution d'un problème électrique</h3>
+        <div class="method">
+          <div>Relever les données et leurs unités.</div>
+          <div>Identifier la grandeur recherchée.</div>
+          <div>Convertir les valeurs si nécessaire.</div>
+          <div>Choisir la relation adaptée.</div>
+          <div>Remplacer les lettres par les valeurs.</div>
+          <div>Calculer et écrire l'unité.</div>
+          <div>Rédiger une phrase de conclusion.</div>
+          <div>Vérifier que le résultat est cohérent.</div>
+        </div>
+
+        <div class="page-number">3</div>
+      </section>
+
+      <!-- PAGE 4 -->
+      <section class="page">
+        <div class="section-title">
+          <div class="section-number">3</div>
+          <div>
+            <h2>La loi d'Ohm</h2>
+            <div class="muted small">
+              Relier la tension, l'intensité et la résistance
+            </div>
+          </div>
+        </div>
+
+        <div class="cols-65">
+          <div>
+            <div class="equation">U = R × I</div>
+            <div class="formula-row">
+              <div class="formula-chip">U = R × I</div>
+              <div class="formula-chip">I = U ÷ R</div>
+              <div class="formula-chip">R = U ÷ I</div>
+            </div>
+            <div class="notion">
+              <b>Interprétation :</b> à tension constante, si la résistance
+              augmente, l'intensité diminue.
+            </div>
+            <div class="warning">
+              <b>Attention :</b> utiliser U en volts, I en ampères et R en ohms.
+            </div>
+          </div>
+          <div class="svg-box">
+            <svg
+              viewBox="0 0 420 300"
+              role="img"
+              aria-label="Circuit illustrant la loi d'Ohm"
+            >
+              <defs>
+                <marker
+                  id="a2"
+                  markerWidth="9"
+                  markerHeight="9"
+                  refX="7"
+                  refY="3"
+                  orient="auto"
+                >
+                  <path d="M0,0 L0,6 L8,3 z" fill="#1f6aa5" />
+                </marker>
+              </defs>
+              <path
+                d="M70 65 H335 V235 H250"
+                stroke="#263746"
+                stroke-width="6"
+                fill="none"
+              />
+              <rect
+                x="150"
+                y="205"
+                width="100"
+                height="60"
+                rx="8"
+                fill="#fff6df"
+                stroke="#263746"
+                stroke-width="4"
+              />
+              <path d="M150 235 H100" stroke="#263746" stroke-width="6" />
+              <line
+                x1="100"
+                y1="205"
+                x2="100"
+                y2="265"
+                stroke="#263746"
+                stroke-width="5"
+              />
+              <line
+                x1="75"
+                y1="215"
+                x2="75"
+                y2="255"
+                stroke="#263746"
+                stroke-width="9"
+              />
+              <path
+                d="M75 235 H70 V65"
+                stroke="#263746"
+                stroke-width="6"
+                fill="none"
+              />
+              <path
+                d="M100 65 H230"
+                stroke="#1f6aa5"
+                stroke-width="4"
+                marker-end="url(#a2)"
+              />
+              <text
+                x="165"
+                y="49"
+                font-size="20"
+                fill="#1f6aa5"
+                font-weight="700"
+              >
+                I
+              </text>
+              <text
+                x="200"
+                y="241"
+                font-size="24"
+                fill="#8a5b0d"
+                text-anchor="middle"
+                font-weight="800"
+              >
+                R
+              </text>
+              <path d="M140 185 H260" stroke="#a63d40" stroke-width="3" />
+              <path
+                d="M140 180 l-12 5 l12 5 M260 180 l12 5 l-12 5"
+                fill="none"
+                stroke="#a63d40"
+                stroke-width="3"
+              />
+              <text
+                x="200"
+                y="173"
+                font-size="20"
+                fill="#a63d40"
+                text-anchor="middle"
+                font-weight="700"
+              >
+                U
+              </text>
+              <text
+                x="88"
+                y="292"
+                font-size="15"
+                fill="#263746"
+                text-anchor="middle"
+              >
+                générateur
+              </text>
+              <text
+                x="200"
+                y="291"
+                font-size="15"
+                fill="#263746"
+                text-anchor="middle"
+              >
+                résistance
+              </text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="worked">
+          <div class="head">Exemple corrigé 1 - Calculer une intensité</div>
+          <div class="body">
+            <p>
+              Une résistance de 6 Ω est alimentée sous une tension de 12 V.
+              Calculer l'intensité.
+            </p>
+            <div class="calc">
+              Données : U = 12 V et R = 6 Ω<br />Relation : I = U ÷ R<br />Calcul
+              : I = 12 ÷ 6 = 2 A
+            </div>
+            <p><b>Conclusion :</b> l'intensité du courant est de 2 A.</p>
+          </div>
+        </div>
+
+        <div class="worked">
+          <div class="head">
+            Exemple corrigé 2 - Convertir avant de calculer
+          </div>
+          <div class="body">
+            <p>
+              Une résistance de 24 Ω est traversée par un courant de 500 mA.
+              Calculer la tension.
+            </p>
+            <div class="calc">
+              Conversion : 500 mA = 0,5 A<br />Relation : U = R × I<br />Calcul
+              : U = 24 × 0,5 = 12 V
+            </div>
+            <p>
+              <b>Conclusion :</b> la tension aux bornes de la résistance est de
+              12 V.
+            </p>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Application guidée</span
+            ><span class="badge easy">Niveau 1</span>
+          </div>
+          <p>
+            Une résistance de 46 Ω est alimentée sous 230 V. Calculer
+            l'intensité.
+          </p>
+          <p>
+            Grandeur recherchée : <span class="fillbox"></span> Relation :
+            <span class="fillbox" style="min-width: 110px"></span>
+          </p>
+          <p>
+            Calcul :
+            .............................................................................................................................
+          </p>
+          <p>
+            Conclusion :
+            .........................................................................................................................
+          </p>
+        </div>
+
+        <div class="page-number">4</div>
+      </section>
+
+      <!-- PAGE 5 -->
+      <section class="page">
+        <div class="section-title">
+          <div class="section-number">3</div>
+          <div>
+            <h2>S'entraîner avec la loi d'Ohm</h2>
+            <div class="muted small">
+              Appliquer, convertir et choisir la bonne relation
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 1 - Intensité</span
+            ><span class="badge easy">Application directe</span>
+          </div>
+          <p>
+            Une résistance de 12 Ω est alimentée sous une tension de 24 V.
+            Calculer l'intensité.
+          </p>
+          <div class="answer-lines">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 2 - Résistance</span
+            ><span class="badge easy">Application directe</span>
+          </div>
+          <p>
+            Un appareil fonctionne sous 230 V et absorbe une intensité de 5 A.
+            Calculer sa résistance.
+          </p>
+          <div class="answer-lines">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 3 - Tension</span
+            ><span class="badge mid">Choix de formule</span>
+          </div>
+          <p>
+            Une résistance de 47 Ω est traversée par un courant de 0,25 A.
+            Calculer la tension.
+          </p>
+          <div class="answer-lines">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 4 - Conversion</span
+            ><span class="badge mid">Avec conversion</span>
+          </div>
+          <p>Un moteur sous 12 V absorbe 800 mA. Calculer sa résistance.</p>
+          <div class="answer-lines">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 5 - Tableau à compléter</span
+            ><span class="badge mid">Synthèse</span>
+          </div>
+          <table class="compact">
+            <thead>
+              <tr>
+                <th>U</th>
+                <th>I</th>
+                <th>R</th>
+                <th>Calcul à effectuer</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>48 V</td>
+                <td>2 A</td>
+                <td>................</td>
+                <td>................................................</td>
+              </tr>
+              <tr>
+                <td>................</td>
+                <td>0,4 A</td>
+                <td>30 Ω</td>
+                <td>................................................</td>
+              </tr>
+              <tr>
+                <td>230 V</td>
+                <td>................</td>
+                <td>92 Ω</td>
+                <td>................................................</td>
+              </tr>
+              <tr>
+                <td>24 V</td>
+                <td>600 mA</td>
+                <td>................</td>
+                <td>................................................</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 6 - Repérer l'erreur</span
+            ><span class="badge hard">Raisonnement</span>
+          </div>
+          <p>
+            Un apprenti écrit : « U = 12 V et R = 4 Ω, donc I = 12 × 4 = 48 A ».
+          </p>
+          <p>Explique l'erreur et propose le bon calcul.</p>
+          <div class="answer-lines">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="page-number">5</div>
+      </section>
+
+      <!-- PAGE 6 -->
+      <section class="page">
+        <div class="section-title">
+          <div class="section-number">4</div>
+          <div>
+            <h2>La puissance électrique</h2>
+            <div class="muted small">
+              Relier la tension, l'intensité et la puissance
+            </div>
+          </div>
+        </div>
+
+        <div class="cols-65">
+          <div>
+            <div class="equation">P = U × I</div>
+            <div class="formula-row">
+              <div class="formula-chip">P = U × I</div>
+              <div class="formula-chip">I = P ÷ U</div>
+              <div class="formula-chip">U = P ÷ I</div>
+            </div>
+            <div class="notion">
+              <b>La puissance</b> indique la rapidité avec laquelle un appareil
+              transforme ou utilise l'énergie.
+            </div>
+            <div class="tip">
+              <b>Exemple :</b> sous la même tension, l'appareil le plus puissant
+              absorbe généralement l'intensité la plus élevée.
+            </div>
+          </div>
+
+          <div class="svg-box">
+            <svg
+              viewBox="0 0 420 300"
+              role="img"
+              aria-label="Plaque signalétique fictive d'un appareil électrique"
+            >
+              <rect
+                x="40"
+                y="40"
+                width="340"
+                height="220"
+                rx="18"
+                fill="#f7fafc"
+                stroke="#263746"
+                stroke-width="5"
+              />
+              <rect
+                x="40"
+                y="40"
+                width="340"
+                height="58"
+                rx="18"
+                fill="#184f78"
+              />
+              <rect x="40" y="78" width="340" height="20" fill="#184f78" />
+              <text
+                x="210"
+                y="77"
+                font-size="24"
+                text-anchor="middle"
+                fill="#fff"
+                font-weight="800"
+              >
+                PLAQUE SIGNALÉTIQUE
+              </text>
+              <text x="72" y="130" font-size="20" fill="#263746">
+                Tension :
+              </text>
+              <text
+                x="330"
+                y="130"
+                font-size="22"
+                text-anchor="end"
+                fill="#184f78"
+                font-weight="800"
+              >
+                230 V
+              </text>
+              <text x="72" y="170" font-size="20" fill="#263746">
+                Puissance :
+              </text>
+              <text
+                x="330"
+                y="170"
+                font-size="22"
+                text-anchor="end"
+                fill="#184f78"
+                font-weight="800"
+              >
+                1 500 W
+              </text>
+              <text x="72" y="210" font-size="20" fill="#263746">
+                Fréquence :
+              </text>
+              <text
+                x="330"
+                y="210"
+                font-size="22"
+                text-anchor="end"
+                fill="#184f78"
+                font-weight="800"
+              >
+                50 Hz
+              </text>
+              <text
+                x="210"
+                y="244"
+                font-size="14"
+                text-anchor="middle"
+                fill="#6b7680"
+              >
+                Données fictives pour l'exercice
+              </text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="worked">
+          <div class="head">
+            Exemple corrigé - Calculer la puissance d'un radiateur
+          </div>
+          <div class="body">
+            <p>
+              Un radiateur fonctionne sous 230 V et absorbe une intensité de 8,7
+              A.
+            </p>
+            <div class="calc">
+              Relation : P = U × I<br />Calcul : P = 230 × 8,7 = 2 001 W<br />Conversion
+              : 2 001 W ≈ 2,0 kW
+            </div>
+            <p>
+              <b>Conclusion :</b> la puissance du radiateur est d'environ 2 000
+              W, soit 2 kW.
+            </p>
+          </div>
+        </div>
+
+        <div class="worked">
+          <div class="head">
+            Exemple corrigé - Calculer une intensité à partir d'une plaque
+          </div>
+          <div class="body">
+            <p>La plaque indique 1 500 W et 230 V.</p>
+            <div class="calc">
+              Relation : I = P ÷ U<br />Calcul : I = 1 500 ÷ 230 = 6,52 A
+            </div>
+            <p><b>Conclusion :</b> l'appareil absorbe environ 6,5 A.</p>
+          </div>
+        </div>
+
+        <h3>Exercices</h3>
+        <div class="grid-2">
+          <div class="exercise">
+            <div class="title">
+              <span>Exercice 7</span><span class="badge easy">Direct</span>
+            </div>
+            <p>230 V et 2,2 A. Calculer P.</p>
+            <div class="answer-lines tight">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="exercise">
+            <div class="title">
+              <span>Exercice 8</span
+              ><span class="badge mid">Formule transformée</span>
+            </div>
+            <p>1 500 W sous 230 V. Calculer I.</p>
+            <div class="answer-lines tight">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="exercise">
+            <div class="title">
+              <span>Exercice 9</span
+              ><span class="badge easy">Basse tension</span>
+            </div>
+            <p>12 V et 5 A. Calculer P.</p>
+            <div class="answer-lines tight">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+          <div class="exercise">
+            <div class="title">
+              <span>Exercice 10</span><span class="badge mid">Conversion</span>
+            </div>
+            <p>2 kW sous 230 V. Calculer I.</p>
+            <div class="answer-lines tight">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+        </div>
+
+        <div class="page-number">6</div>
+      </section>
+
+      <!-- PAGE 7 -->
+      <section class="page">
+        <div class="section-title">
+          <div class="section-number">5</div>
+          <div>
+            <h2>L'énergie électrique</h2>
+            <div class="muted small">
+              Tenir compte de la puissance et de la durée d'utilisation
+            </div>
+          </div>
+        </div>
+
+        <div class="equation">E = P × t</div>
+        <div class="formula-row">
+          <div class="formula-chip">E = P × t</div>
+          <div class="formula-chip">P = E ÷ t</div>
+          <div class="formula-chip">t = E ÷ P</div>
+        </div>
+
+        <div class="grid-3 mt12">
+          <div class="card blue">
+            <h3>P en W et t en h</h3>
+            <p>Le résultat est obtenu en <b>Wh</b>.</p>
+          </div>
+          <div class="card gold">
+            <h3>P en kW et t en h</h3>
+            <p>Le résultat est obtenu en <b>kWh</b>.</p>
+          </div>
+          <div class="card green">
+            <h3>P en W et t en s</h3>
+            <p>Le résultat est obtenu en <b>joules</b>.</p>
+          </div>
+        </div>
+
+        <div class="cols-60 mt12">
+          <div>
+            <div class="notion">
+              <b>Différence importante :</b> la puissance caractérise
+              l'appareil. L'énergie dépend de la puissance et de la durée
+              d'utilisation.
+            </div>
+            <div class="warning">
+              <b>Attention aux minutes :</b> 30 min = 0,5 h, 45 min = 0,75 h et
+              15 min = 0,25 h.
+            </div>
+          </div>
+          <div class="svg-box">
+            <svg
+              viewBox="0 0 520 240"
+              role="img"
+              aria-label="Schéma de consommation d'énergie en fonction du temps"
+            >
+              <rect
+                x="40"
+                y="55"
+                width="100"
+                height="120"
+                rx="12"
+                fill="#fff6df"
+                stroke="#263746"
+                stroke-width="4"
+              />
+              <path
+                d="M65 85 H115 V145 H65 Z"
+                fill="#f8d98a"
+                stroke="#263746"
+                stroke-width="3"
+              />
+              <path d="M92 85 V145" stroke="#263746" stroke-width="3" />
+              <text
+                x="90"
+                y="205"
+                text-anchor="middle"
+                font-size="18"
+                fill="#263746"
+              >
+                appareil
+              </text>
+              <path
+                d="M160 115 H355"
+                stroke="#1f6aa5"
+                stroke-width="8"
+                stroke-linecap="round"
+              />
+              <path
+                d="M175 95 V135 M240 95 V135 M305 95 V135 M355 95 V135"
+                stroke="#1f6aa5"
+                stroke-width="4"
+              />
+              <text
+                x="258"
+                y="78"
+                text-anchor="middle"
+                font-size="20"
+                fill="#1f6aa5"
+                font-weight="800"
+              >
+                durée t
+              </text>
+              <circle
+                cx="425"
+                cy="115"
+                r="54"
+                fill="#e8f5ef"
+                stroke="#2f7d62"
+                stroke-width="5"
+              />
+              <text
+                x="425"
+                y="108"
+                text-anchor="middle"
+                font-size="23"
+                fill="#2f7d62"
+                font-weight="800"
+              >
+                ÉNERGIE
+              </text>
+              <text
+                x="425"
+                y="138"
+                text-anchor="middle"
+                font-size="24"
+                fill="#2f7d62"
+                font-weight="800"
+              >
+                E
+              </text>
+              <text
+                x="90"
+                y="36"
+                text-anchor="middle"
+                font-size="20"
+                fill="#8a5b0d"
+                font-weight="800"
+              >
+                Puissance P
+              </text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="worked">
+          <div class="head">Exemple corrigé - Consommation d'un radiateur</div>
+          <div class="body">
+            <p>Un radiateur de 1,5 kW fonctionne pendant 2 h 30 min.</p>
+            <div class="calc">
+              Conversion : 2 h 30 min = 2,5 h<br />Relation : E = P × t<br />Calcul
+              : E = 1,5 × 2,5 = 3,75 kWh
+            </div>
+            <p><b>Conclusion :</b> le radiateur consomme 3,75 kWh.</p>
+          </div>
+        </div>
+
+        <div class="worked">
+          <div class="head">Exemple corrigé - Calculer un coût</div>
+          <div class="body">
+            <p>Pour un prix donné de 0,25 € par kWh :</p>
+            <div class="calc">
+              Coût = énergie × prix du kWh<br />Coût = 3,75 × 0,25 = 0,9375 € ≈
+              0,94 €
+            </div>
+            <p><b>Conclusion :</b> cette utilisation coûte environ 0,94 €.</p>
+          </div>
+        </div>
+
+        <div class="page-number">7</div>
+      </section>
+
+      <!-- PAGE 8 -->
+      <section class="page">
+        <div class="section-title">
+          <div class="section-number">5</div>
+          <div>
+            <h2>S'entraîner avec l'énergie</h2>
+            <div class="muted small">
+              Convertir les durées et interpréter une consommation
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 11 - Consommation simple</span
+            ><span class="badge easy">Niveau 1</span>
+          </div>
+          <p>
+            Un chauffage de 1,8 kW fonctionne pendant 3 h. Calculer l'énergie
+            consommée.
+          </p>
+          <div class="answer-lines">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 12 - Durée en minutes</span
+            ><span class="badge mid">Conversion</span>
+          </div>
+          <p>
+            Un appareil de 1 200 W fonctionne pendant 45 min. Calculer l'énergie
+            consommée en kWh.
+          </p>
+          <div class="answer-lines">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 13 - Éclairage</span
+            ><span class="badge mid">Conversion</span>
+          </div>
+          <p>
+            Une lampe de 60 W fonctionne pendant 8 h. Calculer son énergie
+            consommée en Wh puis en kWh.
+          </p>
+          <div class="answer-lines">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 14 - Retrouver une durée</span
+            ><span class="badge hard">Formule transformée</span>
+          </div>
+          <p>
+            Un appareil de 500 W consomme 2,5 kWh. Pendant combien de temps
+            a-t-il fonctionné ?
+          </p>
+          <div class="answer-lines">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 15 - Calculer un coût</span
+            ><span class="badge mid">Vie quotidienne</span>
+          </div>
+          <p>
+            Quatre projecteurs de 50 W fonctionnent pendant 6 h. Le prix fourni
+            est de 0,24 € par kWh.
+          </p>
+          <ol>
+            <li>Calculer la puissance totale.</li>
+            <li>Calculer l'énergie consommée.</li>
+            <li>Calculer le coût.</li>
+          </ol>
+          <div class="answer-lines">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 16 - Repérer l'erreur</span
+            ><span class="badge hard">Raisonnement</span>
+          </div>
+          <p>
+            Un appareil de 2 000 W fonctionne 3 h. Un apprenti affirme : « E = 6
+            000 kWh ».
+          </p>
+          <p>Explique l'erreur et donne le bon résultat en Wh puis en kWh.</p>
+          <div class="answer-lines">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="page-number">8</div>
+      </section>
+
+      <!-- PAGE 9 -->
+      <section class="page">
+        <div class="section-title">
+          <div class="section-number">6</div>
+          <div>
+            <h2>Choisir la bonne relation</h2>
+            <div class="muted small">
+              Identifier les données utiles avant de calculer
+            </div>
+          </div>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Je connais...</th>
+              <th>Je cherche...</th>
+              <th>Relation à utiliser</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>U et R</td>
+              <td>I</td>
+              <td><b>I = U ÷ R</b></td>
+            </tr>
+            <tr>
+              <td>U et I</td>
+              <td>R</td>
+              <td><b>R = U ÷ I</b></td>
+            </tr>
+            <tr>
+              <td>R et I</td>
+              <td>U</td>
+              <td><b>U = R × I</b></td>
+            </tr>
+            <tr>
+              <td>U et I</td>
+              <td>P</td>
+              <td><b>P = U × I</b></td>
+            </tr>
+            <tr>
+              <td>P et U</td>
+              <td>I</td>
+              <td><b>I = P ÷ U</b></td>
+            </tr>
+            <tr>
+              <td>P et t</td>
+              <td>E</td>
+              <td><b>E = P × t</b></td>
+            </tr>
+            <tr>
+              <td>E et P</td>
+              <td>t</td>
+              <td><b>t = E ÷ P</b></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="worked mt12">
+          <div class="head">
+            Problème corrigé - Plusieurs relations dans une même situation
+          </div>
+          <div class="body">
+            <p>
+              Un radiateur fonctionne sous 230 V. Il absorbe 8,7 A et fonctionne
+              4 h.
+            </p>
+            <ol>
+              <li>
+                <b>Puissance :</b> P = U × I = 230 × 8,7 = 2 001 W ≈ 2,0 kW.
+              </li>
+              <li><b>Énergie :</b> E = P × t = 2,001 × 4 = 8,004 kWh.</li>
+              <li><b>Résistance :</b> R = U ÷ I = 230 ÷ 8,7 = 26,44 Ω.</li>
+            </ol>
+            <p>
+              <b>Bilan :</b> une seule situation peut nécessiter plusieurs
+              relations successives.
+            </p>
+          </div>
+        </div>
+
+        <h3>Exercice 17 - Relier chaque question à la bonne relation</h3>
+        <table class="compact">
+          <thead>
+            <tr>
+              <th>Question</th>
+              <th>Relation choisie</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                Calculer la puissance d'une perceuse sous 230 V absorbant 3,5 A.
+              </td>
+              <td>
+                ............................................................
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Calculer la résistance d'un récepteur sous 24 V traversé par 2
+                A.
+              </td>
+              <td>
+                ............................................................
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Calculer la consommation d'un chauffage de 2 kW pendant 5 h.
+              </td>
+              <td>
+                ............................................................
+              </td>
+            </tr>
+            <tr>
+              <td>Calculer l'intensité d'un appareil de 1 000 W sous 230 V.</td>
+              <td>
+                ............................................................
+              </td>
+            </tr>
+            <tr>
+              <td>
+                Calculer la durée d'utilisation d'un appareil de 0,5 kW ayant
+                consommé 3 kWh.
+              </td>
+              <td>
+                ............................................................
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3 class="mt12">Exercice 18 - Informations utiles ou inutiles ?</h3>
+        <div class="exercise">
+          <p>
+            Une pompe fonctionne sous 230 V, absorbe 3,2 A, pèse 14 kg et
+            fonctionne 1 h 30 min par jour pendant 5 jours.
+          </p>
+          <ol>
+            <li>Surligner les données utiles pour calculer la puissance.</li>
+            <li>Calculer la puissance de la pompe.</li>
+            <li>Calculer l'énergie consommée pendant les 5 jours.</li>
+          </ol>
+          <div class="answer-lines">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="page-number">9</div>
+      </section>
+
+      <!-- PAGE 10 -->
+      <section class="page">
+        <div class="section-title">
+          <div class="section-number">7</div>
+          <div>
+            <h2>Exercices autonomes</h2>
+            <div class="muted small">
+              Mobiliser plusieurs connaissances sans formule imposée
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 19 - Outil électroportatif</span
+            ><span class="badge mid">Deux étapes</span>
+          </div>
+          <p>Une meuleuse porte les indications 230 V et 1 150 W.</p>
+          <ol>
+            <li>Calculer l'intensité absorbée.</li>
+            <li>Calculer sa résistance électrique en fonctionnement.</li>
+          </ol>
+          <div class="answer-lines">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 20 - Chauffage d'atelier</span
+            ><span class="badge hard">Problème complet</span>
+          </div>
+          <p>
+            Un chauffage de 2,3 kW fonctionne sous 230 V pendant 3 h 30 min. Le
+            prix fourni est de 0,22 € par kWh.
+          </p>
+          <ol>
+            <li>Calculer l'intensité absorbée.</li>
+            <li>Calculer l'énergie consommée.</li>
+            <li>Calculer le coût de fonctionnement.</li>
+          </ol>
+          <div class="answer-lines">
+            <span></span><span></span><span></span><span></span><span></span
+            ><span></span>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 21 - Batterie et projecteur</span
+            ><span class="badge hard">Basse tension</span>
+          </div>
+          <p>Un projecteur de 60 W est alimenté sous 12 V.</p>
+          <ol>
+            <li>Calculer l'intensité absorbée.</li>
+            <li>Calculer sa résistance.</li>
+            <li>Calculer l'énergie consommée pendant 2 h en Wh.</li>
+          </ol>
+          <div class="answer-lines">
+            <span></span><span></span><span></span><span></span><span></span
+            ><span></span>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 22 - Comparer deux appareils</span
+            ><span class="badge hard">Analyse</span>
+          </div>
+          <p>
+            Appareil A : 1 200 W utilisé pendant 2 h. Appareil B : 800 W utilisé
+            pendant 4 h.
+          </p>
+          <ol>
+            <li>Calculer l'énergie consommée par chaque appareil.</li>
+            <li>Indiquer lequel consomme le plus.</li>
+            <li>Calculer la différence de consommation.</li>
+          </ol>
+          <div class="answer-lines">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="page-number">10</div>
+      </section>
+
+      <!-- PAGE 11 -->
+      <section class="page">
+        <div class="section-title">
+          <div class="section-number">8</div>
+          <div>
+            <h2>Lois des tensions et des intensités</h2>
+            <div class="muted small">Circuits en série et en dérivation</div>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="card blue">
+            <h3>Circuit en série</h3>
+            <ul>
+              <li>L'intensité est la même en tout point.</li>
+              <li>Les tensions aux bornes des récepteurs s'additionnent.</li>
+            </ul>
+            <div class="mini-formula">I = I<sub>1</sub> = I<sub>2</sub></div>
+            <div class="mini-formula mt8">
+              U<sub>g</sub> = U<sub>1</sub> + U<sub>2</sub>
+            </div>
+          </div>
+          <div class="card gold">
+            <h3>Circuit en dérivation</h3>
+            <ul>
+              <li>La tension est la même sur chaque branche.</li>
+              <li>
+                L'intensité totale est la somme des intensités des branches.
+              </li>
+            </ul>
+            <div class="mini-formula">
+              U<sub>g</sub> = U<sub>1</sub> = U<sub>2</sub>
+            </div>
+            <div class="mini-formula mt8">
+              I = I<sub>1</sub> + I<sub>2</sub>
+            </div>
+          </div>
+        </div>
+
+        <h3 class="mt12">Schéma d'un circuit en série</h3>
+        <div class="svg-box">
+          <svg
+            viewBox="0 0 940 260"
+            role="img"
+            aria-label="Circuit en série avec deux récepteurs"
+          >
+            <defs>
+              <marker
+                id="sA"
+                markerWidth="9"
+                markerHeight="9"
+                refX="7"
+                refY="3"
+                orient="auto"
+              >
+                <path d="M0,0 L0,6 L8,3 z" fill="#1f6aa5" />
+              </marker>
+            </defs>
+            <path d="M90 60 H270" stroke="#263746" stroke-width="6" />
+            <rect
+              x="270"
+              y="35"
+              width="140"
+              height="50"
+              rx="8"
+              fill="#fff6df"
+              stroke="#263746"
+              stroke-width="4"
+            />
+            <path d="M410 60 H530" stroke="#263746" stroke-width="6" />
+            <rect
+              x="530"
+              y="35"
+              width="140"
+              height="50"
+              rx="8"
+              fill="#e8f5ef"
+              stroke="#263746"
+              stroke-width="4"
+            />
+            <path
+              d="M670 60 H850 V200 H520"
+              stroke="#263746"
+              stroke-width="6"
+              fill="none"
+            />
+            <path d="M520 200 H170" stroke="#263746" stroke-width="6" />
+            <line
+              x1="170"
+              y1="165"
+              x2="170"
+              y2="235"
+              stroke="#263746"
+              stroke-width="5"
+            />
+            <line
+              x1="135"
+              y1="175"
+              x2="135"
+              y2="225"
+              stroke="#263746"
+              stroke-width="9"
+            />
+            <path
+              d="M135 200 H90 V60"
+              stroke="#263746"
+              stroke-width="6"
+              fill="none"
+            />
+            <path
+              d="M120 60 H230"
+              stroke="#1f6aa5"
+              stroke-width="4"
+              marker-end="url(#sA)"
+            />
+            <text
+              x="175"
+              y="44"
+              font-size="20"
+              fill="#1f6aa5"
+              font-weight="800"
+            >
+              I
+            </text>
+            <text
+              x="340"
+              y="68"
+              text-anchor="middle"
+              font-size="21"
+              fill="#8a5b0d"
+              font-weight="800"
+            >
+              R1
+            </text>
+            <text
+              x="600"
+              y="68"
+              text-anchor="middle"
+              font-size="21"
+              fill="#2f7d62"
+              font-weight="800"
+            >
+              R2
+            </text>
+            <path d="M280 105 H400" stroke="#a63d40" stroke-width="3" />
+            <path
+              d="M280 100 l-12 5 l12 5 M400 100 l12 5 l-12 5"
+              fill="none"
+              stroke="#a63d40"
+              stroke-width="3"
+            />
+            <text
+              x="340"
+              y="130"
+              text-anchor="middle"
+              font-size="18"
+              fill="#a63d40"
+              font-weight="700"
+            >
+              U1
+            </text>
+            <path d="M540 105 H660" stroke="#a63d40" stroke-width="3" />
+            <path
+              d="M540 100 l-12 5 l12 5 M660 100 l12 5 l-12 5"
+              fill="none"
+              stroke="#a63d40"
+              stroke-width="3"
+            />
+            <text
+              x="600"
+              y="130"
+              text-anchor="middle"
+              font-size="18"
+              fill="#a63d40"
+              font-weight="700"
+            >
+              U2
+            </text>
+            <path d="M115 245 H185" stroke="#184f78" stroke-width="3" />
+            <text
+              x="150"
+              y="258"
+              text-anchor="middle"
+              font-size="17"
+              fill="#184f78"
+              font-weight="700"
+            >
+              Ug
+            </text>
+          </svg>
+        </div>
+
+        <div class="worked">
+          <div class="head">Exemple corrigé - Circuit en série</div>
+          <div class="body">
+            <p>
+              Le générateur fournit 24 V. Le premier récepteur reçoit 9 V.
+              L'intensité dans le circuit est de 0,6 A.
+            </p>
+            <div class="calc">
+              U₂ = Uᵍ - U₁ = 24 - 9 = 15 V<br />I = I₁ = I₂ = 0,6 A
+            </div>
+          </div>
+        </div>
+
+        <div class="page-number">11</div>
+      </section>
+
+      <!-- PAGE 12 -->
+      <section class="page">
+        <div class="section-title">
+          <div class="section-number">8</div>
+          <div>
+            <h2>Le circuit en dérivation</h2>
+            <div class="muted small">
+              Partager le courant entre plusieurs branches
+            </div>
+          </div>
+        </div>
+
+        <div class="svg-box">
+          <svg
+            viewBox="0 0 940 420"
+            role="img"
+            aria-label="Circuit en dérivation avec deux branches"
+          >
+            <defs>
+              <marker
+                id="pMain"
+                markerWidth="9"
+                markerHeight="9"
+                refX="7"
+                refY="3"
+                orient="auto"
+              >
+                <path d="M0,0 L0,6 L8,3 z" fill="#1f6aa5" />
+              </marker>
+              <marker
+                id="pOne"
+                markerWidth="9"
+                markerHeight="9"
+                refX="7"
+                refY="3"
+                orient="auto"
+              >
+                <path d="M0,0 L0,6 L8,3 z" fill="#2f7d62" />
+              </marker>
+              <marker
+                id="pTwo"
+                markerWidth="9"
+                markerHeight="9"
+                refX="7"
+                refY="3"
+                orient="auto"
+              >
+                <path d="M0,0 L0,6 L8,3 z" fill="#d99b28" />
+              </marker>
+            </defs>
+            <path d="M100 70 H300" stroke="#263746" stroke-width="6" />
+            <path d="M300 70 V330" stroke="#263746" stroke-width="6" />
+            <path d="M300 110 H730" stroke="#263746" stroke-width="6" />
+            <path d="M300 270 H730" stroke="#263746" stroke-width="6" />
+            <path d="M730 70 V330" stroke="#263746" stroke-width="6" />
+            <path
+              d="M730 70 H840 V330 H520"
+              stroke="#263746"
+              stroke-width="6"
+              fill="none"
+            />
+            <rect
+              x="450"
+              y="85"
+              width="130"
+              height="50"
+              rx="8"
+              fill="#e8f5ef"
+              stroke="#263746"
+              stroke-width="4"
+            />
+            <rect
+              x="450"
+              y="245"
+              width="130"
+              height="50"
+              rx="8"
+              fill="#fff6df"
+              stroke="#263746"
+              stroke-width="4"
+            />
+            <path d="M520 330 H180" stroke="#263746" stroke-width="6" />
+            <line
+              x1="180"
+              y1="295"
+              x2="180"
+              y2="365"
+              stroke="#263746"
+              stroke-width="5"
+            />
+            <line
+              x1="145"
+              y1="305"
+              x2="145"
+              y2="355"
+              stroke="#263746"
+              stroke-width="9"
+            />
+            <path
+              d="M145 330 H100 V70"
+              stroke="#263746"
+              stroke-width="6"
+              fill="none"
+            />
+            <circle cx="300" cy="110" r="7" fill="#263746" />
+            <circle cx="300" cy="270" r="7" fill="#263746" />
+            <circle cx="730" cy="110" r="7" fill="#263746" />
+            <circle cx="730" cy="270" r="7" fill="#263746" />
+            <path
+              d="M130 70 H250"
+              stroke="#1f6aa5"
+              stroke-width="4"
+              marker-end="url(#pMain)"
+            />
+            <text
+              x="190"
+              y="53"
+              font-size="20"
+              fill="#1f6aa5"
+              font-weight="800"
+            >
+              I
+            </text>
+            <path
+              d="M340 110 H420"
+              stroke="#2f7d62"
+              stroke-width="4"
+              marker-end="url(#pOne)"
+            />
+            <text
+              x="380"
+              y="94"
+              font-size="20"
+              fill="#2f7d62"
+              font-weight="800"
+            >
+              I1
+            </text>
+            <path
+              d="M340 270 H420"
+              stroke="#d99b28"
+              stroke-width="4"
+              marker-end="url(#pTwo)"
+            />
+            <text
+              x="380"
+              y="254"
+              font-size="20"
+              fill="#d99b28"
+              font-weight="800"
+            >
+              I2
+            </text>
+            <text
+              x="515"
+              y="118"
+              text-anchor="middle"
+              font-size="20"
+              fill="#2f7d62"
+              font-weight="800"
+            >
+              R1
+            </text>
+            <text
+              x="515"
+              y="278"
+              text-anchor="middle"
+              font-size="20"
+              fill="#8a5b0d"
+              font-weight="800"
+            >
+              R2
+            </text>
+            <path d="M440 155 H590" stroke="#a63d40" stroke-width="3" />
+            <path
+              d="M440 150 l-12 5 l12 5 M590 150 l12 5 l-12 5"
+              fill="none"
+              stroke="#a63d40"
+              stroke-width="3"
+            />
+            <text
+              x="515"
+              y="182"
+              text-anchor="middle"
+              font-size="18"
+              fill="#a63d40"
+              font-weight="700"
+            >
+              U1 = Ug
+            </text>
+            <path d="M440 315 H590" stroke="#a63d40" stroke-width="3" />
+            <path
+              d="M440 310 l-12 5 l12 5 M590 310 l12 5 l-12 5"
+              fill="none"
+              stroke="#a63d40"
+              stroke-width="3"
+            />
+            <text
+              x="515"
+              y="342"
+              text-anchor="middle"
+              font-size="18"
+              fill="#a63d40"
+              font-weight="700"
+            >
+              U2 = Ug
+            </text>
+          </svg>
+        </div>
+
+        <div class="worked">
+          <div class="head">Exemple corrigé - Circuit en dérivation</div>
+          <div class="body">
+            <p>
+              Le courant total vaut 5,4 A. La première branche est traversée par
+              2,1 A. La tension du générateur est de 230 V.
+            </p>
+            <div class="calc">
+              I₂ = I - I₁ = 5,4 - 2,1 = 3,3 A<br />Uᵍ = U₁ = U₂ = 230 V
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-2 mt12">
+          <div class="card blue">
+            <h3>En série</h3>
+            <p>
+              Le courant ne se partage pas. Il traverse successivement tous les
+              récepteurs.
+            </p>
+          </div>
+          <div class="card gold">
+            <h3>En dérivation</h3>
+            <p>
+              Le courant se partage au niveau d'un noeud puis se rassemble
+              ensuite.
+            </p>
+          </div>
+        </div>
+
+        <div class="warning">
+          <b>Vocabulaire :</b> un noeud est un point du circuit où au moins
+          trois conducteurs se rejoignent.
+        </div>
+
+        <div class="page-number">12</div>
+      </section>
+
+      <!-- PAGE 13 -->
+      <section class="page">
+        <div class="section-title">
+          <div class="section-number">8</div>
+          <div>
+            <h2>Exercices sur les lois des circuits</h2>
+            <div class="muted small">
+              Retrouver une tension ou une intensité manquante
+            </div>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 23 - Deux récepteurs en série</span
+            ><span class="badge easy">Tensions</span>
+          </div>
+          <p>
+            Uᵍ = 24 V et U₁ = 9 V. Calculer U₂. L'intensité du circuit est 0,6
+            A. Donner I₁ et I₂.
+          </p>
+          <div class="answer-lines">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 24 - Trois récepteurs en série</span
+            ><span class="badge mid">Tensions</span>
+          </div>
+          <p>Uᵍ = 230 V, U₁ = 80 V et U₂ = 95 V. Calculer U₃.</p>
+          <div class="answer-lines">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 25 - Deux branches en dérivation</span
+            ><span class="badge easy">Intensités</span>
+          </div>
+          <p>
+            I = 5,4 A et I₁ = 2,1 A. Calculer I₂. La tension du générateur est
+            230 V. Donner U₁ et U₂.
+          </p>
+          <div class="answer-lines">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 26 - Trois branches en dérivation</span
+            ><span class="badge mid">Intensités</span>
+          </div>
+          <p>I = 10 A, I₁ = 3,5 A et I₂ = 2,8 A. Calculer I₃.</p>
+          <div class="answer-lines">
+            <span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 27 - Tableau de synthèse</span
+            ><span class="badge hard">Choisir la loi</span>
+          </div>
+          <table class="compact">
+            <thead>
+              <tr>
+                <th>Type de circuit</th>
+                <th>Données</th>
+                <th>Valeur recherchée</th>
+                <th>Résultat</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Série</td>
+                <td>Uᵍ = 48 V, U₁ = 18 V</td>
+                <td>U₂</td>
+                <td>....................</td>
+              </tr>
+              <tr>
+                <td>Série</td>
+                <td>I = 1,2 A</td>
+                <td>I₁ et I₂</td>
+                <td>....................</td>
+              </tr>
+              <tr>
+                <td>Dérivation</td>
+                <td>I = 8 A, I₁ = 3 A</td>
+                <td>I₂</td>
+                <td>....................</td>
+              </tr>
+              <tr>
+                <td>Dérivation</td>
+                <td>Uᵍ = 24 V</td>
+                <td>U₁ et U₂</td>
+                <td>....................</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="exercise">
+          <div class="title">
+            <span>Exercice 28 - Circuit mixte simple</span
+            ><span class="badge hard">Raisonnement</span>
+          </div>
+          <p>
+            Deux branches sont alimentées sous 24 V. La branche A contient deux
+            récepteurs en série. On mesure U₁ = 10 V sur le premier. La branche
+            B est traversée par 1,8 A. Le courant total est 4,5 A.
+          </p>
+          <ol>
+            <li>Calculer la tension U₂ du second récepteur de la branche A.</li>
+            <li>Calculer l'intensité dans la branche A.</li>
+          </ol>
+          <div class="answer-lines">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="page-number">13</div>
+      </section>
+
+      <!-- PAGE 14 -->
+      <section class="page">
+        <div class="section-title">
+          <div class="section-number">9</div>
+          <div>
+            <h2>Synthèse générale</h2>
+            <div class="muted small">
+              Les connaissances essentielles à retenir
+            </div>
+          </div>
+        </div>
+
+        <div class="grid-3">
+          <div class="card blue">
+            <h3>Loi d'Ohm</h3>
+            <div class="equation light">U = R × I</div>
+            <p class="small">U en V, R en Ω, I en A</p>
+          </div>
+          <div class="card gold">
+            <h3>Puissance</h3>
+            <div class="equation light">P = U × I</div>
+            <p class="small">P en W, U en V, I en A</p>
+          </div>
+          <div class="card green">
+            <h3>Énergie</h3>
+            <div class="equation light">E = P × t</div>
+            <p class="small">E en Wh ou kWh</p>
+          </div>
+        </div>
+
+        <div class="grid-2 mt12">
+          <div class="card">
+            <h3>Circuit en série</h3>
+            <p><b>Intensité :</b> I = I₁ = I₂</p>
+            <p><b>Tension :</b> Uᵍ = U₁ + U₂</p>
+          </div>
+          <div class="card">
+            <h3>Circuit en dérivation</h3>
+            <p><b>Tension :</b> Uᵍ = U₁ = U₂</p>
+            <p><b>Intensité :</b> I = I₁ + I₂</p>
+          </div>
+        </div>
+
+        <h3 class="mt16">Conversions utiles</h3>
+        <div class="grid-4">
+          <div class="mini-formula">1 A = 1 000 mA</div>
+          <div class="mini-formula">1 kW = 1 000 W</div>
+          <div class="mini-formula">1 kWh = 1 000 Wh</div>
+          <div class="mini-formula">30 min = 0,5 h</div>
+        </div>
+
+        <h3 class="mt16">Autoévaluation</h3>
+        <div class="checklist">
+          <div class="head">Je suis capable de...</div>
+          <div class="head">Oui</div>
+          <div class="head">Presque</div>
+          <div class="head">À revoir</div>
+          <div>Identifier U, I, R, P, E et leurs unités.</div>
+          <div>□</div>
+          <div>□</div>
+          <div>□</div>
+          <div>Convertir mA en A, W en kW et min en h.</div>
+          <div>□</div>
+          <div>□</div>
+          <div>□</div>
+          <div>Utiliser la loi d'Ohm.</div>
+          <div>□</div>
+          <div>□</div>
+          <div>□</div>
+          <div>Calculer une puissance électrique.</div>
+          <div>□</div>
+          <div>□</div>
+          <div>□</div>
+          <div>Calculer une énergie consommée.</div>
+          <div>□</div>
+          <div>□</div>
+          <div>□</div>
+          <div>Choisir la bonne relation.</div>
+          <div>□</div>
+          <div>□</div>
+          <div>□</div>
+          <div>Appliquer les lois d'un circuit en série.</div>
+          <div>□</div>
+          <div>□</div>
+          <div>□</div>
+          <div>Appliquer les lois d'un circuit en dérivation.</div>
+          <div>□</div>
+          <div>□</div>
+          <div>□</div>
+        </div>
+
+        <div class="tip mt16">
+          <b>Conseil :</b> dans chaque calcul, écris toujours la relation, le
+          remplacement par les valeurs, le résultat et l'unité.
+        </div>
+
+        <div class="card gold mt16">
+          <h3>Mes points à retravailler</h3>
+          <div class="answer-lines">
+            <span></span><span></span><span></span><span></span>
+          </div>
+        </div>
+
+        <div class="page-number">14</div>
+      </section>
+
+      <!-- CORRECTION 1 -->
+      <section class="page solution-page">
+        <div class="section-title">
+          <div class="section-number">C</div>
+          <div>
+            <h2>Correction des exercices 1 à 16</h2>
+            <div class="muted small">
+              À afficher uniquement après le travail autonome
+            </div>
+          </div>
+        </div>
+
+        <div class="solution-answer">
+          <b>Conversions :</b> 750 mA = 0,75 A ; 3,2 A = 3 200 mA ; 1,8 kW = 1
+          800 W ; 2 400 Wh = 2,4 kWh ; 45 min = 0,75 h ; 1 h 30 min = 1,5 h.
+        </div>
+        <div class="solution-answer">
+          <b>Application guidée :</b> I = U ÷ R = 230 ÷ 46 = 5 A.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 1 :</b> I = 24 ÷ 12 = 2 A.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 2 :</b> R = 230 ÷ 5 = 46 Ω.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 3 :</b> U = 47 × 0,25 = 11,75 V.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 4 :</b> 800 mA = 0,8 A ; R = 12 ÷ 0,8 = 15 Ω.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 5 :</b> 24 Ω ; 12 V ; 2,5 A ; 40 Ω.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 6 :</b> il faut diviser et non multiplier. I = 12 ÷ 4 = 3
+          A.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 7 :</b> P = 230 × 2,2 = 506 W.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 8 :</b> I = 1 500 ÷ 230 = 6,52 A.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 9 :</b> P = 12 × 5 = 60 W.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 10 :</b> 2 kW = 2 000 W ; I = 2 000 ÷ 230 = 8,70 A.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 11 :</b> E = 1,8 × 3 = 5,4 kWh.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 12 :</b> 45 min = 0,75 h ; 1 200 W = 1,2 kW ; E = 1,2 ×
+          0,75 = 0,9 kWh.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 13 :</b> E = 60 × 8 = 480 Wh = 0,48 kWh.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 14 :</b> 500 W = 0,5 kW ; t = 2,5 ÷ 0,5 = 5 h.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 15 :</b> P totale = 4 × 50 = 200 W = 0,2 kW ; E = 0,2 × 6
+          = 1,2 kWh ; coût = 1,2 × 0,24 = 0,288 €, soit environ 0,29 €.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 16 :</b> E = 2 000 × 3 = 6 000 Wh = 6 kWh. L'erreur porte
+          sur l'unité.
+        </div>
+
+        <div class="page-number">C1</div>
+      </section>
+
+      <!-- CORRECTION 2 -->
+      <section class="page solution-page">
+        <div class="section-title">
+          <div class="section-number">C</div>
+          <div>
+            <h2>Correction des exercices 17 à 28</h2>
+            <div class="muted small">Résultats et relations utilisées</div>
+          </div>
+        </div>
+
+        <div class="solution-answer">
+          <b>Exercice 17 :</b> P = U × I ; R = U ÷ I ; E = P × t ; I = P ÷ U ; t
+          = E ÷ P.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 18 :</b> la masse est inutile. P = 230 × 3,2 = 736 W =
+          0,736 kW. Durée totale = 1,5 × 5 = 7,5 h. E = 0,736 × 7,5 = 5,52 kWh.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 19 :</b> I = 1 150 ÷ 230 = 5 A. R = 230 ÷ 5 = 46 Ω.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 20 :</b> I = 2 300 ÷ 230 = 10 A. 3 h 30 min = 3,5 h. E =
+          2,3 × 3,5 = 8,05 kWh. Coût = 8,05 × 0,22 = 1,771 €, soit environ 1,77
+          €.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 21 :</b> I = 60 ÷ 12 = 5 A. R = 12 ÷ 5 = 2,4 Ω. E = 60 × 2
+          = 120 Wh.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 22 :</b> A : 1,2 × 2 = 2,4 kWh. B : 0,8 × 4 = 3,2 kWh. B
+          consomme le plus. Différence = 0,8 kWh.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 23 :</b> U₂ = 24 - 9 = 15 V. I₁ = I₂ = 0,6 A.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 24 :</b> U₃ = 230 - 80 - 95 = 55 V.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 25 :</b> I₂ = 5,4 - 2,1 = 3,3 A. U₁ = U₂ = 230 V.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 26 :</b> I₃ = 10 - 3,5 - 2,8 = 3,7 A.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 27 :</b> U₂ = 30 V ; I₁ = I₂ = 1,2 A ; I₂ = 5 A ; U₁ = U₂
+          = 24 V.
+        </div>
+        <div class="solution-answer">
+          <b>Exercice 28 :</b> dans la branche A, U₁ + U₂ = 24 V, donc U₂ = 14
+          V. Pour les intensités, I = Iₐ + Iᵦ, donc Iₐ = 4,5 - 1,8 = 2,7 A.
+        </div>
+
+        <div class="card blue mt16">
+          <h3>Erreurs fréquentes à surveiller</h3>
+          <ul>
+            <li>Oublier de convertir les mA en A.</li>
+            <li>Confondre W et kWh.</li>
+            <li>Utiliser les minutes directement dans E = P × t.</li>
+            <li>Additionner les tensions dans un circuit en dérivation.</li>
+            <li>Additionner les intensités dans un circuit en série.</li>
+          </ul>
+        </div>
+
+        <div class="page-number">C2</div>
+      </section>
+    </div>
+
+    <script>
+      function toggleSolutions() {
+        document.body.classList.toggle('show-solutions');
+        const shown = document.body.classList.contains('show-solutions');
+        document.getElementById('solutionState').textContent = shown
+          ? 'Correction finale affichée'
+          : 'Correction finale masquée';
+        const btns = document.querySelectorAll('.toolbar button');
+        btns[1].textContent = shown
+          ? 'Masquer la correction finale'
+          : 'Afficher la correction finale';
+      }
+    </script>
+  </body>
+</html>

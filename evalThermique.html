@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contrôle CAP - Thermique</title>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Kalam&display=swap');
+
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      :root {
+        --dark: #2c3e50;
+        --orange: #d35400;
+        --blue: #0b3a67;
+        --light: #eef3f8;
+        --line: #111;
+        --muted: #555;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background-color: #525659;
+        font-family: 'Roboto', Arial, sans-serif;
+        color: #000;
+        font-size: 11pt;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      .print-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 12px 24px;
+        background: var(--orange);
+        color: white;
+        border: 2px solid white;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        z-index: 9999;
+        font-size: 16px;
+      }
+
+      .page {
+        width: 210mm;
+        height: 296mm;
+        padding: 8mm 13mm 10mm;
+        margin: 0 auto 20px auto;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        position: relative;
+        page-break-after: always;
+        overflow: hidden;
+      }
+
+      .header-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #000;
+        margin-bottom: 12px;
+      }
+
+      .header-table td {
+        border: 1px solid #000;
+        padding: 7px 9px;
+        vertical-align: top;
+      }
+
+      .row-info td {
+        height: 38px;
+        font-weight: bold;
+        font-size: 10.5pt;
+        padding-top: 8px;
+      }
+
+      .logo-cell {
+        width: 25%;
+        padding: 0 !important;
+        position: relative;
+        overflow: hidden;
+        height: 82px;
+      }
+
+      .logo-btp {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1.12);
+        width: 88%;
+        height: auto;
+      }
+
+      .title-cell {
+        text-align: center;
+        padding: 5px !important;
+        vertical-align: middle !important;
+      }
+
+      .title-top {
+        font-size: 12pt;
+        text-decoration: underline;
+        margin-bottom: 4px;
+      }
+
+      .title-main {
+        font-size: 22pt;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        line-height: 1;
+      }
+
+      .title-sub {
+        font-size: 15pt;
+        font-weight: bold;
+        margin-top: 5px;
+      }
+
+      .score-box {
+        position: absolute;
+        top: 43mm;
+        right: 13mm;
+        border: 2px solid #000;
+        width: 34mm;
+        height: 16mm;
+        text-align: center;
+        font-weight: 900;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f8f8f8;
+      }
+
+      h2 {
+        font-size: 12.5pt;
+        background: var(--dark);
+        color: white;
+        padding: 6px 12px;
+        margin-top: 12px;
+        margin-bottom: 9px;
+        border-radius: 4px;
+        border-left: 6px solid #000;
+      }
+
+      .question {
+        margin: 7px 0;
+        font-size: 10.7pt;
+        line-height: 1.25;
+      }
+
+      .consigne {
+        font-style: italic;
+        color: #222;
+        margin-bottom: 7px;
+      }
+
+      .exo-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 8px 0 8px 0;
+        font-size: 10.3pt;
+      }
+
+      .exo-table th,
+      .exo-table td {
+        border: 1px solid #000;
+        padding: 5px 6px;
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .exo-table th {
+        background: #e0e0e0;
+        font-weight: bold;
+      }
+
+      .exo-table.left td,
+      .exo-table.left th {
+        text-align: left;
+      }
+
+      .small-table {
+        font-size: 9.7pt;
+      }
+
+      .lines-block {
+        margin: 5px 0 10px;
+      }
+
+      .dotted-line {
+        border-bottom: 1px dotted #000;
+        height: 22px;
+        width: 100%;
+        margin-bottom: 4px;
+      }
+
+      .short-line {
+        display: inline-block;
+        border-bottom: 1px dotted #000;
+        width: 47mm;
+        height: 14px;
+        vertical-align: bottom;
+      }
+
+      .calc-label {
+        font-size: 9.5pt;
+        color: var(--muted);
+        font-weight: bold;
+        margin-bottom: 3px;
+        display: block;
+      }
+
+      .data-box {
+        border: 2px solid #333;
+        background: #f4f4f4;
+        padding: 8px 10px;
+        margin: 8px 0;
+      }
+
+      .formula-box {
+        border-left: 5px solid var(--orange);
+        background: #fff3e8;
+        padding: 6px 10px;
+        font-weight: 900;
+        margin: 8px 0;
+        text-align: center;
+      }
+
+      .two-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .footer-page {
+        position: absolute;
+        bottom: 7mm;
+        left: 13mm;
+        right: 13mm;
+        border-top: 1px solid #000;
+        padding-top: 4px;
+        font-size: 9.5pt;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .spacer-sm {
+        height: 3px;
+      }
+
+      @media print {
+        html,
+        body {
+          padding: 0;
+          margin: 0;
+          background: none;
+        }
+
+        .page {
+          margin: 0;
+          box-shadow: none;
+          border: none;
+          width: 210mm;
+          height: 296mm;
+          page-break-after: always;
+        }
+
+        .print-btn {
+          display: none !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <button class="print-btn" onclick="window.print(); return false;">
+      🖨️ IMPRIMER
+    </button>
+
+    <div class="page">
+      <table class="header-table">
+        <tr class="row-info">
+          <td style="width: 25%">Nom :</td>
+          <td style="width: 25%">Prénom :</td>
+          <td style="width: 25%">Groupe :</td>
+          <td style="width: 25%">Date :</td>
+        </tr>
+        <tr class="row-title">
+          <td class="logo-cell">
+            <img
+              src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+              alt="Logo BTP CFA"
+              class="logo-btp"
+            />
+          </td>
+          <td colspan="3" class="title-cell">
+            <div class="title-top">Sciences physiques CAP</div>
+            <div class="title-main">CONTRÔLE</div>
+            <div class="title-sub">Thermique</div>
+          </td>
+        </tr>
+      </table>
+
+      <div class="score-box">Note :<br />/ 20</div>
+
+      <h2>Exercice 1 : Conversion des températures - 4 points</h2>
+      <div class="consigne">Convertir les températures suivantes.</div>
+
+      <div class="two-cols">
+        <div>
+          <p class="question">
+            1. 18°C en Kelvin : <span class="short-line"></span>
+          </p>
+          <p class="question">
+            2. -12°C en Kelvin : <span class="short-line"></span>
+          </p>
+        </div>
+        <div>
+          <p class="question">
+            3. 301 K en °C : <span class="short-line"></span>
+          </p>
+          <p class="question">
+            4. 330 K en °C : <span class="short-line"></span>
+          </p>
+        </div>
+      </div>
+
+      <h2>Exercice 2 : Identifier le mode de transfert thermique - 5 points</h2>
+      <div class="consigne">
+        Associer chaque situation au bon mode de transfert : conduction,
+        convection ou rayonnement.
+      </div>
+
+      <table class="exo-table left">
+        <tr>
+          <th style="width: 75%">Situation</th>
+          <th style="width: 25%">Mode de transfert</th>
+        </tr>
+        <tr>
+          <td>
+            1. Le carrelage paraît froid lorsqu'on marche dessus pieds nus.
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>2. La fumée chaude monte au-dessus d'un barbecue.</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            3. Une lampe chauffante réchauffe une zone de travail sans contact.
+          </td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>4. L'eau chaude circule dans un circuit de chauffage.</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>
+            5. Une tige métallique placée près d'une flamme devient chaude
+            progressivement.
+          </td>
+          <td></td>
+        </tr>
+      </table>
+
+      <h2>Exercice 3 : Classer des matériaux isolants - 5 points</h2>
+      <div class="consigne">
+        Plus la conductivité thermique λ est petite, plus le matériau est
+        isolant.
+      </div>
+
+      <table class="exo-table small-table">
+        <tr>
+          <th>Matériau</th>
+          <th>Laine de roche</th>
+          <th>Béton</th>
+          <th>Polystyrène expansé</th>
+          <th>Brique creuse</th>
+          <th>Bois</th>
+          <th>Polyuréthane</th>
+        </tr>
+        <tr>
+          <th>λ en W/(m.K)</th>
+          <td>0,040</td>
+          <td>1,750</td>
+          <td>0,036</td>
+          <td>0,470</td>
+          <td>0,150</td>
+          <td>0,025</td>
+        </tr>
+      </table>
+
+      <div class="question">
+        1. Quel est le matériau le plus isolant ? Justifier.
+      </div>
+      <div class="lines-block">
+        <div class="dotted-line"></div>
+        <div class="dotted-line"></div>
+      </div>
+
+      <div class="question">
+        2. Classer les matériaux du plus isolant au moins isolant.
+      </div>
+      <div class="lines-block">
+        <div class="dotted-line"></div>
+        <div class="dotted-line"></div>
+      </div>
+
+      <div class="footer-page">
+        <div>Sciences physiques CAP - Contrôle thermique</div>
+        <div>Page 1 sur 2</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>Exercice 4 : Calcul de résistance thermique - 4 points</h2>
+      <div class="data-box">
+        On souhaite poser un isolant en laine de roche sur un mur.<br />
+        Données : épaisseur <strong>e = 18 cm</strong> ; conductivité thermique
+        <strong>λ = 0,040 W/(m.K)</strong>.
+      </div>
+
+      <div class="formula-box">Formule : R = e / λ</div>
+
+      <div class="question">1. Convertir l'épaisseur en mètres.</div>
+      <div class="lines-block">
+        <span class="calc-label">Calcul :</span>
+        <div class="dotted-line"></div>
+      </div>
+
+      <div class="question">
+        2. Calculer la résistance thermique R de l'isolant.
+      </div>
+      <div class="lines-block">
+        <span class="calc-label">Calculs :</span>
+        <div class="dotted-line"></div>
+        <div class="dotted-line"></div>
+        <div class="dotted-line"></div>
+      </div>
+
+      <h2>Exercice 5 : Étude d'un mur composé de deux couches - 2 points</h2>
+      <div class="data-box">
+        Un mur est composé :<br />
+        - d'une brique creuse d'épaisseur <strong>e = 15 cm</strong> et de
+        conductivité <strong>λ = 0,470 W/(m.K)</strong> ;<br />
+        - d'un isolant en polyuréthane d'épaisseur <strong>e = 6 cm</strong> et
+        de conductivité <strong>λ = 0,025 W/(m.K)</strong>.
+      </div>
+
+      <div class="formula-box">
+        Formule : R = e / λ &nbsp;&nbsp;&nbsp; et &nbsp;&nbsp;&nbsp; R totale =
+        R1 + R2
+      </div>
+
+      <div class="question">
+        1. Calculer la résistance thermique de la brique creuse.
+      </div>
+      <div class="lines-block">
+        <div class="dotted-line"></div>
+        <div class="dotted-line"></div>
+      </div>
+
+      <div class="question">
+        2. Calculer la résistance thermique de l'isolant.
+      </div>
+      <div class="lines-block">
+        <div class="dotted-line"></div>
+        <div class="dotted-line"></div>
+      </div>
+
+      <div class="question">
+        3. Calculer la résistance thermique totale du mur.
+      </div>
+      <div class="lines-block">
+        <div class="dotted-line"></div>
+        <div class="dotted-line"></div>
+      </div>
+
+      <h2>Barème</h2>
+      <table class="exo-table" style="width: 80%; margin: 8px auto">
+        <tr>
+          <th>Exercice</th>
+          <td>1</td>
+          <td>2</td>
+          <td>3</td>
+          <td>4</td>
+          <td>5</td>
+          <td>Total</td>
+        </tr>
+        <tr>
+          <th>Points</th>
+          <td>4</td>
+          <td>5</td>
+          <td>5</td>
+          <td>4</td>
+          <td>2</td>
+          <td>20</td>
+        </tr>
+      </table>
+
+      <div class="footer-page">
+        <div>Sciences physiques CAP - Contrôle thermique</div>
+        <div>Page 2 sur 2</div>
+      </div>
+    </div>
+  </body>
+</html>

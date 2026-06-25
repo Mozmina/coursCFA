@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dossier CAP ELEC - Tension, intensité, puissance et énergie</title>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)'],
+          ],
+        },
+        svg: { fontCache: 'global' },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Kalam&display=swap');
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #525659;
+        margin: 0;
+        padding: 20px;
+        color: #000;
+        font-size: 10.5pt;
+        line-height: 1.26;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      .page {
+        width: 210mm;
+        height: 296mm;
+        padding: 10mm 14mm 15mm 14mm;
+        margin: 0 auto 20px auto;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        position: relative;
+        overflow: hidden;
+        page-break-after: always;
+      }
+
+      .print-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        background: #d35400;
+        color: white;
+        border: 2px solid white;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        z-index: 9999;
+      }
+
+      .header-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #000;
+        margin-bottom: 12px;
+      }
+
+      .header-table td {
+        border: 1px solid #000;
+        padding: 5px 9px;
+        vertical-align: top;
+      }
+
+      .row-info td {
+        height: 32px;
+        font-weight: bold;
+        font-size: 10pt;
+        padding-top: 6px;
+      }
+
+      .logo-cell {
+        width: 25%;
+        padding: 5px !important;
+        text-align: center;
+        vertical-align: middle;
+        height: 70px;
+      }
+
+      .logo-btp {
+        max-width: 100%;
+        max-height: 62px;
+        height: auto;
+      }
+
+      .title-cell {
+        text-align: center;
+        vertical-align: middle !important;
+      }
+
+      .title-main {
+        font-size: 15pt;
+        font-weight: 900;
+        text-transform: uppercase;
+        display: block;
+      }
+
+      .title-sub {
+        font-size: 10.5pt;
+        font-style: italic;
+        display: block;
+        margin-top: 3px;
+      }
+
+      h1 {
+        font-size: 16pt;
+        margin: 0 0 10px 0;
+        text-transform: uppercase;
+        color: #2c3e50;
+      }
+
+      h2 {
+        font-size: 13pt;
+        background: #2c3e50;
+        color: white;
+        padding: 6px 12px;
+        margin-top: 0;
+        margin-bottom: 9px;
+        border-left: 8px solid #f1c40f;
+      }
+
+      h3 {
+        font-size: 11.5pt;
+        color: #d35400;
+        border-bottom: 1px solid #d35400;
+        padding-bottom: 2px;
+        margin-top: 12px;
+        margin-bottom: 7px;
+      }
+
+      h4 {
+        margin: 0 0 5px 0;
+        font-size: 10.5pt;
+        color: #2c3e50;
+      }
+
+      p {
+        margin: 5px 0;
+      }
+
+      ul,
+      ol {
+        margin-top: 5px;
+        margin-bottom: 6px;
+        padding-left: 20px;
+      }
+
+      li {
+        margin-bottom: 3px;
+      }
+
+      .objective-box {
+        background: #eeeeee;
+        padding: 11px 13px;
+        border: 1px solid #000;
+        margin-bottom: 12px;
+      }
+
+      .context-box {
+        border-left: 4px solid #27ae60;
+        background: #f0fff4;
+        padding: 8px 10px;
+        margin: 8px 0;
+        font-style: italic;
+        font-size: 10pt;
+      }
+
+      .activity-box {
+        border: 1px solid #7f8c8d;
+        background: #f7f7f7;
+        padding: 8px 10px;
+        border-radius: 5px;
+        margin: 8px 0;
+      }
+
+      .trace-ecrite {
+        border: 2px solid #c0392b;
+        background: #fff5f5;
+        padding: 9px 10px;
+        margin: 12px 0 9px 0;
+        position: relative;
+        border-radius: 4px;
+      }
+
+      .trace-ecrite::before {
+        content: 'COURS A COMPLETER';
+        position: absolute;
+        top: -10px;
+        left: 15px;
+        background: #c0392b;
+        color: white;
+        padding: 1px 8px;
+        font-weight: bold;
+        font-size: 8.5pt;
+      }
+
+      .memo-box {
+        border: 2px solid #2980b9;
+        background-color: #eaf2f8;
+        padding: 9px 10px;
+        margin: 9px 0;
+        border-radius: 5px;
+      }
+
+      .example-box {
+        border: 1px solid #2980b9;
+        background-color: #eef7ff;
+        padding: 9px 10px;
+        margin: 8px 0;
+        border-radius: 5px;
+      }
+
+      .exercise-box {
+        border: 1px solid #000;
+        background-color: #fff;
+        padding: 9px 10px;
+        margin: 9px 0;
+        border-radius: 4px;
+      }
+
+      .challenge-box {
+        border: 2px solid #f1c40f;
+        background: #fffbe6;
+        padding: 9px 10px;
+        margin: 9px 0;
+        border-radius: 5px;
+      }
+
+      .dotted-lines {
+        border-bottom: 1px dotted #000;
+        height: 18px;
+        margin-bottom: 3px;
+      }
+
+      .short-line {
+        display: inline-block;
+        width: 70px;
+        border-bottom: 1px dotted #000;
+        height: 13px;
+        vertical-align: bottom;
+      }
+
+      .medium-line {
+        display: inline-block;
+        width: 130px;
+        border-bottom: 1px dotted #000;
+        height: 13px;
+        vertical-align: bottom;
+      }
+
+      .calc-space {
+        border: 1px dashed #999;
+        min-height: 48px;
+        background: #fff;
+        margin: 6px 0;
+        padding: 5px;
+      }
+
+      .calc-space.tall {
+        min-height: 75px;
+      }
+
+      .footer-page {
+        position: absolute;
+        bottom: 8mm;
+        left: 14mm;
+        right: 14mm;
+        border-top: 1px solid #000;
+        padding-top: 4px;
+        font-size: 8.5pt;
+        display: flex;
+        justify-content: space-between;
+        background: white;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+      }
+
+      .grid-3 {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 7px;
+      }
+
+      .small-card {
+        border: 1px solid #bbb;
+        background: #fafafa;
+        padding: 7px;
+        border-radius: 5px;
+      }
+
+      .formula {
+        display: inline-block;
+        padding: 3px 7px;
+        background: #2c3e50;
+        color: white;
+        border-radius: 4px;
+        font-weight: 900;
+      }
+
+      .label {
+        display: inline-block;
+        padding: 2px 7px;
+        border-radius: 12px;
+        background: #2c3e50;
+        color: white;
+        font-size: 8.5pt;
+        font-weight: 700;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 7px 0;
+        font-size: 9.5pt;
+      }
+
+      th,
+      td {
+        border: 1px solid #555;
+        padding: 5px 6px;
+        vertical-align: top;
+      }
+
+      th {
+        background: #2c3e50;
+        color: white;
+      }
+
+      .plate {
+        width: 100%;
+        max-height: 150px;
+      }
+
+      svg {
+        width: 100%;
+        height: auto;
+        display: block;
+      }
+
+      .center {
+        text-align: center;
+      }
+
+      .muted {
+        color: #666;
+        font-size: 9pt;
+      }
+
+      .important {
+        font-weight: 900;
+        color: #c0392b;
+      }
+
+      .compact p {
+        margin: 3px 0;
+      }
+
+      @media print {
+        body {
+          padding: 0;
+          background: none;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+          border: none;
+          width: 210mm;
+          height: 296mm;
+        }
+        .print-btn {
+          display: none;
+        }
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <button class="print-btn" onclick="window.print(); return false;">
+      IMPRIMER LE DOSSIER
+    </button>
+
+    <div class="page">
+      <table class="header-table">
+        <tr class="row-info">
+          <td style="width: 25%">Nom :</td>
+          <td style="width: 25%">Prénom :</td>
+          <td style="width: 25%">Groupe :</td>
+          <td style="width: 25%">Date :</td>
+        </tr>
+        <tr>
+          <td class="logo-cell">
+            <img
+              src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+              alt="Logo BTP CFA"
+              class="logo-btp"
+            />
+          </td>
+          <td colspan="3" class="title-cell">
+            <span class="title-main">SCIENCES PHYSIQUES - CAP ELEC</span>
+            <span class="title-sub"
+              >Dossier : tension, intensité, puissance et énergie</span
+            >
+          </td>
+        </tr>
+      </table>
+
+      <div class="objective-box">
+        <h4>Objectif du dossier</h4>
+        <p>
+          Dans ce dossier, on ne cherche pas à apprendre beaucoup de notions
+          différentes. On se concentre sur des calculs utiles en électricité :
+          lire une situation, repérer les grandeurs connues, choisir la bonne
+          formule, calculer, puis conclure avec une unité.
+        </p>
+        <ul>
+          <li>
+            Identifier une tension, une intensité, une puissance et une énergie.
+          </li>
+          <li>Utiliser les formules $P = U \times I$ et $E = P \times t$.</li>
+          <li>Convertir des watts en kilowatts et des minutes en heures.</li>
+          <li>Résoudre des situations professionnelles simples.</li>
+        </ul>
+      </div>
+
+      <h2>Situation de départ : un logement à équiper</h2>
+      <div class="context-box">
+        Un client souhaite comprendre pourquoi sa facture augmente. Dans son
+        logement, plusieurs appareils électriques fonctionnent chaque jour :
+        radiateur, chauffe-eau, éclairage, plaque de cuisson, chargeur,
+        aspirateur. Pour l'aider, il faut être capable de calculer les
+        puissances et les énergies consommées.
+      </div>
+
+      <h3>Ce que je dois savoir faire à la fin</h3>
+      <div class="grid-2">
+        <div class="small-card">
+          <strong>Je lis une plaque signalétique</strong>
+          <p>Exemple : 230 V - 1500 W</p>
+          <p>Je repère les données utiles.</p>
+        </div>
+        <div class="small-card">
+          <strong>Je calcule une intensité</strong>
+          <p>Exemple : un appareil de 1500 W sous 230 V.</p>
+          <p>Je peux calculer le courant demandé.</p>
+        </div>
+        <div class="small-card">
+          <strong>Je calcule une puissance</strong>
+          <p>Exemple : un appareil sous 230 V traversé par 4 A.</p>
+          <p>Je trouve la puissance en watts.</p>
+        </div>
+        <div class="small-card">
+          <strong>Je calcule une énergie</strong>
+          <p>Exemple : un radiateur de 2 kW pendant 3 h.</p>
+          <p>Je trouve la consommation en kWh.</p>
+        </div>
+      </div>
+
+      <h3>Première activité : repérer les informations</h3>
+      <div class="activity-box">
+        <p>
+          Sur la plaque ci-dessous, entourer la tension en bleu et la puissance
+          en rouge.
+        </p>
+        <svg
+          class="plate"
+          viewBox="0 0 620 155"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <rect
+            x="20"
+            y="18"
+            width="580"
+            height="118"
+            rx="10"
+            fill="#eeeeee"
+            stroke="#111"
+            stroke-width="3"
+          />
+          <text
+            x="310"
+            y="48"
+            text-anchor="middle"
+            font-family="Roboto"
+            font-size="22"
+            font-weight="700"
+          >
+            RADIATEUR ELECTRIQUE
+          </text>
+          <text
+            x="95"
+            y="88"
+            font-family="Roboto"
+            font-size="24"
+            font-weight="700"
+          >
+            230 V
+          </text>
+          <text
+            x="240"
+            y="88"
+            font-family="Roboto"
+            font-size="24"
+            font-weight="700"
+          >
+            1500 W
+          </text>
+          <text
+            x="410"
+            y="88"
+            font-family="Roboto"
+            font-size="24"
+            font-weight="700"
+          >
+            50 Hz
+          </text>
+        </svg>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences physiques - Puissance et énergie</div>
+        <div>Page 1</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>PARTIE 1 : Tension et intensité, rappels courts</h2>
+
+      <div class="context-box">
+        Avant de calculer une puissance, il faut savoir reconnaître deux
+        grandeurs : la tension et l'intensité. Cette partie est volontairement
+        courte : l'objectif principal du dossier sera ensuite de résoudre des
+        situations de calcul.
+      </div>
+
+      <h3>1.1 Observation</h3>
+      <div class="activity-box">
+        <p>
+          Voici trois informations que l'on peut lire sur des appareils
+          électriques :
+        </p>
+        <ul>
+          <li>230 V sur une prise domestique.</li>
+          <li>16 A sur un disjoncteur.</li>
+          <li>1500 W sur un radiateur.</li>
+        </ul>
+        <p>Classer ces informations dans le tableau.</p>
+        <table>
+          <tr>
+            <th>Information</th>
+            <th>Grandeur électrique</th>
+            <th>Unité</th>
+          </tr>
+          <tr>
+            <td>230 V</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>16 A</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>1500 W</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+
+      <h3>1.2 Cours à compléter</h3>
+      <div class="trace-ecrite">
+        <p>
+          La tension électrique se note <span class="short-line"></span> et se
+          mesure en <span class="medium-line"></span>.
+        </p>
+        <p>
+          L'intensité électrique se note <span class="short-line"></span> et se
+          mesure en <span class="medium-line"></span>.
+        </p>
+        <p>
+          Dans une installation domestique, la tension habituelle d'une prise
+          est environ <span class="medium-line"></span>.
+        </p>
+      </div>
+
+      <h3>1.3 Exemple guidé : lire une situation</h3>
+      <div class="example-box">
+        <p>
+          <strong>Situation :</strong> un sèche-serviettes porte l'indication
+          230 V - 750 W.
+        </p>
+        <p><strong>Données repérées :</strong></p>
+        <ul>
+          <li>230 V correspond à la tension.</li>
+          <li>750 W correspond à la puissance.</li>
+        </ul>
+        <p>
+          <strong>Conclusion :</strong> on connaît la tension et la puissance de
+          l'appareil.
+        </p>
+      </div>
+
+      <h3>1.4 Exercice d'application</h3>
+      <div class="exercise-box">
+        <p>
+          Une plaque signalétique indique :
+          <strong>230 V - 2000 W - 50 Hz</strong>.
+        </p>
+        <ol>
+          <li>Quelle est la tension de fonctionnement ?</li>
+          <div class="dotted-lines"></div>
+          <li>Quelle est la puissance de l'appareil ?</li>
+          <div class="dotted-lines"></div>
+          <li>
+            Quelle information ne sera pas utilisée dans les calculs de ce
+            dossier ?
+          </li>
+          <div class="dotted-lines"></div>
+        </ol>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences physiques - Puissance et énergie</div>
+        <div>Page 2</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>PARTIE 2 : Calculer une puissance électrique</h2>
+
+      <div class="context-box">
+        La puissance permet d'estimer si un appareil est peu ou très énergivore.
+        Plus la puissance est grande, plus l'appareil utilise rapidement de
+        l'énergie lorsqu'il fonctionne.
+      </div>
+
+      <h3>2.1 Découverte</h3>
+      <div class="activity-box">
+        <p>Deux appareils fonctionnent sous la même tension de 230 V.</p>
+        <table>
+          <tr>
+            <th>Appareil</th>
+            <th>Tension</th>
+            <th>Intensité</th>
+          </tr>
+          <tr>
+            <td>Lampe d'atelier</td>
+            <td>230 V</td>
+            <td>0,4 A</td>
+          </tr>
+          <tr>
+            <td>Aspirateur de chantier</td>
+            <td>230 V</td>
+            <td>5 A</td>
+          </tr>
+        </table>
+        <p>
+          À ton avis, lequel est le plus puissant ? Justifier sans calcul
+          détaillé.
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <h3>2.2 Cours à compléter</h3>
+      <div class="trace-ecrite">
+        <p>La puissance électrique se note <span class="short-line"></span>.</p>
+        <p>Elle se mesure en <span class="medium-line"></span>.</p>
+        <p>Pour calculer une puissance, on utilise la relation :</p>
+        <p class="center">
+          $P = $ <span class="medium-line"></span> $\times$
+          <span class="medium-line"></span>
+        </p>
+      </div>
+
+      <h3>2.3 Exemple corrigé</h3>
+      <div class="example-box">
+        <p>
+          <strong>Situation :</strong> une lampe fonctionne sous 230 V et est
+          traversée par un courant de 0,25 A.
+        </p>
+        <p><strong>Question :</strong> calculer la puissance de la lampe.</p>
+        <p><strong>Méthode :</strong></p>
+        <ol>
+          <li>Grandeurs connues : $U = 230 V$ et $I = 0,25 A$.</li>
+          <li>Formule : $P = U \times I$.</li>
+          <li>Calcul : $P = 230 \times 0,25 = 57,5 W$.</li>
+          <li>
+            Conclusion : la lampe a une puissance de 57,5 W, soit environ 60 W.
+          </li>
+        </ol>
+      </div>
+
+      <h3>2.4 Exercice d'application</h3>
+      <div class="exercise-box">
+        <p>
+          Une perceuse fonctionne sous 230 V. L'intensité du courant est de 3,2
+          A.
+        </p>
+        <ol>
+          <li>Écrire les données utiles.</li>
+          <div class="dotted-lines"></div>
+          <li>Écrire la formule.</li>
+          <div class="dotted-lines"></div>
+          <li>Calculer la puissance de la perceuse.</li>
+          <div class="calc-space"></div>
+          <li>Rédiger une phrase de conclusion.</li>
+          <div class="dotted-lines"></div>
+        </ol>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences physiques - Puissance et énergie</div>
+        <div>Page 3</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>PARTIE 3 : Retrouver l'intensité à partir de la puissance</h2>
+
+      <div class="context-box">
+        En électricité, on connaît souvent la puissance d'un appareil et la
+        tension d'alimentation. On peut alors calculer l'intensité demandée par
+        l'appareil. Cela permet de vérifier si un circuit ou un disjoncteur est
+        adapté.
+      </div>
+
+      <h3>3.1 Transformer la formule</h3>
+      <div class="memo-box">
+        <p>
+          La formule de départ est :
+          <span class="formula">$P = U \times I$</span>
+        </p>
+        <p>
+          Si on cherche l'intensité, on utilise :
+          <span class="formula">$I = \dfrac{P}{U}$</span>
+        </p>
+      </div>
+
+      <h3>3.2 Exemple corrigé</h3>
+      <div class="example-box">
+        <p>
+          <strong>Situation :</strong> un radiateur de 1500 W fonctionne sous
+          230 V.
+        </p>
+        <p><strong>Question :</strong> calculer l'intensité consommée.</p>
+        <ol>
+          <li>Données : $P = 1500 W$ et $U = 230 V$.</li>
+          <li>Formule : $I = \dfrac{P}{U}$.</li>
+          <li>Calcul : $I = \dfrac{1500}{230} \approx 6,52 A$.</li>
+          <li>Conclusion : le radiateur consomme environ 6,5 A.</li>
+        </ol>
+      </div>
+
+      <h3>3.3 Exercice guidé</h3>
+      <div class="exercise-box">
+        <p>Un appareil de chauffage de 2000 W fonctionne sous 230 V.</p>
+        <ol>
+          <li>
+            Indiquer la puissance : $P =$ <span class="medium-line"></span>
+          </li>
+          <li>Indiquer la tension : $U =$ <span class="medium-line"></span></li>
+          <li>
+            Choisir la bonne formule : $I =$ <span class="medium-line"></span>
+          </li>
+          <li>Faire le calcul.</li>
+          <div class="calc-space"></div>
+          <li>Conclure.</li>
+          <div class="dotted-lines"></div>
+        </ol>
+      </div>
+
+      <h3>3.4 Situation professionnelle</h3>
+      <div class="challenge-box compact">
+        <p>
+          <strong>Un circuit est protégé par un disjoncteur de 10 A.</strong>
+        </p>
+        <p>On branche un radiateur de 2500 W sous 230 V.</p>
+        <ol>
+          <li>Calculer l'intensité demandée par le radiateur.</li>
+          <div class="calc-space"></div>
+          <li>Le disjoncteur de 10 A est-il adapté ? Justifier.</li>
+          <div class="dotted-lines"></div>
+          <div class="dotted-lines"></div>
+        </ol>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences physiques - Puissance et énergie</div>
+        <div>Page 4</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>PARTIE 4 : Choisir la bonne formule</h2>
+
+      <div class="context-box">
+        Une difficulté fréquente n'est pas le calcul lui-même, mais le choix de
+        la bonne formule. Il faut d'abord repérer ce que l'on connaît et ce que
+        l'on cherche.
+      </div>
+
+      <h3>4.1 Méthode en quatre étapes</h3>
+      <div class="memo-box">
+        <ol>
+          <li>Je lis la situation.</li>
+          <li>Je note les données avec leurs unités.</li>
+          <li>Je choisis la formule adaptée.</li>
+          <li>Je calcule et j'écris une phrase de réponse.</li>
+        </ol>
+      </div>
+
+      <h3>4.2 Tableau d'aide</h3>
+      <table>
+        <tr>
+          <th>Je cherche...</th>
+          <th>Je connais...</th>
+          <th>J'utilise...</th>
+        </tr>
+        <tr>
+          <td>La puissance P</td>
+          <td>La tension U et l'intensité I</td>
+          <td>$P = U \times I$</td>
+        </tr>
+        <tr>
+          <td>L'intensité I</td>
+          <td>La puissance P et la tension U</td>
+          <td>$I = \dfrac{P}{U}$</td>
+        </tr>
+        <tr>
+          <td>La tension U</td>
+          <td>La puissance P et l'intensité I</td>
+          <td>$U = \dfrac{P}{I}$</td>
+        </tr>
+      </table>
+
+      <h3>4.3 Exemple corrigé</h3>
+      <div class="example-box">
+        <p>
+          <strong>Situation :</strong> un projecteur de chantier consomme 2 A.
+          Sa puissance est de 460 W.
+        </p>
+        <p><strong>Question :</strong> retrouver la tension d'alimentation.</p>
+        <ol>
+          <li>Données : $P = 460 W$ et $I = 2 A$.</li>
+          <li>On cherche $U$.</li>
+          <li>Formule : $U = \dfrac{P}{I}$.</li>
+          <li>Calcul : $U = \dfrac{460}{2} = 230 V$.</li>
+        </ol>
+      </div>
+
+      <h3>4.4 Exercices rapides</h3>
+      <div class="exercise-box">
+        <p>
+          Pour chaque situation, écrire la formule à utiliser puis faire le
+          calcul.
+        </p>
+        <table>
+          <tr>
+            <th>Situation</th>
+            <th>Formule</th>
+            <th>Calcul</th>
+          </tr>
+          <tr>
+            <td>U = 230 V et I = 6 A. Calculer P.</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>P = 920 W et U = 230 V. Calculer I.</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>P = 690 W et I = 3 A. Calculer U.</td>
+            <td></td>
+            <td></td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences physiques - Puissance et énergie</div>
+        <div>Page 5</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>PARTIE 5 : L'énergie consommée</h2>
+
+      <div class="context-box">
+        La puissance indique ce que demande un appareil quand il fonctionne.
+        L'énergie dépend aussi du temps d'utilisation. Un appareil peu puissant
+        peut consommer beaucoup s'il reste allumé longtemps.
+      </div>
+
+      <h3>5.1 Découverte</h3>
+      <div class="activity-box">
+        <p>Comparer ces deux situations :</p>
+        <table>
+          <tr>
+            <th>Situation</th>
+            <th>Puissance</th>
+            <th>Durée</th>
+          </tr>
+          <tr>
+            <td>Lampe LED</td>
+            <td>20 W</td>
+            <td>10 h</td>
+          </tr>
+          <tr>
+            <td>Four électrique</td>
+            <td>2000 W</td>
+            <td>10 min</td>
+          </tr>
+        </table>
+        <p>
+          Lequel te semble consommer le plus d'énergie ? Justifier ton idée.
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <h3>5.2 Cours à compléter</h3>
+      <div class="trace-ecrite">
+        <p>L'énergie électrique se note <span class="short-line"></span>.</p>
+        <p>
+          Elle dépend de la puissance de l'appareil et de la
+          <span class="medium-line"></span> d'utilisation.
+        </p>
+        <p>
+          La formule est : $E =$ <span class="medium-line"></span> $\times$
+          <span class="medium-line"></span>
+        </p>
+        <p>
+          Pour obtenir une énergie en kWh, la puissance doit être en
+          <span class="medium-line"></span> et le temps en
+          <span class="medium-line"></span>.
+        </p>
+      </div>
+
+      <h3>5.3 Exemple corrigé</h3>
+      <div class="example-box">
+        <p>
+          <strong>Situation :</strong> un radiateur de 2000 W fonctionne pendant
+          3 h.
+        </p>
+        <p><strong>Question :</strong> calculer l'énergie consommée en kWh.</p>
+        <ol>
+          <li>Conversion : $2000 W = 2 kW$.</li>
+          <li>Formule : $E = P \times t$.</li>
+          <li>Calcul : $E = 2 \times 3 = 6 kWh$.</li>
+          <li>Conclusion : le radiateur consomme 6 kWh.</li>
+        </ol>
+      </div>
+
+      <h3>5.4 Exercice d'application</h3>
+      <div class="exercise-box">
+        <p>Un chauffe-eau de 1800 W fonctionne pendant 2 h.</p>
+        <ol>
+          <li>Convertir la puissance en kW.</li>
+          <div class="dotted-lines"></div>
+          <li>Écrire la formule.</li>
+          <div class="dotted-lines"></div>
+          <li>Calculer l'énergie consommée.</li>
+          <div class="calc-space"></div>
+        </ol>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences physiques - Puissance et énergie</div>
+        <div>Page 6</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>PARTIE 6 : Convertir avant de calculer l'énergie</h2>
+
+      <div class="context-box">
+        Pour calculer une énergie en kWh, il faut faire attention aux unités. La
+        puissance doit être en kW et le temps doit être en heures.
+      </div>
+
+      <h3>6.1 Rappels utiles</h3>
+      <div class="memo-box">
+        <div class="grid-2">
+          <div>
+            <h4>Puissance</h4>
+            <p>$1000 W = 1 kW$</p>
+            <p>Pour passer de W à kW, on divise par 1000.</p>
+          </div>
+          <div>
+            <h4>Temps</h4>
+            <p>$60 min = 1 h$</p>
+            <p>Pour passer de minutes à heures, on divise par 60.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3>6.2 Exemple corrigé</h3>
+      <div class="example-box">
+        <p>
+          <strong>Situation :</strong> un four de 2400 W fonctionne pendant 30
+          min.
+        </p>
+        <ol>
+          <li>$2400 W = 2,4 kW$.</li>
+          <li>$30 min = 0,5 h$.</li>
+          <li>$E = P \times t$.</li>
+          <li>$E = 2,4 \times 0,5 = 1,2 kWh$.</li>
+        </ol>
+      </div>
+
+      <h3>6.3 Exercices de conversion</h3>
+      <div class="exercise-box">
+        <table>
+          <tr>
+            <th>Convertir en kW</th>
+            <th>Convertir en h</th>
+          </tr>
+          <tr>
+            <td>500 W = ................................ kW</td>
+            <td>15 min = ................................ h</td>
+          </tr>
+          <tr>
+            <td>1500 W = ................................ kW</td>
+            <td>30 min = ................................ h</td>
+          </tr>
+          <tr>
+            <td>3000 W = ................................ kW</td>
+            <td>45 min = ................................ h</td>
+          </tr>
+          <tr>
+            <td>750 W = ................................ kW</td>
+            <td>90 min = ................................ h</td>
+          </tr>
+        </table>
+      </div>
+
+      <h3>6.4 Calculs d'énergie</h3>
+      <div class="exercise-box compact">
+        <p>Calculer l'énergie consommée dans chaque situation.</p>
+        <ol>
+          <li>Un aspirateur de 1200 W fonctionne pendant 30 min.</li>
+          <div class="calc-space"></div>
+          <li>Une lampe de 60 W fonctionne pendant 5 h.</li>
+          <div class="calc-space"></div>
+          <li>Une plaque de cuisson de 3000 W fonctionne pendant 20 min.</li>
+          <div class="calc-space"></div>
+        </ol>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences physiques - Puissance et énergie</div>
+        <div>Page 7</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>PARTIE 7 : Calculer une consommation sur une journée</h2>
+
+      <div class="context-box">
+        Pour comprendre une facture, on ne regarde pas seulement la puissance
+        d'un appareil. On regarde aussi combien de temps il fonctionne dans la
+        journée.
+      </div>
+
+      <h3>7.1 Exemple corrigé</h3>
+      <div class="example-box">
+        <p>
+          <strong>Situation :</strong> dans un atelier, 8 lampes LED de 20 W
+          fonctionnent pendant 6 h.
+        </p>
+        <ol>
+          <li>Puissance totale : $8 \times 20 = 160 W$.</li>
+          <li>Conversion : $160 W = 0,160 kW$.</li>
+          <li>Énergie : $E = 0,160 \times 6 = 0,96 kWh$.</li>
+          <li>Conclusion : l'éclairage consomme 0,96 kWh sur la journée.</li>
+        </ol>
+      </div>
+
+      <h3>7.2 Exercice guidé</h3>
+      <div class="exercise-box">
+        <p>Dans une salle, 12 tubes LED de 18 W fonctionnent pendant 7 h.</p>
+        <ol>
+          <li>Calculer la puissance totale des 12 tubes.</li>
+          <div class="calc-space"></div>
+          <li>Convertir cette puissance en kW.</li>
+          <div class="dotted-lines"></div>
+          <li>Calculer l'énergie consommée en 7 h.</li>
+          <div class="calc-space"></div>
+          <li>Conclure.</li>
+          <div class="dotted-lines"></div>
+        </ol>
+      </div>
+
+      <h3>7.3 Situation professionnelle</h3>
+      <div class="challenge-box">
+        <p>
+          Un apprenti prépare une estimation de consommation pour une journée de
+          travail.
+        </p>
+        <table>
+          <tr>
+            <th>Appareil</th>
+            <th>Nombre</th>
+            <th>Puissance unitaire</th>
+            <th>Durée</th>
+          </tr>
+          <tr>
+            <td>Projecteur LED</td>
+            <td>3</td>
+            <td>50 W</td>
+            <td>8 h</td>
+          </tr>
+          <tr>
+            <td>Chargeur batterie</td>
+            <td>2</td>
+            <td>120 W</td>
+            <td>4 h</td>
+          </tr>
+        </table>
+        <p>Calculer l'énergie totale consommée sur la journée.</p>
+        <div class="calc-space tall"></div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences physiques - Puissance et énergie</div>
+        <div>Page 8</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>PARTIE 8 : Calculer une consommation sur plusieurs jours</h2>
+
+      <div class="context-box">
+        Certains appareils fonctionnent tous les jours. Une petite consommation
+        quotidienne peut devenir importante sur une semaine ou un mois.
+      </div>
+
+      <h3>8.1 Exemple corrigé</h3>
+      <div class="example-box">
+        <p>
+          <strong>Situation :</strong> un ballon d'eau chaude de 1800 W
+          fonctionne 2 h par jour pendant 7 jours.
+        </p>
+        <ol>
+          <li>$1800 W = 1,8 kW$.</li>
+          <li>Énergie par jour : $E = 1,8 \times 2 = 3,6 kWh$.</li>
+          <li>Énergie sur 7 jours : $3,6 \times 7 = 25,2 kWh$.</li>
+          <li>Conclusion : le ballon consomme 25,2 kWh sur la semaine.</li>
+        </ol>
+      </div>
+
+      <h3>8.2 Exercice guidé</h3>
+      <div class="exercise-box">
+        <p>Un radiateur de 1500 W fonctionne 4 h par jour pendant 5 jours.</p>
+        <ol>
+          <li>Convertir la puissance en kW.</li>
+          <div class="dotted-lines"></div>
+          <li>Calculer l'énergie consommée en une journée.</li>
+          <div class="calc-space"></div>
+          <li>Calculer l'énergie consommée en 5 jours.</li>
+          <div class="calc-space"></div>
+          <li>Conclure.</li>
+          <div class="dotted-lines"></div>
+        </ol>
+      </div>
+
+      <h3>8.3 Comparaison de deux usages</h3>
+      <div class="challenge-box compact">
+        <p>Comparer les deux situations.</p>
+        <table>
+          <tr>
+            <th>Situation</th>
+            <th>Puissance</th>
+            <th>Durée par jour</th>
+            <th>Nombre de jours</th>
+          </tr>
+          <tr>
+            <td>Petit radiateur</td>
+            <td>1000 W</td>
+            <td>6 h</td>
+            <td>3 jours</td>
+          </tr>
+          <tr>
+            <td>Gros radiateur</td>
+            <td>2000 W</td>
+            <td>2 h</td>
+            <td>3 jours</td>
+          </tr>
+        </table>
+        <p>Lequel consomme le plus sur 3 jours ? Justifier par le calcul.</p>
+        <div class="calc-space tall"></div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences physiques - Puissance et énergie</div>
+        <div>Page 9</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>PARTIE 9 : Associer consommation et coût</h2>
+
+      <div class="context-box">
+        Sur une facture d'électricité, la consommation est exprimée en kWh. Pour
+        estimer un coût, on multiplie l'énergie consommée par le prix d'un kWh.
+        Dans ce dossier, on prendra un prix fictif de 0,20 euro par kWh.
+      </div>
+
+      <h3>9.1 Méthode</h3>
+      <div class="memo-box">
+        <p>Étape 1 : calculer l'énergie consommée en kWh.</p>
+        <p>Étape 2 : multiplier par le prix d'un kWh.</p>
+        <p class="center">
+          <span class="formula">Coût = énergie en kWh x prix d'un kWh</span>
+        </p>
+      </div>
+
+      <h3>9.2 Exemple corrigé</h3>
+      <div class="example-box">
+        <p>
+          <strong>Situation :</strong> un appareil consomme 12 kWh. Le prix
+          choisi est 0,20 euro par kWh.
+        </p>
+        <ol>
+          <li>Coût = $12 \times 0,20$.</li>
+          <li>Coût = 2,40 euros.</li>
+          <li>Conclusion : l'utilisation coûte 2,40 euros.</li>
+        </ol>
+      </div>
+
+      <h3>9.3 Exercices</h3>
+      <div class="exercise-box compact">
+        <p>Prix utilisé : 0,20 euro par kWh.</p>
+        <ol>
+          <li>Un chauffage consomme 6 kWh. Calculer le coût.</li>
+          <div class="calc-space"></div>
+          <li>
+            Un chauffe-eau consomme 25 kWh sur une semaine. Calculer le coût.
+          </li>
+          <div class="calc-space"></div>
+          <li>
+            Un éclairage consomme 0,96 kWh par jour. Calculer le coût sur 5
+            jours.
+          </li>
+          <div class="calc-space"></div>
+        </ol>
+      </div>
+
+      <h3>9.4 Situation complète</h3>
+      <div class="challenge-box">
+        <p>Un radiateur de 2000 W fonctionne 3 h par jour pendant 4 jours.</p>
+        <ol>
+          <li>Calculer l'énergie consommée en kWh.</li>
+          <div class="calc-space"></div>
+          <li>Calculer le coût avec 0,20 euro par kWh.</li>
+          <div class="calc-space"></div>
+        </ol>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences physiques - Puissance et énergie</div>
+        <div>Page 10</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>PARTIE 10 : Situations mélangées</h2>
+
+      <div class="context-box">
+        Dans les situations réelles, la question n'indique pas toujours
+        directement quelle formule utiliser. Il faut repérer si la situation
+        parle de puissance, d'intensité, d'énergie, de durée ou de coût.
+      </div>
+
+      <h3>10.1 Situation 1 : choisir un appareil</h3>
+      <div class="exercise-box">
+        <p>Deux radiateurs sont proposés pour une petite pièce.</p>
+        <table>
+          <tr>
+            <th>Radiateur</th>
+            <th>Puissance</th>
+            <th>Durée d'utilisation prévue</th>
+          </tr>
+          <tr>
+            <td>A</td>
+            <td>1000 W</td>
+            <td>5 h</td>
+          </tr>
+          <tr>
+            <td>B</td>
+            <td>1500 W</td>
+            <td>3 h</td>
+          </tr>
+        </table>
+        <ol>
+          <li>Calculer l'énergie consommée par le radiateur A.</li>
+          <div class="calc-space"></div>
+          <li>Calculer l'énergie consommée par le radiateur B.</li>
+          <div class="calc-space"></div>
+          <li>Lequel consomme le moins ?</li>
+          <div class="dotted-lines"></div>
+        </ol>
+      </div>
+
+      <h3>10.2 Situation 2 : vérifier une intensité</h3>
+      <div class="exercise-box">
+        <p>Une bouilloire de 2200 W fonctionne sous 230 V.</p>
+        <ol>
+          <li>Calculer l'intensité demandée par la bouilloire.</li>
+          <div class="calc-space"></div>
+          <li>Un circuit limité à 10 A convient-il ? Justifier.</li>
+          <div class="dotted-lines"></div>
+          <div class="dotted-lines"></div>
+        </ol>
+      </div>
+
+      <h3>10.3 Situation 3 : consommation d'un atelier</h3>
+      <div class="challenge-box">
+        <p>Dans un atelier, on utilise :</p>
+        <ul>
+          <li>2 projecteurs de 80 W pendant 6 h.</li>
+          <li>1 aspirateur de 1200 W pendant 45 min.</li>
+          <li>1 chargeur de 150 W pendant 4 h.</li>
+        </ul>
+        <p>Calculer l'énergie totale consommée.</p>
+        <div class="calc-space tall"></div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences physiques - Puissance et énergie</div>
+        <div>Page 11</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>PARTIE 11 : Problème bilan</h2>
+
+      <div class="context-box">
+        Cette dernière activité regroupe les compétences du dossier. Il faut
+        organiser les calculs et expliquer les résultats.
+      </div>
+
+      <h3>11.1 Situation bilan</h3>
+      <div class="challenge-box">
+        <p>
+          Un client veut estimer la consommation de plusieurs appareils pendant
+          une journée froide.
+        </p>
+        <table>
+          <tr>
+            <th>Appareil</th>
+            <th>Nombre</th>
+            <th>Puissance unitaire</th>
+            <th>Durée</th>
+          </tr>
+          <tr>
+            <td>Radiateur</td>
+            <td>2</td>
+            <td>1500 W</td>
+            <td>4 h</td>
+          </tr>
+          <tr>
+            <td>Lampe LED</td>
+            <td>6</td>
+            <td>12 W</td>
+            <td>8 h</td>
+          </tr>
+          <tr>
+            <td>Four électrique</td>
+            <td>1</td>
+            <td>2400 W</td>
+            <td>30 min</td>
+          </tr>
+          <tr>
+            <td>Chargeur</td>
+            <td>2</td>
+            <td>100 W</td>
+            <td>3 h</td>
+          </tr>
+        </table>
+
+        <ol>
+          <li>Calculer l'énergie consommée par les radiateurs.</li>
+          <div class="calc-space"></div>
+          <li>Calculer l'énergie consommée par les lampes.</li>
+          <div class="calc-space"></div>
+          <li>Calculer l'énergie consommée par le four.</li>
+          <div class="calc-space"></div>
+          <li>Calculer l'énergie consommée par les chargeurs.</li>
+          <div class="calc-space"></div>
+          <li>Calculer l'énergie totale consommée dans la journée.</li>
+          <div class="calc-space"></div>
+        </ol>
+      </div>
+
+      <h3>11.2 Phrase de conclusion</h3>
+      <div class="exercise-box">
+        <p>
+          Rédiger une phrase expliquant au client quel type d'appareil consomme
+          le plus dans cette situation.
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences physiques - Puissance et énergie</div>
+        <div>Page 12</div>
+      </div>
+    </div>
+  </body>
+</html>

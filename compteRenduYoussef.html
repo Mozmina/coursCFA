@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Compte rendu des thèmes travaillés - Sciences physiques</title>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Oswald:wght@500;600;700&display=swap');
+
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e5e7eb;
+        color: #111827;
+        font-family: 'Roboto', Arial, sans-serif;
+        font-size: 10pt;
+        line-height: 1.28;
+      }
+
+      .page {
+        width: 210mm;
+        height: 297mm;
+        margin: 0 auto;
+        background: white;
+        padding: 10mm 11mm;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .header {
+        border: 2px solid #1f2937;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 10px;
+      }
+
+      .header-top {
+        background: #1f2937;
+        color: white;
+        padding: 8px 12px;
+        display: grid;
+        grid-template-columns: 72px 1fr;
+        gap: 12px;
+        align-items: center;
+      }
+
+      .logo-box {
+        background: white;
+        border-radius: 6px;
+        padding: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 58px;
+      }
+
+      .logo {
+        max-width: 60px;
+        max-height: 48px;
+        object-fit: contain;
+        display: block;
+      }
+
+      .header-title h1 {
+        margin: 0;
+        font-family: 'Oswald', Arial, sans-serif;
+        font-size: 17.5pt;
+        letter-spacing: 0.2px;
+        text-transform: uppercase;
+        line-height: 1.05;
+      }
+
+      .header-title p {
+        margin: 3px 0 0;
+        font-size: 9.3pt;
+        opacity: 0.95;
+      }
+
+      .header-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+        border-top: 2px solid #1f2937;
+      }
+
+      .info-box {
+        padding: 7px 10px;
+        border-right: 1px solid #d1d5db;
+        border-bottom: 1px solid #d1d5db;
+      }
+
+      .info-box:nth-child(2n) {
+        border-right: none;
+      }
+
+      .info-box:nth-child(3),
+      .info-box:nth-child(4) {
+        border-bottom: none;
+      }
+
+      .label {
+        display: block;
+        font-size: 7.8pt;
+        text-transform: uppercase;
+        font-weight: 700;
+        color: #4b5563;
+        margin-bottom: 2px;
+      }
+
+      .value {
+        font-weight: 600;
+        color: #111827;
+      }
+
+      .section-title {
+        font-family: 'Oswald', Arial, sans-serif;
+        font-size: 12.5pt;
+        color: #111827;
+        margin: 11px 0 6px;
+        padding-bottom: 3px;
+        border-bottom: 2px solid #f59e0b;
+        text-transform: uppercase;
+      }
+
+      .intro {
+        background: #f9fafb;
+        border-left: 4px solid #f59e0b;
+        padding: 8px 10px;
+        border-radius: 5px;
+        margin: 0 0 8px;
+        text-align: justify;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 8px 0 10px;
+        font-size: 8.9pt;
+        line-height: 1.2;
+      }
+
+      th {
+        background: #1f2937;
+        color: white;
+        padding: 6px;
+        text-align: left;
+        font-weight: 700;
+        border: 1px solid #1f2937;
+      }
+
+      td {
+        padding: 6px;
+        border: 1px solid #d1d5db;
+        vertical-align: top;
+      }
+
+      tr:nth-child(even) td {
+        background: #f9fafb;
+      }
+
+      .theme {
+        font-weight: 700;
+        color: #111827;
+      }
+
+      .period {
+        font-weight: 600;
+        color: #374151;
+        white-space: nowrap;
+      }
+
+      .absence-box {
+        border: 2px solid #d1d5db;
+        border-radius: 8px;
+        padding: 8px 10px;
+        background: #ffffff;
+        margin-top: 7px;
+      }
+
+      .absence-box h3 {
+        margin: 0 0 5px;
+        font-family: 'Oswald', Arial, sans-serif;
+        font-size: 11.2pt;
+        color: #111827;
+      }
+
+      .absence-box p {
+        margin: 4px 0;
+        text-align: justify;
+      }
+
+      .highlight {
+        font-weight: 700;
+        color: #b45309;
+      }
+
+      .attestation {
+        margin-top: 8px;
+        padding: 8px 10px;
+        border: 2px solid #f59e0b;
+        border-radius: 8px;
+        background: #fffbeb;
+        text-align: justify;
+      }
+
+      .signature-zone {
+        margin-top: 12px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 18px;
+        align-items: start;
+      }
+
+      .signature-card {
+        border: 1.5px solid #9ca3af;
+        border-radius: 7px;
+        padding: 8px;
+        min-height: 72px;
+        background: #ffffff;
+      }
+
+      .signature-card .title {
+        font-weight: 700;
+        margin-bottom: 5px;
+        color: #111827;
+      }
+
+      .signature-line {
+        margin-top: 26px;
+        border-top: 1px solid #111827;
+        padding-top: 4px;
+        font-size: 8.8pt;
+        color: #374151;
+      }
+
+      .footer {
+        margin-top: 10px;
+        font-size: 7.8pt;
+        color: #6b7280;
+        border-top: 1px solid #d1d5db;
+        padding-top: 5px;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+      }
+
+      .print-button {
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        background: #1f2937;
+        color: white;
+        border: none;
+        padding: 10px 16px;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        z-index: 1000;
+      }
+
+      .print-button:hover {
+        background: #374151;
+      }
+
+      @media print {
+        html,
+        body {
+          background: white;
+          width: 210mm;
+          height: 297mm;
+        }
+
+        .page {
+          margin: 0;
+          width: 210mm;
+          height: 297mm;
+          box-shadow: none;
+          overflow: hidden;
+        }
+
+        .print-button {
+          display: none;
+        }
+
+        @page {
+          size: A4;
+          margin: 0;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <button class="print-button" onclick="window.print()">
+      Imprimer / Exporter en PDF
+    </button>
+
+    <main class="page">
+      <section class="header">
+        <div class="header-top">
+          <div class="logo-box">
+            <img
+              src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+              alt="Logo BTP CFA"
+              class="logo"
+            />
+          </div>
+
+          <div class="header-title">
+            <h1>Compte rendu des thèmes travaillés</h1>
+            <p>Sciences physiques - Année de formation 2024-2025</p>
+          </div>
+        </div>
+
+        <div class="header-info">
+          <div class="info-box">
+            <span class="label">Apprenti concerné</span>
+            <span class="value">Youssef</span>
+          </div>
+
+          <div class="info-box">
+            <span class="label">Discipline</span>
+            <span class="value">Mathématiques - Sciences</span>
+          </div>
+
+          <div class="info-box">
+            <span class="label">Formateur de première année</span>
+            <span class="value">M. Ozmina</span>
+          </div>
+
+          <div class="info-box">
+            <span class="label">Période concernée</span>
+            <span class="value">Année 2024-2025</span>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">Objet du document</h2>
+
+        <p class="intro">
+          Le présent document a pour objectif de confirmer les thèmes de
+          sciences physiques travaillés durant l'année de formation 2024-2025,
+          ainsi que les informations relatives aux absences de l'apprenti
+          concerné sur les différentes périodes. Il est établi par le formateur
+          de mathématiques - sciences de première année.
+        </p>
+      </section>
+
+      <section>
+        <h2 class="section-title">Thèmes travaillés durant l'année</h2>
+
+        <table>
+          <thead>
+            <tr>
+              <th style="width: 21%">Période</th>
+              <th style="width: 22%">Dates</th>
+              <th style="width: 22%">Thème</th>
+              <th style="width: 35%">Notions abordées</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            <tr>
+              <td class="period">Stage 1 au stage 4</td>
+              <td>Du 30/09/2024 au 13/12/2024</td>
+              <td class="theme">Force, masse et poids</td>
+              <td>
+                Distinction entre masse et poids, notion de force, unités
+                associées et lien entre poids, masse et gravité.
+              </td>
+            </tr>
+
+            <tr>
+              <td class="period">Stage 4 au stage 9</td>
+              <td>Du 14/12/2024 au 25/04/2025</td>
+              <td class="theme">Électricité</td>
+              <td>
+                Circuits en dérivation et en série, tension électrique,
+                intensité électrique, puissance électrique et énergie
+                électrique.
+              </td>
+            </tr>
+
+            <tr>
+              <td class="period">Stage 10 au stage 11</td>
+              <td>Du 12/05/2025 au 06/06/2025</td>
+              <td class="theme">Thermique</td>
+              <td>
+                Température en degrés Celsius et en Kelvin, transferts de
+                chaleur par conduction, convection et rayonnement, premières
+                notions d'isolation et lecture d'une étiquette d'isolant, sans
+                calcul.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section>
+        <h2 class="section-title">Éléments concernant les absences</h2>
+
+        <div class="absence-box">
+          <h3>Situation de Youssef</h3>
+
+          <p>
+            Concernant le thème
+            <span class="highlight">force, masse et poids</span>, Youssef a
+            suivi les séances d'apprentissage mais était absent uniquement lors
+            de l'évaluation.
+          </p>
+
+          <p>
+            Concernant le thème <span class="highlight">électricité</span>, la
+            seule notion non suivie par Youssef est la notion d'énergie
+            électrique.
+          </p>
+
+          <p>
+            Concernant le thème <span class="highlight">thermique</span>,
+            Youssef était présent pendant les stages où les notions ont été
+            abordées.
+          </p>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">Confirmation</h2>
+
+        <div class="attestation">
+          Je soussigné, <strong>M. Ozmina</strong>, formateur de mathématiques -
+          sciences de première année, confirme que les informations indiquées
+          dans ce compte rendu correspondent aux thèmes travaillés durant
+          l'année de formation 2024-2025 ainsi qu'aux éléments connus concernant
+          les absences de Youssef.
+        </div>
+      </section>
+
+      <section class="signature-zone">
+        <div class="signature-card">
+          <div class="title">Fait à :</div>
+          <div class="signature-line">Date</div>
+        </div>
+
+        <div class="signature-card">
+          <div class="title">Signature du formateur</div>
+          <div class="signature-line">M. Ozmina</div>
+        </div>
+      </section>
+
+      <div class="footer">
+        <span>Compte rendu - Sciences physiques - Année 2024-2025</span>
+        <span>Document à faire signer par le formateur</span>
+      </div>
+    </main>
+  </body>
+</html>

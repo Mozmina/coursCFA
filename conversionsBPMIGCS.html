@@ -1,0 +1,1333 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dossier BP MIGCS - Conversions métier</title>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Oswald:wght@500;600;700&family=Kalam:wght@400&display=swap');
+
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        background: #5f6368;
+        color: #111;
+        font-size: 10pt;
+        line-height: 1.28;
+        padding: 18px;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      .print-btn {
+        position: fixed;
+        top: 18px;
+        right: 18px;
+        z-index: 9999;
+        background: #c65f00;
+        color: #fff;
+        border: 2px solid #fff;
+        border-radius: 4px;
+        padding: 9px 16px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.35);
+      }
+
+      .page {
+        width: 210mm;
+        height: 297mm;
+        background: #fff;
+        margin: 0 auto 18px auto;
+        padding: 10mm 12mm 11mm 12mm;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+        page-break-after: always;
+      }
+
+      .header-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #000;
+        margin-bottom: 10px;
+      }
+
+      .header-table td {
+        border: 1px solid #000;
+        padding: 4px 8px;
+        vertical-align: top;
+      }
+
+      .row-info td {
+        height: 29px;
+        font-weight: 700;
+        font-size: 9.4pt;
+        padding-top: 5px;
+      }
+
+      .logo-cell {
+        width: 25%;
+        padding: 4px !important;
+        text-align: center;
+        vertical-align: middle;
+        height: 72px;
+      }
+
+      .logo-btp {
+        max-width: 100%;
+        max-height: 62px;
+        height: auto;
+      }
+
+      .title-cell {
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .title-main {
+        display: block;
+        font-family: 'Oswald', sans-serif;
+        font-size: 15pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 1.06;
+        letter-spacing: 0.2px;
+      }
+
+      .title-sub {
+        display: block;
+        font-size: 10.1pt;
+        font-style: italic;
+        margin-top: 2px;
+      }
+
+      h2 {
+        font-family: 'Oswald', sans-serif;
+        font-size: 12pt;
+        font-weight: 700;
+        background: #22384d;
+        color: #fff;
+        padding: 7px 12px;
+        margin: 8px 0 8px 0;
+        border-left: 6px solid #f0c419;
+        line-height: 1.15;
+        letter-spacing: 0.2px;
+      }
+
+      h3 {
+        font-family: 'Oswald', sans-serif;
+        font-size: 10.9pt;
+        font-weight: 600;
+        color: #cf5a00;
+        margin: 10px 0 5px 0;
+        padding-bottom: 2px;
+        border-bottom: 1px solid #cf5a00;
+      }
+
+      h4 {
+        font-size: 10pt;
+        margin: 4px 0 4px 0;
+      }
+
+      p {
+        margin: 4px 0;
+      }
+
+      ul {
+        margin: 4px 0;
+        padding-left: 18px;
+      }
+
+      li {
+        margin: 2px 0;
+      }
+
+      .intro-box {
+        background: #ededed;
+        border: 1px solid #000;
+        padding: 8px 10px;
+        margin-bottom: 8px;
+      }
+
+      .context-box {
+        border-left: 4px solid #27ae60;
+        background: #edf7f0;
+        padding: 8px 11px;
+        margin: 7px 0 8px 0;
+        font-size: 9.7pt;
+        line-height: 1.32;
+      }
+
+      .grid-two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 7px;
+      }
+
+      .card {
+        border: 1px solid #7f8c8d;
+        border-radius: 7px;
+        padding: 8px 10px;
+        background: #fafafa;
+      }
+
+      .card-title {
+        font-family: 'Oswald', sans-serif;
+        font-size: 10pt;
+        font-weight: 600;
+        color: #22384d;
+        border-bottom: 1px solid #e0b400;
+        padding-bottom: 3px;
+        margin-bottom: 5px;
+      }
+
+      .method-panel {
+        margin: 12px 0 8px 0;
+        border: 2px solid #d63b2d;
+        border-radius: 5px;
+        background: #fff8f7;
+        padding: 14px 12px 10px 12px;
+        position: relative;
+      }
+
+      .method-label {
+        position: absolute;
+        top: -13px;
+        left: 14px;
+        background: #c83b2d;
+        color: #fff;
+        font-family: 'Oswald', sans-serif;
+        font-size: 9.6pt;
+        font-weight: 600;
+        padding: 2px 10px 3px 10px;
+        letter-spacing: 0.2px;
+      }
+
+      .method-text {
+        font-size: 10pt;
+        line-height: 1.35;
+        margin-bottom: 8px;
+      }
+
+      .arrow-box {
+        background: #eef3f8;
+        border: 1px solid #6ea3d8;
+        border-radius: 6px;
+        padding: 10px 12px;
+        margin: 8px 0 10px 0;
+      }
+
+      .arrow-line {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        font-family: 'Oswald', sans-serif;
+        font-size: 11.2pt;
+        font-weight: 600;
+        line-height: 1.2;
+        margin: 5px 0;
+      }
+
+      .arrow-unit {
+        color: #111;
+        min-width: 78px;
+        text-align: center;
+      }
+
+      .arrow-op {
+        color: #d95f02;
+        white-space: nowrap;
+      }
+
+      .arrow-sep {
+        color: #d95f02;
+        font-weight: 700;
+      }
+
+      .mini-box {
+        border: 1px solid #7f8c8d;
+        background: #f8f8f8;
+        padding: 8px 9px;
+        margin: 6px 0;
+        border-radius: 5px;
+      }
+
+      .trace-ecrite {
+        border: 1.5px solid #d63b2d;
+        background: #fff7f5;
+        padding: 8px 10px;
+        margin: 8px 0;
+        border-radius: 4px;
+        position: relative;
+      }
+
+      .trace-ecrite::before {
+        content: 'À RETENIR';
+        position: absolute;
+        top: -11px;
+        left: 12px;
+        background: #c83b2d;
+        color: #fff;
+        font-family: 'Oswald', sans-serif;
+        font-size: 8.8pt;
+        padding: 1px 8px 2px 8px;
+      }
+
+      .warning-box {
+        border: 1.5px solid #a85ad4;
+        background: #faf5ff;
+        padding: 8px 10px;
+        margin: 8px 0;
+        border-radius: 4px;
+      }
+
+      .table-compact {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 6px 0;
+        font-size: 9.3pt;
+      }
+
+      .table-compact th,
+      .table-compact td {
+        border: 1px solid #7c7c7c;
+        padding: 5px 6px;
+        vertical-align: top;
+      }
+
+      .table-compact th {
+        background: #eef1f4;
+        font-family: 'Oswald', sans-serif;
+        font-weight: 500;
+      }
+
+      .exercise {
+        margin: 6px 0 8px 0;
+      }
+
+      .exercise-title {
+        font-weight: 700;
+        margin-bottom: 2px;
+      }
+
+      .dotted-lines {
+        border-bottom: 1px dotted #000;
+        height: 16px;
+        margin-bottom: 2px;
+      }
+
+      .dotted-lines.large {
+        height: 19px;
+      }
+
+      .dotted-lines.xlarge {
+        height: 22px;
+      }
+
+      .small {
+        font-size: 8.9pt;
+      }
+
+      .tiny {
+        font-size: 8.5pt;
+      }
+
+      .center {
+        text-align: center;
+      }
+
+      .pill {
+        display: inline-block;
+        padding: 2px 8px;
+        border: 1px solid #000;
+        border-radius: 999px;
+        background: #fff;
+        font-size: 8.5pt;
+        margin-right: 5px;
+      }
+
+      .signature-zone {
+        height: 38px;
+        border: 1px dashed #888;
+        margin-top: 6px;
+      }
+
+      .tagline {
+        font-family: 'Kalam', cursive;
+        color: #6d6d6d;
+        font-size: 9.1pt;
+      }
+
+      .footer-page {
+        position: absolute;
+        bottom: 7mm;
+        left: 12mm;
+        right: 12mm;
+        border-top: 1px solid #000;
+        padding-top: 4px;
+        font-size: 8.5pt;
+        display: flex;
+        justify-content: space-between;
+        background: #fff;
+      }
+
+      @media print {
+        body {
+          background: none;
+          padding: 0;
+        }
+
+        .page {
+          margin: 0;
+          box-shadow: none;
+        }
+
+        .print-btn {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <button class="print-btn" onclick="window.print();">
+      🖨️ IMPRIMER LE DOSSIER
+    </button>
+
+    <!-- PAGE 1 -->
+    <div class="page">
+      <table class="header-table">
+        <tr class="row-info">
+          <td>Nom :</td>
+          <td>Prénom :</td>
+          <td>Groupe :</td>
+          <td>Date :</td>
+        </tr>
+        <tr>
+          <td class="logo-cell">
+            <img
+              src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+              alt="Logo BTP CFA"
+              class="logo-btp"
+            />
+          </td>
+          <td colspan="3" class="title-cell">
+            <span class="title-main">MATHÉMATIQUES - BP MIGCS</span>
+            <span class="title-sub">
+              Dossier méthode - conversions utiles du métier
+            </span>
+          </td>
+        </tr>
+      </table>
+
+      <div class="intro-box">
+        <h4 style="margin-top: 0; text-decoration: underline">
+          OBJECTIFS DU DOSSIER
+        </h4>
+        <ul style="margin-bottom: 0">
+          <li>
+            Revoir les conversions les plus utiles en chauffage, climatisation
+            et sanitaire.
+          </li>
+          <li>
+            Distinguer clairement débit volumique, débit massique et autres
+            grandeurs fréquentes.
+          </li>
+          <li>
+            Être capable de passer rapidement d'une unité à une autre sur un
+            document technique ou dans un calcul.
+          </li>
+          <li>
+            Vérifier qu'un résultat obtenu reste cohérent dans une situation
+            professionnelle.
+          </li>
+        </ul>
+      </div>
+
+      <div class="context-box">
+        <strong>Situation métier :</strong> en BP MIGCS, tu peux lire un débit
+        d'air en m<sup>3</sup>/h sur une documentation, une valeur en L/s sur un
+        réglage, un débit massique en kg/h sur une fiche technique, ou encore
+        une écriture du type kg·s<sup>-1</sup> dans un document plus
+        scientifique. Si tu ne maîtrises pas ces changements d'unités, tu peux
+        vite mal interpréter une valeur, comparer de travers deux appareils ou
+        te tromper dans un réglage.
+      </div>
+
+      <h2>1. AVANT DE CONVERTIR : BIEN IDENTIFIER CE QUE L'ON MANIPULE</h2>
+
+      <div class="grid-two">
+        <div class="card">
+          <div class="card-title">DÉBIT VOLUMIQUE</div>
+          <p>
+            Il indique un <strong>volume</strong> qui passe pendant une certaine
+            durée.
+          </p>
+          <p>
+            <strong>Exemples :</strong> m<sup>3</sup>/h, m<sup>3</sup>/s, L/s,
+            L/min
+          </p>
+          <p>
+            On le rencontre pour l'air, l'eau, la ventilation, certains réseaux
+            hydrauliques et certains réglages.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">DÉBIT MASSIQUE</div>
+          <p>
+            Il indique une <strong>masse</strong> qui passe pendant une certaine
+            durée.
+          </p>
+          <p><strong>Exemples :</strong> kg/h, kg/s, kg·s<sup>-1</sup></p>
+          <p>
+            On le rencontre pour certains combustibles, certains fluides, des
+            bilans énergétiques ou des documents plus techniques.
+          </p>
+        </div>
+      </div>
+
+      <h3>Questions de lancement</h3>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          1) Dans m<sup>3</sup>/h, quelle information donne le numérateur ? Et
+          quelle information donne le dénominateur ?
+        </div>
+        <div class="dotted-lines large"></div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          2) Pourquoi 1200 m<sup>3</sup>/h et 1200 kg/h ne décrivent-ils pas la
+          même chose, même si l'écriture générale se ressemble ?
+        </div>
+        <div class="dotted-lines large"></div>
+        <div class="dotted-lines large"></div>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          3) Donne un exemple réel du métier où une erreur de conversion peut
+          poser problème.
+        </div>
+        <div class="dotted-lines large"></div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="warning-box">
+        <strong>Erreur fréquente :</strong> voir uniquement le nombre et oublier
+        de lire précisément l'unité. Or, un même nombre peut représenter des
+        réalités totalement différentes selon qu'il s'agit d'un volume, d'une
+        masse, d'une minute ou d'une heure.
+      </div>
+
+      <div class="trace-ecrite">
+        Avant toute conversion, il faut répondre à deux questions :
+        <strong>de quoi parle-t-on ?</strong> volume ou masse ? et
+        <strong>par rapport à quelle durée ?</strong> heure, seconde ou minute ?
+        Une bonne conversion commence toujours par une bonne lecture de l'unité.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP MIGCS - Conversions</div>
+        <div>Page 1</div>
+      </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="page">
+      <h2>
+        2. LE DÉBIT VOLUMIQUE : m<sup>3</sup>/h, m<sup>3</sup>/s, L/s, L/min
+      </h2>
+
+      <div class="context-box">
+        <strong><em>Le débit volumique (q<sub>v</sub>)</em></strong> représente
+        le volume de fluide qui circule pendant une durée donnée. On le
+        rencontre souvent pour l'air, l'eau, la ventilation, le réglage des
+        réseaux ou la lecture des documentations techniques.
+      </div>
+
+      <div class="method-panel">
+        <div class="method-label">MÉTHODE & À RETENIR</div>
+
+        <div class="method-text">
+          Pour convertir un débit volumique, il faut souvent agir sur le
+          <strong>temps</strong> et parfois aussi sur l'<strong
+            >unité de volume</strong
+          >.
+        </div>
+
+        <div class="arrow-box">
+          <div class="arrow-line">
+            <span class="arrow-unit">m<sup>3</sup>/h</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-op">DIVISER par 3600</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-unit">m<sup>3</sup>/s</span>
+          </div>
+
+          <div class="arrow-line">
+            <span class="arrow-unit">m<sup>3</sup>/s</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-op">MULTIPLIER par 3600</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-unit">m<sup>3</sup>/h</span>
+          </div>
+
+          <div class="arrow-line">
+            <span class="arrow-unit">m<sup>3</sup>/s</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-op">MULTIPLIER par 1000</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-unit">L/s</span>
+          </div>
+
+          <div class="arrow-line">
+            <span class="arrow-unit">L/s</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-op">DIVISER par 1000</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-unit">m<sup>3</sup>/s</span>
+          </div>
+
+          <div class="arrow-line">
+            <span class="arrow-unit">L/min</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-op">DIVISER par 60</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-unit">L/s</span>
+          </div>
+
+          <div class="arrow-line">
+            <span class="arrow-unit">L/s</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-op">MULTIPLIER par 60</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-unit">L/min</span>
+          </div>
+        </div>
+
+        <div class="method-text">
+          <strong>Rappels :</strong> 1 h = 3600 s et 1 m<sup>3</sup> = 1000 L.
+        </div>
+      </div>
+
+      <h3>Entraînement guidé</h3>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          1) Convertir 540 m<sup>3</sup>/h en m<sup>3</sup>/s.
+        </div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          2) Convertir 0,35 m<sup>3</sup>/s en m<sup>3</sup>/h.
+        </div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          3) Convertir 0,012 m<sup>3</sup>/s en L/s.
+        </div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">4) Convertir 18 L/min en L/s.</div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          5) Une documentation indique un débit d'air de 900 m<sup>3</sup>/h.
+          Exprime ce débit en m<sup>3</sup>/s puis en L/s.
+        </div>
+        <div class="dotted-lines large"></div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="trace-ecrite">
+        Dans les conversions de débit volumique, on sépare mentalement deux
+        choses : la partie <strong>volume</strong> et la partie
+        <strong>temps</strong>. Si on passe de l'heure à la seconde, on agit
+        avec 3600. Si on passe de m<sup>3</sup> à L, on agit avec 1000.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Débit volumique</div>
+        <div>Page 2</div>
+      </div>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="page">
+      <h2>3. LE DÉBIT MASSIQUE : kg/h, kg/s et kg·s<sup>-1</sup></h2>
+
+      <div class="context-box">
+        <strong><em>Le débit massique (q<sub>m</sub>)</em></strong> représente
+        la masse de matière qui circule pendant une durée donnée. On l'utilise
+        beaucoup pour les calculs de puissance thermique, certains fluides, la
+        vapeur ou la consommation de combustibles.
+      </div>
+
+      <div class="method-panel">
+        <div class="method-label">MÉTHODE & À RETENIR</div>
+
+        <div class="method-text">
+          La logique temporelle est exactement la même que pour les volumes : on
+          divise par 3600 pour passer de l'heure à la seconde, et on multiplie
+          par 3600 pour faire le chemin inverse.
+        </div>
+
+        <div class="arrow-box">
+          <div class="arrow-line">
+            <span class="arrow-unit">kg/h</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-op">DIVISER par 3600</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-unit">kg/s</span>
+          </div>
+
+          <div class="arrow-line">
+            <span class="arrow-unit">kg/s</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-op">MULTIPLIER par 3600</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-unit">kg/h</span>
+          </div>
+        </div>
+
+        <div class="method-text">
+          <strong>Attention à l'écriture scientifique :</strong> en BP et dans
+          certaines notices techniques, le "divisé par" (/) est souvent remplacé
+          par une puissance négative.
+        </div>
+
+        <div class="method-text">
+          <strong>kg/s</strong> s'écrit aussi <strong>kg·s<sup>-1</sup></strong
+          >. C'est exactement la même chose.
+        </div>
+      </div>
+
+      <h3>Entraînement guidé</h3>
+
+      <div class="exercise">
+        <div class="exercise-title">1) Convertir 72 kg/h en kg/s.</div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">2) Convertir 0,25 kg/s en kg/h.</div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          3) Écrire 0,16 kg/s sous la forme kg·s<sup>-1</sup>.
+        </div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          4) Une notice indique 540 kg/h. Exprimer cette valeur en kg/s.
+        </div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          5) Un document scientifique note un débit de 0,09 kg·s<sup>-1</sup>.
+          Réécrire cette valeur en kg/s puis en kg/h.
+        </div>
+        <div class="dotted-lines large"></div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="trace-ecrite">
+        Pour les débits massiques, la logique reste la même : on identifie la
+        grandeur au numérateur, la durée au dénominateur, puis on agit
+        correctement sur le temps. Il faut aussi savoir reconnaître les
+        écritures de type h<sup>-1</sup> ou s<sup>-1</sup>.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Débit massique</div>
+        <div>Page 3</div>
+      </div>
+    </div>
+
+    <!-- PAGE 4 -->
+    <div class="page">
+      <h2>4. PASSER DU DÉBIT VOLUMIQUE AU DÉBIT MASSIQUE ET INVERSEMENT</h2>
+
+      <div class="context-box">
+        <strong>Idée importante :</strong> volume et masse ne sont pas la même
+        chose. Pour passer de l'un à l'autre, il faut connaître la
+        <strong>masse volumique</strong> du fluide.
+      </div>
+
+      <div class="method-panel">
+        <div class="method-label">MÉTHODE & À RETENIR</div>
+
+        <div class="method-text">
+          Ici, on ne change pas seulement d'unité : on change de
+          <strong>grandeur physique</strong>. Il faut donc utiliser la masse
+          volumique notée ρ.
+        </div>
+
+        <div class="arrow-box">
+          <div class="arrow-line">
+            <span class="arrow-unit">m<sup>3</sup>/s</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-op">MULTIPLIER par ρ</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-unit">kg/s</span>
+          </div>
+
+          <div class="arrow-line">
+            <span class="arrow-unit">kg/s</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-op">DIVISER par ρ</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-unit">m<sup>3</sup>/s</span>
+          </div>
+        </div>
+
+        <div class="method-text">
+          <strong>Formules :</strong><br />
+          débit massique = masse volumique × débit volumique<br />
+          débit volumique = débit massique ÷ masse volumique
+        </div>
+
+        <div class="method-text">
+          <strong>Valeurs courantes :</strong> eau ≈ 1000 kg/m<sup>3</sup> ; air
+          ≈ 1,2 kg/m<sup>3</sup>
+        </div>
+      </div>
+
+      <h3>Entraînement guidé</h3>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          1) Un débit d'eau vaut 0,004 m<sup>3</sup>/s. Déterminer le débit
+          massique correspondant.
+        </div>
+        <div class="dotted-lines large"></div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          2) Un débit d'air vaut 0,30 m<sup>3</sup>/s. En prenant ρ = 1,2
+          kg/m<sup>3</sup>, calculer le débit massique.
+        </div>
+        <div class="dotted-lines large"></div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          3) Un débit massique d'eau vaut 2,5 kg/s. Calculer le débit volumique
+          correspondant.
+        </div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          4) On lit 0,48 kg/s d'air. En prenant ρ = 1,2 kg/m<sup>3</sup>,
+          retrouver le débit volumique en m<sup>3</sup>/s.
+        </div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="trace-ecrite">
+        Le passage entre débit volumique et débit massique n'est pas une simple
+        conversion d'unité. Il faut un lien supplémentaire : la masse volumique
+        du fluide étudié.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Volume et masse</div>
+        <div>Page 4</div>
+      </div>
+    </div>
+
+    <!-- PAGE 5 -->
+    <div class="page">
+      <h2>5. UNITÉS COMPOSÉES ET ÉCRITURES SCIENTIFIQUES COURANTES</h2>
+
+      <div class="context-box">
+        Dans les documents techniques, toutes les unités ne sont pas écrites de
+        la même manière. Il faut savoir reconnaître une même information quand
+        elle change de forme.
+      </div>
+
+      <div class="method-panel">
+        <div class="method-label">MÉTHODE & À RETENIR</div>
+
+        <div class="method-text">
+          Une écriture avec puissance négative signifie simplement
+          <strong>"par"</strong>. L'information physique reste la même.
+        </div>
+
+        <div class="arrow-box">
+          <div class="arrow-line">
+            <span class="arrow-unit">kg/s</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-op">MÊME ÉCRITURE SCIENTIFIQUE</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-unit">kg·s<sup>-1</sup></span>
+          </div>
+
+          <div class="arrow-line">
+            <span class="arrow-unit">kg·s<sup>-1</sup></span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-op">MÊME ÉCRITURE USUELLE</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-unit">kg/s</span>
+          </div>
+
+          <div class="arrow-line">
+            <span class="arrow-unit">m<sup>3</sup>/h</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-op">MÊME ÉCRITURE SCIENTIFIQUE</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-unit">m<sup>3</sup>·h<sup>-1</sup></span>
+          </div>
+
+          <div class="arrow-line">
+            <span class="arrow-unit">L/min</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-op">MÊME ÉCRITURE SCIENTIFIQUE</span>
+            <span class="arrow-sep">→</span>
+            <span class="arrow-unit">L·min<sup>-1</sup></span>
+          </div>
+        </div>
+
+        <div class="method-text">
+          On peut retenir : s<sup>-1</sup> = /s et h<sup>-1</sup> = /h.
+        </div>
+      </div>
+
+      <h3>Entraînement guidé</h3>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          1) Réécrire sous forme avec barre de fraction : 0,12
+          kg·s<sup>-1</sup>.
+        </div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          2) Réécrire sous forme avec puissance négative : 250 m<sup>3</sup>/h.
+        </div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          3) Réécrire sous forme avec puissance négative : 35 L/min.
+        </div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          4) Compléter : 0,45 m<sup>3</sup>·s<sup>-1</sup> = ..............
+          m<sup>3</sup>/s
+        </div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          5) Expliquer en une phrase pourquoi kg/h et kg·h<sup>-1</sup> sont
+          équivalents.
+        </div>
+        <div class="dotted-lines large"></div>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <div class="warning-box">
+        <strong>Piège classique :</strong> se laisser impressionner par une
+        écriture plus "scientifique" et croire qu'il faut utiliser une nouvelle
+        méthode. En réalité, la grandeur et la logique de conversion restent les
+        mêmes.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Écritures d'unités</div>
+        <div>Page 5</div>
+      </div>
+    </div>
+
+    <!-- PAGE 6 -->
+    <div class="page">
+      <h2>6. AUTRES CONVERSIONS TRÈS UTILES DANS LE MÉTIER</h2>
+
+      <div class="grid-two">
+        <div class="card">
+          <div class="card-title">PUISSANCE</div>
+          <p><strong>kW → W :</strong> on multiplie par 1000</p>
+          <p><strong>W → kW :</strong> on divise par 1000</p>
+          <p class="small">
+            Très utile pour comparer des appareils, lire une plaque signalétique
+            ou exploiter une documentation.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">PRESSION</div>
+          <p><strong>bar → Pa :</strong> on multiplie par 100000</p>
+          <p><strong>Pa → bar :</strong> on divise par 100000</p>
+          <p class="small">
+            Utile pour lire certaines notices, certains tableaux techniques ou
+            faire le lien avec des formules.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-two">
+        <div class="card">
+          <div class="card-title">ÉNERGIE</div>
+          <p><strong>kWh → Wh :</strong> on multiplie par 1000</p>
+          <p><strong>Wh → kWh :</strong> on divise par 1000</p>
+          <p class="small">
+            Utile pour les consommations, les bilans simples, certains relevés.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">TEMPÉRATURE</div>
+          <p><strong>K = °C + 273,15</strong></p>
+          <p><strong>°C = K - 273,15</strong></p>
+          <p class="small">
+            Plus présent dans certains documents scientifiques ou techniques.
+          </p>
+        </div>
+      </div>
+
+      <div class="method-panel">
+        <div class="method-label">MÉTHODE GÉNÉRALE</div>
+
+        <div class="method-text">
+          Quelle que soit la grandeur étudiée, la démarche reste stable :
+          <strong>je lis la grandeur</strong>,
+          <strong>je lis l'unité de départ</strong>,
+          <strong>je repère l'unité d'arrivée</strong>, puis
+          <strong>j'applique l'opération adaptée</strong>.
+        </div>
+      </div>
+
+      <h3>Entraînement</h3>
+
+      <div class="exercise">
+        <div class="exercise-title">1) Convertir 24 kW en W.</div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">2) Convertir 18500 W en kW.</div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">3) Convertir 1,8 bar en Pa.</div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">4) Convertir 350000 Pa en bar.</div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">5) Convertir 42 °C en kelvin.</div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">6) Convertir 1,6 kWh en Wh.</div>
+        <div class="dotted-lines large"></div>
+      </div>
+
+      <div class="trace-ecrite">
+        Même si ce dossier met surtout l'accent sur les débits, un professionnel
+        rencontre aussi très souvent d'autres conversions : puissance, pression,
+        énergie, température. L'important est donc de conserver une méthode de
+        lecture et de conversion stable.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Autres conversions</div>
+        <div>Page 6</div>
+      </div>
+    </div>
+
+    <!-- PAGE 7 -->
+    <div class="page">
+      <h2>7. ENTRAÎNEMENT MÉLANGÉ - 20 CONVERSIONS À FAIRE</h2>
+
+      <div class="context-box">
+        Ici, les conversions sont mélangées volontairement. Le but est de
+        vérifier que tu sais identifier rapidement la grandeur concernée,
+        choisir la bonne opération et garder une unité finale cohérente.
+      </div>
+
+      <table class="table-compact tiny">
+        <tr>
+          <th style="width: 7%">N°</th>
+          <th>Conversion à effectuer</th>
+          <th style="width: 33%">Réponse</th>
+        </tr>
+        <tr>
+          <td class="center">1</td>
+          <td>480 m<sup>3</sup>/h → m<sup>3</sup>/s</td>
+          <td><div class="dotted-lines"></div></td>
+        </tr>
+        <tr>
+          <td class="center">2</td>
+          <td>0,25 m<sup>3</sup>/s → m<sup>3</sup>/h</td>
+          <td><div class="dotted-lines"></div></td>
+        </tr>
+        <tr>
+          <td class="center">3</td>
+          <td>0,018 m<sup>3</sup>/s → L/s</td>
+          <td><div class="dotted-lines"></div></td>
+        </tr>
+        <tr>
+          <td class="center">4</td>
+          <td>36 L/min → L/s</td>
+          <td><div class="dotted-lines"></div></td>
+        </tr>
+        <tr>
+          <td class="center">5</td>
+          <td>95 kg/h → kg/s</td>
+          <td><div class="dotted-lines"></div></td>
+        </tr>
+        <tr>
+          <td class="center">6</td>
+          <td>0,14 kg/s → kg/h</td>
+          <td><div class="dotted-lines"></div></td>
+        </tr>
+        <tr>
+          <td class="center">7</td>
+          <td>0,08 kg·s<sup>-1</sup> → kg/s</td>
+          <td><div class="dotted-lines"></div></td>
+        </tr>
+        <tr>
+          <td class="center">8</td>
+          <td>620 m<sup>3</sup>/h → m<sup>3</sup>·h<sup>-1</sup></td>
+          <td><div class="dotted-lines"></div></td>
+        </tr>
+        <tr>
+          <td class="center">9</td>
+          <td>0,005 m<sup>3</sup>/s d'eau → kg/s</td>
+          <td><div class="dotted-lines"></div></td>
+        </tr>
+        <tr>
+          <td class="center">10</td>
+          <td>3,2 kg/s d'eau → m<sup>3</sup>/s</td>
+          <td><div class="dotted-lines"></div></td>
+        </tr>
+        <tr>
+          <td class="center">11</td>
+          <td>0,40 m<sup>3</sup>/s d'air → kg/s (ρ = 1,2)</td>
+          <td><div class="dotted-lines"></div></td>
+        </tr>
+        <tr>
+          <td class="center">12</td>
+          <td>0,72 kg/s d'air → m<sup>3</sup>/s (ρ = 1,2)</td>
+          <td><div class="dotted-lines"></div></td>
+        </tr>
+        <tr>
+          <td class="center">13</td>
+          <td>28 kW → W</td>
+          <td><div class="dotted-lines"></div></td>
+        </tr>
+        <tr>
+          <td class="center">14</td>
+          <td>14500 W → kW</td>
+          <td><div class="dotted-lines"></div></td>
+        </tr>
+        <tr>
+          <td class="center">15</td>
+          <td>2,4 bar → Pa</td>
+          <td><div class="dotted-lines"></div></td>
+        </tr>
+        <tr>
+          <td class="center">16</td>
+          <td>420000 Pa → bar</td>
+          <td><div class="dotted-lines"></div></td>
+        </tr>
+        <tr>
+          <td class="center">17</td>
+          <td>65 L/s → L/min</td>
+          <td><div class="dotted-lines"></div></td>
+        </tr>
+        <tr>
+          <td class="center">18</td>
+          <td>3100 Wh → kWh</td>
+          <td><div class="dotted-lines"></div></td>
+        </tr>
+        <tr>
+          <td class="center">19</td>
+          <td>18 °C → K</td>
+          <td><div class="dotted-lines"></div></td>
+        </tr>
+        <tr>
+          <td class="center">20</td>
+          <td>0,030 m<sup>3</sup>/s → L/min</td>
+          <td><div class="dotted-lines"></div></td>
+        </tr>
+      </table>
+
+      <div class="warning-box">
+        <strong>Conseil :</strong> avant de calculer, écris mentalement ou au
+        brouillon la règle que tu utilises : "heure vers seconde", "mètre cube
+        vers litre", "volume vers masse avec ρ", "kW vers W", etc. Cela évite la
+        plupart des erreurs.
+      </div>
+
+      <div class="mini-box">
+        <strong>Vérification de cohérence :</strong> quand on passe de
+        m<sup>3</sup>/h vers m<sup>3</sup>/s, le résultat numérique devient
+        souvent plus petit. Quand on passe de m<sup>3</sup>/s vers L/s, il
+        devient plus grand. Penser au sens physique aide beaucoup à repérer une
+        erreur.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Entraînement mélangé</div>
+        <div>Page 7</div>
+      </div>
+    </div>
+
+    <!-- PAGE 8 -->
+    <div class="page">
+      <h2 style="text-align: center; border-left: none">
+        FICHE SYNTHÈSE - Conversions usuelles BP MIGCS
+      </h2>
+
+      <div class="grid-two">
+        <div class="card">
+          <div class="card-title">DÉBIT VOLUMIQUE</div>
+          <p>Il exprime un volume par unité de temps.</p>
+          <p>
+            <strong>m<sup>3</sup>/h → m<sup>3</sup>/s :</strong> diviser par
+            3600
+          </p>
+          <p>
+            <strong>m<sup>3</sup>/s → m<sup>3</sup>/h :</strong> multiplier par
+            3600
+          </p>
+          <p><strong>m<sup>3</sup>/s → L/s :</strong> multiplier par 1000</p>
+          <p><strong>L/s → m<sup>3</sup>/s :</strong> diviser par 1000</p>
+          <p><strong>L/min → L/s :</strong> diviser par 60</p>
+          <p><strong>L/s → L/min :</strong> multiplier par 60</p>
+          <p><strong>L/h → L/min :</strong> diviser par 60</p>
+          <p><strong>L/min → L/h :</strong> multiplier par 60</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">DÉBIT MASSIQUE</div>
+          <p>Il exprime une masse par unité de temps.</p>
+          <p><strong>kg/h → kg/s :</strong> diviser par 3600</p>
+          <p><strong>kg/s → kg/h :</strong> multiplier par 3600</p>
+          <p>
+            <strong>kg/s = kg·s<sup>-1</sup></strong>
+          </p>
+          <p>
+            <strong>kg/h = kg·h<sup>-1</sup></strong>
+          </p>
+          <p class="small">
+            L'écriture avec puissance négative ne change pas la grandeur.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">PASSAGE VOLUME ↔ MASSE</div>
+          <p><strong>Débit massique = ρ × débit volumique</strong></p>
+          <p><strong>Débit volumique = débit massique ÷ ρ</strong></p>
+          <p>Eau : ρ ≈ 1000 kg/m<sup>3</sup></p>
+          <p>Air : ρ ≈ 1,2 kg/m<sup>3</sup></p>
+          <p class="small">
+            Ici, on ne fait pas seulement une conversion d'unité : on change de
+            grandeur physique. Attention ρ peut changer de valeur suivant
+            l'exercice
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">AUTRES CONVERSIONS</div>
+          <p><strong>kW → W :</strong> × 1000</p>
+          <p><strong>W → kW :</strong> ÷ 1000</p>
+          <p><strong>bar → Pa :</strong> × 100000</p>
+          <p><strong>Pa → bar :</strong> ÷ 100000</p>
+          <p><strong>kWh → Wh :</strong> × 1000</p>
+          <p><strong>Wh → kWh :</strong> ÷ 1000</p>
+          <p><strong>K = °C + 273,15</strong></p>
+        </div>
+      </div>
+
+      <div class="trace-ecrite">
+        <strong>Méthode générale à retenir :</strong><br />
+        1. Je lis précisément la grandeur concernée.<br />
+        2. Je lis l'unité de départ et l'unité d'arrivée.<br />
+        3. Je repère si je dois agir sur le temps, le volume, la masse, ou une
+        autre grandeur.<br />
+        4. J'applique l'opération correcte.<br />
+        5. Je vérifie que le résultat final reste cohérent.
+      </div>
+
+      <div class="warning-box">
+        <strong>Erreurs fréquentes à éviter :</strong><br />
+        - oublier que 1 h = 3600 s ;<br />
+        - multiplier alors qu'il faut diviser ;<br />
+        - oublier de changer aussi l'unité à la fin ;<br />
+        - confondre débit volumique et débit massique ;<br />
+        - croire que kg/s et kg·s<sup>-1</sup> sont différents.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Fiche synthèse</div>
+      </div>
+    </div>
+  </body>
+</html>

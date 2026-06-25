@@ -1,0 +1,2172 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dossier BP - Optique et signaux lumineux - M. OZMINA</title>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)'],
+          ],
+          displayMath: [['$$', '$$']],
+        },
+        svg: { fontCache: 'global' },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Oswald:wght@500;600;700&family=Kalam:wght@400&display=swap');
+
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: 'Roboto', sans-serif;
+        background: #55595d;
+        color: #111;
+        font-size: 9.7pt;
+        line-height: 1.22;
+        padding: 14px;
+      }
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      .page {
+        width: 210mm;
+        height: 297mm;
+        padding: 9mm 11mm;
+        margin: 0 auto 14px auto;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
+        position: relative;
+        overflow: hidden;
+        page-break-after: always;
+      }
+      .print-btn {
+        position: fixed;
+        top: 16px;
+        right: 16px;
+        padding: 9px 14px;
+        background: #d35400;
+        color: #fff;
+        border: 2px solid #fff;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 900;
+        z-index: 999;
+      }
+      p {
+        margin: 5px 0;
+      }
+      ul,
+      ol {
+        margin: 5px 0;
+        padding-left: 19px;
+      }
+      li {
+        margin: 2px 0;
+      }
+      .header-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #111;
+        margin-bottom: 8px;
+      }
+      .header-table td {
+        border: 1px solid #111;
+        padding: 4px 7px;
+        vertical-align: middle;
+      }
+      .row-info td {
+        height: 30px;
+        font-weight: 700;
+        font-size: 9.5pt;
+      }
+      .logo-cell {
+        width: 26%;
+        text-align: center;
+        height: 70px;
+      }
+      .logo-btp {
+        max-height: 58px;
+        max-width: 100%;
+      }
+      .title-cell {
+        text-align: center;
+      }
+      .title-main {
+        font-family: 'Oswald', sans-serif;
+        font-size: 16pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+      }
+      .title-sub {
+        display: block;
+        margin-top: 2px;
+        font-style: italic;
+        font-size: 10.2pt;
+      }
+      h2 {
+        font-family: 'Oswald', sans-serif;
+        font-size: 12.2pt;
+        background: #263746;
+        color: #fff;
+        padding: 5px 9px;
+        margin: 8px 0 7px;
+        border-left: 7px solid #f1c40f;
+        letter-spacing: 0.2px;
+      }
+      h3 {
+        font-size: 10.6pt;
+        color: #d35400;
+        border-bottom: 1px solid #d35400;
+        padding-bottom: 2px;
+        margin: 8px 0 5px;
+      }
+      h4 {
+        margin: 5px 0;
+      }
+      .context-box {
+        border-left: 4px solid #27ae60;
+        background: #f1fff5;
+        padding: 6px 8px;
+        margin: 6px 0;
+        font-style: italic;
+        font-size: 9.3pt;
+      }
+      .trace-ecrite {
+        border: 2px solid #c0392b;
+        background: #fff6f6;
+        padding: 8px;
+        margin: 8px 0;
+        border-radius: 5px;
+        position: relative;
+      }
+      .trace-ecrite:before {
+        content: 'A RETENIR';
+        position: absolute;
+        top: -10px;
+        left: 12px;
+        background: #c0392b;
+        color: #fff;
+        padding: 1px 8px;
+        font-weight: 900;
+        font-size: 8.4pt;
+      }
+      .method-box {
+        border: 1px solid #2980b9;
+        background: #eef7ff;
+        padding: 7px 8px;
+        margin: 6px 0;
+        border-radius: 6px;
+      }
+      .warn-box {
+        border: 2px solid #e67e22;
+        background: #fff7e8;
+        padding: 7px 8px;
+        margin: 6px 0;
+        border-radius: 6px;
+      }
+      .exercise-box {
+        border: 1px solid #8e9aa6;
+        background: #fafafa;
+        padding: 7px 8px;
+        margin: 6px 0;
+        border-radius: 6px;
+      }
+      .two-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        align-items: start;
+      }
+      .three-col {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 7px;
+        align-items: start;
+      }
+      .mini-card {
+        border: 1px solid #c9d2dc;
+        border-radius: 7px;
+        padding: 7px;
+        background: #fff;
+      }
+      .mini-card .card-title {
+        font-weight: 900;
+        color: #263746;
+        border-bottom: 2px solid #f1c40f;
+        padding-bottom: 2px;
+        margin-bottom: 4px;
+      }
+      .dotted-lines {
+        border-bottom: 1px dotted #000;
+        height: 17px;
+        margin-bottom: 3px;
+      }
+      .short-line {
+        border-bottom: 1px dotted #000;
+        display: inline-block;
+        min-width: 90px;
+        height: 14px;
+        vertical-align: bottom;
+      }
+      table {
+        border-collapse: collapse;
+      }
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 6px 0;
+        font-size: 9.1pt;
+      }
+      .data-table th {
+        background: #263746;
+        color: #fff;
+        border: 1px solid #263746;
+        padding: 4px;
+      }
+      .data-table td {
+        border: 1px solid #555;
+        padding: 4px;
+        vertical-align: top;
+      }
+      .footer-page {
+        position: absolute;
+        bottom: 6.5mm;
+        left: 11mm;
+        right: 11mm;
+        border-top: 1px solid #111;
+        padding-top: 3px;
+        font-size: 8.2pt;
+        display: flex;
+        justify-content: space-between;
+        background: #fff;
+      }
+      .svg-wrap {
+        text-align: center;
+        margin: 4px 0;
+      }
+      svg {
+        max-width: 100%;
+        height: auto;
+      }
+      .small {
+        font-size: 8.7pt;
+      }
+      .tag {
+        display: inline-block;
+        border-radius: 12px;
+        background: #ecf0f1;
+        padding: 1px 8px;
+        margin: 1px;
+        font-weight: 700;
+        font-size: 8.5pt;
+      }
+      .progress {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 5px;
+        margin: 8px 0;
+      }
+      .step {
+        border: 1px solid #263746;
+        border-radius: 8px;
+        padding: 6px;
+        background: #fff;
+        text-align: center;
+        min-height: 54px;
+      }
+      .step strong {
+        display: block;
+        color: #d35400;
+        font-size: 9.2pt;
+      }
+      .qcm-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+      }
+      .answer-zone {
+        background: repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 16px,
+          rgba(0, 0, 0, 0.55) 17px
+        );
+        height: 68px;
+        margin-top: 5px;
+      }
+      .video-block {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: #f7f7f7;
+        border: 1px solid #ddd;
+        padding: 6px 8px;
+        margin: 6px 0;
+        border-radius: 6px;
+      }
+      .video-info {
+        flex: 1;
+        color: #666;
+        font-size: 8.8pt;
+        font-style: italic;
+      }
+      .video-info a {
+        color: #666;
+        text-decoration: underline;
+      }
+      .qr-code {
+        width: 56px;
+        height: 56px;
+        border: 1px solid #eee;
+      }
+      .spectrum {
+        height: 18px;
+        border-radius: 14px;
+        border: 1px solid #333;
+        background: linear-gradient(
+          to right,
+          #222 0%,
+          #4b0082 10%,
+          #5b38ff 20%,
+          #0080ff 32%,
+          #00b050 48%,
+          #ffff00 62%,
+          #ff9b00 75%,
+          #ff0000 88%,
+          #2b0000 100%
+        );
+      }
+      .color-dot {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        border: 1px solid #333;
+        vertical-align: middle;
+        margin-right: 4px;
+      }
+      .red {
+        background: #ff4040;
+      }
+      .green {
+        background: #3bd15a;
+      }
+      .blue {
+        background: #4776ff;
+      }
+      .cyan {
+        background: #30e6e6;
+      }
+      .magenta {
+        background: #ff40ff;
+      }
+      .yellow {
+        background: #ffe54a;
+      }
+      .black {
+        background: #111;
+      }
+      .white {
+        background: #fff;
+      }
+      @media print {
+        body {
+          padding: 0;
+          background: none;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+        }
+        .print-btn {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button class="print-btn" onclick="window.print();">IMPRIMER</button>
+
+    <div class="page">
+      <table class="header-table">
+        <tr class="row-info">
+          <td>Nom :</td>
+          <td>Prénom :</td>
+          <td>Groupe :</td>
+          <td>Date :</td>
+        </tr>
+        <tr>
+          <td class="logo-cell">
+            <img
+              src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+              alt="Logo BTP CFA"
+              class="logo-btp"
+            />
+          </td>
+          <td colspan="3" class="title-cell">
+            <span class="title-main">SCIENCES PHYSIQUES BP</span
+            ><span class="title-sub"
+              >Optique - signaux lumineux, couleurs, éclairage et sécurité</span
+            >
+          </td>
+        </tr>
+      </table>
+
+      <h2>0. Pourquoi travailler l'optique en BP ?</h2>
+      <div class="context-box">
+        <strong>Fil conducteur :</strong> sur chantier, on utilise la lumière
+        pour tracer, contrôler, éclairer, signaler, diagnostiquer et sécuriser.
+        L'objectif n'est pas seulement de connaître des formules, mais de
+        prendre une décision professionnelle justifiée.
+      </div>
+      <div class="progress">
+        <div class="step"><strong>1</strong>Identifier un signal lumineux</div>
+        <div class="step"><strong>2</strong>Lire une longueur d'onde</div>
+        <div class="step"><strong>3</strong>Prévoir un trajet</div>
+        <div class="step">
+          <strong>4</strong>Produire ou filtrer une couleur
+        </div>
+        <div class="step"><strong>5</strong>Choisir et sécuriser</div>
+      </div>
+
+      <div class="two-col">
+        <div class="mini-card">
+          <div class="card-title">Ce que je dois savoir faire</div>
+          <ul>
+            <li>
+              Décrire un signal lumineux par sa direction, sa propagation et sa
+              longueur d'onde.
+            </li>
+            <li>
+              Classer un rayonnement : ultraviolet, visible ou infrarouge.
+            </li>
+            <li>
+              Utiliser les lois de réflexion et de réfraction dans une situation
+              simple.
+            </li>
+            <li>Mesurer ou interpréter un éclairement en lux.</li>
+            <li>
+              Expliquer une couleur observée par synthèse additive ou
+              soustractive.
+            </li>
+            <li>
+              Identifier un risque optique et proposer une protection adaptée.
+            </li>
+          </ul>
+        </div>
+        <div class="mini-card">
+          <div class="card-title">Situations métier possibles</div>
+          <ul>
+            <li>Niveau laser dans un couloir en coactivité.</li>
+            <li>
+              Lecture au travers d'une vitre ou d'un vitrage de protection.
+            </li>
+            <li>
+              Choix d'un éclairage pour atelier, bureau ou zone de circulation.
+            </li>
+            <li>
+              Voyants lumineux sur une armoire ou un appareil de contrôle.
+            </li>
+            <li>
+              Filtres colorés, films, peintures, matériaux teintés ou
+              signalétique.
+            </li>
+            <li>Caméra thermique, UV de soudage, rayonnements non visibles.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="trace-ecrite">
+        Un signal lumineux transporte une information. Pour l'étudier, on
+        regarde : <strong>sa source</strong>, <strong>son trajet</strong>,
+        <strong>sa longueur d'onde</strong>, <strong>son intensité</strong>,
+        <strong>sa couleur</strong> et <strong>ses risques</strong>.
+      </div>
+
+      <h3>Diagnostic rapide</h3>
+      <div class="qcm-grid">
+        <div>
+          1) La lumière blanche contient-elle plusieurs couleurs ?
+          <span class="short-line"></span>
+        </div>
+        <div>
+          2) Un laser vert de 532 nm est-il visible ?
+          <span class="short-line"></span>
+        </div>
+        <div>
+          3) L'angle de réflexion est-il mesuré par rapport à la surface ?
+          <span class="short-line"></span>
+        </div>
+        <div>
+          4) Des lunettes de soleil protègent-elles forcément d'un laser ?
+          <span class="short-line"></span>
+        </div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP BTP - Optique</div>
+        <div>Page 1</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>1. Le rayon lumineux et la propagation de la lumière</h2>
+      <div class="context-box">
+        <strong>Situation :</strong> un apprenti règle un niveau laser. Pour
+        comprendre ce qu'il voit, il faut distinguer la source, le faisceau, la
+        cible et l'oeil.
+      </div>
+      <div class="trace-ecrite">
+        Dans un milieu transparent et homogène, la lumière se propage en ligne
+        droite. On la représente par un <strong>rayon lumineux</strong>, avec
+        une flèche qui indique le sens de propagation.
+      </div>
+
+      <div class="svg-wrap">
+        <svg
+          width="650"
+          height="170"
+          viewBox="0 0 650 170"
+          role="img"
+          aria-label="Propagation rectiligne d'un rayon lumineux"
+        >
+          <defs>
+            <marker
+              id="arrow"
+              markerWidth="10"
+              markerHeight="10"
+              refX="8"
+              refY="3"
+              orient="auto"
+            >
+              <path d="M0,0 L0,6 L9,3 z" fill="#c0392b" />
+            </marker>
+          </defs>
+          <rect
+            x="20"
+            y="25"
+            width="105"
+            height="70"
+            rx="8"
+            fill="#eef7ff"
+            stroke="#2980b9"
+            stroke-width="2"
+          />
+          <text x="72" y="55" text-anchor="middle" font-weight="700">
+            Laser
+          </text>
+          <text x="72" y="73" text-anchor="middle" font-size="13"></text>
+          <line
+            x1="130"
+            y1="60"
+            x2="530"
+            y2="60"
+            stroke="#c0392b"
+            stroke-width="4"
+            marker-end="url(#arrow)"
+          />
+          <text
+            x="320"
+            y="45"
+            text-anchor="middle"
+            font-weight="700"
+            fill="#c0392b"
+          >
+            faisceau
+          </text>
+          <rect
+            x="535"
+            y="25"
+            width="80"
+            height="70"
+            rx="8"
+            fill="#f1fff5"
+            stroke="#27ae60"
+            stroke-width="2"
+          />
+          <text x="575" y="56" text-anchor="middle" font-weight="700">
+            Cible
+          </text>
+          <circle cx="575" cy="67" r="7" fill="#c0392b" />
+          <text x="320" y="125" text-anchor="middle" font-size="14">
+            On ne regarde jamais dans l'axe du faisceau.
+          </text>
+        </svg>
+      </div>
+
+      <div class="method-box">
+        <strong>Vocabulaire utile :</strong> une source émet, un milieu laisse
+        passer plus ou moins la lumière, un obstacle peut absorber, réfléchir ou
+        diffuser, et l'oeil reçoit une partie de la lumière.
+      </div>
+
+      <h3>Exercice guidé</h3>
+      <div class="exercise-box">
+        <p>
+          Dans une pièce poussiéreuse, on voit mieux le faisceau laser. Pourquoi
+          ?
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+        <p>
+          Sur un mur mat, on voit surtout un point lumineux. Le mur renvoie-t-il
+          toute la lumière dans une seule direction ?
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <h3>Vers le niveau BP</h3>
+      <p>
+        Compléter le schéma de situation par trois mots :
+        <strong>source</strong>, <strong>trajet</strong>,
+        <strong>récepteur</strong>.
+      </p>
+      <div class="answer-zone"></div>
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP BTP - Optique</div>
+        <div>Page 2</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>2. Longueur d'onde et domaines du spectre</h2>
+      <div class="context-box">
+        <strong>Situation :</strong> un appareil indique $\lambda = 635$ nm.
+        Cette simple information permet de savoir si le rayonnement est visible
+        et d'estimer sa couleur.
+      </div>
+      <div class="trace-ecrite">
+        La longueur d'onde se note <strong>$\lambda$</strong>. Elle s'exprime
+        souvent en <strong>nanomètres</strong> pour la lumière : $1\
+        \text{nm}=10^{-9}\ \text{m}$. Le visible est environ compris entre
+        <strong>400 nm</strong> et <strong>800 nm</strong>.
+      </div>
+      <div class="svg-wrap">
+        <div class="spectrum"></div>
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            margin-top: 3px;
+          "
+        >
+          <span>UV<br />&lt; 400 nm</span><span>Violet</span><span>Bleu</span
+          ><span>Vert</span><span>Jaune</span><span>Rouge</span
+          ><span>IR<br />&gt; 800 nm</span>
+        </div>
+      </div>
+      <table class="data-table">
+        <tr>
+          <th>Domaine</th>
+          <th>Repère</th>
+          <th>Exemples BTP ou sécurité</th>
+        </tr>
+        <tr>
+          <td>Ultraviolet</td>
+          <td>$\lambda &lt; 400$ nm</td>
+          <td>
+            Soudage, lampes UV, polymérisation, risque pour les yeux et la peau.
+          </td>
+        </tr>
+        <tr>
+          <td>Visible</td>
+          <td>$400$ nm à $800$ nm</td>
+          <td>Laser vert ou rouge, éclairage, voyants, signalétique.</td>
+        </tr>
+        <tr>
+          <td>Infrarouge</td>
+          <td>$\lambda &gt; 800$ nm</td>
+          <td>
+            Caméra thermique, pertes de chaleur, télécommandes, rayonnement non
+            visible.
+          </td>
+        </tr>
+      </table>
+      <h3>Méthode de conversion</h3>
+      <div class="method-box">
+        <p>
+          $532\ \text{nm}=532 \times 10^{-9}\ \text{m}=5,32\times10^{-7}\
+          \text{m}$.
+        </p>
+        <p>$0,00000065\ \text{m}=6,5\times10^{-7}\ \text{m}=650\ \text{nm}$.</p>
+      </div>
+      <h3>Exercices progressifs</h3>
+      <div class="exercise-box">
+        <p>1) Classer : $365$ nm, $532$ nm, $650$ nm, $1200$ nm.</p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+        <p>2) Convertir $635$ nm en mètres.</p>
+        <div class="dotted-lines"></div>
+        <p>
+          3) Un apprenti voit un laser vert. Peut-on en déduire qu'il est sans
+          danger ? Justifier.
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+      </div>
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP BTP - Optique</div>
+        <div>Page 3</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>3. Lumière blanche, dispersion et recomposition</h2>
+      <div class="context-box">
+        <strong>Situation :</strong> une lumière blanche peut être décomposée
+        par un prisme. C'est le principe qui explique l'arc-en-ciel ou certaines
+        irisations sur un vitrage.
+      </div>
+      <div class="trace-ecrite">
+        La lumière blanche est composée de plusieurs lumières colorées. Un
+        prisme ou un réseau peut la <strong>décomposer</strong>. En recomposant
+        toutes les couleurs visibles, on retrouve une lumière blanche.
+      </div>
+      <div class="schema-prisme">
+        <svg
+          viewBox="0 0 900 240"
+          width="100%"
+          height="240"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <!-- Lumière blanche -->
+          <text x="45" y="95" font-size="18" font-weight="700">
+            Lumière blanche
+          </text>
+          <line
+            x1="55"
+            y1="120"
+            x2="230"
+            y2="120"
+            stroke="#111"
+            stroke-width="7"
+            stroke-linecap="round"
+          />
+          <polygon points="230,105 270,120 230,135" fill="#222" />
+
+          <!-- Prisme correctement orienté -->
+          <polygon
+            points="350,40 270,200 430,200"
+            fill="#eaf3fb"
+            stroke="#3f8fc5"
+            stroke-width="4"
+            opacity="0.95"
+          />
+          <text x="320" y="225" font-size="18" font-weight="700">Prisme</text>
+
+          <!-- Rayon dans le prisme -->
+          <line
+            x1="270"
+            y1="120"
+            x2="390"
+            y2="120"
+            stroke="#111"
+            stroke-width="3"
+            opacity="0.55"
+          />
+
+          <!-- Dispersion en sortie -->
+          <line
+            x1="390"
+            y1="120"
+            x2="720"
+            y2="45"
+            stroke="#d86be8"
+            stroke-width="5"
+          />
+          <line
+            x1="390"
+            y1="120"
+            x2="720"
+            y2="78"
+            stroke="blue"
+            stroke-width="5"
+          />
+          <line
+            x1="390"
+            y1="120"
+            x2="720"
+            y2="110"
+            stroke="green"
+            stroke-width="5"
+          />
+          <line
+            x1="390"
+            y1="120"
+            x2="720"
+            y2="142"
+            stroke="gold"
+            stroke-width="5"
+          />
+          <line
+            x1="390"
+            y1="120"
+            x2="720"
+            y2="174"
+            stroke="orange"
+            stroke-width="5"
+          />
+          <line
+            x1="390"
+            y1="120"
+            x2="720"
+            y2="207"
+            stroke="red"
+            stroke-width="5"
+          />
+
+          <!-- Légendes -->
+          <text x="745" y="50" font-size="18">violet</text>
+          <text x="745" y="83" font-size="18">bleu</text>
+          <text x="745" y="115" font-size="18">vert</text>
+          <text x="745" y="147" font-size="18">jaune</text>
+          <text x="745" y="179" font-size="18">orange</text>
+          <text x="745" y="212" font-size="18">rouge</text>
+        </svg>
+      </div>
+      <div class="warn-box">
+        <strong>Attention :</strong> blanc n'est pas une couleur unique du
+        spectre. C'est une sensation obtenue quand plusieurs lumières colorées
+        arrivent ensemble dans l'oeil.
+      </div>
+      <h3>Exercices progressifs</h3>
+      <div class="exercise-box">
+        <p>
+          1) Que montre le prisme sur la composition de la lumière blanche ?
+        </p>
+        <div class="dotted-lines"></div>
+        <p>2) Pourquoi un arc-en-ciel contient-il plusieurs couleurs ?</p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+        <p>
+          3) Un vitrage irisé renvoie des couleurs selon l'angle d'observation.
+          Quelle idée du cours cela illustre-t-il ?
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+      </div>
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP BTP - Optique</div>
+        <div>Page 4</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>4. Sécurité : lasers et sources lumineuses</h2>
+      <div class="context-box">
+        <strong>Situation :</strong> un niveau laser est utilisé à hauteur
+        d'yeux dans un couloir. Il faut organiser la zone avant de tracer.
+      </div>
+      <div class="video-block">
+        <div class="video-info">
+          Vidéo possible :
+          <a
+            href="https://youtu.be/8vUjz9FDtBc?si=Q1TB88EbyGyKsYCp"
+            target="_blank"
+            >Les pointeurs lasers sont-ils dangereux ? Scilabus</a
+          >
+        </div>
+        <img
+          class="qr-code"
+          alt="QR Code"
+          src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://youtu.be/8vUjz9FDtBc?si=Q1TB88EbyGyKsYCp"
+        />
+      </div>
+      <div class="trace-ecrite">
+        Le risque dépend de la puissance, de la longueur d'onde, de la durée
+        d'exposition, de la distance et du trajet du faisceau. Le danger
+        principal concerne l'oeil, surtout avec un
+        <strong>faisceau direct</strong> ou une
+        <strong>réflexion spéculaire</strong> sur une surface brillante.
+      </div>
+      <table class="data-table">
+        <tr>
+          <th>Situation</th>
+          <th>Risque</th>
+          <th>Réflexe de prévention</th>
+        </tr>
+        <tr>
+          <td>Faisceau direct dans l'oeil</td>
+          <td>Risque élevé, l'énergie peut être concentrée sur la rétine.</td>
+          <td>Ne jamais regarder dans l'axe, éviter la hauteur des yeux.</td>
+        </tr>
+        <tr>
+          <td>Réflexion sur inox, miroir, carrelage brillant</td>
+          <td>Le faisceau repart dans une direction précise.</td>
+          <td>
+            Repérer les surfaces brillantes, modifier l'angle ou masquer la
+            surface.
+          </td>
+        </tr>
+        <tr>
+          <td>Point lumineux sur mur mat</td>
+          <td>Risque plus faible car la lumière est diffusée.</td>
+          <td>Ne pas confondre point diffus et faisceau direct.</td>
+        </tr>
+      </table>
+      <div class="method-box">
+        <strong>Décision métier :</strong> baliser, prévenir les personnes,
+        orienter le laser hors des yeux, contrôler les surfaces réfléchissantes,
+        utiliser des protections adaptées si nécessaire, respecter la notice.
+      </div>
+      <h3>Analyse d'étiquette</h3>
+      <div class="exercise-box">
+        <p>
+          <strong>APPAREIL LASER</strong> - Classe 3R - $\lambda=635$ nm -
+          $P_{max}<5$ mW - Ne pas regarder dans le faisceau.
+        </p>
+        <p>1) Le rayonnement est-il visible ? Quelle couleur environ ?</p>
+        <div class="dotted-lines"></div>
+        <p>
+          2) Pourquoi la mention Classe 3R impose-t-elle une vigilance
+          particulière ?
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+        <p>3) Citer deux mesures collectives et deux règles individuelles.</p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+      </div>
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP BTP - Optique</div>
+        <div>Page 5</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>5. Réflexion : prévoir le trajet sur une surface lisse</h2>
+      <div class="context-box">
+        <strong>Situation :</strong> un faisceau atteint une plaque métallique
+        brillante. Il ne disparaît pas : il repart selon une direction
+        prévisible.
+      </div>
+      <div class="trace-ecrite">
+        L'angle d'incidence $i$ et l'angle de réflexion $r$ se mesurent par
+        rapport à la <strong>normale</strong>, c'est-à-dire la droite
+        perpendiculaire à la surface. La loi est : <strong>$i=r$</strong>.
+      </div>
+      <div class="svg-wrap">
+        <svg
+          width="640"
+          height="230"
+          viewBox="0 0 640 230"
+          aria-label="Loi de la réflexion"
+        >
+          <defs>
+            <marker
+              id="arr3"
+              markerWidth="9"
+              markerHeight="9"
+              refX="8"
+              refY="3"
+              orient="auto"
+            >
+              <path d="M0,0 L0,6 L9,3 z" fill="#c0392b" />
+            </marker>
+          </defs>
+          <line
+            x1="70"
+            y1="175"
+            x2="570"
+            y2="175"
+            stroke="#333"
+            stroke-width="4"
+          />
+          <text x="320" y="198" text-anchor="middle" font-weight="700">
+            surface réfléchissante
+          </text>
+          <line
+            x1="320"
+            y1="30"
+            x2="320"
+            y2="175"
+            stroke="#555"
+            stroke-dasharray="6 5"
+            stroke-width="2"
+          />
+          <text x="333" y="45" font-weight="700">normale</text>
+          <line
+            x1="135"
+            y1="45"
+            x2="320"
+            y2="175"
+            stroke="#c0392b"
+            stroke-width="4"
+            marker-end="url(#arr3)"
+          />
+          <line
+            x1="320"
+            y1="175"
+            x2="505"
+            y2="45"
+            stroke="#c0392b"
+            stroke-width="4"
+            marker-end="url(#arr3)"
+          />
+          <path
+            d="M287 150 A45 45 0 0 1 320 130"
+            fill="none"
+            stroke="#2980b9"
+            stroke-width="3"
+          />
+          <path
+            d="M320 130 A45 45 0 0 1 353 150"
+            fill="none"
+            stroke="#2980b9"
+            stroke-width="3"
+          />
+          <text x="280" y="135" fill="#2980b9" font-weight="700">i</text>
+          <text x="360" y="135" fill="#2980b9" font-weight="700">r</text>
+          <text x="320" y="216" text-anchor="middle">
+            Angles mesurés par rapport à la normale, pas par rapport à la
+            surface.
+          </text>
+        </svg>
+      </div>
+      <h3>Méthode</h3>
+      <div class="method-box">
+        <strong>Si l'angle est donné avec la surface :</strong> on calcule
+        d'abord l'angle avec la normale : $i=90^\circ - \text{angle avec la
+        surface}$.
+      </div>
+      <h3>Exercices progressifs</h3>
+      <div class="exercise-box">
+        <p>1) Un rayon arrive avec $i=38^\circ$. Donner $r$.</p>
+        <div class="dotted-lines"></div>
+        <p>
+          2) Un rayon fait $22^\circ$ avec la surface. Calculer $i$, puis $r$.
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+        <p>
+          3) Dans une cuisine collective, la crédence inox renvoie un laser vers
+          une zone de passage. Proposer une correction simple.
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+      </div>
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP BTP - Optique</div>
+        <div>Page 6</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>6. Réfraction : changement de direction dans un matériau</h2>
+      <div class="context-box">
+        <strong>Situation :</strong> un repère observé à travers une vitre ou un
+        polycarbonate semble décalé. La lumière change de direction en passant
+        d'un milieu à un autre.
+      </div>
+      <div class="trace-ecrite">
+        La réfraction est le changement de direction d'un rayon lumineux quand
+        il passe d'un milieu transparent à un autre. L'indice optique $n$
+        indique à quel point la lumière est ralentie : $n=\dfrac{c}{v}$, donc
+        $v=\dfrac{c}{n}$.
+      </div>
+      <div class="two-col">
+        <div class="svg-wrap">
+          <svg
+            width="315"
+            height="230"
+            viewBox="0 0 315 230"
+            aria-label="Réfraction air vers verre"
+          >
+            <defs>
+              <marker
+                id="arr4"
+                markerWidth="9"
+                markerHeight="9"
+                refX="8"
+                refY="3"
+                orient="auto"
+              >
+                <path d="M0,0 L0,6 L9,3 z" fill="#c0392b" />
+              </marker>
+            </defs>
+            <rect x="0" y="115" width="315" height="115" fill="#eef7ff" />
+            <line
+              x1="0"
+              y1="115"
+              x2="315"
+              y2="115"
+              stroke="#333"
+              stroke-width="3"
+            />
+            <line
+              x1="158"
+              y1="20"
+              x2="158"
+              y2="220"
+              stroke="#555"
+              stroke-dasharray="6 5"
+            />
+            <line
+              x1="55"
+              y1="25"
+              x2="158"
+              y2="115"
+              stroke="#c0392b"
+              stroke-width="4"
+              marker-end="url(#arr4)"
+            />
+            <line
+              x1="158"
+              y1="115"
+              x2="205"
+              y2="220"
+              stroke="#c0392b"
+              stroke-width="4"
+              marker-end="url(#arr4)"
+            />
+            <text x="20" y="25" font-weight="700">air</text>
+            <text x="20" y="142" font-weight="700">verre</text>
+            <text x="180" y="92" fill="#2980b9" font-weight="700">i</text>
+            <text x="176" y="163" fill="#2980b9" font-weight="700">r</text>
+          </svg>
+        </div>
+        <div class="method-box">
+          <p><strong>Repère qualitatif :</strong></p>
+          <ul>
+            <li>
+              De l'air vers un milieu plus réfringent : le rayon se rapproche de
+              la normale.
+            </li>
+            <li>
+              D'un milieu plus réfringent vers l'air : il s'éloigne de la
+              normale.
+            </li>
+            <li>Plus $n$ est grand, plus la vitesse est faible.</li>
+          </ul>
+        </div>
+      </div>
+      <table class="data-table">
+        <tr>
+          <th>Milieu</th>
+          <th>Indice indicatif</th>
+          <th>Interprétation</th>
+        </tr>
+        <tr>
+          <td>Air</td>
+          <td>environ 1,00</td>
+          <td>Vitesse proche de $c$.</td>
+        </tr>
+        <tr>
+          <td>Eau</td>
+          <td>1,33</td>
+          <td>Lumière ralentie.</td>
+        </tr>
+        <tr>
+          <td>Verre</td>
+          <td>1,50</td>
+          <td>Lumière plus ralentie.</td>
+        </tr>
+        <tr>
+          <td>Polycarbonate</td>
+          <td>1,58</td>
+          <td>Déviation souvent plus marquée.</td>
+        </tr>
+      </table>
+      <h3>Exercices progressifs</h3>
+      <div class="exercise-box">
+        <p>1) Calculer $n$ si $v=2,25\times10^8$ m/s dans l'eau.</p>
+        <div class="dotted-lines"></div>
+        <p>
+          2) Calculer $v$ dans le verre pour $n=1,50$ avec $c=3,0\times10^8$
+          m/s.
+        </p>
+        <div class="dotted-lines"></div>
+        <p>
+          3) Comparer le verre et le polycarbonate : dans lequel la lumière
+          est-elle la plus ralentie ?
+        </p>
+        <div class="dotted-lines"></div>
+      </div>
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP BTP - Optique</div>
+        <div>Page 7</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>7. Éclairement : mesurer une quantité de lumière reçue</h2>
+      <div class="context-box">
+        <strong>Situation :</strong> avant de valider un atelier, un bureau ou
+        une zone de circulation, on mesure l'éclairement avec un luxmètre.
+      </div>
+      <div class="trace-ecrite">
+        L'éclairement $E$ s'exprime en <strong>lux</strong> (lx). Il mesure la
+        quantité de lumière reçue par une surface. On le mesure avec un
+        <strong>luxmètre</strong>. Si on connaît le flux lumineux en lumens et
+        la surface, on peut estimer : $E=\dfrac{\Phi}{S}$.
+      </div>
+      <div class="two-col">
+        <table class="data-table">
+          <tr>
+            <th>Zone</th>
+            <th>Repère d'éclairement</th>
+          </tr>
+          <tr>
+            <td>Circulation</td>
+            <td>environ 100 lx</td>
+          </tr>
+          <tr>
+            <td>Bureau</td>
+            <td>environ 300 lx</td>
+          </tr>
+          <tr>
+            <td>Travail précis</td>
+            <td>environ 500 lx</td>
+          </tr>
+        </table>
+        <div class="svg-wrap">
+          <svg
+            width="310"
+            height="170"
+            viewBox="0 0 310 170"
+            aria-label="Luxmètre"
+          >
+            <rect
+              x="92"
+              y="30"
+              width="126"
+              height="95"
+              rx="12"
+              fill="#263746"
+            />
+            <rect x="110" y="48" width="90" height="32" rx="4" fill="#dff9fb" />
+            <text
+              x="155"
+              y="70"
+              text-anchor="middle"
+              font-size="20"
+              font-weight="700"
+            >
+              320 lx
+            </text>
+            <circle cx="155" cy="104" r="13" fill="#f1c40f" />
+            <line
+              x1="155"
+              y1="30"
+              x2="155"
+              y2="10"
+              stroke="#777"
+              stroke-width="4"
+            />
+            <text x="155" y="148" text-anchor="middle" font-weight="700">
+              luxmètre
+            </text>
+          </svg>
+        </div>
+      </div>
+      <h3>Exercices progressifs</h3>
+      <div class="exercise-box">
+        <p>
+          1) On mesure 80 lx dans un couloir. La valeur attendue est 100 lx.
+          Conclusion ?
+        </p>
+        <div class="dotted-lines"></div>
+        <p>
+          2) Une dalle de 2000 lumens éclaire une zone de $10\ \text{m}^2$.
+          Calculer $E$.
+        </p>
+        <div class="dotted-lines"></div>
+        <p>
+          3) Zone A : 480 lx pour travail précis. Zone B : 310 lx pour bureau.
+          Zone C : 95 lx pour stockage. Dire ce qui est conforme si les
+          exigences sont 500 lx, 300 lx, 100 lx.
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+        <p>4) Proposer deux actions si l'éclairement est insuffisant.</p>
+        <div class="dotted-lines"></div>
+      </div>
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP BTP - Optique</div>
+        <div>Page 8</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>8. Synthèse additive : produire une couleur avec des lumières</h2>
+      <div class="context-box">
+        <strong>Situation :</strong> écrans, voyants lumineux, interfaces de
+        contrôle et rubans LED produisent des couleurs en ajoutant des lumières.
+      </div>
+      <div class="trace-ecrite">
+        La synthèse additive concerne des <strong>lumières</strong>. Les
+        couleurs primaires sont <strong>Rouge, Vert, Bleu</strong> (RVB).
+        Ajouter de la lumière rend le résultat plus lumineux. Rouge + Vert +
+        Bleu donne du blanc.
+      </div>
+      <div class="two-col">
+        <div class="schema-couleurs schema-additive">
+          <h4>Synthèse additive : mélange de lumières colorées</h4>
+
+          <svg
+            viewBox="0 0 430 390"
+            width="100%"
+            height="390"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <style>
+                .light-circle {
+                  mix-blend-mode: screen;
+                }
+                .label-main {
+                  fill: white;
+                  font-size: 24px;
+                  font-weight: 700;
+                  font-family: Arial, sans-serif;
+                }
+                .label-mix {
+                  fill: white;
+                  font-size: 17px;
+                  font-weight: 700;
+                  font-family: Arial, sans-serif;
+                }
+                .label-center {
+                  fill: black;
+                  font-size: 22px;
+                  font-weight: 700;
+                  font-family: Arial, sans-serif;
+                }
+              </style>
+            </defs>
+
+            <!-- Fond noir indispensable pour la synthèse additive -->
+            <rect x="0" y="0" width="430" height="390" rx="14" fill="#111" />
+
+            <!-- Groupe isolé pour que le mélange screen fonctionne proprement -->
+            <g style="isolation: isolate">
+              <circle
+                class="light-circle"
+                cx="165"
+                cy="150"
+                r="105"
+                fill="red"
+              />
+              <circle
+                class="light-circle"
+                cx="265"
+                cy="150"
+                r="105"
+                fill="lime"
+              />
+              <circle
+                class="light-circle"
+                cx="215"
+                cy="245"
+                r="105"
+                fill="blue"
+              />
+            </g>
+
+            <!-- Lettres principales -->
+            <text x="95" y="62" class="label-main">R</text>
+            <text x="320" y="62" class="label-main">V</text>
+            <text x="207" y="365" class="label-main">B</text>
+
+            <!-- Mélanges -->
+            <text x="215" y="120" text-anchor="middle" class="label-mix">
+              jaune
+            </text>
+            <text x="145" y="230" text-anchor="middle" class="label-mix">
+              magenta
+            </text>
+            <text x="285" y="230" text-anchor="middle" class="label-mix">
+              cyan
+            </text>
+
+            <!-- Centre -->
+            <text x="215" y="195" text-anchor="middle" class="label-center">
+              blanc
+            </text>
+          </svg>
+
+          <p class="schema-note">
+            En synthèse additive, on part du noir. On ajoute des lumières :
+            rouge + vert = jaune, rouge + bleu = magenta, vert + bleu = cyan, et
+            rouge + vert + bleu = blanc.
+          </p>
+        </div>
+        <table class="data-table">
+          <tr>
+            <th>Lumières ajoutées</th>
+            <th>Couleur obtenue</th>
+          </tr>
+          <tr>
+            <td>
+              <span class="color-dot red"></span>R +
+              <span class="color-dot green"></span>V
+            </td>
+            <td><span class="color-dot yellow"></span>Jaune</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="color-dot red"></span>R +
+              <span class="color-dot blue"></span>B
+            </td>
+            <td><span class="color-dot magenta"></span>Magenta</td>
+          </tr>
+          <tr>
+            <td>
+              <span class="color-dot green"></span>V +
+              <span class="color-dot blue"></span>B
+            </td>
+            <td><span class="color-dot cyan"></span>Cyan</td>
+          </tr>
+          <tr>
+            <td>R + V + B</td>
+            <td><span class="color-dot white"></span>Blanc</td>
+          </tr>
+          <tr>
+            <td>Aucune lumière</td>
+            <td><span class="color-dot black"></span>Noir</td>
+          </tr>
+        </table>
+      </div>
+      <h3>Exercices progressifs</h3>
+      <div class="exercise-box">
+        <p>
+          1) Un écran veut afficher du cyan. Quelles diodes doivent fonctionner
+          ?
+        </p>
+        <div class="dotted-lines"></div>
+        <p>
+          2) L'écran veut afficher du jaune, mais la diode verte est HS. Quelle
+          couleur reste visible ?
+        </p>
+        <div class="dotted-lines"></div>
+        <p>
+          3) Un voyant de sécurité rouge apparaît orangé. Pourquoi cela peut-il
+          poser problème en atelier ?
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+      </div>
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP BTP - Optique</div>
+        <div>Page 9</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>
+        9. Synthèse soustractive : obtenir une couleur avec pigments et filtres
+      </h2>
+      <div class="context-box">
+        <strong>Situation :</strong> peintures, encres, filtres, films teintés,
+        vitrages colorés et signalétiques ne produisent pas leur propre lumière.
+        Ils retirent une partie de la lumière blanche.
+      </div>
+      <div class="trace-ecrite">
+        La synthèse soustractive concerne des <strong>matières</strong> ou des
+        <strong>filtres</strong>. Ils absorbent certaines lumières et renvoient
+        ou transmettent les autres. Les primaires sont
+        <strong>Cyan, Magenta, Jaune</strong> (CMJ). Ajouter des pigments rend
+        le résultat plus sombre.
+      </div>
+      <div class="two-col">
+        <div class="schema-couleurs schema-soustractive">
+          <h4>Synthèse soustractive : superposition de filtres ou pigments</h4>
+
+          <svg
+            viewBox="0 0 430 390"
+            width="100%"
+            height="390"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <defs>
+              <style>
+                .pigment-circle {
+                  mix-blend-mode: multiply;
+                }
+                .label-dark {
+                  fill: black;
+                  font-size: 24px;
+                  font-weight: 700;
+                  font-family: Arial, sans-serif;
+                }
+                .label-pigment {
+                  fill: black;
+                  font-size: 17px;
+                  font-weight: 700;
+                  font-family: Arial, sans-serif;
+                }
+                .label-center-dark {
+                  fill: white;
+                  font-size: 22px;
+                  font-weight: 700;
+                  font-family: Arial, sans-serif;
+                }
+              </style>
+            </defs>
+
+            <!-- Fond blanc indispensable pour la synthèse soustractive -->
+            <rect x="0" y="0" width="430" height="390" rx="14" fill="white" />
+
+            <!-- Groupe isolé pour que le mélange multiply fonctionne proprement -->
+            <g style="isolation: isolate">
+              <circle
+                class="pigment-circle"
+                cx="165"
+                cy="150"
+                r="105"
+                fill="cyan"
+              />
+              <circle
+                class="pigment-circle"
+                cx="265"
+                cy="150"
+                r="105"
+                fill="magenta"
+              />
+              <circle
+                class="pigment-circle"
+                cx="215"
+                cy="245"
+                r="105"
+                fill="yellow"
+              />
+            </g>
+
+            <!-- Lettres principales -->
+            <text x="95" y="62" class="label-dark">C</text>
+            <text x="320" y="62" class="label-dark">M</text>
+            <text x="207" y="365" class="label-dark">J</text>
+
+            <!-- Mélanges -->
+            <text x="215" y="120" text-anchor="middle" class="label-pigment">
+              bleu
+            </text>
+            <text x="145" y="230" text-anchor="middle" class="label-pigment">
+              vert
+            </text>
+            <text x="285" y="230" text-anchor="middle" class="label-pigment">
+              rouge
+            </text>
+
+            <!-- Centre -->
+            <text
+              x="215"
+              y="195"
+              text-anchor="middle"
+              class="label-center-dark"
+            >
+              noir
+            </text>
+          </svg>
+
+          <p class="schema-note">
+            En synthèse soustractive, on part de la lumière blanche. Les filtres
+            ou pigments retirent des couleurs : cyan + magenta + jaune donne une
+            zone très sombre, proche du noir.
+          </p>
+        </div>
+        <table class="data-table">
+          <tr>
+            <th>Matières ou filtres</th>
+            <th>Couleur dominante</th>
+            <th>Pourquoi ?</th>
+          </tr>
+          <tr>
+            <td>Cyan + Magenta</td>
+            <td>Bleu</td>
+            <td>Le rouge et le vert sont retirés en grande partie.</td>
+          </tr>
+          <tr>
+            <td>Cyan + Jaune</td>
+            <td>Vert</td>
+            <td>Le rouge et le bleu sont retirés en grande partie.</td>
+          </tr>
+          <tr>
+            <td>Magenta + Jaune</td>
+            <td>Rouge</td>
+            <td>Le vert et le bleu sont retirés en grande partie.</td>
+          </tr>
+          <tr>
+            <td>Cyan + Magenta + Jaune</td>
+            <td>Noir ou brun foncé</td>
+            <td>Une grande partie de la lumière est absorbée.</td>
+          </tr>
+        </table>
+      </div>
+      <div class="warn-box">
+        <strong>Ne pas confondre :</strong> en additive, R + V donne jaune. En
+        soustractive, cyan + jaune donne vert. Le résultat dépend de ce que l'on
+        mélange : des lumières ou des matières.
+      </div>
+      <h3>Exercices progressifs</h3>
+      <div class="exercise-box">
+        <p>
+          1) Un filtre cyan reçoit de la lumière blanche. Quelles couleurs
+          laisse-t-il surtout passer ?
+        </p>
+        <div class="dotted-lines"></div>
+        <p>
+          2) Une peinture jaune paraît sombre sous une lumière bleue. Proposer
+          une explication.
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+        <p>
+          3) Pour obtenir une signalétique verte avec des encres, quels pigments
+          peut-on associer ?
+        </p>
+        <div class="dotted-lines"></div>
+      </div>
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP BTP - Optique</div>
+        <div>Page 10</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>10. Couleur perçue : lumière, objet et oeil</h2>
+      <div class="context-box">
+        <strong>Situation :</strong> un même matériau peut paraître différent
+        selon l'éclairage. C'est essentiel pour choisir une peinture, contrôler
+        une finition ou lire un voyant.
+      </div>
+      <div class="trace-ecrite">
+        La couleur perçue dépend de la lumière reçue par l'objet, de ce que
+        l'objet absorbe ou renvoie, puis de l'oeil de l'observateur. Un objet
+        rouge paraît rouge sous lumière blanche car il renvoie surtout le rouge
+        et absorbe une partie des autres lumières.
+      </div>
+      <table class="data-table">
+        <tr>
+          <th>Cas</th>
+          <th>Observation</th>
+          <th>Explication simple</th>
+        </tr>
+        <tr>
+          <td>Objet rouge sous lumière blanche</td>
+          <td>Rouge</td>
+          <td>Il renvoie surtout le rouge.</td>
+        </tr>
+        <tr>
+          <td>Objet rouge sous lumière verte</td>
+          <td>Très sombre</td>
+          <td>Il reçoit peu ou pas de rouge à renvoyer.</td>
+        </tr>
+        <tr>
+          <td>Objet blanc sous lumière verte</td>
+          <td>Vert</td>
+          <td>Un objet blanc renvoie la lumière qu'il reçoit.</td>
+        </tr>
+        <tr>
+          <td>Objet noir sous lumière blanche</td>
+          <td>Noir</td>
+          <td>Il absorbe beaucoup de lumière.</td>
+        </tr>
+      </table>
+      <div class="svg-wrap">
+        <svg
+          width="620"
+          height="175"
+          viewBox="0 0 620 175"
+          aria-label="Couleur perçue"
+        >
+          <defs>
+            <marker
+              id="arr5"
+              markerWidth="9"
+              markerHeight="9"
+              refX="8"
+              refY="3"
+              orient="auto"
+            >
+              <path d="M0,0 L0,6 L9,3 z" fill="#333" />
+            </marker>
+          </defs>
+          <rect
+            x="35"
+            y="55"
+            width="80"
+            height="50"
+            rx="8"
+            fill="#f5f5f5"
+            stroke="#333"
+          />
+          <text x="75" y="85" text-anchor="middle" font-weight="700">
+            Lampe
+          </text>
+          <line
+            x1="120"
+            y1="80"
+            x2="270"
+            y2="80"
+            stroke="#f1c40f"
+            stroke-width="5"
+            marker-end="url(#arr5)"
+          />
+          <circle cx="330" cy="80" r="42" fill="#c0392b" />
+          <text x="330" y="135" text-anchor="middle" font-weight="700">
+            Objet rouge
+          </text>
+          <line
+            x1="370"
+            y1="80"
+            x2="510"
+            y2="80"
+            stroke="#c0392b"
+            stroke-width="5"
+            marker-end="url(#arr5)"
+          />
+          <path
+            d="M525 80 q35 -30 70 0 q-35 30 -70 0"
+            fill="#eef7ff"
+            stroke="#333"
+            stroke-width="2"
+          />
+          <circle cx="560" cy="80" r="10" fill="#111" />
+          <text x="560" y="135" text-anchor="middle" font-weight="700">
+            Oeil
+          </text>
+        </svg>
+      </div>
+      <h3>Exercices progressifs</h3>
+      <div class="exercise-box">
+        <p>
+          1) Pourquoi une peinture doit-elle être validée sous le bon éclairage
+          ?
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+        <p>
+          2) Un pictogramme rouge est éclairé uniquement en bleu. Que
+          risque-t-on d'observer ?
+        </p>
+        <div class="dotted-lines"></div>
+        <p>
+          3) Lors d'un contrôle qualité, pourquoi faut-il éviter une lampe trop
+          colorée ?
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+      </div>
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP BTP - Optique</div>
+        <div>Page 11</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>
+        11. Activité expérimentale 1 : décomposer et recomposer la lumière
+      </h2>
+      <div class="context-box">
+        <strong>But :</strong> montrer que la lumière blanche contient plusieurs
+        couleurs et relier l'observation aux notions de spectre et de couleur
+        perçue.
+      </div>
+      <div class="two-col">
+        <div class="mini-card">
+          <div class="card-title">Matériel</div>
+          <ul>
+            <li>Source de lumière blanche ou lampe de téléphone.</li>
+            <li>Prisme, réseau ou CD.</li>
+            <li>Ecran blanc ou feuille blanche.</li>
+            <li>Filtres colorés si disponibles.</li>
+          </ul>
+        </div>
+        <div class="mini-card">
+          <div class="card-title">Sécurité</div>
+          <ul>
+            <li>
+              Ne pas utiliser de laser pour éclairer directement les yeux.
+            </li>
+            <li>Ne jamais regarder une source intense de près.</li>
+            <li>Stabiliser le matériel pour éviter les chutes.</li>
+          </ul>
+        </div>
+      </div>
+      <h3>Protocole</h3>
+      <ol>
+        <li>
+          Placer la source de lumière blanche face au prisme ou au réseau.
+        </li>
+        <li>Orienter l'écran pour observer les couleurs séparées.</li>
+        <li>Noter l'ordre des couleurs visibles.</li>
+        <li>
+          Placer éventuellement un filtre coloré avant ou après le prisme et
+          comparer.
+        </li>
+      </ol>
+      <h3>Observations</h3>
+      <table class="data-table">
+        <tr>
+          <th>Manipulation</th>
+          <th>Ce que j'observe</th>
+          <th>Interprétation</th>
+        </tr>
+        <tr>
+          <td>Lumière blanche + prisme</td>
+          <td style="height: 34px"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Filtre coloré + prisme</td>
+          <td style="height: 34px"></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Recomposition ou mélange de lumières</td>
+          <td style="height: 34px"></td>
+          <td></td>
+        </tr>
+      </table>
+      <h3>Conclusion à rédiger</h3>
+      <div class="answer-zone" style="height: 86px"></div>
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP BTP - Optique</div>
+        <div>Page 12</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>12. Activité expérimentale 2 : mesurer l'éclairement d'une zone</h2>
+      <div class="context-box">
+        <strong>But :</strong> utiliser un luxmètre pour décider si une zone est
+        suffisamment éclairée et proposer une amélioration.
+      </div>
+      <div class="two-col">
+        <div class="mini-card">
+          <div class="card-title">Matériel</div>
+          <ul>
+            <li>Luxmètre ou capteur de luminosité.</li>
+            <li>Plan de la salle ou du plateau.</li>
+            <li>Lampe d'appoint si disponible.</li>
+            <li>Mètre pour repérer les points de mesure.</li>
+          </ul>
+        </div>
+        <div class="mini-card">
+          <div class="card-title">Règles de mesure</div>
+          <ul>
+            <li>Placer le capteur à la hauteur de travail.</li>
+            <li>Ne pas cacher le capteur avec son corps.</li>
+            <li>Faire plusieurs mesures et comparer.</li>
+            <li>Noter les conditions : stores, lampes allumées, heure.</li>
+          </ul>
+        </div>
+      </div>
+      <h3>Tableau de mesures</h3>
+      <table class="data-table">
+        <tr>
+          <th>Zone</th>
+          <th>Usage</th>
+          <th>Mesure 1</th>
+          <th>Mesure 2</th>
+          <th>Moyenne</th>
+          <th>Conclusion</th>
+        </tr>
+        <tr>
+          <td>A</td>
+          <td></td>
+          <td>.......... lx</td>
+          <td>.......... lx</td>
+          <td>.......... lx</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>B</td>
+          <td></td>
+          <td>.......... lx</td>
+          <td>.......... lx</td>
+          <td>.......... lx</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>C</td>
+          <td></td>
+          <td>.......... lx</td>
+          <td>.......... lx</td>
+          <td>.......... lx</td>
+          <td></td>
+        </tr>
+      </table>
+      <h3>Exploitation</h3>
+      <div class="exercise-box">
+        <p>1) Quelle zone est la moins éclairée ?</p>
+        <div class="dotted-lines"></div>
+        <p>2) Quelle zone demande la meilleure précision visuelle ?</p>
+        <div class="dotted-lines"></div>
+        <p>
+          3) Proposer une action réaliste : ajouter une source, nettoyer un
+          diffuseur, changer l'orientation, remplacer une lampe, dégager une
+          fenêtre.
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+        <p>
+          4) La mesure seule suffit-elle pour décider ? Quels autres critères
+          peuvent compter ?
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+      </div>
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP BTP - Optique</div>
+        <div>Page 13</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>13. Exercice long : étude complète d'une situation chantier</h2>
+      <div class="context-box">
+        <strong>Scénario :</strong> dans un couloir en rénovation, une équipe
+        utilise un laser vert $\lambda=532$ nm. Le faisceau rencontre une vitre
+        et une plaque inox. L'éclairage mesuré au sol est de 85 lx.
+      </div>
+      <h3>Partie A - Identifier le signal</h3>
+      <p>1) Classer le laser : UV, visible ou IR. Justifier.</p>
+      <div class="dotted-lines"></div>
+      <p>2) Convertir $532$ nm en mètres.</p>
+      <div class="dotted-lines"></div>
+      <p>
+        3) Le vert est-il plus ou moins énergétique que le rouge à 650 nm ? On
+        attend une comparaison qualitative avec la longueur d'onde.
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+      <h3>Partie B - Prévoir le trajet</h3>
+      <p>
+        4) Sur la plaque inox, le rayon fait $18^\circ$ avec la surface.
+        Calculer l'angle d'incidence $i$ puis l'angle de réflexion $r$.
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+      <p>
+        5) La vitre a un indice $n=1,50$. Calculer la vitesse de la lumière dans
+        la vitre.
+      </p>
+      <div class="dotted-lines"></div>
+      <h3>Partie C - Décision professionnelle</h3>
+      <p>
+        6) L'éclairement mesuré dans le couloir est 85 lx pour une valeur
+        attendue de 100 lx. Conclusion et action possible.
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+      <p>
+        7) Donner trois mesures pour sécuriser l'utilisation du laser dans ce
+        couloir.
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP BTP - Optique</div>
+        <div>Page 14</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>14. Synthèse visuelle : les idées à maîtriser</h2>
+      <div class="three-col">
+        <div class="mini-card">
+          <div class="card-title">Signal lumineux</div>
+          <p>Source, trajet, récepteur, longueur d'onde, intensité, couleur.</p>
+          <p>
+            <span class="tag">rayon</span><span class="tag">faisceau</span
+            ><span class="tag">oeil</span>
+          </p>
+        </div>
+        <div class="mini-card">
+          <div class="card-title">Spectre</div>
+          <p>Visible : 400 nm à 800 nm. Avant : UV. Après : IR.</p>
+          <div class="spectrum"></div>
+        </div>
+        <div class="mini-card">
+          <div class="card-title">Sécurité</div>
+          <p>
+            Ne jamais regarder un faisceau. Attention aux surfaces brillantes et
+            aux UV.
+          </p>
+        </div>
+      </div>
+      <div class="three-col" style="margin-top: 8px">
+        <div class="mini-card">
+          <div class="card-title">Réflexion</div>
+          <p>Angles mesurés par rapport à la normale.</p>
+          <p style="text-align: center; font-size: 15pt; font-weight: 900">
+            $i=r$
+          </p>
+        </div>
+        <div class="mini-card">
+          <div class="card-title">Réfraction</div>
+          <p>
+            La lumière change de direction et ralentit dans un autre milieu.
+          </p>
+          <p style="text-align: center; font-size: 15pt; font-weight: 900">
+            $n=\dfrac{c}{v}$
+          </p>
+        </div>
+        <div class="mini-card">
+          <div class="card-title">Éclairement</div>
+          <p>Grandeur mesurée en lux avec un luxmètre.</p>
+          <p style="text-align: center; font-size: 15pt; font-weight: 900">
+            $E=\dfrac{\Phi}{S}$
+          </p>
+        </div>
+      </div>
+      <h3>Couleurs : la différence essentielle</h3>
+      <table class="data-table">
+        <tr>
+          <th></th>
+          <th>Synthèse additive</th>
+          <th>Synthèse soustractive</th>
+        </tr>
+        <tr>
+          <td>On mélange...</td>
+          <td>des lumières</td>
+          <td>des pigments, encres, filtres ou matières</td>
+        </tr>
+        <tr>
+          <td>Primaires</td>
+          <td>Rouge, Vert, Bleu</td>
+          <td>Cyan, Magenta, Jaune</td>
+        </tr>
+        <tr>
+          <td>Quand on ajoute</td>
+          <td>le résultat devient plus lumineux</td>
+          <td>le résultat devient plus sombre</td>
+        </tr>
+        <tr>
+          <td>Résultat avec les trois</td>
+          <td>blanc</td>
+          <td>noir ou brun foncé</td>
+        </tr>
+      </table>
+      <h3>Mini quiz de fin</h3>
+      <div class="exercise-box">
+        <p>
+          1) Un rayonnement de 1200 nm est : <span class="short-line"></span>
+        </p>
+        <p>
+          2) Un rayon fait $15^\circ$ avec la surface. L'angle d'incidence vaut
+          : <span class="short-line"></span>
+        </p>
+        <p>
+          3) Rouge + Vert en lumière donne : <span class="short-line"></span>
+        </p>
+        <p>
+          4) Cyan + Jaune en pigments donne : <span class="short-line"></span>
+        </p>
+        <p>5) Un luxmètre mesure : <span class="short-line"></span></p>
+      </div>
+      <div class="warn-box">
+        <strong>Réflexe sécurité :</strong> avant d'utiliser une source
+        lumineuse, se demander : Qui peut recevoir le faisceau ? Quelle surface
+        peut réfléchir ? Le rayonnement est-il visible ou invisible ? Quelle
+        protection est adaptée ?
+      </div>
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Synthèse</div>
+        <div>Page 15</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>15. Évaluation finale courte</h2>
+      <div class="context-box">
+        <strong>Consigne :</strong> répondre clairement. Les calculs doivent
+        être posés et les décisions justifiées.
+      </div>
+      <h3>Exercice 1 - Spectre et sécurité</h3>
+      <p>
+        Un appareil indique $\lambda=405$ nm et une puissance maximale de 5 mW.
+      </p>
+      <p>
+        1) Ce rayonnement est-il plutôt UV, visible ou IR ? Justifier avec les
+        bornes du visible.
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+      <p>2) Donner deux précautions d'utilisation.</p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+      <h3>Exercice 2 - Réflexion et réfraction</h3>
+      <p>
+        Un rayon arrive sur une surface brillante avec un angle de $25^\circ$
+        par rapport à la surface.
+      </p>
+      <p>3) Calculer $i$ puis $r$.</p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+      <p>Une plaque transparente a un indice $n=1,60$.</p>
+      <p>
+        4) Calculer la vitesse de la lumière dans cette plaque avec
+        $c=3,0\times10^8$ m/s.
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+      <h3>Exercice 3 - Couleurs et éclairage</h3>
+      <p>5) En synthèse additive, quelle couleur donne Vert + Bleu ?</p>
+      <div class="dotted-lines"></div>
+      <p>
+        6) En synthèse soustractive, quelle couleur obtient-on en associant
+        Magenta + Jaune ?
+      </p>
+      <div class="dotted-lines"></div>
+      <p>
+        7) Une zone de stockage est mesurée à 92 lx pour une valeur attendue de
+        100 lx. Conclusion et action.
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+      <h3>Question bilan</h3>
+      <p>
+        8) Expliquer en trois phrases pourquoi l'optique est utile dans les
+        métiers du BTP.
+      </p>
+      <div class="answer-zone"></div>
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Evaluation</div>
+        <div>Page 16</div>
+      </div>
+    </div>
+  </body>
+</html>

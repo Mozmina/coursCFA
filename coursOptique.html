@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dossier Optique - M. OZMINA</title>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)'],
+          ],
+        },
+        svg: { fontCache: 'global' },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Kalam&display=swap');
+
+      /* RESET */
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #525659;
+        margin: 0;
+        padding: 20px;
+        color: #000;
+        font-size: 11pt;
+        line-height: 1.35; /* Interligne légèrement réduit pour le fit */
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      .page {
+        width: 210mm;
+        height: 296mm;
+        padding: 12mm 15mm;
+        margin: 0 auto 20px auto;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        position: relative;
+        overflow: hidden;
+        page-break-after: always;
+      }
+
+      .print-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        background: #d35400;
+        color: white;
+        border: 2px solid white;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        z-index: 9999;
+      }
+
+      /* EN-TÊTE */
+      .header-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #000;
+        margin-bottom: 15px;
+      }
+      .header-table td {
+        border: 1px solid #000;
+        padding: 5px 10px;
+        vertical-align: top;
+      }
+
+      .row-info td {
+        height: 35px;
+        font-weight: bold;
+        font-size: 10pt;
+        padding-top: 6px;
+      }
+      .logo-cell {
+        width: 25%;
+        padding: 5px !important;
+        text-align: center;
+        vertical-align: middle;
+        height: 80px;
+      }
+      .logo-btp {
+        max-width: 100%;
+        height: auto;
+        max-height: 70px;
+      }
+
+      .title-cell {
+        text-align: center;
+        vertical-align: middle;
+        padding: 5px;
+      }
+      .title-main {
+        font-size: 16pt;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: block;
+      }
+      .title-sub {
+        font-size: 11pt;
+        font-style: italic;
+        display: block;
+        margin-top: 2px;
+      }
+
+      /* TITRES */
+      h2 {
+        font-size: 13pt;
+        background: #2c3e50;
+        color: white;
+        padding: 6px 12px;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        border-left: 8px solid #f1c40f;
+      }
+      h3 {
+        font-size: 12pt;
+        color: #d35400;
+        border-bottom: 1px solid #d35400;
+        padding-bottom: 2px;
+        margin-top: 15px;
+        margin-bottom: 8px;
+      }
+
+      /* BLOCS */
+      .context-box {
+        border-left: 4px solid #27ae60;
+        background: #f0fff4;
+        padding: 8px;
+        margin: 8px 0;
+        font-style: italic;
+        font-size: 10pt;
+      }
+
+      .trace-ecrite {
+        border: 2px solid #c0392b;
+        background: #fff5f5;
+        padding: 10px;
+        margin: 12px 0;
+        position: relative;
+        border-radius: 4px;
+      }
+      .trace-ecrite::before {
+        content: 'À RETENIR';
+        position: absolute;
+        top: -10px;
+        left: 15px;
+        background: #c0392b;
+        color: white;
+        padding: 1px 8px;
+        font-weight: bold;
+        font-size: 9pt;
+      }
+
+      /* IMAGES */
+      .img-wrapper {
+        text-align: center;
+        margin: 10px 0;
+      }
+      .img-wrapper img {
+        max-height: 180px;
+        max-width: 90%;
+        border: 1px solid #ddd;
+        padding: 5px;
+      }
+      .caption {
+        font-size: 9pt;
+        color: #666;
+        font-style: italic;
+        margin-top: 5px;
+      }
+
+      /* ZONES RÉPONSE */
+      .dotted-lines {
+        border-bottom: 1px dotted #000;
+        height: 22px;
+        margin-bottom: 4px;
+      }
+      .drawing-area {
+        border: 1px solid #000;
+        height: 140px;
+        background: #fafafa;
+        margin: 10px 0;
+        position: relative;
+      }
+      .drawing-label {
+        position: absolute;
+        top: 5px;
+        left: 5px;
+        font-size: 9pt;
+        color: #999;
+      }
+
+      /* CADRE CALCUL */
+      .calc-box {
+        border: 1px solid #2980b9;
+        background-color: #eaf2f8;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+      }
+
+      /* ENCADRÉ MÉTHODE (AJOUT) */
+      .method-box {
+        border: 1px solid #7f8c8d;
+        background: #f7f7f7;
+        padding: 8px 10px;
+        border-radius: 5px;
+        margin: 8px 0 10px 0;
+        font-size: 10pt;
+      }
+      .method-box strong {
+        color: #2c3e50;
+      }
+
+      .footer-page {
+        position: absolute;
+        bottom: 10mm;
+        left: 15mm;
+        right: 15mm;
+        border-top: 1px solid #000;
+        padding-top: 5px;
+        font-size: 9pt;
+        display: flex;
+        justify-content: space-between;
+        background: white;
+      }
+
+      @media print {
+        body {
+          padding: 0;
+          background: none;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+          border: none;
+          width: 210mm;
+          height: 296mm;
+        }
+        .print-btn {
+          display: none;
+        }
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button class="print-btn" onclick="window.print(); return false;">
+      🖨️ IMPRIMER LE DOSSIER
+    </button>
+
+    <!-- PAGE 1 -->
+    <div class="page">
+      <table class="header-table">
+        <tr class="row-info">
+          <td style="width: 25%">Nom :</td>
+          <td style="width: 25%">Prénom :</td>
+          <td style="width: 25%">Groupe :</td>
+          <td style="width: 25%">Date :</td>
+        </tr>
+        <tr>
+          <td class="logo-cell">
+            <img
+              src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+              alt="Logo BTP CFA"
+              class="logo-btp"
+            />
+          </td>
+          <td colspan="3" class="title-cell">
+            <span class="title-main">SCIENCES PHYSIQUES (CAP)</span>
+            <span class="title-sub"
+              >Module : Optique - Caractériser un signal lumineux</span
+            >
+          </td>
+        </tr>
+      </table>
+
+      <div
+        style="
+          background: #eee;
+          padding: 15px;
+          border: 1px solid #000;
+          margin-bottom: 20px;
+        "
+      >
+        <h4
+          style="margin-top: 0; margin-bottom: 10px; text-decoration: underline"
+        >
+          OBJECTIFS DE LA SÉANCE
+        </h4>
+        <ul style="margin-bottom: 0; padding-left: 20px">
+          <li>
+            <strong>Sécurité :</strong> Identifier les dangers (Laser, UV, IR)
+            et se protéger.
+          </li>
+          <li>
+            <strong>Réflexion :</strong> Vérifier la loi de la réflexion de la
+            lumière.
+          </li>
+          <li>
+            <strong>Réfraction :</strong> Mettre en évidence le phénomène de
+            déviation.
+          </li>
+          <li>
+            <strong>Couleurs :</strong> Décomposer la lumière blanche et
+            synthèse additive.
+          </li>
+        </ul>
+      </div>
+
+      <h2>PARTIE 1 : TRAVAILLER EN SÉCURITÉ (20 min)</h2>
+      <div class="context-box">
+        Contexte : Sur un chantier, vous utilisez des niveaux laser
+        (implantation, alignement). Ces appareils présentent des risques pour
+        les yeux, notamment par vision directe ou par réflexion sur une surface
+        brillante.
+      </div>
+
+      <h3>1.1 Identifier le danger</h3>
+      <p>Voici le pictogramme présent sur ces appareils :</p>
+
+      <div class="img-wrapper">
+        <img
+          src="https://www.securinorme.com/24551-thickbox_default/signaletique-de-danger-rayonnement-laser-w004-iso-7010.jpg"
+          alt="Danger Laser"
+          style="width: 140px"
+        />
+        <div class="caption">
+          Pictogramme de danger - Rayonnement Laser (ISO 7010)
+        </div>
+      </div>
+
+      <div class="trace-ecrite">
+        <p style="margin-top: 0">
+          <strong>À RETENIR :</strong> Les lasers sont classés de 1 (faible) à 4
+          (très dangereux).
+        </p>
+        <ul style="margin-bottom: 0">
+          <li>
+            <strong>Risques :</strong> Lésion de la rétine (yeux) et brûlures
+            possibles (peau) selon la classe et la durée d’exposition.
+          </li>
+          <li>
+            <strong>EPI concrets sur chantier :</strong>
+            lunettes de protection adaptées au laser (si exigées par la notice),
+            lunettes de sécurité (projection poussières), casque, gants,
+            chaussures de sécurité.
+          </li>
+          <li>
+            <strong>Bon réflexe :</strong> Placer le niveau laser à une hauteur
+            qui évite le faisceau au niveau des yeux et signaler la zone
+            (coactivité).
+          </li>
+        </ul>
+      </div>
+
+      <h3>1.2 Micro-question sécurité (chantier)</h3>
+      <p>
+        <strong>Cite 2 comportements interdits</strong> avec un niveau laser sur
+        chantier :
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences Physiques - Optique</div>
+        <div>Page 1</div>
+      </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="page">
+      <h2>PARTIE 2 : PROPAGATION ET RÉFLEXION (50 min)</h2>
+
+      <h3>2.1 Le trajet de la lumière</h3>
+      <p>
+        Dans un milieu transparent (air, verre), la lumière se propage en
+        <strong>ligne droite</strong>.
+      </p>
+
+      <h3>2.2 La loi de la réflexion</h3>
+      <p>Lorsqu'un rayon rencontre un miroir, il est renvoyé.</p>
+
+      <div class="img-wrapper">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Reflection_angles.svg/320px-Reflection_angles.svg.png"
+          alt="Schéma Réflexion"
+          style="height: 140px"
+        />
+      </div>
+
+      <div class="trace-ecrite">
+        <strong>LOI DE LA RÉFLEXION :</strong><br />
+        L'angle de réflexion ($r$) est toujours égal à l'angle d'incidence
+        ($i$).
+        <center><h3>$i = r$</h3></center>
+      </div>
+
+      <h3>Exercices d'application (Calculs)</h3>
+      <div class="calc-box">
+        <p style="margin-bottom: 5px">
+          <strong>Exercice 1 :</strong> Un rayon lumineux arrive sur un miroir
+          avec un angle d'incidence de $50^{\circ}$.
+        </p>
+        <p style="margin-top: 0">
+          Quelle est la valeur de l'angle de réflexion $r$ ?
+        </p>
+        <div class="dotted-lines"></div>
+
+        <p style="margin-bottom: 5px; margin-top: 15px">
+          <strong>Exercice 2 :</strong> Un rayon arrive sur un miroir. L'angle
+          entre le rayon et la surface du miroir est de $20^{\circ}$.
+        </p>
+        <p style="margin-top: 0">
+          1. Calculez l'angle d'incidence $i$ (Rappel : angle miroir/normale =
+          $90^{\circ}$).
+        </p>
+        <div class="dotted-lines"></div>
+        <p style="margin-top: 5px">2. Déduisez-en l'angle de réflexion $r$.</p>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences Physiques - Optique</div>
+        <div>Page 2</div>
+      </div>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="page">
+      <h2>PARTIE 3 : LA RÉFRACTION (30 min)</h2>
+
+      <h3>3.1 Observation</h3>
+      <div
+        class="img-wrapper"
+        style="float: right; width: 35%; margin: 0 0 10px 10px"
+      >
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Pencil_in_a_bowl_of_water.jpg/320px-Pencil_in_a_bowl_of_water.jpg"
+          alt="Crayon brisé"
+        />
+      </div>
+      <p>Pourquoi le crayon semble-t-il cassé dans l'eau ?</p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+      <div style="clear: both"></div>
+
+      <h3>3.2 Explication et Loi</h3>
+      <p>
+        La lumière change de vitesse quand elle change de milieu (ex : Air
+        $\rightarrow$ Eau).
+      </p>
+
+      <div class="img-wrapper">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Snells_law2.svg/320px-Snells_law2.svg.png"
+          alt="Loi de Snell Descartes"
+          style="height: 140px"
+        />
+        <div class="caption">Le rayon est dévié en traversant la surface</div>
+      </div>
+
+      <div class="trace-ecrite">
+        <strong>LOI DE LA RÉFRACTION :</strong><br />
+        Lorsqu'un rayon lumineux passe d'un milieu transparent à un autre (ex :
+        de l'air à l'eau) :
+        <ul>
+          <li>Il change de direction brutalement à la surface.</li>
+          <li>
+            En passant de l'air (moins dense) à l'eau (plus dense),
+            <strong>le rayon se rapproche de la normale</strong>.
+          </li>
+        </ul>
+      </div>
+
+      <h3>Exercices d'application (Calculs de déviation)</h3>
+
+      <div class="method-box">
+        <strong>MÉTHODE :</strong> L'angle de déviation se calcule par
+        différence :
+        <strong>$D = i - r$</strong>
+      </div>
+
+      <div class="calc-box">
+        <p style="margin-bottom: 5px">
+          <strong>Exercice 1 :</strong> Passage Air $\rightarrow$ Eau. $i =
+          45^{\circ}$. Réfraction mesurée $r = 32^{\circ}$.
+        </p>
+        <p style="margin-top: 0">Calculez l'angle de déviation $D$.</p>
+        <div class="dotted-lines"></div>
+
+        <p style="margin-bottom: 5px; margin-top: 15px">
+          <strong>Exercice 2 :</strong> Passage Air $\rightarrow$ Verre. $i =
+          60^{\circ}$ et $r = 35^{\circ}$.
+        </p>
+        <p style="margin-top: 0">Calculez l'angle de déviation $D$.</p>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences Physiques - Optique</div>
+        <div>Page 3</div>
+      </div>
+    </div>
+
+    <!-- PAGE 4 -->
+    <div class="page">
+      <h2>PARTIE 4 : LA LUMIÈRE BLANCHE (30 min)</h2>
+
+      <h3>4.1 Décomposition de la lumière</h3>
+      <p>
+        La lumière blanche du soleil est composée de toutes les couleurs
+        (arc-en-ciel).
+      </p>
+
+      <div class="img-wrapper">
+        <img
+          src="https://www.larousse.fr/encyclopedie/data/images/1003173-D%C3%A9composition_par_r%C3%A9fraction_de_la_lumi%C3%A8re_blanche_dans_un_prisme.jpg"
+          alt="Prisme"
+          style="height: 120px"
+        />
+        <div class="caption">
+          Décomposition de la lumière blanche par un prisme
+        </div>
+      </div>
+
+      <h3>4.2 Le spectre visible et invisible</h3>
+      <p>
+        Au-delà des couleurs visibles, il existe des rayonnements invisibles :
+      </p>
+      <ul>
+        <li>
+          Avant le Rouge : <strong>Les Infrarouges (IR)</strong> $\rightarrow$
+          Transportent la chaleur.
+        </li>
+        <li>
+          Après le Violet : <strong>Les Ultraviolets (UV)</strong> $\rightarrow$
+          Transportent de l'énergie (brûlures).
+        </li>
+      </ul>
+
+      <h2>PARTIE 5 : LA SYNTHÈSE ADDITIVE (20 min)</h2>
+      <p>
+        Les écrans (TV, téléphone) utilisent 3 couleurs primaires : Rouge, Vert,
+        Bleu.
+      </p>
+
+      <div class="img-wrapper" style="margin: 10px 0">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/AdditiveColor.svg/480px-AdditiveColor.svg.png"
+          alt="Synthèse Additive"
+          style="width: 150px"
+        />
+      </div>
+
+      <h3>
+        Activité : Compléter les mélanges par cyan / jaune / magenta / blanc
+      </h3>
+
+      <div
+        style="
+          border: 1px solid #999;
+          padding: 10px;
+          background: #fff;
+          font-size: 10pt;
+        "
+      >
+        <p style="margin: 5px 0">
+          Rouge + Vert = .....................................
+        </p>
+        <p style="margin: 5px 0">
+          Rouge + Bleu = .....................................
+        </p>
+        <p style="margin: 5px 0">
+          Bleu + Vert = .....................................
+        </p>
+        <p style="margin: 5px 0">
+          Rouge + Vert + Bleu = .............................
+        </p>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences Physiques - Optique</div>
+        <div>Page 4</div>
+      </div>
+    </div>
+  </body>
+</html>

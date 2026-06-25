@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fiche révision BP</title>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Oswald:wght@500;600;700&display=swap');
+
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        background: #5f6368;
+        color: #111;
+        padding: 18px;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      .print-btn {
+        position: fixed;
+        top: 18px;
+        right: 18px;
+        z-index: 9999;
+        background: #c65f00;
+        color: #fff;
+        border: 2px solid #fff;
+        border-radius: 4px;
+        padding: 9px 16px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.35);
+      }
+
+      .page {
+        width: 210mm;
+        height: 297mm;
+        background: #fff;
+        margin: 0 auto;
+        padding: 12mm;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .header-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #000;
+      }
+
+      .header-table td {
+        border: 1px solid #000;
+        padding: 4px 8px;
+        vertical-align: top;
+      }
+
+      .row-info td {
+        height: 29px;
+        font-weight: 700;
+        font-size: 9.4pt;
+        padding-top: 5px;
+      }
+
+      .logo-cell {
+        width: 25%;
+        padding: 4px !important;
+        text-align: center;
+        vertical-align: middle;
+        height: 72px;
+      }
+
+      .logo-btp {
+        max-width: 100%;
+        max-height: 62px;
+        height: auto;
+      }
+
+      .title-cell {
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .title-main {
+        display: block;
+        font-family: 'Oswald', sans-serif;
+        font-size: 18pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 1.05;
+        letter-spacing: 0.3px;
+      }
+
+      .title-sub {
+        display: block;
+        font-size: 10.5pt;
+        font-style: italic;
+        margin-top: 3px;
+      }
+
+      .main-content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .qr-card {
+        border: 3px solid #22384d;
+        border-radius: 14px;
+        padding: 22px 28px 24px 28px;
+        text-align: center;
+        background: #f8fafc;
+        box-shadow: 0 4px 0 #f0c419;
+      }
+
+      .qr-title {
+        font-family: 'Oswald', sans-serif;
+        font-size: 26pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #22384d;
+        margin-bottom: 8px;
+      }
+
+      .qr-subtitle {
+        font-size: 13pt;
+        font-weight: 500;
+        margin-bottom: 18px;
+      }
+
+      .qr-code {
+        width: 50mm;
+        height: 50mm;
+        display: block;
+        margin: 0 auto 16px auto;
+        border: 1px solid #000;
+        padding: 6px;
+        background: #fff;
+      }
+
+      .url-box {
+        font-size: 12pt;
+        font-weight: 700;
+        color: #c65f00;
+        border-top: 1px solid #cfcfcf;
+        padding-top: 12px;
+      }
+
+      .footer-page {
+        position: absolute;
+        bottom: 7mm;
+        left: 12mm;
+        right: 12mm;
+        border-top: 1px solid #000;
+        padding-top: 4px;
+        font-size: 8.5pt;
+        display: flex;
+        justify-content: space-between;
+        background: #fff;
+      }
+
+      @media print {
+        body {
+          background: none;
+          padding: 0;
+        }
+
+        .page {
+          margin: 0;
+          box-shadow: none;
+        }
+
+        .print-btn {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <button class="print-btn" onclick="window.print();">
+      🖨️ IMPRIMER LA FICHE
+    </button>
+
+    <div class="page">
+      <table class="header-table">
+        <tr class="row-info">
+          <td>Nom :</td>
+          <td>Prénom :</td>
+          <td>Groupe :</td>
+          <td>Date :</td>
+        </tr>
+        <tr>
+          <td class="logo-cell">
+            <img
+              src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+              alt="Logo BTP CFA"
+              class="logo-btp"
+            />
+          </td>
+          <td colspan="3" class="title-cell">
+            <span class="title-main">Fiche révision BP</span>
+            <span class="title-sub">Accès direct aux révisions en ligne</span>
+          </td>
+        </tr>
+      </table>
+
+      <div class="main-content">
+        <div class="qr-card">
+          <div class="qr-title">Fiches de révision BP Mathématiques 2026</div>
+          <div class="qr-subtitle">
+            Scanne le QR code pour accéder aux révisions
+          </div>
+
+          <img
+            class="qr-code"
+            src="https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=https%3A%2F%2Fmathsbp.netlify.app%2F"
+            alt="QR code vers https://mathsbp.netlify.app/"
+          />
+
+          <div class="url-box">https://mathsbp.netlify.app/</div>
+        </div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Fiches de révision BP</div>
+        <div>QR code révisions</div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Évaluation Probabilités (partie 1) BP MIGCS - BTP CFA MARNE</title>
+
+    <!-- Configuration MathJax -->
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)'],
+          ],
+        },
+        svg: { fontCache: 'global' },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Kalam&display=swap');
+
+      /* RESET ET BASE */
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #525659;
+        margin: 0;
+        padding: 20px;
+        color: #000;
+        font-size: 10.5pt;
+      }
+
+      /* CONFIGURATION PAGE A4 STRICTE */
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      .page {
+        width: 210mm;
+        height: 296mm;
+        padding: 10mm 15mm;
+        margin: 0 auto 20px auto;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        position: relative;
+        overflow: hidden;
+        page-break-after: always;
+        background-color: white;
+      }
+
+      /* BOUTON IMPRIMER */
+      .print-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        background: #d35400;
+        color: white;
+        border: 2px solid white;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        z-index: 9999;
+      }
+
+      /* --- EN-TÊTE --- */
+      .header-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #000;
+        margin-bottom: 15px;
+      }
+      .header-table td {
+        border: 1px solid #000;
+        padding: 4px 8px;
+        vertical-align: top;
+      }
+
+      .row-info td {
+        height: 35px;
+        font-weight: bold;
+        font-size: 10pt;
+        padding-top: 6px;
+      }
+
+      .row-title td {
+        height: 80px;
+        vertical-align: middle;
+      }
+
+      .logo-cell {
+        width: 25%;
+        padding: 0 !important;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .logo-btp {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(1.3);
+        width: 90%;
+        height: auto;
+      }
+
+      .title-cell {
+        text-align: center;
+        padding: 5px !important;
+      }
+      .title-top {
+        font-size: 10pt;
+        text-decoration: underline;
+        margin-bottom: 2px;
+      }
+      .title-main {
+        font-size: 20pt;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        line-height: 1;
+      }
+      .title-sub {
+        font-size: 14pt;
+        font-weight: bold;
+        margin-top: 2px;
+      }
+
+      /* DONNÉES */
+      .donnees-container {
+        border: 2px solid #000;
+        padding: 6px;
+        margin-bottom: 15px;
+        font-size: 10pt;
+        background-color: #f9f9f9;
+      }
+      .donnees-container h4 {
+        margin: 0 0 2px 0;
+        font-size: 10pt;
+        text-decoration: underline;
+      }
+      .donnees-container ul {
+        margin: 0;
+        padding-left: 15px;
+        list-style: none;
+      }
+      .donnees-container li {
+        margin-bottom: 1px;
+      }
+
+      /* TITRES EXERCICES */
+      h2 {
+        font-size: 11pt;
+        background: #2c3e50;
+        color: white;
+        padding: 4px 10px;
+        margin-top: 15px;
+        margin-bottom: 8px;
+        border-radius: 2px;
+        border-left: 5px solid #000;
+        page-break-after: avoid;
+      }
+
+      /* QUESTIONS */
+      .question {
+        margin: 8px 0;
+        font-size: 10.5pt;
+        line-height: 1.3;
+      }
+      .answer-space {
+        border-bottom: 1px dotted #000;
+        height: 18px;
+        margin-bottom: 3px;
+        display: block;
+        width: 100%;
+      }
+      .short-dots {
+        border-bottom: 1px dotted #000;
+        width: 60px;
+        display: inline-block;
+        text-align: center;
+      }
+
+      /* DOCS VISUELS */
+      .doc-layout {
+        display: flex;
+        gap: 15px;
+        margin: 10px 0;
+        align-items: stretch;
+      }
+      .post-it-note {
+        background: #fff9c4;
+        flex: 1;
+        padding: 8px;
+        box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        font-family: 'Kalam', cursive;
+        font-size: 10.5pt;
+        line-height: 1.2;
+        border-left: 4px solid #fbc02d;
+        border: 1px solid #ddd;
+        color: #333;
+      }
+      .norme-box {
+        border: 2px solid #000;
+        background: #fff;
+        padding: 8px;
+        font-size: 10pt;
+        flex: 1;
+        line-height: 1.3;
+      }
+      .norme-header {
+        text-align: center;
+        background: #000;
+        color: white;
+        padding: 2px;
+        font-weight: bold;
+        margin-bottom: 5px;
+        text-transform: uppercase;
+        font-size: 9pt;
+      }
+
+      /* GRAPHIQUE OPTIMISÉ */
+      .graph-area {
+        margin: 15px auto 30px auto;
+        width: 92%;
+        height: 180px;
+        position: relative;
+      }
+      .axis-label-vert {
+        position: absolute;
+        left: -85px;
+        top: 50%;
+        transform: rotate(-90deg) translateY(-50%);
+        font-size: 9pt;
+        font-weight: bold;
+        width: 200px;
+        text-align: center;
+      }
+      .axis-label-horiz {
+        position: absolute;
+        bottom: -35px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 9pt;
+        font-weight: bold;
+      }
+
+      /* TABLEAU STOCK */
+      .stock-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 10px 0;
+      }
+      .stock-table th,
+      .stock-table td {
+        border: 1px solid #000;
+        padding: 4px;
+        text-align: center;
+        font-size: 10pt;
+      }
+      .stock-table th {
+        background: #e0e0e0;
+        font-weight: bold;
+      }
+
+      /* GRILLE PANNEAU (EXO 5) */
+      .panel-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        width: 260px;
+        margin: 10px auto;
+        padding: 8px;
+        border: 1px dashed #999;
+        border-radius: 5px;
+      }
+      .panel-light {
+        height: 35px;
+        border: 2px solid #555;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 8.5pt;
+        background-color: #f0f0f0;
+        color: #333;
+      }
+      .light-red {
+        border-color: #c0392b;
+        color: #c0392b;
+        background-color: #fadbd8;
+      }
+      .light-green {
+        border-color: #27ae60;
+        color: #27ae60;
+        background-color: #d5f5e3;
+      }
+      .light-orange {
+        border-color: #e67e22;
+        color: #e67e22;
+        background-color: #fdebd0;
+      }
+
+      .footer-page {
+        position: absolute;
+        bottom: 8mm;
+        left: 15mm;
+        right: 15mm;
+        border-top: 1px solid #000;
+        padding-top: 3px;
+        font-size: 9pt;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      /* MODE IMPRESSION */
+      @media print {
+        body {
+          padding: 0;
+          margin: 0;
+          background: none;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+          border: none;
+          width: 210mm;
+          height: 296mm;
+          page-break-after: always;
+        }
+        .print-btn {
+          display: none !important;
+        }
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button class="print-btn" onclick="window.print(); return false;">
+      🖨️ IMPRIMER
+    </button>
+
+    <!-- PAGE 1 -->
+    <div class="page">
+      <table class="header-table">
+        <tr class="row-info">
+          <td style="width: 30%">Nom :</td>
+          <td style="width: 30%">Prénom :</td>
+          <td style="width: 20%">Section :</td>
+          <td style="width: 20%">Date :</td>
+        </tr>
+        <tr class="row-title">
+          <td class="logo-cell">
+            <img
+              src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+              alt="Logo BTP CFA"
+              class="logo-btp"
+            />
+          </td>
+          <td colspan="3" class="title-cell">
+            <div class="title-top">Mathématiques BP</div>
+            <div class="title-main">EVALUATION</div>
+            <div class="title-sub">Probabilités (partie 1)</div>
+          </td>
+        </tr>
+      </table>
+
+      <div class="donnees-container">
+        <h4>Données pour l'épreuve :</h4>
+        <ul>
+          <li>
+            Probabilité : \(P(A) = \frac{\text{Nombre de cas
+            favorables}}{\text{Nombre de cas possibles}}\)
+          </li>
+          <li>Événement certain : \(P=1\) | Événement impossible : \(P=0\)</li>
+          <li>
+            Fréquence \(f = \frac{n}{N}\) (avec \(n\) le nombre d'apparitions et
+            \(N\) le nombre total d'essais).
+          </li>
+        </ul>
+      </div>
+
+      <h2>Exercice 1 : Étude de sacoche</h2>
+      <div class="question">
+        Un dépanneur a 25 joints dans sa sacoche : 15 joints fibre (rouges) et
+        10 joints caoutchouc (noirs).
+        <br />
+        1. On tire un joint au hasard. Citez les deux issues possibles de cette
+        expérience :<br />
+        <div class="answer-space"></div>
+        2. Calculez la probabilité de tirer un joint caoutchouc (noir) :<br />
+        <div class="answer-space"></div>
+        3. Calculez la probabilité de tirer un joint qui
+        <strong>n'est pas</strong> en fibre :<br />
+        <div class="answer-space"></div>
+      </div>
+
+      <h2>Exercice 2 : Recherche Documentaire - SAV</h2>
+      <div class="question">
+        Analysez les documents ci-dessous pour traiter les données de
+        l'intervention.
+      </div>
+
+      <div class="doc-layout">
+        <div class="post-it-note">
+          <span
+            style="
+              font-weight: bold;
+              color: #d32f2f;
+              text-decoration: underline;
+            "
+            >NOTE CHANTIER :</span
+          ><br />
+          "J'ai vérifié les 120 mitigeurs de douche posés ce mois-ci :<br />
+          - 9 fuient au niveau de la cartouche.<br />
+          - 3 ont un défaut d'aspect (rayures).<br />
+          Les autres fonctionnent parfaitement.<br />
+          Merci de commander les pièces."
+        </div>
+        <div class="norme-box">
+          <div class="norme-header">PROCÉDURE QUALITÉ</div>
+          Un équipement est déclaré <strong>"DÉFECTUEUX"</strong> s'il présente
+          :<br />
+          - Une fuite fonctionnelle.<br />
+          OU<br />
+          - Un défaut esthétique visible.<br />
+          <em>Tout produit défectueux doit être retourné.</em>
+        </div>
+      </div>
+
+      <div class="question">
+        On choisit un mitigeur au hasard parmi les 120.<br />
+        1. Donnez le nombre total d'issues possibles :
+        <span class="short-dots"></span><br />
+        2. Calculez la probabilité qu'un mitigeur soit "DÉFECTUEUX" (fraction et
+        décimal) :<br />
+        <div class="answer-space"></div>
+        <div class="answer-space"></div>
+        3. Déduisez-en la probabilité qu'un mitigeur soit
+        <b>conforme</b> :<br />
+        <div class="answer-space"></div>
+      </div>
+
+      <div class="footer-page">
+        <div>Mathématiques BP MIGCS - BTP CFA MARNE</div>
+        <div>Page 1 sur 2</div>
+      </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="page">
+      <h2>Exercice 3 : Loi des grands nombres</h2>
+      <div class="question">
+        Une entreprise suit 10 000 chaudières pour analyser une panne
+        spécifique.
+      </div>
+
+      <div class="graph-area">
+        <div class="axis-label-vert">Fréquence de la panne</div>
+        <div class="axis-label-horiz">Nombre de chaudières suivies</div>
+        <svg
+          width="100%"
+          height="100%"
+          viewBox="0 0 600 200"
+          style="
+            border-left: 2px solid #000;
+            border-bottom: 2px solid #000;
+            overflow: visible;
+          "
+        >
+          <!-- GRILLE COMPLETE -->
+          <!-- Grille horizontale mineure (tous les 0.01) -->
+          <line
+            x1="0"
+            y1="20"
+            x2="600"
+            y2="20"
+            stroke="#f0f0f0"
+            stroke-width="1"
+          />
+          <line
+            x1="0"
+            y1="60"
+            x2="600"
+            y2="60"
+            stroke="#f0f0f0"
+            stroke-width="1"
+          />
+          <line
+            x1="0"
+            y1="100"
+            x2="600"
+            y2="100"
+            stroke="#f0f0f0"
+            stroke-width="1"
+          />
+          <line
+            x1="0"
+            y1="140"
+            x2="600"
+            y2="140"
+            stroke="#f0f0f0"
+            stroke-width="1"
+          />
+          <line
+            x1="0"
+            y1="180"
+            x2="600"
+            y2="180"
+            stroke="#f0f0f0"
+            stroke-width="1"
+          />
+
+          <!-- Grille horizontale majeure (tous les 0.02) -->
+          <line
+            x1="0"
+            y1="0"
+            x2="600"
+            y2="0"
+            stroke="#ccc"
+            stroke-width="1.5"
+          />
+          <line
+            x1="0"
+            y1="40"
+            x2="600"
+            y2="40"
+            stroke="#ccc"
+            stroke-width="1.5"
+          />
+          <line
+            x1="0"
+            y1="80"
+            x2="600"
+            y2="80"
+            stroke="#ccc"
+            stroke-width="1.5"
+          />
+          <line
+            x1="0"
+            y1="120"
+            x2="600"
+            y2="120"
+            stroke="#ccc"
+            stroke-width="1.5"
+          />
+          <line
+            x1="0"
+            y1="160"
+            x2="600"
+            y2="160"
+            stroke="#ccc"
+            stroke-width="1.5"
+          />
+
+          <!-- Grille verticale mineure (tous les 1000) -->
+          <line
+            x1="60"
+            y1="0"
+            x2="60"
+            y2="200"
+            stroke="#f0f0f0"
+            stroke-width="1"
+          />
+          <line
+            x1="180"
+            y1="0"
+            x2="180"
+            y2="200"
+            stroke="#f0f0f0"
+            stroke-width="1"
+          />
+          <line
+            x1="300"
+            y1="0"
+            x2="300"
+            y2="200"
+            stroke="#f0f0f0"
+            stroke-width="1"
+          />
+          <line
+            x1="420"
+            y1="0"
+            x2="420"
+            y2="200"
+            stroke="#f0f0f0"
+            stroke-width="1"
+          />
+          <line
+            x1="540"
+            y1="0"
+            x2="540"
+            y2="200"
+            stroke="#f0f0f0"
+            stroke-width="1"
+          />
+
+          <!-- Grille verticale majeure (tous les 2000) -->
+          <line
+            x1="120"
+            y1="0"
+            x2="120"
+            y2="200"
+            stroke="#ccc"
+            stroke-width="1.5"
+          />
+          <line
+            x1="240"
+            y1="0"
+            x2="240"
+            y2="200"
+            stroke="#ccc"
+            stroke-width="1.5"
+          />
+          <line
+            x1="360"
+            y1="0"
+            x2="360"
+            y2="200"
+            stroke="#ccc"
+            stroke-width="1.5"
+          />
+          <line
+            x1="480"
+            y1="0"
+            x2="480"
+            y2="200"
+            stroke="#ccc"
+            stroke-width="1.5"
+          />
+          <line
+            x1="600"
+            y1="0"
+            x2="600"
+            y2="200"
+            stroke="#ccc"
+            stroke-width="1.5"
+          />
+
+          <!-- Axes Y Labels et Ticks -->
+          <line
+            x1="0"
+            y1="0"
+            x2="-8"
+            y2="0"
+            stroke="black"
+            stroke-width="1.5"
+          />
+          <text x="-12" y="5" text-anchor="end" font-size="11">0,10</text>
+
+          <line
+            x1="0"
+            y1="20"
+            x2="-5"
+            y2="20"
+            stroke="black"
+            stroke-width="1"
+          />
+
+          <line
+            x1="0"
+            y1="40"
+            x2="-8"
+            y2="40"
+            stroke="black"
+            stroke-width="1.5"
+          />
+          <text x="-12" y="45" text-anchor="end" font-size="11">0,08</text>
+
+          <line
+            x1="0"
+            y1="60"
+            x2="-5"
+            y2="60"
+            stroke="black"
+            stroke-width="1"
+          />
+
+          <line
+            x1="0"
+            y1="80"
+            x2="-8"
+            y2="80"
+            stroke="black"
+            stroke-width="1.5"
+          />
+          <text x="-12" y="85" text-anchor="end" font-size="11">0,06</text>
+
+          <line
+            x1="0"
+            y1="100"
+            x2="-5"
+            y2="100"
+            stroke="black"
+            stroke-width="1"
+          />
+
+          <line
+            x1="0"
+            y1="120"
+            x2="-8"
+            y2="120"
+            stroke="black"
+            stroke-width="1.5"
+          />
+          <text x="-12" y="125" text-anchor="end" font-size="11">0,04</text>
+
+          <line
+            x1="0"
+            y1="140"
+            x2="-5"
+            y2="140"
+            stroke="black"
+            stroke-width="1"
+          />
+
+          <line
+            x1="0"
+            y1="160"
+            x2="-8"
+            y2="160"
+            stroke="black"
+            stroke-width="1.5"
+          />
+          <text x="-12" y="165" text-anchor="end" font-size="11">0,02</text>
+
+          <line
+            x1="0"
+            y1="180"
+            x2="-5"
+            y2="180"
+            stroke="black"
+            stroke-width="1"
+          />
+
+          <line
+            x1="0"
+            y1="200"
+            x2="-8"
+            y2="200"
+            stroke="black"
+            stroke-width="1.5"
+          />
+          <text x="-12" y="205" text-anchor="end" font-size="11">0,00</text>
+
+          <!-- Axes X Labels et Ticks -->
+          <line
+            x1="0"
+            y1="200"
+            x2="0"
+            y2="208"
+            stroke="black"
+            stroke-width="1.5"
+          />
+          <text x="0" y="225" text-anchor="middle" font-size="11">0</text>
+
+          <line
+            x1="60"
+            y1="200"
+            x2="60"
+            y2="205"
+            stroke="black"
+            stroke-width="1"
+          />
+
+          <line
+            x1="120"
+            y1="200"
+            x2="120"
+            y2="208"
+            stroke="black"
+            stroke-width="1.5"
+          />
+          <text x="120" y="225" text-anchor="middle" font-size="11">2000</text>
+
+          <line
+            x1="180"
+            y1="200"
+            x2="180"
+            y2="205"
+            stroke="black"
+            stroke-width="1"
+          />
+
+          <line
+            x1="240"
+            y1="200"
+            x2="240"
+            y2="208"
+            stroke="black"
+            stroke-width="1.5"
+          />
+          <text x="240" y="225" text-anchor="middle" font-size="11">4000</text>
+
+          <line
+            x1="300"
+            y1="200"
+            x2="300"
+            y2="205"
+            stroke="black"
+            stroke-width="1"
+          />
+
+          <line
+            x1="360"
+            y1="200"
+            x2="360"
+            y2="208"
+            stroke="black"
+            stroke-width="1.5"
+          />
+          <text x="360" y="225" text-anchor="middle" font-size="11">6000</text>
+
+          <line
+            x1="420"
+            y1="200"
+            x2="420"
+            y2="205"
+            stroke="black"
+            stroke-width="1"
+          />
+
+          <line
+            x1="480"
+            y1="200"
+            x2="480"
+            y2="208"
+            stroke="black"
+            stroke-width="1.5"
+          />
+          <text x="480" y="225" text-anchor="middle" font-size="11">8000</text>
+
+          <line
+            x1="540"
+            y1="200"
+            x2="540"
+            y2="205"
+            stroke="black"
+            stroke-width="1"
+          />
+
+          <line
+            x1="600"
+            y1="200"
+            x2="600"
+            y2="208"
+            stroke="black"
+            stroke-width="1.5"
+          />
+          <text x="600" y="225" text-anchor="middle" font-size="11">10000</text>
+
+          <!-- Ligne probabilité -->
+          <line
+            x1="0"
+            y1="100"
+            x2="600"
+            y2="100"
+            stroke="#e74c3c"
+            stroke-width="2"
+            stroke-dasharray="5,5"
+          />
+          <!-- Courbe fréquence -->
+          <path
+            d="M5,30 L50,170 L110,80 L170,110 L230,95 L300,102 L450,98 L600,100"
+            fill="none"
+            stroke="#2c3e50"
+            stroke-width="2.5"
+          />
+        </svg>
+      </div>
+
+      <div class="question">
+        1. Vers quelle valeur de probabilité semble se stabiliser la courbe ?
+        <span class="short-dots"></span><br />
+        2. Comment appelle-t-on ce phénomène de stabilisation de la fréquence
+        ?<br />
+        <div class="answer-space"></div>
+      </div>
+
+      <h2>Exercice 4 : Inventaire de l'atelier</h2>
+      <div class="question">
+        Voici l'inventaire partiel des couronnes de tubes. Complétez les 3 cases
+        manquantes.
+      </div>
+      <table class="stock-table">
+        <tr>
+          <th>Matériau</th>
+          <th>Diamètre 16 mm</th>
+          <th>Diamètre 20 mm</th>
+          <th>TOTAL</th>
+        </tr>
+        <tr>
+          <th>Multicouche</th>
+          <td>45</td>
+          <td>55</td>
+          <td>100</td>
+        </tr>
+        <tr>
+          <th>PER</th>
+          <td>75</td>
+          <td>45</td>
+          <td>120</td>
+        </tr>
+        <tr>
+          <th>TOTAL</th>
+          <td>120</td>
+          <td>100</td>
+          <td>220</td>
+        </tr>
+      </table>
+      <div class="question">
+        1. Calculez la probabilité de tirer une couronne de PER en diamètre 16
+        mm :<br />
+        <div class="answer-space"></div>
+        2. Calculez la probabilité que la couronne ne soit pas du PER :<br />
+        <div class="answer-space"></div>
+      </div>
+
+      <h2>Exercice 5 : Panneau de Contrôle</h2>
+      <div class="question">
+        Le panneau d'affichage comporte 9 voyants.
+        <strong>Un seul</strong> s'allume au hasard.
+      </div>
+
+      <div class="panel-grid">
+        <div class="panel-light light-red">ALARME</div>
+        <div class="panel-light light-red">ALARME</div>
+        <div class="panel-light light-green">MARCHE</div>
+
+        <div class="panel-light light-green">MARCHE</div>
+        <div class="panel-light light-green">MARCHE</div>
+        <div class="panel-light light-orange">VEILLE</div>
+
+        <div class="panel-light light-green">MARCHE</div>
+        <div class="panel-light light-green">MARCHE</div>
+        <div class="panel-light light-orange">VEILLE</div>
+      </div>
+
+      <div class="question">
+        1. Combien y a-t-il d'issues possibles ? <span class="short-dots"></span
+        ><br />
+        2. Calculez la probabilité que le voyant "ALARME" (rouge) s'allume :<br />
+        <div class="answer-space"></div>
+        3. Calculez la probabilité que le voyant "MARCHE" (vert) s'allume :<br />
+        <div class="answer-space"></div>
+        4. Décrivez par une phrase un événement qui aurait une probabilité de
+        \(\frac{2}{9}\) :<br />
+        <div class="answer-space"></div>
+        5. Comment qualifie-t-on une expérience où toutes les issues ont la même
+        chance d'arriver :<br />
+        <div class="answer-space"></div>
+      </div>
+
+      <div class="footer-page">
+        <div>Mathématiques BP MIGCS - BTP CFA MARNE</div>
+        <div>Page 2 sur 2</div>
+      </div>
+    </div>
+  </body>
+</html>

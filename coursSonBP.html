@@ -1,0 +1,1209 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dossier Acoustique BP - M. OZMINA</title>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)'],
+          ],
+        },
+        svg: { fontCache: 'global' },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <!-- QR code generator -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap');
+
+      /* RESET */
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #525659;
+        margin: 0;
+        padding: 20px;
+        color: #000;
+        font-size: 11pt;
+        line-height: 1.35;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      .page {
+        width: 210mm;
+        height: 296mm;
+        padding: 12mm 15mm;
+        padding-bottom: 26mm;
+        margin: 0 auto 20px auto;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        position: relative;
+        overflow: hidden;
+        page-break-after: always;
+      }
+
+      .print-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        background: #d35400;
+        color: white;
+        border: 2px solid white;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        z-index: 9999;
+      }
+
+      /* EN-TETE */
+      .header-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #000;
+        margin-bottom: 12px;
+      }
+      .header-table td {
+        border: 1px solid #000;
+        padding: 5px 10px;
+        vertical-align: top;
+      }
+      .row-info td {
+        height: 35px;
+        font-weight: bold;
+        font-size: 10pt;
+        padding-top: 6px;
+      }
+      .logo-cell {
+        width: 25%;
+        padding: 5px !important;
+        text-align: center;
+        vertical-align: middle;
+        height: 78px;
+      }
+      .logo-btp {
+        max-width: 100%;
+        height: auto;
+        max-height: 68px;
+      }
+      .title-cell {
+        text-align: center;
+        vertical-align: middle;
+        padding: 5px;
+      }
+      .title-main {
+        font-size: 16pt;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: block;
+      }
+      .title-sub {
+        font-size: 11pt;
+        font-style: italic;
+        display: block;
+        margin-top: 2px;
+      }
+
+      /* TITRES */
+      h2 {
+        font-size: 13pt;
+        background: #2c3e50;
+        color: white;
+        padding: 6px 12px;
+        margin-top: 12px;
+        margin-bottom: 8px;
+        border-left: 8px solid #3498db;
+      }
+      h3 {
+        font-size: 12pt;
+        color: #2980b9;
+        border-bottom: 1px solid #2980b9;
+        padding-bottom: 2px;
+        margin-top: 12px;
+        margin-bottom: 6px;
+      }
+
+      /* BLOCS */
+      .context-box {
+        border-left: 4px solid #27ae60;
+        background: #f0fff4;
+        padding: 8px;
+        margin: 8px 0;
+        font-style: italic;
+        font-size: 10pt;
+      }
+
+      .rappel-box {
+        border-left: 4px solid #3498db;
+        background: #ebf5fb;
+        padding: 8px 12px;
+        margin: 12px 0;
+        font-size: 10pt;
+        border-radius: 0 4px 4px 0;
+      }
+      .rappel-box strong {
+        color: #2980b9;
+      }
+
+      .trace-ecrite {
+        border: 2px solid #c0392b;
+        background: #fff5f5;
+        padding: 12px 10px 10px 10px;
+        margin: 12px 0;
+        position: relative;
+        border-radius: 4px;
+      }
+      .trace-ecrite::before {
+        content: 'A RETENIR';
+        position: absolute;
+        top: -10px;
+        left: 15px;
+        background: #c0392b;
+        color: white;
+        padding: 1px 8px;
+        font-weight: bold;
+        font-size: 9pt;
+      }
+
+      /* ZONES REPONSE */
+      .dotted-lines {
+        border-bottom: 1px dotted #000;
+        height: 22px;
+        margin-bottom: 4px;
+        width: 100%;
+      }
+      .inline-dots {
+        display: inline-block;
+        border-bottom: 1px dotted #000;
+        width: 180px;
+      }
+
+      /* TABLEAUX */
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 8px 0;
+        font-size: 10.5pt;
+      }
+      .data-table th,
+      .data-table td {
+        border: 1px solid #7f8c8d;
+        padding: 7px;
+        text-align: left;
+      }
+      .data-table th {
+        background-color: #ecf0f1;
+      }
+
+      /* CADRE CALCUL */
+      .calc-box {
+        border: 1px solid #2980b9;
+        background-color: #eaf2f8;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+      }
+
+      /* VISU */
+      .img-container {
+        text-align: center;
+        margin: 10px 0 12px 0;
+      }
+      .caption {
+        font-size: 9pt;
+        color: #555;
+        font-style: italic;
+        margin-top: 6px;
+      }
+
+      .footer-page {
+        position: absolute;
+        bottom: 10mm;
+        left: 15mm;
+        right: 15mm;
+        border-top: 1px solid #000;
+        padding-top: 5px;
+        font-size: 9pt;
+        display: flex;
+        justify-content: space-between;
+        background: white;
+      }
+
+      .small {
+        font-size: 10pt;
+      }
+
+      .mini-box {
+        border: 1px solid #7f8c8d;
+        background: #f7f7f7;
+        padding: 10px;
+        border-radius: 5px;
+        margin: 10px 0;
+        font-size: 10pt;
+      }
+      .checkline {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        flex-wrap: wrap;
+        margin: 6px 0;
+      }
+      .checkline span {
+        display: inline-block;
+        min-width: 220px;
+      }
+      .tag {
+        display: inline-block;
+        padding: 2px 8px;
+        border: 1px solid #000;
+        border-radius: 999px;
+        font-size: 9pt;
+        background: #fff;
+        margin-right: 6px;
+      }
+
+      .qr-row {
+        display: flex;
+        gap: 14px;
+        align-items: stretch;
+        margin-top: 10px;
+      }
+      .qr-box {
+        width: 220px;
+        border: 1px solid #000;
+        border-radius: 6px;
+        padding: 10px;
+        text-align: center;
+        background: #fff;
+      }
+      .qr-note {
+        flex: 1;
+        border: 1px solid #7f8c8d;
+        border-radius: 6px;
+        padding: 10px;
+        background: #f7f7f7;
+      }
+      .qr-link {
+        font-size: 10pt;
+        word-break: break-word;
+        margin-top: 8px;
+      }
+
+      @media print {
+        body {
+          padding: 0;
+          background: none;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+          border: none;
+        }
+        .print-btn {
+          display: none;
+        }
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <button class="print-btn" onclick="window.print(); return false;">
+      🖨️ IMPRIMER LE DOSSIER BP
+    </button>
+
+    <!-- PAGE 1 -->
+    <div class="page">
+      <table class="header-table">
+        <tr class="row-info">
+          <td style="width: 25%">Nom :</td>
+          <td style="width: 25%">Prénom :</td>
+          <td style="width: 25%">Groupe :</td>
+          <td style="width: 25%">Date :</td>
+        </tr>
+        <tr>
+          <td class="logo-cell">
+            <img
+              src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+              alt="Logo BTP CFA"
+              class="logo-btp"
+            />
+          </td>
+          <td colspan="3" class="title-cell">
+            <span class="title-main">SCIENCES PHYSIQUES - BP</span>
+            <span class="title-sub">
+              Module : Signaux - Caractériser la propagation d'un signal sonore
+            </span>
+          </td>
+        </tr>
+      </table>
+
+      <div
+        style="
+          background: #eee;
+          padding: 15px;
+          border: 1px solid #000;
+          margin-bottom: 14px;
+        "
+      >
+        <h4
+          style="margin-top: 0; margin-bottom: 10px; text-decoration: underline"
+        >
+          OBJECTIFS DE LA SÉANCE
+        </h4>
+        <ul style="margin-bottom: 0; padding-left: 20px">
+          <li>
+            Mettre en évidence qu'un son a besoin d'un milieu pour se propager.
+          </li>
+          <li>
+            Comparer qualitativement la propagation dans l'air, l'eau et les
+            solides.
+          </li>
+          <li>Caractériser une onde sonore par sa longueur d'onde.</li>
+          <li>Distinguer son pur et son complexe.</li>
+          <li>
+            Mesurer et interpréter un niveau sonore à l'aide d'un sonomètre.
+          </li>
+          <li>Relier atténuation, distance et protection auditive.</li>
+        </ul>
+        <p
+          style="
+            margin-bottom: 0;
+            font-style: italic;
+            font-size: 10pt;
+            margin-top: 10px;
+          "
+        >
+          En Brevet Professionnel, l'objectif est de comprendre le comportement
+          physique de l'onde sonore dans son environnement pour mieux anticiper
+          et prévenir les risques sur les chantiers.
+        </p>
+      </div>
+
+      <h2>PARTIE 1 : LA PROPAGATION DU SON ET SA VITESSE</h2>
+
+      <div class="rappel-box">
+        <strong>RAPPEL (CAP) :</strong> Un signal sonore est une vibration. Il
+        se caractérise par une fréquence (en Hz) et un niveau sonore (en dB).
+      </div>
+
+      <div class="context-box">
+        <strong>Expérience (cloche à vide) :</strong> on place un téléphone qui
+        sonne sous une cloche. On retire progressivement l'air. Plus on enlève
+        l'air, moins on entend la sonnerie, jusqu'à ne plus rien entendre.
+      </div>
+
+      <h3>Questions</h3>
+      <p>
+        <strong
+          >1. Que prouve cette expérience sur le besoin matériel du son pour
+          voyager ?</strong
+        >
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <p>
+        <strong
+          >2. Le son se propage-t-il à la même vitesse dans l'air (gaz) et dans
+          l'eau (liquide) ?</strong
+        >
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <div class="trace-ecrite">
+        <ul style="margin: 0; padding-left: 20px">
+          <li>
+            La propagation d'un son nécessite un
+            <strong>milieu matériel</strong> (il ne se propage pas dans le
+            vide).
+          </li>
+          <li>La vitesse du son dépend du milieu de propagation.</li>
+          <li>
+            Ordres de grandeur :
+            <ul>
+              <li>Dans l'air : environ <strong>340 m/s</strong></li>
+              <li>Dans l'eau : environ <strong>1 500 m/s</strong></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences Physiques - Acoustique BP</div>
+        <div>Page 1</div>
+      </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="page">
+      <h2>PARTIE 2 : LA LONGUEUR D'ONDE D'UN SIGNAL SONORE</h2>
+
+      <div class="rappel-box">
+        <strong>RAPPEL (CAP) :</strong>
+        La période $T$ est la durée d'un motif (en secondes). La fréquence $f$
+        est le nombre de motifs par seconde ($f = 1/T$).
+      </div>
+
+      <p>
+        En se propageant, la vibration sonore parcourt une certaine distance
+        pendant une période $T$. Cette distance s'appelle la
+        <strong>longueur d'onde</strong>.
+      </p>
+
+      <div class="trace-ecrite">
+        <ul style="margin: 0; padding-left: 20px">
+          <li>
+            La longueur d'onde se note <strong>$\lambda$</strong> et s'exprime
+            en mètres (m).
+          </li>
+          <li>Relation entre longueur d'onde, vitesse et période :</li>
+        </ul>
+        <center>
+          <h3 style="border: none; margin: 6px 0">
+            $$ \lambda = C_{son} \cdot T $$
+          </h3>
+        </center>
+        <p style="margin: 0; text-align: center; font-size: 10pt">
+          <em>On peut aussi utiliser : $\lambda = \frac{C_{son}}{f}$</em>
+        </p>
+      </div>
+
+      <h3>Application professionnelle (Calculs)</h3>
+      <div class="calc-box">
+        <strong
+          >Un marteau-piqueur génère un son grave de fréquence $f = 100$ Hz dans
+          l'air.</strong
+        ><br /><br />
+
+        <strong>1. Calculer la période $T$ :</strong><br />
+        <em>Formule : $T = 1 / f$</em><br />
+        $T =$
+        ........................................................................
+        s<br /><br />
+
+        <strong
+          >2. En déduire la longueur d'onde $\lambda$ (avec $C_{son} = 340$ m/s)
+          :</strong
+        ><br />
+        <em>Formule : $\lambda = C_{son} \cdot T$</em><br />
+        $\lambda =$
+        ........................................................................
+        m
+      </div>
+
+      <h2>PARTIE 3 : LE SPECTRE D'AUDIBILITÉ</h2>
+
+      <p>
+        L'oreille humaine a des limites et ne capte pas toutes les fréquences.
+      </p>
+
+      <div class="trace-ecrite">
+        <p style="margin: 0">
+          L'oreille humaine détecte environ de <strong>20 Hz</strong> à
+          <strong>20 kHz</strong> (20 000 Hz).
+        </p>
+      </div>
+
+      <h3>Compléter l'axe des fréquences</h3>
+      <p class="small">
+        <em>Placez : Infrasons - Sons audibles - Ultrasons</em>
+      </p>
+
+      <div class="img-container" style="margin-top: 10px">
+        <svg viewBox="0 0 800 120" width="100%" height="100">
+          <line
+            x1="50"
+            y1="50"
+            x2="750"
+            y2="50"
+            stroke="#000"
+            stroke-width="3"
+          ></line>
+
+          <line
+            x1="250"
+            y1="35"
+            x2="250"
+            y2="65"
+            stroke="#c0392b"
+            stroke-width="3"
+          ></line>
+          <line
+            x1="550"
+            y1="35"
+            x2="550"
+            y2="65"
+            stroke="#c0392b"
+            stroke-width="3"
+          ></line>
+
+          <text
+            x="250"
+            y="85"
+            text-anchor="middle"
+            font-weight="bold"
+            font-size="14"
+          >
+            20 Hz
+          </text>
+          <text
+            x="550"
+            y="85"
+            text-anchor="middle"
+            font-weight="bold"
+            font-size="14"
+          >
+            20 000 Hz
+          </text>
+          <text x="760" y="85" font-weight="bold" font-size="14">f (Hz)</text>
+
+          <rect
+            x="70"
+            y="10"
+            width="160"
+            height="25"
+            fill="#ecf0f1"
+            stroke="#7f8c8d"
+            stroke-dasharray="4"
+          ></rect>
+          <rect
+            x="320"
+            y="10"
+            width="160"
+            height="25"
+            fill="#ecf0f1"
+            stroke="#7f8c8d"
+            stroke-dasharray="4"
+          ></rect>
+          <rect
+            x="580"
+            y="10"
+            width="160"
+            height="25"
+            fill="#ecf0f1"
+            stroke="#7f8c8d"
+            stroke-dasharray="4"
+          ></rect>
+        </svg>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences Physiques - Acoustique BP</div>
+        <div>Page 2</div>
+      </div>
+    </div>
+
+    <!-- PAGE 3 (AJOUT) : SON PUR / SON COMPLEXE + QR SPECTROGRAM -->
+    <div class="page">
+      <h2>PARTIE 4 : SON PUR ET SON COMPLEXE</h2>
+
+      <div class="context-box">
+        <strong>Situation pro :</strong> une alarme (bip) est très "nette" alors
+        qu'un compresseur produit un bruit plus "chargé". On distingue un
+        <strong>son pur</strong> d'un <strong>son complexe</strong>.
+      </div>
+
+      <h3>Observation de signaux</h3>
+      <p class="small">
+        On observe deux enregistrements. Indique lequel correspond le mieux à un
+        <strong>son pur</strong>.
+      </p>
+
+      <div class="img-container">
+        <svg
+          viewBox="0 0 900 330"
+          width="100%"
+          height="220"
+          aria-label="Deux signaux : pur vs complexe"
+        >
+          <rect x="0" y="0" width="900" height="330" fill="#fff"></rect>
+
+          <rect
+            x="40"
+            y="45"
+            width="380"
+            height="210"
+            fill="#fff"
+            stroke="#000"
+            stroke-width="1.2"
+          ></rect>
+          <line
+            x1="40"
+            y1="150"
+            x2="420"
+            y2="150"
+            stroke="#000"
+            stroke-width="1"
+          ></line>
+          <line
+            x1="90"
+            y1="45"
+            x2="90"
+            y2="255"
+            stroke="#000"
+            stroke-width="1"
+          ></line>
+
+          <path
+            d="M90,150
+                   C120,90 150,90 180,150
+                   C210,210 240,210 270,150
+                   C300,90 330,90 360,150
+                   C390,210 410,210 420,150"
+            fill="none"
+            stroke="#2980b9"
+            stroke-width="3"
+          ></path>
+          <text
+            x="230"
+            y="30"
+            text-anchor="middle"
+            font-size="14"
+            font-weight="bold"
+          >
+            Signal A
+          </text>
+
+          <rect
+            x="480"
+            y="45"
+            width="380"
+            height="210"
+            fill="#fff"
+            stroke="#000"
+            stroke-width="1.2"
+          ></rect>
+          <line
+            x1="480"
+            y1="150"
+            x2="860"
+            y2="150"
+            stroke="#000"
+            stroke-width="1"
+          ></line>
+          <line
+            x1="530"
+            y1="45"
+            x2="530"
+            y2="255"
+            stroke="#000"
+            stroke-width="1"
+          ></line>
+
+          <path
+            d="M530,150
+                   C555,110 575,90 600,130
+                   C625,170 650,80 675,150
+                   C700,220 725,120 750,160
+                   C775,200 800,110 825,150
+                   C845,180 855,160 860,150"
+            fill="none"
+            stroke="#2980b9"
+            stroke-width="3"
+          ></path>
+          <text
+            x="670"
+            y="30"
+            text-anchor="middle"
+            font-size="14"
+            font-weight="bold"
+          >
+            Signal B
+          </text>
+
+          <text
+            x="450"
+            y="305"
+            text-anchor="middle"
+            font-size="12"
+            fill="#555"
+            font-style="italic"
+          >
+            Consigne : coche "pur" ou "complexe" et justifie avec 1 phrase.
+          </text>
+        </svg>
+      </div>
+
+      <h3>Questions</h3>
+      <p><strong>1. Lequel correspond à un son pur ?</strong></p>
+      <div class="checkline">
+        <span>□ Signal A</span>
+        <span>□ Signal B</span>
+      </div>
+
+      <p>
+        <strong>2. Justifie (forme du signal, régularité, répétition) :</strong>
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <h3>Activité rapide : spectrogramme en direct (micro)</h3>
+
+      <div class="qr-row">
+        <div class="qr-box">
+          <div style="font-weight: 900; margin-bottom: 8px">QR code</div>
+          <div
+            id="qrSpectro"
+            style="display: flex; justify-content: center"
+          ></div>
+          <div class="qr-link">
+            <strong>Site :</strong><br />
+            https://spectrogram.sciencemusic.org/
+          </div>
+        </div>
+        <div class="qr-note">
+          <p style="margin-top: 0">
+            <strong>Consigne :</strong> ouvre le spectrogramme, autorise le
+            micro, puis :
+          </p>
+          <ul style="margin: 0; padding-left: 20px">
+            <li>
+              fais un <strong>bip</strong> (son "simple") puis parle normalement
+              (son "riche")
+            </li>
+            <li>
+              observe : un son simple laisse souvent une zone plus "fine", la
+              voix montre plusieurs zones
+            </li>
+            <li>note ce que tu vois et ce que tu entends</li>
+          </ul>
+          <p style="margin-bottom: 0; margin-top: 10px">
+            <strong>Observation :</strong>
+          </p>
+          <div class="dotted-lines"></div>
+          <div class="dotted-lines"></div>
+        </div>
+      </div>
+
+      <div class="trace-ecrite">
+        <ul style="margin: 0; padding-left: 20px">
+          <li>
+            Un <strong>son pur</strong> est associé à un signal
+            <strong>sinusoïdal</strong> (une fréquence dominante).
+          </li>
+          <li>
+            Un <strong>son complexe</strong> correspond à un mélange de
+            fréquences (signal non parfaitement sinusoïdal).
+          </li>
+          <li>
+            Sur chantier, la plupart des bruits réels sont
+            <strong>complexes</strong>.
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences Physiques - Acoustique BP</div>
+        <div>Page 3</div>
+      </div>
+    </div>
+
+    <!-- PAGE 4 (AJOUT) : SONOMETRE + VARIABILITE -->
+    <div class="page">
+      <h2>PARTIE 5 : MESURER LE BRUIT AVEC UN SONOMÈTRE</h2>
+
+      <div class="context-box">
+        <strong>Situation pro :</strong> contrôle acoustique lors d'une
+        intervention. Le bruit varie selon les gestes, l'orientation et les
+        machines autour.
+      </div>
+
+      <h3>Relevés (valeurs fournies)</h3>
+      <p class="small">
+        À 2 m d'une machine, on réalise 6 mesures successives :
+      </p>
+
+      <div class="calc-box">
+        <strong>Série :</strong> 88 - 90 - 89 - 91 - 90 - 92 dB
+        <div style="margin-top: 10px">
+          <strong>1. Valeur minimale :</strong> <span class="inline-dots"></span
+          ><br />
+          <strong>2. Valeur maximale :</strong> <span class="inline-dots"></span
+          ><br />
+          <strong>3. Étendue (max - min) :</strong>
+          <span class="inline-dots"></span>
+        </div>
+      </div>
+
+      <h3>Interpréter</h3>
+      <p><strong>1. Le bruit est-il constant ? Explique.</strong></p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <p>
+        <strong
+          >2. Pour décider de la protection auditive, quelle valeur est la plus
+          prudente : min, max, ou une valeur typique ?</strong
+        >
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <div class="mini-box">
+        <span class="tag">BP</span>
+        <strong>Idée clé :</strong> une mesure varie. En sécurité, on retient
+        une approche prudente (souvent la valeur la plus défavorable, ou une
+        valeur représentative si le protocole le précise).
+      </div>
+
+      <div class="trace-ecrite">
+        <ul style="margin: 0; padding-left: 20px">
+          <li>
+            Un sonomètre mesure un <strong>niveau sonore</strong> en dB, mais ce
+            niveau peut <strong>varier</strong>.
+          </li>
+          <li>
+            On compare des situations avec un protocole identique (distance,
+            durée, conditions).
+          </li>
+          <li>
+            La décision dépend du niveau, mais aussi de la
+            <strong>durée d'exposition</strong>.
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences Physiques - Acoustique BP</div>
+        <div>Page 4</div>
+      </div>
+    </div>
+
+    <!-- PAGE 5 (EX PAGE 3) : ATTENUATION -->
+    <div class="page">
+      <h2>PARTIE 6 : L'ATTÉNUATION EN FONCTION DE LA DISTANCE</h2>
+
+      <div class="rappel-box">
+        <strong>RAPPEL (CAP) :</strong>
+        Les isolants phoniques absorbent une partie de l'énergie transportée par
+        le son (atténuation par le milieu).
+      </div>
+
+      <div class="context-box">
+        <strong>Situation sur chantier :</strong> mesure du bruit d'un
+        compresseur à l'air libre. Aucun écran n'est utilisé, mais on s'éloigne
+        progressivement.
+      </div>
+
+      <table class="data-table" style="width: 80%; margin: 10px auto">
+        <tr>
+          <th>Distance de mesure (m)</th>
+          <th>Niveau sonore (dB)</th>
+        </tr>
+        <tr>
+          <td>1 m</td>
+          <td>98 dB</td>
+        </tr>
+        <tr>
+          <td>2 m</td>
+          <td>92 dB</td>
+        </tr>
+        <tr>
+          <td>4 m</td>
+          <td>86 dB</td>
+        </tr>
+        <tr>
+          <td>8 m</td>
+          <td>........ dB</td>
+        </tr>
+      </table>
+
+      <h3>Analyse</h3>
+      <p>
+        <strong
+          >1. Que se passe-t-il quand la distance double (1 m à 2 m, puis 2 m à
+          4 m) ?</strong
+        >
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <p>
+        <strong>2. Déduire la valeur manquante à 8 m.</strong>
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <div class="trace-ecrite">
+        <ul style="margin: 0; padding-left: 20px">
+          <li>
+            Une onde sonore <strong>s'atténue en se propageant</strong>, même en
+            air libre.
+          </li>
+          <li>
+            On parle d'<strong>atténuation géométrique</strong> : s'éloigner est
+            une protection efficace.
+          </li>
+        </ul>
+      </div>
+
+      <div
+        style="
+          background: #eeeeee;
+          padding: 12px;
+          border: 1px solid #000;
+          margin-top: 12px;
+        "
+      >
+        <h3 style="margin-top: 0; border-bottom: 1px solid #000; color: #000">
+          BILAN SÉCURITÉ
+        </h3>
+        <p style="margin: 0; font-size: 10.5pt">
+          Deux principes physiques pour réduire l'exposition :
+          <br /><br />
+          <strong>1. Absorption :</strong> utiliser des protections et matériaux
+          absorbants (casque, bouchons, panneaux).
+          <br />
+          <strong>2. Distance :</strong> s'éloigner de la source, car le niveau
+          diminue avec la distance.
+        </p>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences Physiques - Acoustique BP</div>
+        <div>Page 5</div>
+      </div>
+    </div>
+
+    <!-- PAGE 6 (AJOUT) : PROPAGATION SOLIDES + MINI PROTOCOLE -->
+    <div class="page">
+      <h2>PARTIE 7 : PROPAGATION DANS L'AIR, L'EAU ET LES SOLIDES</h2>
+
+      <div class="context-box">
+        <strong>Situation pro :</strong> des coups dans une cloison sont perçus
+        avant de voir l'équipe de l'autre côté. Le son peut se transmettre par
+        une structure (plancher, cloison, ossature, canalisation).
+      </div>
+
+      <h3>Comparer qualitativement</h3>
+      <p>
+        <strong
+          >1. Le son se propage-t-il mieux dans un solide que dans l'air ?
+          Justifie.</strong
+        >
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <h3>Activité (protocole simple)</h3>
+      <div class="mini-box">
+        <strong>Matériel :</strong> établi ou table, règle (ou tournevis),
+        téléphone en vibreur (ou petite source sonore).<br /><br />
+        <strong>Étapes :</strong><br />
+        1 - Téléphone en vibreur tenu à la main (écoute dans l'air).<br />
+        2 - Téléphone posé sur l'établi (écoute du son transmis à la
+        structure).<br />
+        3 - Main sur l'établi puis oreille proche (sans danger) pour comparer la
+        perception.<br /><br />
+        <strong>Consigne :</strong> noter ce qui change (intensité perçue,
+        facilité à détecter, sensation de vibration).
+      </div>
+
+      <h3>Compte rendu</h3>
+      <p><strong>Observation :</strong></p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <p><strong>Conclusion :</strong></p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <div class="trace-ecrite">
+        <ul style="margin: 0; padding-left: 20px">
+          <li>
+            Le son est une vibration qui se propage dans un
+            <strong>milieu matériel</strong>.
+          </li>
+          <li>
+            La transmission peut être très efficace dans certains
+            <strong>solides</strong> (vibrations de structure).
+          </li>
+          <li>
+            Sur chantier, le bruit peut "passer" par une ossature, un plancher,
+            une cloison ou des canalisations.
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences Physiques - Acoustique BP</div>
+        <div>Page 6</div>
+      </div>
+    </div>
+
+    <!-- PAGE 7 (AJOUT) : ISOLATION + MATERIAUX BTP -->
+    <div class="page">
+      <h2>PARTIE 8 : RÉDUIRE LE BRUIT - ISOLATION PHONIQUE</h2>
+
+      <div class="context-box">
+        Un bureau technique teste des solutions pour limiter les nuisances
+        sonores (valeurs fournies).
+      </div>
+
+      <table class="data-table">
+        <tr>
+          <th>Configuration</th>
+          <th>Niveau mesuré</th>
+        </tr>
+        <tr>
+          <td>Machine sans aménagement</td>
+          <td>97 dB</td>
+        </tr>
+        <tr>
+          <td>Écran en bois placé entre la machine et l'opérateur</td>
+          <td>90 dB</td>
+        </tr>
+        <tr>
+          <td>Panneau acoustique (matériau absorbant)</td>
+          <td>81 dB</td>
+        </tr>
+      </table>
+
+      <h3>Questions</h3>
+      <p>
+        <strong>1. Calculer la réduction obtenue avec l'écran en bois :</strong>
+      </p>
+      <div class="dotted-lines"></div>
+
+      <p>
+        <strong
+          >2. Calculer la réduction obtenue avec le panneau acoustique :</strong
+        >
+      </p>
+      <div class="dotted-lines"></div>
+
+      <p><strong>3. Quelle solution est la plus efficace ?</strong></p>
+      <div class="dotted-lines"></div>
+
+      <div class="rappel-box">
+        <strong>Exemples BTP :</strong> laine de roche - laine de verre - mousse
+        acoustique - plaques phoniques - panneaux perforés avec absorbant -
+        doublage + lame d'air.
+      </div>
+
+      <div class="trace-ecrite">
+        <p style="margin: 0">
+          Un isolant phonique
+          <strong>absorbe une partie de l'énergie</strong> transportée par le
+          son et réduit le niveau reçu. La réduction dépend du matériau, de
+          l'épaisseur et de la mise en oeuvre.
+        </p>
+      </div>
+
+      <h3>Micro-application</h3>
+      <p class="small">
+        Sur une intervention, cite 2 solutions de réduction du bruit : une
+        solution par <strong>absorption</strong> et une solution par
+        <strong>distance</strong>.
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences Physiques - Acoustique BP</div>
+        <div>Page 7</div>
+      </div>
+    </div>
+
+    <!-- PAGE 8 : SYNTHESE BP -->
+    <div class="page">
+      <h2>PARTIE 9 : SYNTHÈSE - SÉCURITÉ ET DÉCISIONS</h2>
+
+      <h3>À compléter</h3>
+      <div class="mini-box">
+        <p style="line-height: 2; margin: 0">
+          Un son se propage uniquement dans un
+          ........................................ .<br />
+          La vitesse du son dépend du ........................................
+          .<br />
+          La longueur d'onde se note ........................................ et
+          s'exprime en ........................................ .<br />
+          Relation : $\lambda =$ ........................................ .<br />
+          Un son pur est associé à un signal
+          ........................................ .<br />
+          Un son complexe contient plusieurs
+          ........................................ .<br />
+          Le niveau sonore se mesure en ........................................
+          .<br />
+          À partir de ........................................ dB, une
+          exposition prolongée devient dangereuse et nécessite une
+          protection.<br />
+        </p>
+      </div>
+
+      <h3>Décision pro</h3>
+      <p class="small">
+        Un poste est mesuré à 91 dB (valeur maximale observée sur la série). Que
+        proposes-tu pour réduire le risque ? Donne 2 mesures concrètes.
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <div class="trace-ecrite">
+        <ul style="margin: 0; padding-left: 20px">
+          <li>
+            Prévention : <strong>EPI</strong> (casque, bouchons),
+            <strong>réduction à la source</strong> (aménagements),
+            <strong>distance</strong> et <strong>temps d'exposition</strong>.
+          </li>
+          <li>
+            Mesurer, comparer, conclure : la physique aide à décider sur le
+            terrain.
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Sciences Physiques - Acoustique BP</div>
+        <div>Page 8</div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        var url = 'https://spectrogram.sciencemusic.org/';
+        var el = document.getElementById('qrSpectro');
+        if (el && window.QRCode) {
+          new QRCode(el, {
+            text: url,
+            width: 150,
+            height: 150,
+            correctLevel: QRCode.CorrectLevel.M,
+          });
+        }
+      })();
+    </script>
+  </body>
+</html>

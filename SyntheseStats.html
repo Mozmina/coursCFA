@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fiche synthèse CAP - Statistiques</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Oswald:wght@600;700&display=swap');
+
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      :root {
+        --bleu: #0f4c81;
+        --fond: #f8fafc;
+        --trait: #cbd5e1;
+        --texte: #1e293b;
+        --muted: #475569;
+        --vert: #15803d;
+        --orange: #c2410c;
+        --violet: #6d28d9;
+        --bleu-clair: #0284c7;
+        --rose: #be123c;
+        --jaune: #facc15;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #64748b;
+        font-family: 'Inter', Arial, sans-serif;
+        color: var(--texte);
+        height: 100%;
+      }
+
+      @page {
+        size: A4 landscape;
+        margin: 0;
+      }
+
+      .print-btn {
+        position: fixed;
+        right: 12px;
+        top: 12px;
+        z-index: 20;
+        border: 0;
+        border-radius: 6px;
+        background: var(--bleu);
+        color: #fff;
+        font-weight: 700;
+        padding: 8px 16px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      .page {
+        width: 297mm;
+        height: 210mm;
+        margin: 0 auto;
+        background: var(--fond);
+        overflow: hidden;
+        position: relative;
+        padding: 5mm 8mm 7mm;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 0 24px rgba(0, 0, 0, 0.3);
+      }
+
+      .header {
+        height: 18mm;
+        display: grid;
+        grid-template-columns: 50mm 1fr 65mm;
+        gap: 6mm;
+        align-items: center;
+        border-bottom: 2px solid var(--trait);
+        padding-bottom: 3mm;
+        margin-bottom: 3mm;
+        flex-shrink: 0;
+      }
+
+      .logo-box {
+        height: 14mm;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+      }
+
+      .logo-box img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+
+      .title {
+        text-align: center;
+      }
+
+      .title h1 {
+        margin: 0;
+        font-family: 'Oswald', sans-serif;
+        color: var(--bleu);
+        font-size: 25pt;
+        line-height: 1;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+      }
+
+      .title p {
+        margin: 1mm 0 0;
+        font-size: 9.5pt;
+        font-weight: 600;
+        color: var(--muted);
+      }
+
+      .infos {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5mm;
+      }
+
+      .field {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 8.5pt;
+        background: #fff;
+        border: 1px solid var(--trait);
+        border-radius: 4px;
+        padding: 0 2.5mm;
+        height: 4.5mm;
+      }
+
+      .field label {
+        font-weight: 700;
+        color: var(--muted);
+      }
+
+      .field input {
+        border: 0;
+        background: transparent;
+        text-align: right;
+        font-family: inherit;
+        font-weight: 600;
+        color: var(--texte);
+        outline: none;
+        width: 40mm;
+        font-size: 8.5pt;
+      }
+
+      .grid {
+        flex: 1;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: 1fr 1fr;
+        gap: 3.5mm;
+        min-height: 0;
+      }
+
+      .card {
+        background: #fff;
+        border: 1px solid var(--trait);
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+        min-height: 0;
+      }
+
+      .card-head {
+        height: 8.5mm;
+        min-height: 8.5mm;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-weight: 800;
+        font-size: 10pt;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+      }
+
+      .bg-1 {
+        background: var(--bleu);
+      }
+      .bg-2 {
+        background: var(--violet);
+      }
+      .bg-3 {
+        background: var(--rose);
+      }
+      .bg-4 {
+        background: var(--bleu-clair);
+      }
+      .bg-5 {
+        background: var(--vert);
+      }
+      .bg-6 {
+        background: var(--orange);
+      }
+
+      .card-body {
+        padding: 2.4mm 3mm;
+        flex: 1;
+        font-size: 8pt;
+        line-height: 1.22;
+        display: flex;
+        flex-direction: column;
+        gap: 1.4mm;
+        min-height: 0;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      strong {
+        font-weight: 800;
+        color: var(--texte);
+      }
+
+      em {
+        font-style: italic;
+      }
+
+      .highlight {
+        color: var(--bleu);
+        font-weight: 800;
+      }
+
+      .def-box {
+        background: #f8fafc;
+        border-left: 3px solid var(--trait);
+        padding: 1.1mm 1.8mm;
+        border-radius: 0 4px 4px 0;
+      }
+
+      .note {
+        background: #fff7ed;
+        border: 1px solid #fed7aa;
+        border-radius: 5px;
+        padding: 1.1mm 1.6mm;
+        font-size: 7.5pt;
+      }
+
+      .math-formula {
+        background: #f1f5f9;
+        border: 1px solid var(--trait);
+        border-radius: 5px;
+        padding: 1.2mm 1.6mm;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.2mm;
+        font-weight: 700;
+        font-size: 7.4pt;
+        min-height: 9mm;
+        text-align: center;
+      }
+
+      .math-formula.compact {
+        min-height: 7.5mm;
+        font-size: 7.2pt;
+        padding: 0.9mm 1.3mm;
+      }
+
+      .fraction {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        line-height: 1.05;
+        vertical-align: middle;
+      }
+
+      .num {
+        border-bottom: 1.2px solid var(--texte);
+        padding: 0 1mm 0.4mm;
+        white-space: nowrap;
+      }
+
+      .den {
+        padding: 0.4mm 1mm 0;
+        white-space: nowrap;
+      }
+
+      .mini-example {
+        background: #ecfdf5;
+        border: 1px solid #bbf7d0;
+        border-radius: 5px;
+        padding: 1mm 1.5mm;
+        font-size: 7.4pt;
+      }
+
+      .graph-container {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #f8fafc;
+        border-radius: 6px;
+        border: 1px dashed var(--trait);
+        padding: 1mm;
+        min-height: 0;
+        overflow: hidden;
+      }
+
+      svg {
+        display: block;
+        max-width: 100%;
+        max-height: 100%;
+      }
+
+      .axis {
+        stroke: #1e293b;
+        stroke-width: 2.2;
+        stroke-linecap: square;
+      }
+
+      .gridline {
+        stroke: #cbd5e1;
+        stroke-width: 0.8;
+        stroke-dasharray: 3 3;
+      }
+
+      .tick {
+        stroke: #1e293b;
+        stroke-width: 1.1;
+      }
+
+      .label {
+        fill: #334155;
+        font-size: 8px;
+        font-weight: 600;
+      }
+
+      .axis-title {
+        fill: #1e293b;
+        font-size: 9px;
+        font-weight: 800;
+      }
+
+      .footer {
+        position: absolute;
+        left: 8mm;
+        right: 8mm;
+        bottom: 2mm;
+        font-size: 7.5pt;
+        color: var(--muted);
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid var(--trait);
+        padding-top: 1.2mm;
+      }
+
+      @media print {
+        html,
+        body {
+          background: white;
+        }
+
+        .page {
+          margin: 0;
+          box-shadow: none;
+        }
+
+        .print-btn {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button class="print-btn" onclick="window.print()">Imprimer</button>
+
+    <main class="page">
+      <header class="header">
+        <div class="logo-box">
+          <img
+            src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+            alt="BTP CFA Marne"
+          />
+        </div>
+        <div class="title">
+          <h1>Statistiques</h1>
+          <p>
+            Fiche de synthèse CAP - Vocabulaire, calculs et représentations
+            graphiques
+          </p>
+        </div>
+        <div class="infos">
+          <div class="field">
+            <label>Date</label><input id="dateField" type="text" />
+          </div>
+          <div class="field">
+            <label>Groupe</label><input type="text" value="à compléter" />
+          </div>
+          <div class="field">
+            <label>Nom</label><input type="text" value="M. Ozmina" />
+          </div>
+        </div>
+      </header>
+
+      <section class="grid">
+        <article class="card">
+          <div class="card-head bg-1">1. Vocabulaire de base</div>
+          <div class="card-body">
+            <div class="def-box">
+              <strong>Population :</strong> ensemble sur lequel porte l'enquête
+              (ex : <em>les apprentis du CFA</em>).
+            </div>
+            <div class="def-box">
+              <strong>Individu :</strong> un élément de la population (ex :
+              <em>un apprenti</em>).
+            </div>
+            <div class="def-box">
+              <strong>Effectif :</strong> nombre de fois où une valeur apparaît.
+            </div>
+            <div class="def-box">
+              <strong>Effectif total :</strong> nombre total d'individus
+              observés.
+            </div>
+            <div class="def-box">
+              <strong>Étendue :</strong> plus grande valeur - plus petite
+              valeur.
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head bg-2">2. Le caractère étudié</div>
+          <div class="card-body">
+            <p>
+              Le <strong>caractère</strong> est la propriété observée chez les
+              individus.
+            </p>
+            <div class="def-box">
+              <span class="highlight">Qualitatif :</span> ne se mesure pas par
+              un nombre (couleur, métier, marque).
+            </div>
+            <div class="def-box">
+              <span class="highlight">Quantitatif discret :</span> valeurs
+              séparées, souvent entières (nombre d'enfants, note sur 20).
+            </div>
+            <div class="def-box">
+              <span class="highlight">Quantitatif continu :</span> valeurs
+              mesurées dans un intervalle, souvent regroupées en
+              <strong>classes</strong>
+              (taille, durée, masse).
+            </div>
+            <div class="note">
+              Exemple de classe : <strong>[160 ; 170[</strong> signifie de 160
+              inclus à 170 exclu.
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head bg-3">3. Fréquences et moyennes</div>
+          <div class="card-body">
+            <div class="math-formula compact">
+              <span style="color: var(--rose)">Fréquence</span> =
+              <div class="fraction">
+                <span class="num">effectif de la valeur</span>
+                <span class="den">effectif total</span>
+              </div>
+            </div>
+
+            <div class="math-formula compact">
+              <span style="color: var(--rose)">Moyenne simple</span> =
+              <div class="fraction">
+                <span class="num">somme des valeurs</span>
+                <span class="den">nombre de valeurs</span>
+              </div>
+            </div>
+
+            <div class="mini-example">
+              Exemple : 8 ; 10 ; 12 donne
+              <strong>(8 + 10 + 12) ÷ 3 = 10</strong>.
+            </div>
+
+            <div class="math-formula compact">
+              <span style="color: var(--rose)">Moyenne pondérée</span> =
+              <div class="fraction">
+                <span class="num">somme des (valeur × effectif)</span>
+                <span class="den">effectif total</span>
+              </div>
+            </div>
+
+            <div class="mini-example">
+              Notes : 8 avec effectif 7, 10 avec effectif 12, 12 avec effectif 5
+              :
+              <strong>(8×7 + 10×12 + 12×5) ÷ 24 ≈ 9,8</strong>.
+            </div>
+
+            <p>
+              Avec des <strong>classes</strong>, on remplace chaque classe par
+              son <strong>milieu</strong> avant de calculer la moyenne pondérée.
+            </p>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head bg-4">Diagramme en bâtons</div>
+          <div class="card-body">
+            <p>
+              Pour les caractères <strong>quantitatifs discrets</strong>. Les
+              bâtons <strong>ne se touchent pas</strong>.
+            </p>
+            <div class="graph-container">
+              <svg
+                viewBox="0 0 150 100"
+                width="100%"
+                height="100%"
+                aria-label="Diagramme en bâtons"
+              >
+                <line class="gridline" x1="28" y1="25" x2="132" y2="25" />
+                <line class="gridline" x1="28" y1="47" x2="132" y2="47" />
+                <line class="gridline" x1="28" y1="69" x2="132" y2="69" />
+
+                <line class="axis" x1="28" y1="80" x2="136" y2="80" />
+                <line class="axis" x1="28" y1="80" x2="28" y2="14" />
+
+                <text class="axis-title" x="28" y="10">Effectifs</text>
+                <text class="axis-title" x="114" y="94">Notes</text>
+
+                <text class="label" x="13" y="83">0</text>
+                <text class="label" x="13" y="72">5</text>
+                <text class="label" x="9" y="50">10</text>
+                <text class="label" x="9" y="28">15</text>
+
+                <line class="tick" x1="25" y1="69" x2="28" y2="69" />
+                <line class="tick" x1="25" y1="47" x2="28" y2="47" />
+                <line class="tick" x1="25" y1="25" x2="28" y2="25" />
+
+                <rect
+                  x="47"
+                  y="49.2"
+                  width="12"
+                  height="30.8"
+                  rx="1"
+                  fill="var(--bleu-clair)"
+                />
+                <rect
+                  x="77"
+                  y="27.2"
+                  width="12"
+                  height="52.8"
+                  rx="1"
+                  fill="var(--bleu-clair)"
+                />
+                <rect
+                  x="107"
+                  y="58"
+                  width="12"
+                  height="22"
+                  rx="1"
+                  fill="var(--bleu-clair)"
+                />
+
+                <text class="label" x="49" y="93">8</text>
+                <text class="label" x="76" y="93">10</text>
+                <text class="label" x="106" y="93">12</text>
+              </svg>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head bg-5">Histogramme</div>
+          <div class="card-body">
+            <p>
+              Pour les caractères <strong>quantitatifs continus</strong>,
+              regroupés en classes. Les rectangles <strong>sont collés</strong>.
+            </p>
+            <div class="graph-container">
+              <svg
+                viewBox="0 0 150 100"
+                width="100%"
+                height="100%"
+                aria-label="Histogramme"
+              >
+                <line class="gridline" x1="28" y1="25" x2="132" y2="25" />
+                <line class="gridline" x1="28" y1="47" x2="132" y2="47" />
+                <line class="gridline" x1="28" y1="69" x2="132" y2="69" />
+
+                <line class="axis" x1="28" y1="80" x2="136" y2="80" />
+                <line class="axis" x1="28" y1="80" x2="28" y2="14" />
+
+                <text class="axis-title" x="28" y="10">Effectifs</text>
+                <text class="axis-title" x="99" y="94">Tailles (cm)</text>
+
+                <text class="label" x="13" y="83">0</text>
+                <text class="label" x="9" y="72">10</text>
+                <text class="label" x="9" y="50">20</text>
+                <text class="label" x="9" y="28">30</text>
+
+                <line class="tick" x1="25" y1="69" x2="28" y2="69" />
+                <line class="tick" x1="25" y1="47" x2="28" y2="47" />
+                <line class="tick" x1="25" y1="25" x2="28" y2="25" />
+
+                <rect
+                  x="42"
+                  y="49.2"
+                  width="26"
+                  height="30.8"
+                  fill="var(--vert)"
+                  stroke="#fff"
+                  stroke-width="1"
+                />
+                <rect
+                  x="68"
+                  y="27.2"
+                  width="26"
+                  height="52.8"
+                  fill="var(--vert)"
+                  stroke="#fff"
+                  stroke-width="1"
+                />
+                <rect
+                  x="94"
+                  y="58"
+                  width="26"
+                  height="22"
+                  fill="var(--vert)"
+                  stroke="#fff"
+                  stroke-width="1"
+                />
+
+                <text class="label" x="39" y="93">160</text>
+                <text class="label" x="65" y="93">170</text>
+                <text class="label" x="91" y="93">180</text>
+                <text class="label" x="117" y="93">190</text>
+              </svg>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head bg-6">Diagramme en secteurs</div>
+          <div class="card-body">
+            <p>
+              Pour les caractères <strong>qualitatifs</strong>. Chaque secteur
+              est proportionnel à l'effectif.
+            </p>
+            <div class="graph-container">
+              <svg
+                viewBox="0 0 150 95"
+                width="100%"
+                height="100%"
+                aria-label="Diagramme en secteurs"
+              >
+                <g transform="translate(75, 43)">
+                  <circle
+                    r="32"
+                    fill="#fff"
+                    stroke="#cbd5e1"
+                    stroke-width="1"
+                  />
+                  <path d="M 0 0 L 0 -32 A 32 32 0 0 1 0 32 Z" fill="#fcd34d" />
+                  <path d="M 0 0 L 0 32 A 32 32 0 0 1 -32 0 Z" fill="#fb923c" />
+                  <path
+                    d="M 0 0 L -32 0 A 32 32 0 0 1 0 -32 Z"
+                    fill="var(--orange)"
+                  />
+                  <line
+                    x1="0"
+                    y1="-32"
+                    x2="0"
+                    y2="32"
+                    stroke="#fff"
+                    stroke-width="1"
+                  />
+                  <line
+                    x1="-32"
+                    y1="0"
+                    x2="0"
+                    y2="0"
+                    stroke="#fff"
+                    stroke-width="1"
+                  />
+                  <text
+                    x="10"
+                    y="4"
+                    font-size="10"
+                    font-weight="800"
+                    fill="#1e293b"
+                  >
+                    50 %
+                  </text>
+                  <text
+                    x="-20"
+                    y="16"
+                    font-size="9"
+                    font-weight="800"
+                    fill="#fff"
+                  >
+                    25 %
+                  </text>
+                  <text
+                    x="-20"
+                    y="-10"
+                    font-size="9"
+                    font-weight="800"
+                    fill="#fff"
+                  >
+                    25 %
+                  </text>
+                </g>
+                <text
+                  x="18"
+                  y="88"
+                  font-size="7.5"
+                  font-weight="700"
+                  fill="#475569"
+                ></text>
+              </svg>
+            </div>
+            <div class="math-formula compact">
+              <span style="color: var(--orange)">Angle</span> =
+              <div class="fraction">
+                <span class="num">effectif</span>
+                <span class="den">effectif total</span>
+              </div>
+              <span>× 360°</span>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <div class="footer">
+        <span>CAP - Sciences physiques & Mathématiques</span>
+        <span>Fiche de synthèse : Statistiques</span>
+      </div>
+    </main>
+
+    <script>
+      const d = new Date();
+      const jj = String(d.getDate()).padStart(2, '0');
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const aaaa = d.getFullYear();
+      document.getElementById('dateField').value = `${jj}/${mm}/${aaaa}`;
+    </script>
+  </body>
+</html>

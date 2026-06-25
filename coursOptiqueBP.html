@@ -1,0 +1,1281 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dossier Optique BP - M. OZMINA</title>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)'],
+          ],
+        },
+        svg: { fontCache: 'global' },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Kalam&display=swap');
+
+      * {
+        box-sizing: border-box;
+      }
+
+      /* Objectif: faire rentrer chaque page sans couper a l'impression */
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #525659;
+        margin: 0;
+        padding: 18px;
+        color: #000;
+        font-size: 10pt;
+        line-height: 1.24;
+      }
+
+      /* Marges imprimeur a 0, on gere tout via padding .page */
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      /* Page A4 stricte */
+      .page {
+        width: 210mm;
+        height: 297mm;
+        padding: 10mm 12mm;
+        margin: 0 auto 18px auto;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        position: relative;
+        overflow: hidden;
+        page-break-after: always;
+      }
+
+      /* Typo plus compacte */
+      p {
+        margin: 6px 0;
+      }
+      ul {
+        margin: 6px 0;
+      }
+      li {
+        margin: 3px 0;
+      }
+
+      .print-btn {
+        position: fixed;
+        top: 18px;
+        right: 18px;
+        padding: 9px 16px;
+        background: #d35400;
+        color: white;
+        border: 2px solid white;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        z-index: 9999;
+      }
+
+      .header-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #000;
+        margin-bottom: 10px;
+      }
+      .header-table td {
+        border: 1px solid #000;
+        padding: 4px 8px;
+        vertical-align: top;
+      }
+
+      .row-info td {
+        height: 30px;
+        font-weight: bold;
+        font-size: 9.5pt;
+        padding-top: 5px;
+      }
+
+      .logo-cell {
+        width: 25%;
+        padding: 4px !important;
+        text-align: center;
+        vertical-align: middle;
+        height: 72px;
+      }
+      .logo-btp {
+        max-width: 100%;
+        height: auto;
+        max-height: 62px;
+      }
+
+      .title-cell {
+        text-align: center;
+        vertical-align: middle;
+        padding: 4px;
+      }
+      .title-main {
+        font-size: 15pt;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: block;
+        line-height: 1.1;
+      }
+      .title-sub {
+        font-size: 10.5pt;
+        font-style: italic;
+        display: block;
+        margin-top: 2px;
+      }
+
+      h2 {
+        font-size: 12pt;
+        background: #2c3e50;
+        color: white;
+        padding: 5px 10px;
+        margin-top: 10px;
+        margin-bottom: 7px;
+        border-left: 7px solid #f1c40f;
+      }
+      h3 {
+        font-size: 11pt;
+        color: #d35400;
+        border-bottom: 1px solid #d35400;
+        padding-bottom: 2px;
+        margin-top: 10px;
+        margin-bottom: 6px;
+      }
+
+      .context-box {
+        border-left: 4px solid #27ae60;
+        background: #f0fff4;
+        padding: 6px 8px;
+        margin: 6px 0;
+        font-style: italic;
+        font-size: 9.5pt;
+      }
+
+      .trace-ecrite {
+        border: 2px solid #c0392b;
+        background: #fff5f5;
+        padding: 8px;
+        margin: 8px 0;
+        position: relative;
+        border-radius: 4px;
+      }
+      .trace-ecrite::before {
+        content: 'NOTION CLÉ';
+        position: absolute;
+        top: -10px;
+        left: 15px;
+        background: #c0392b;
+        color: white;
+        padding: 1px 8px;
+        font-weight: bold;
+        font-size: 9pt;
+      }
+
+      .video-block {
+        display: flex;
+        align-items: center;
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        padding: 8px;
+        margin: 6px 0;
+        border-radius: 6px;
+      }
+      .video-info {
+        flex: 1;
+      }
+      .video-link-text {
+        font-style: italic;
+        color: #888;
+        font-size: 9pt;
+      }
+      .video-link-text a {
+        color: #888;
+        text-decoration: underline;
+      }
+      .qr-code {
+        width: 62px;
+        height: 62px;
+        margin-left: 12px;
+        border: 1px solid #eee;
+      }
+
+      .img-wrapper {
+        text-align: center;
+        margin: 6px 0;
+      }
+      .img-wrapper img {
+        max-height: 115px;
+        max-width: 90%;
+        border: 1px solid #ddd;
+        padding: 4px;
+      }
+
+      .dotted-lines {
+        border-bottom: 1px dotted #000;
+        height: 18px;
+        margin-bottom: 3px;
+      }
+
+      .calc-box {
+        border: 1px solid #2980b9;
+        background-color: #eaf2f8;
+        padding: 8px;
+        margin: 6px 0;
+        border-radius: 5px;
+      }
+
+      .grid-synthesis {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 12px;
+        margin-top: 10px;
+      }
+      .card-synthesis {
+        border: 1px solid #2c3e50;
+        border-radius: 8px;
+        padding: 9px;
+        background: #fdfdfd;
+        display: flex;
+        flex-direction: column;
+      }
+      .card-title {
+        font-weight: bold;
+        color: #2c3e50;
+        border-bottom: 2px solid #f1c40f;
+        margin-bottom: 6px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .card-content {
+        font-size: 9.5pt;
+      }
+
+      .footer-page {
+        position: absolute;
+        bottom: 7mm;
+        left: 12mm;
+        right: 12mm;
+        border-top: 1px solid #000;
+        padding-top: 4px;
+        font-size: 8.5pt;
+        display: flex;
+        justify-content: space-between;
+        background: white;
+      }
+
+      @media print {
+        body {
+          padding: 0;
+          background: none;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+          border: none;
+          width: 210mm;
+          height: 297mm;
+        }
+        .print-btn {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <button class="print-btn" onclick="window.print();">
+      🖨️ IMPRIMER LE DOSSIER COMPLET
+    </button>
+
+    <!-- PAGE 1 -->
+    <div class="page">
+      <table class="header-table">
+        <tr class="row-info">
+          <td>Nom :</td>
+          <td>Prénom :</td>
+          <td>Groupe :</td>
+          <td>Date :</td>
+        </tr>
+        <tr>
+          <td class="logo-cell">
+            <img
+              src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+              alt="Logo BTP CFA"
+              class="logo-btp"
+            />
+          </td>
+          <td colspan="3" class="title-cell">
+            <span class="title-main">SCIENCES PHYSIQUES (BP)</span>
+            <span class="title-sub"
+              >Module : Caractérisation d'un signal lumineux et Analyse
+              Métier</span
+            >
+          </td>
+        </tr>
+      </table>
+
+      <div
+        style="
+          background: #eee;
+          padding: 10px;
+          border: 1px solid #000;
+          margin-bottom: 10px;
+        "
+      >
+        <h4 style="margin: 0 0 6px 0; text-decoration: underline">
+          OBJECTIFS DE LA SEQUENCE (BP)
+        </h4>
+        <ul style="padding-left: 18px; margin: 0">
+          <li>
+            <strong>Sécurité :</strong> Identifier les risques et appliquer les
+            normes de protection.
+          </li>
+          <li>
+            <strong>Caractérisation :</strong> Décrire un signal par sa
+            direction et sa longueur d’onde.
+          </li>
+          <li>
+            <strong>Quantification :</strong> Calculer des indices et des
+            éclairements.
+          </li>
+          <li>
+            <strong>Décision métier :</strong> Proposer une mesure de prévention
+            et justifier un choix.
+          </li>
+        </ul>
+      </div>
+
+      <h2>1. SÉCURITÉ ET RAYONNEMENTS LASER</h2>
+
+      <div class="context-box">
+        <strong>Intérêt métier :</strong> Sur un chantier, le niveau laser est
+        indispensable pour l'implantation. Une mauvaise utilisation de Classe 3R
+        peut causer des lésions irréversibles à la rétine des apprentis
+        alentour.
+      </div>
+
+      <div class="video-block">
+        <div class="video-info">
+          <span class="video-link-text"
+            >Vidéo :
+            <a
+              href="https://youtu.be/8vUjz9FDtBc?si=Q1TB88EbyGyKsYCp"
+              target="_blank"
+            >
+              Les pointeurs lasers sont-ils dangereux ? Scilabus 29</a
+            ></span
+          >
+        </div>
+        <img
+          src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://youtu.be/8vUjz9FDtBc?si=Q1TB88EbyGyKsYCp"
+          class="qr-code"
+          alt="QR Code Vidéo Laser"
+        />
+      </div>
+
+      <div class="trace-ecrite">
+        Les lasers sont classés de <strong>1 à 4</strong> selon leur
+        dangerosité. En BP, on utilise souvent des classes
+        <strong>2</strong> (visible, risque limité par réflexe) ou
+        <strong>3R</strong> (danger direct).<br /><br />
+        <strong>Rappel important :</strong> le danger vient surtout du
+        <strong>faisceau direct</strong> et des
+        <strong>réflexions sur surfaces brillantes</strong>.
+      </div>
+
+      <h3>Mini-exercice d'application</h3>
+      <p>
+        Vous trouvez un logo "Classe 3R" sur votre télémètre. Un apprenti sans
+        lunettes peut-il regarder le point lumineux sur le mur ? Et le faisceau
+        en face ?
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <h3>Approfondissement BP : lecture d'étiquette</h3>
+      <div class="calc-box">
+        <p style="margin-top: 0">
+          Une étiquette indique : <strong>Classe 3R</strong>,
+          <strong>λ = 635 nm</strong>, <strong>Pmax &lt; 5 mW</strong>.
+        </p>
+        <p style="margin: 6px 0 4px 0">
+          1) Cette longueur d'onde correspond à quel domaine (UV, visible, IR) ?
+        </p>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0">
+          2) Citer deux risques concrets en cas de mauvaise utilisation.
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0">
+          3) Proposer deux mesures de prévention collective adaptées à un
+          plateau en coactivité.
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <h3>Décision métier</h3>
+      <p>
+        Sur chantier, tu dois tracer à hauteur d'yeux sur 15 m dans un couloir.
+        Donne une organisation simple pour éviter tout risque lié au faisceau.
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP BTP - Optique</div>
+        <div>Page 1</div>
+      </div>
+    </div>
+
+    <!-- PAGE 2 : RÉFLEXION -->
+    <div class="page">
+      <h2>2. LA LOI DE LA RÉFLEXION</h2>
+
+      <div class="context-box">
+        <strong>Intérêt métier :</strong> Pour vérifier l'équerrage d'une pièce
+        avec un laser, on utilise souvent des cibles réfléchissantes. Comprendre
+        l'angle de retour permet de placer le récepteur précisément.
+      </div>
+
+      <div class="video-block">
+        <div class="video-info">
+          <span class="video-link-text"
+            >Vidéo :
+            <a href="http://www.youtube.com/watch?v=zAIYfuz3GkY" target="_blank"
+              >Physique : Réflexion de la lumière</a
+            ></span
+          >
+        </div>
+        <img
+          src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.youtube.com/watch?v=zAIYfuz3GkY"
+          class="qr-code"
+          alt="QR Code Vidéo Réflexion"
+        />
+      </div>
+
+      <div class="trace-ecrite">
+        <strong>Loi (réflexion) :</strong> L'angle d'incidence $i$ est égal à
+        l'angle de réflexion $r$.
+        <center style="margin: 4px 0"><strong>$i = r$</strong></center>
+        <div style="font-size: 9pt; margin-top: 4px">
+          <strong>Attention :</strong> les angles $i$ et $r$ se mesurent par
+          rapport à la <strong>normale</strong> (perpendiculaire).
+        </div>
+      </div>
+
+      <h3>Mini-exercice d'application</h3>
+      <div class="img-wrapper">
+        <img
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/10/Reflection_angles.svg/320px-Reflection_angles.svg.png"
+          alt="Réflexion"
+        />
+      </div>
+      <p>
+        Un rayon laser arrive avec un angle de $i = 42^\circ$ par rapport à la
+        normale d'une vitre. Quel est l'angle $r$ ?
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <h3>Exercice BP : angle donné avec la surface</h3>
+      <div class="calc-box">
+        <p style="margin-top: 0">
+          Le rayon fait un angle de
+          <strong>$18^\circ$ avec la surface</strong> d'une plaque métallique.
+        </p>
+        <p style="margin: 6px 0 4px 0">
+          1) Calculer l'angle d'incidence <strong>$i$</strong> (par rapport à la
+          normale).
+        </p>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0">
+          2) En déduire l'angle de réflexion <strong>$r$</strong>.
+        </p>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0">
+          3) Calculer l'angle entre le rayon incident et le rayon réfléchi.
+        </p>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <h3>Analyse métier</h3>
+      <p>
+        Pourquoi une surface très brillante (inox, miroir, carrelage lisse)
+        augmente-t-elle le risque laser sur chantier ?
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP BTP - Optique</div>
+        <div>Page 2</div>
+      </div>
+    </div>
+
+    <!-- PAGE 3 : RÉFRACTION -->
+    <div class="page">
+      <h2>3. RÉFRACTION ET INDICE OPTIQUE</h2>
+
+      <div class="context-box">
+        <strong>Intérêt métier :</strong> Le contrôle de la qualité des vitrages
+        ou la lecture d'un repère au travers d'un matériau transparent peut être
+        perturbé par la déviation de la lumière.
+      </div>
+
+      <div class="video-block">
+        <div class="video-info">
+          <span class="video-link-text"
+            >Vidéo :
+            <a href="http://www.youtube.com/watch?v=13mi9DC7Fe8" target="_blank"
+              >Calculer l'indice de réfraction</a
+            ></span
+          >
+        </div>
+        <img
+          src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.youtube.com/watch?v=13mi9DC7Fe8"
+          class="qr-code"
+          alt="QR Code Vidéo Réfraction"
+        />
+      </div>
+
+      <div class="trace-ecrite">
+        L'indice <strong>$n$</strong> caractérise le milieu :
+        <center style="margin: 4px 0">
+          <strong>$n = \dfrac{c}{v}$</strong>
+        </center>
+        avec $c = 3,0 \times 10^8$ m/s (vitesse dans le vide) et $v$ la vitesse
+        dans le matériau.<br /><br />
+        Plus <strong>$n$</strong> est grand, plus la lumière est
+        <strong>ralentie</strong>.
+      </div>
+
+      <h3>Mini-exercice d'application</h3>
+      <div class="calc-box">
+        Vitesse dans l'eau : $v = 2,25 \times 10^8$ m/s. Calculez l'indice $n$ :
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <h3>Exercice BP : comparer deux matériaux</h3>
+      <div class="calc-box">
+        <p style="margin-top: 0">On compare :</p>
+        <p style="margin: 4px 0">- Verre : $n = 1,50$</p>
+        <p style="margin: 4px 0">- Polycarbonate : $n = 1,58$</p>
+        <p style="margin: 6px 0 4px 0">
+          1) Dans quel matériau la lumière est-elle la plus ralentie ? Justifie.
+        </p>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0">
+          2) Calculer $v$ dans le verre puis dans le polycarbonate (avec $v =
+          c/n$).
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <h3>Question métier</h3>
+      <p>
+        En entrant depuis l'air dans un matériau dont l'indice est plus grand,
+        le rayon se rapproche-t-il ou s'éloigne-t-il de la normale ? Explique en
+        une phrase.
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP BTP - Optique</div>
+        <div>Page 3</div>
+      </div>
+    </div>
+
+    <!-- PAGE 4 : SPECTRE -->
+    <div class="page">
+      <h2>4. SPECTRE ET LONGUEURS D'ONDE</h2>
+
+      <div class="context-box">
+        <strong>Intérêt métier :</strong> Les caméras thermiques (IR) aident à
+        repérer des ponts thermiques. Les lampes UV servent à certaines
+        polymérisations. Les lasers de chantier sont visibles.
+      </div>
+
+      <div class="video-block">
+        <div class="video-info">
+          <span class="video-link-text"
+            >Vidéo :
+            <a href="http://www.youtube.com/watch?v=P0Yhl1ew3I0" target="_blank"
+              >Le spectre électromagnétique</a
+            ></span
+          >
+        </div>
+        <img
+          src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.youtube.com/watch?v=P0Yhl1ew3I0"
+          class="qr-code"
+          alt="QR Code Vidéo Spectre"
+        />
+      </div>
+
+      <div class="trace-ecrite">
+        Visible : $400 \text{ nm}$ (violet) à $800 \text{ nm}$ (rouge).<br />
+        $\lambda < 400 \text{ nm} \rightarrow$ UV<br />
+        $\lambda > 800 \text{ nm} \rightarrow$ IR.
+      </div>
+
+      <h3>Mini-exercice d'application</h3>
+      <p>
+        Un laser de chantier a une longueur d'onde de $532 \text{ nm}$. Est-il
+        visible ? De quelle couleur est-il environ ?
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <h3>Exercice BP : conversions</h3>
+      <div class="calc-box">
+        <p style="margin-top: 0">1) Convertir $532 \text{ nm}$ en mètres.</p>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0">
+          2) Convertir $0,00000065 \text{ m}$ en nanomètres.
+        </p>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <h3>Exercice BP : classer UV / visible / IR</h3>
+      <div class="calc-box">
+        <p style="margin-top: 0">Indiquer le domaine :</p>
+        <p style="margin: 4px 0">a) $365 \text{ nm}$</p>
+        <p style="margin: 4px 0">b) $780 \text{ nm}$</p>
+        <p style="margin: 4px 0">c) $1200 \text{ nm}$</p>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP BTP - Optique</div>
+        <div>Page 4</div>
+      </div>
+    </div>
+
+    <!-- PAGE 5 : ÉCLAIREMENT -->
+    <div class="page">
+      <h2>5. ÉCLAIREMENT (LUX)</h2>
+
+      <div class="context-box">
+        <strong>Intérêt métier :</strong> L'électricien doit garantir un
+        éclairement suffisant pour la sécurité et la précision. Un mauvais
+        éclairage fatigue et augmente le risque d'accident.
+      </div>
+
+      <div class="video-block">
+        <div class="video-info">
+          <span class="video-link-text"
+            >Vidéo :
+            <a href="http://www.youtube.com/watch?v=VP8zUZiXAaY" target="_blank"
+              >Mesurer la lumière : Les Lux</a
+            ></span
+          >
+        </div>
+        <img
+          src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.youtube.com/watch?v=VP8zUZiXAaY"
+          class="qr-code"
+          alt="QR Code Vidéo Lux"
+        />
+      </div>
+
+      <div class="trace-ecrite">
+        L'éclairement <strong>$E$</strong> s'exprime en
+        <strong>lux (lx)</strong>. Il se mesure avec un
+        <strong>luxmètre</strong>.<br /><br />
+        Exemples (repères) : bureau 300 lx, travail précis 500 lx, circulation
+        100 lx.
+      </div>
+
+      <h3>Mini-exercice d'application</h3>
+      <p>
+        Vous mesurez $80 \text{ lx}$ dans un couloir sombre. La norme demande
+        $100 \text{ lx}$. Que concluez-vous ?
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <h3>Exercice BP : conformité et décision</h3>
+      <div class="calc-box">
+        <p style="margin-top: 0">On mesure :</p>
+        <p style="margin: 4px 0">- Zone 1 : 310 lx (bureau)</p>
+        <p style="margin: 4px 0">- Zone 2 : 460 lx (travail de précision)</p>
+        <p style="margin: 4px 0">- Zone 3 : 95 lx (stockage)</p>
+
+        <p style="margin: 6px 0 4px 0">
+          1) Dire quelles zones sont conformes si on exige : bureau 300 lx,
+          précision 500 lx, stockage 100 lx.
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+
+        <p style="margin: 6px 0 4px 0">
+          2) Proposer une action simple pour rendre une zone non conforme
+          conforme.
+        </p>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP BTP - Optique</div>
+        <div>Page 5</div>
+      </div>
+    </div>
+
+    <!-- PAGE 6 : SYNTHÈSE ADDITIVE -->
+    <div class="page">
+      <h2>6. SYNTHÈSE ADDITIVE (RVB)</h2>
+
+      <div class="context-box">
+        <strong>Intérêt métier :</strong> Les écrans de contrôle, voyants et
+        interfaces utilisent des pixels RVB. Diagnostiquer un défaut de couleur
+        permet d'identifier un problème matériel.
+      </div>
+
+      <div class="video-block">
+        <div class="video-info">
+          <span class="video-link-text"
+            >Vidéo :
+            <a href="http://www.youtube.com/watch?v=IMdL0p6JGF4" target="_blank"
+              >Mélanger les couleurs RVB</a
+            ></span
+          >
+        </div>
+        <img
+          src="https://api.qrserver.com/v1/create-qr-code/?size=100x100&data=https://www.youtube.com/watch?v=IMdL0p6JGF4"
+          class="qr-code"
+          alt="QR Code Vidéo RVB"
+        />
+      </div>
+
+      <div class="trace-ecrite">
+        Primaires : Rouge, Vert, Bleu.<br />
+        Le mélange des trois donne la lumière <strong>blanche</strong>.<br />
+        Si aucune diode n'émet, l'écran apparaît <strong>noir</strong>.
+      </div>
+
+      <h3>Mini-exercice d'application</h3>
+      <p>
+        Si la diode Bleue d'un écran est grillée, quelle couleur verra
+        l'apprenti si l'écran veut afficher du Magenta (R+B) ?
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <h3>Exercice BP : diagnostic d'affichage</h3>
+      <div class="calc-box">
+        <p style="margin-top: 0">
+          1) Un écran veut afficher du <strong>blanc</strong>. Quelle
+          combinaison RVB doit fonctionner ?
+        </p>
+        <div class="dotted-lines"></div>
+
+        <p style="margin: 6px 0 4px 0">
+          2) La LED verte est HS. Quelle couleur obtient-on si l'écran demande
+          du
+          <strong>jaune</strong> (R+V) ?
+        </p>
+        <div class="dotted-lines"></div>
+
+        <p style="margin: 6px 0 4px 0">
+          3) Citer un exemple métier où une mauvaise couleur d'affichage peut
+          créer un risque.
+        </p>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP BTP - Optique</div>
+        <div>Page 6</div>
+      </div>
+    </div>
+
+    <!-- PAGE 7 : SYNTHÈSE VISUELLE -->
+    <div class="page" style="background: #f4f7f6">
+      <h2
+        style="
+          text-align: center;
+          background: #2c3e50;
+          border: none;
+          padding: 12px;
+          margin-top: 0;
+        "
+      >
+        RÉCAPITULATIF VISUEL DU SEMESTRE
+      </h2>
+
+      <div class="grid-synthesis">
+        <div class="card-synthesis">
+          <div class="card-title">🚀 VITESSE ET MILIEUX <span>📏</span></div>
+          <div class="card-content">
+            La lumière ralentit selon le milieu :
+            <h4 style="text-align: center; color: #c0392b; margin: 8px 0">
+              $n = \dfrac{c}{v}$
+            </h4>
+            <small><i>$c = 300\,000\,000$ m/s</i></small>
+          </div>
+        </div>
+
+        <div class="card-synthesis">
+          <div class="card-title">🪞 RÉFLEXION <span>✨</span></div>
+          <div class="card-content">
+            Loi du miroir sur surface lisse :
+            <h4 style="text-align: center; color: #c0392b; margin: 8px 0">
+              $i = r$
+            </h4>
+            <p style="font-size: 8.5pt; margin: 0">
+              Angle mesuré depuis la perpendiculaire (normale).
+            </p>
+          </div>
+        </div>
+
+        <div class="card-synthesis">
+          <div class="card-title">🌈 SPECTRE <span>🧿</span></div>
+          <div class="card-content" style="text-align: center">
+            <div
+              style="
+                background: linear-gradient(
+                  to right,
+                  violet,
+                  blue,
+                  green,
+                  yellow,
+                  orange,
+                  red
+                );
+                height: 12px;
+                border-radius: 10px;
+                margin-bottom: 5px;
+              "
+            ></div>
+            <strong>400nm</strong>
+            <span style="font-size: 8pt"> - VISIBLE - </span>
+            <strong>800nm</strong>
+            <div
+              style="
+                display: flex;
+                justify-content: space-between;
+                margin-top: 4px;
+                font-weight: bold;
+              "
+            >
+              <span style="color: purple">UV</span>
+              <span style="color: darkred">IR</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-synthesis">
+          <div class="card-title">💡 ÉCLAIREMENT <span>🔆</span></div>
+          <div class="card-content">
+            Quantité de lumière reçue :
+            <h4 style="text-align: center; color: #2980b9; margin: 8px 0">
+              Unité : LUX (lx)
+            </h4>
+            <small><i>Appareil : luxmètre</i></small>
+          </div>
+        </div>
+
+        <div class="card-synthesis" style="grid-column: span 2">
+          <div class="card-title">🎨 COULEURS RVB <span>🖥️</span></div>
+          <div
+            style="
+              display: flex;
+              justify-content: space-around;
+              align-items: center;
+            "
+          >
+            <div class="card-content">
+              <ul style="margin: 0; padding-left: 16px">
+                <li>R + V = <b>Jaune</b></li>
+                <li>R + B = <b>Magenta</b></li>
+                <li>V + B = <b>Cyan</b></li>
+                <li>R + V + B = <b>Blanc</b></li>
+              </ul>
+            </div>
+            <div
+              style="
+                width: 44px;
+                height: 44px;
+                background: white;
+                border-radius: 50%;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: bold;
+              "
+            >
+              W
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div
+        style="
+          margin-top: 10px;
+          padding: 10px;
+          background: white;
+          border-radius: 10px;
+          border: 2px dashed #27ae60;
+        "
+      >
+        <h4 style="margin: 0; color: #27ae60">MINI QUIZ DE CONTRÔLE</h4>
+        <p style="font-size: 9pt; margin: 6px 0 3px 0">
+          1) Un rayonnement a $\lambda = 1200$ nm. Est-ce UV, visible ou IR ?
+        </p>
+        <div class="dotted-lines"></div>
+        <p style="font-size: 9pt; margin: 6px 0 3px 0">
+          2) Un rayon fait $15^\circ$ avec la surface d'un miroir. Donner $i$.
+        </p>
+        <div class="dotted-lines"></div>
+        <p style="font-size: 9pt; margin: 6px 0 3px 0">
+          3) Dans un matériau d'indice $n=1,5$, la vitesse est-elle plus grande
+          ou plus petite que $c$ ?
+        </p>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <div
+        style="
+          margin-top: 8px;
+          padding: 10px;
+          background: white;
+          border-radius: 10px;
+          border: 2px dashed #c0392b;
+        "
+      >
+        <h4 style="margin: 0; color: #c0392b">LE RÉFLEXE SÉCURITÉ</h4>
+        <p style="font-size: 9pt; margin: 6px 0 0 0">
+          Ne jamais regarder un faisceau laser. Baliser la zone et éviter la
+          hauteur des yeux. Attention aux surfaces brillantes (réflexions).
+        </p>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Synthèse Visuelle</div>
+        <div>Page 7</div>
+      </div>
+    </div>
+
+    <!-- PAGE 8 : EXERCICE LONG 1 -->
+    <div class="page">
+      <h2>8. EXERCICE D'ANALYSE DE SÉCURITÉ LASER</h2>
+
+      <div class="context-box">
+        <strong>Situation :</strong> Analyse critique d'une étiquette rencontrée
+        par un apprenti sur un plateau en rénovation (coactivité).
+      </div>
+
+      <div
+        style="
+          border: 3px solid #f1c40f;
+          padding: 10px;
+          margin: 8px auto;
+          width: 85%;
+          font-family: 'Courier New', monospace;
+          background: #fffce0;
+          text-align: center;
+        "
+      >
+        <span style="font-weight: bold; font-size: 13pt">APPAREIL LASER</span
+        ><br />
+        <span style="color: red; font-weight: bold"
+          >ATTENTION : RAYONNEMENT CLASSE 3R</span
+        ><br />
+        Puissance max : &lt; 5 mW | Longueur d'onde : 635 nm<br />
+        NE PAS REGARDER DANS LE FAISCEAU
+      </div>
+
+      <h3>Questions</h3>
+      <p>
+        1) D'après l'étiquette, dans quel domaine du spectre ce laser se
+        situe-t-il ? Justifie.
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <p>2) Quels sont les risques spécifiques à la Classe 3R ?</p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <p>
+        3) Sur l'étiquette : $635 \text{ nm}$. Indiquer la couleur approximative
+        attendue.
+      </p>
+      <div class="dotted-lines"></div>
+
+      <p>
+        4) Expliquer pourquoi un faisceau est plus dangereux qu'un point sur un
+        mur diffus.
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <p>5) Donner :</p>
+      <p>a) Deux mesures de prévention collective.</p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <p>b) Deux règles de comportement individuel.</p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <p>
+        6) Les lunettes de soleil sont-elles une protection suffisante ?
+        Justifier.
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Exercices BP</div>
+        <div>Page 8</div>
+      </div>
+    </div>
+
+    <!-- PAGE 9 : EXERCICE LONG 2 -->
+    <div class="page">
+      <h2>9. EXERCICE GÉOMÉTRIE ET INDICES</h2>
+
+      <h3>9.1 Réflexion sur surface brillante</h3>
+      <div class="context-box">
+        Dans une cuisine collective, un rayon frappe une crédence inox. L'angle
+        entre le rayon et la surface est $22^\circ$.
+      </div>
+
+      <div class="calc-box">
+        <p style="margin-top: 0">
+          1) Calculer l'angle d'incidence $i$ (par rapport à la normale).
+        </p>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0">
+          2) En déduire l'angle de réflexion $r$.
+        </p>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0">
+          3) Calculer l'angle entre le rayon incident et le rayon réfléchi.
+        </p>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0">
+          4) Proposer une action simple pour réduire le risque lié à cette
+          réflexion sur chantier.
+        </p>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <h3>9.2 Indice optique et vitesse</h3>
+      <div class="context-box">
+        Une plaque de polycarbonate a un indice $n = 1,58$.
+      </div>
+
+      <div class="calc-box">
+        <p style="margin-top: 0">
+          1) Calculer la vitesse $v$ dans ce matériau ($v = c/n$), avec $c = 3,0
+          \times 10^8$ m/s.
+        </p>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0">
+          2) Comparer $v$ à la vitesse dans l'air. Interpréter en une phrase.
+        </p>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0">
+          3) En entrant de l'air vers ce matériau, le rayon se rapproche-t-il ou
+          s'éloigne-t-il de la normale ? Justifier.
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Exercices BP</div>
+        <div>Page 9</div>
+      </div>
+    </div>
+
+    <!-- PAGE 10 : EXERCICE LONG 3 -->
+    <div class="page">
+      <h2>10. EXERCICE SPECTRE ET USAGES MÉTIER</h2>
+
+      <h3>10.1 Identification de rayonnements</h3>
+      <p>
+        Compléter le tableau en indiquant le type de rayonnement et un usage ou
+        risque :
+      </p>
+
+      <table
+        style="width: 100%; border-collapse: collapse; text-align: center"
+        border="1"
+      >
+        <tr style="background: #d35400; color: white">
+          <th>Longueur d'onde $\lambda$</th>
+          <th>Type</th>
+          <th>Usage ou risque</th>
+        </tr>
+        <tr>
+          <td>$250 \text{ nm}$</td>
+          <td><div style="height: 18px"></div></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>$550 \text{ nm}$</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>$1200 \text{ nm}$</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+
+      <h3>10.2 Justifier avec les bornes du visible</h3>
+      <p>Pour chaque ligne, justifier avec les bornes $400$ nm et $800$ nm.</p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <h3>10.3 Caméra thermique (IR)</h3>
+      <div class="context-box">
+        Un thermicien utilise une caméra infrarouge pour repérer des ponts
+        thermiques sur une façade.
+      </div>
+      <p>1) Pourquoi l'œil humain ne voit-il pas les infrarouges ?</p>
+      <div class="dotted-lines"></div>
+      <p>
+        2) Quelle information sur un bâtiment les IR permettent-ils d'obtenir ?
+      </p>
+      <div class="dotted-lines"></div>
+
+      <h3>10.4 Soudage et UV</h3>
+      <p>Lors d'un soudage à l'arc, l'émission est très riche en UV.</p>
+      <p>Quel risque majeur pour les yeux si on regarde sans protection ?</p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Exercices BP</div>
+        <div>Page 10</div>
+      </div>
+    </div>
+
+    <!-- PAGE 11 : EXERCICE LONG 4 -->
+    <div class="page">
+      <h2>11. EXERCICE ÉTUDE D'ÉCLAIRAGE</h2>
+
+      <div class="context-box">
+        Mesures dans un atelier :<br />
+        Zone A = 480 lx (poste précis) | Zone B = 90 lx (stockage) | Zone C =
+        210 lx (bureau).
+      </div>
+
+      <p>
+        1) La Zone A est-elle conforme pour un travail de précision (exigence
+        500 lx) ?
+      </p>
+      <div class="dotted-lines"></div>
+
+      <p>2) Action proposée pour la Zone B (stockage, exigence 100 lx) :</p>
+      <div class="dotted-lines"></div>
+
+      <p>3) Calculer le déficit de la Zone B pour atteindre 100 lx.</p>
+      <div class="dotted-lines"></div>
+
+      <p>4) Calculer le déficit de la Zone C si on exige 300 lx.</p>
+      <div class="dotted-lines"></div>
+
+      <h3>11.2 Calcul d'éclairement avec un flux lumineux</h3>
+      <div class="calc-box">
+        <p style="margin-top: 0">
+          On installe une dalle LED de 2000 lumens dans une zone de $10 \text{
+          m}^2$.
+        </p>
+        <p style="margin: 6px 0 4px 0">
+          Calculer l'éclairement moyen avec $E = \dfrac{\text{lumens}}{S}$.
+        </p>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0">
+          Conclusion : suffisant pour un bureau à 300 lx ?
+        </p>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Exercices BP</div>
+        <div>Page 11</div>
+      </div>
+    </div>
+
+    <!-- PAGE 12 : ÉVALUATION FINALE -->
+    <div class="page">
+      <h2>12. ÉVALUATION FINALE DE SÉANCE</h2>
+
+      <div class="context-box">
+        Scénario : Laser vert ($\lambda = 532 \text{ nm}$) traverse une vitre
+        ($n=1,5$) avant d'atteindre une cible.
+      </div>
+
+      <p>
+        1) Ce laser est-il plus énergétique qu'un rouge ($650 \text{ nm}$) ?
+        Justifier avec l'indice donné.
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <p>
+        2) Mélange Vert + Rouge sur cible blanche =
+        ...................................
+      </p>
+      <div class="dotted-lines"></div>
+
+      <p>
+        3) Calculer la vitesse de la lumière dans la vitre ($n=1,5$) avec $v =
+        c/n$, $c = 3,0 \times 10^8$ m/s.
+      </p>
+      <div class="dotted-lines"></div>
+
+      <p>
+        4) Expliquer en une phrase pourquoi la vitesse diminue dans le matériau.
+      </p>
+      <div class="dotted-lines"></div>
+
+      <p>
+        5) Donner une règle de sécurité à appliquer lors de l'utilisation d'un
+        laser sur un plateau en coactivité.
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Dossier BP</div>
+        <div>Page 12</div>
+      </div>
+    </div>
+  </body>
+</html>
+```

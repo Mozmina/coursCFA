@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BP Français - Journalisme et information fiable</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Oswald:wght@500;600;700&display=swap');
+      :root {
+        --primary: #174a72;
+        --secondary: #2f7e8c;
+        --accent: #e9922b;
+        --light: #eef5f8;
+        --lighter: #f8fbfc;
+        --dark: #1c2730;
+        --red: #b64343;
+        --green: #3f7d55;
+        --grey: #6b7378;
+      }
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #646a70;
+        color: var(--dark);
+        font-family: 'Roboto', sans-serif;
+        font-size: 9.6pt;
+        line-height: 1.24;
+      }
+      body {
+        padding: 14px 0 30px;
+      }
+      .page {
+        width: 210mm;
+        height: 297mm;
+        margin: 0 auto 14px;
+        background: white;
+        padding: 8mm 10mm 10mm;
+        position: relative;
+        overflow: hidden;
+        page-break-after: always;
+        break-after: page;
+      }
+      .page:last-child {
+        page-break-after: auto;
+        break-after: auto;
+      }
+      .toolbar {
+        position: fixed;
+        top: 12px;
+        right: 14px;
+        z-index: 9999;
+        display: flex;
+        gap: 8px;
+      }
+      .btn {
+        background: var(--primary);
+        color: #fff;
+        border: 2px solid #fff;
+        border-radius: 8px;
+        padding: 8px 12px;
+        font-weight: 900;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      }
+      .btn.orange {
+        background: var(--accent);
+      }
+      .header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border-bottom: 4px solid var(--primary);
+        padding-bottom: 7px;
+        margin-bottom: 8px;
+      }
+      .header img {
+        width: 48mm;
+        height: auto;
+        object-fit: contain;
+      }
+      .header-title {
+        flex: 1;
+        text-align: right;
+      }
+      .header-title h1 {
+        font-family: 'Oswald', sans-serif;
+        color: var(--primary);
+        font-size: 20pt;
+        margin: 0;
+        line-height: 1.05;
+        text-transform: uppercase;
+      }
+      .header-title p {
+        margin: 3px 0 0;
+        color: var(--grey);
+        font-weight: 500;
+      }
+      h2 {
+        font-family: 'Oswald', sans-serif;
+        color: var(--primary);
+        font-size: 15.5pt;
+        margin: 4px 0 7px;
+        padding-bottom: 2px;
+        border-bottom: 2px solid #bdd1dc;
+      }
+      h3 {
+        font-family: 'Oswald', sans-serif;
+        color: var(--secondary);
+        font-size: 11.8pt;
+        margin: 6px 0 4px;
+      }
+      p {
+        margin: 3px 0;
+      }
+      .identity {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7px 18px;
+        margin: 7px 0 7px;
+        padding: 6px;
+        background: var(--lighter);
+        border: 1px solid #ccd8de;
+        border-radius: 6px;
+      }
+      .line {
+        display: inline-block;
+        min-width: 72%;
+        border-bottom: 1px solid #333;
+        height: 17px;
+        vertical-align: bottom;
+      }
+      .box {
+        border: 1.4px solid #b7c8d2;
+        border-left: 6px solid var(--primary);
+        border-radius: 6px;
+        padding: 6px 8px;
+        margin: 5px 0;
+        background: #fff;
+      }
+      .box.orange {
+        border-left-color: var(--accent);
+        background: #fff8ee;
+      }
+      .box.green {
+        border-left-color: var(--green);
+        background: #f3faf5;
+      }
+      .box.red {
+        border-left-color: var(--red);
+        background: #fff5f5;
+      }
+      .objective {
+        background: linear-gradient(135deg, #edf5f9, #f9fcfd);
+        border: 1px solid #b7cdd9;
+        padding: 7px 9px;
+        border-radius: 7px;
+        margin: 6px 0;
+      }
+      .situation {
+        background: #fff7ea;
+        border: 2px solid #edb969;
+        border-radius: 8px;
+        padding: 8px 10px;
+        margin: 6px 0;
+      }
+      .question {
+        margin: 8px 0 2px;
+        font-weight: 700;
+      }
+      .dots {
+        height: 17px;
+        border-bottom: 1px dotted #555;
+        margin: 0 0 5px;
+      }
+      .dots.large {
+        height: 24px;
+      }
+      .dots.xlarge {
+        height: 32px;
+      }
+      .dots.xxlarge {
+        height: 40px;
+      }
+      .doc-card {
+        border: 1px solid #bac8d0;
+        border-radius: 7px;
+        background: #f7fbfd;
+        overflow: hidden;
+        margin: 6px 0;
+      }
+      .doc-card img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: contain;
+        background: white;
+      }
+      .caption {
+        font-size: 8.4pt;
+        color: #334b5a;
+        padding: 5px 7px;
+        border-top: 1px solid #d3e0e7;
+        background: #eef5f8;
+      }
+      .doc-full {
+        border: 1px solid #bac8d0;
+        border-radius: 7px;
+        background: #f7fbfd;
+        padding: 7px 8px;
+        margin: 6px 0;
+      }
+      .doc-title {
+        font-family: 'Oswald', sans-serif;
+        font-size: 12pt;
+        color: var(--primary);
+        margin-bottom: 4px;
+      }
+      .doc-text {
+        background: #fbfff2;
+        border-left: 5px solid #9bbf66;
+        border-radius: 6px;
+        padding: 8px 10px;
+        text-align: justify;
+      }
+      .doc-text.compact {
+        font-size: 8.9pt;
+        line-height: 1.2;
+      }
+      .doc-text p {
+        margin: 0 0 6px;
+      }
+      .doc-layout {
+        display: block;
+      }
+      .image-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        align-items: start;
+        margin: 6px 0;
+      }
+      .image-row .doc-card img {
+        height: 66mm;
+        object-fit: contain;
+      }
+      .portrait-layout {
+        display: grid;
+        grid-template-columns: 34% 1fr;
+        gap: 9px;
+        align-items: start;
+      }
+      .portrait-layout .doc-card img {
+        height: 113mm;
+        object-fit: cover;
+        object-position: center top;
+      }
+      .ideas {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 5px;
+        margin: 5px 0;
+      }
+      .idea {
+        border: 1px solid #c7d8df;
+        background: #f8fcfd;
+        border-radius: 6px;
+        padding: 6px 8px;
+        min-height: 34px;
+      }
+      .idea strong,
+      .starter {
+        color: var(--primary);
+      }
+      .mini-synthesis {
+        border: 1.5px solid #b7c8d2;
+        border-left: 6px solid var(--accent);
+        border-radius: 7px;
+        background: #fffaf2;
+        padding: 8px 10px;
+        margin: 7px 0;
+      }
+      .mini-synthesis h3 {
+        margin: 0 0 5px;
+        color: var(--primary);
+      }
+      .plan-line {
+        padding: 5px 7px;
+        margin: 4px 0;
+        border: 1px solid #d5e1e8;
+        border-radius: 6px;
+        background: #fbfdfe;
+      }
+      .writing-help-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7px;
+        margin: 6px 0;
+      }
+      .phrase-box {
+        border: 1px solid #cbdbe2;
+        border-radius: 7px;
+        background: #f7fbfd;
+        padding: 7px 9px;
+      }
+      .write-zone {
+        border: 1px solid #b8ccd8;
+        border-radius: 7px;
+        background: #fbfdfe;
+        padding: 8px 9px;
+        margin: 6px 0;
+      }
+      .write-lines .dots {
+        height: 18px;
+        margin: 0 0 3px;
+      }
+      .correction {
+        display: none;
+        margin: 4px 0 7px;
+        padding: 6px 8px;
+        border-left: 5px solid var(--green);
+        background: #eef9f1;
+        border-radius: 6px;
+        font-weight: 500;
+        color: #173b25;
+      }
+      body.show-correction .correction {
+        display: block;
+      }
+      body.show-correction .dots {
+        display: none !important;
+      }
+      body.show-correction .write-zone {
+        display: none !important;
+      }
+      body.show-correction .correction {
+        font-size: 9.4pt;
+      }
+      body.show-correction .correction strong {
+        color: var(--green);
+      }
+      .source-list {
+        font-size: 8.1pt;
+        color: #52636d;
+        margin-top: 5px;
+      }
+      .footer {
+        position: absolute;
+        left: 10mm;
+        right: 10mm;
+        bottom: 4mm;
+        display: flex;
+        justify-content: space-between;
+        color: #66737b;
+        font-size: 8.2pt;
+        border-top: 1px solid #d4dde2;
+        padding-top: 3px;
+      }
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      .box,
+      .objective,
+      .situation,
+      .doc-card,
+      .doc-full,
+      .idea,
+      .mini-synthesis,
+      .write-zone {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      @media print {
+        html,
+        body {
+          width: 210mm;
+          margin: 0 !important;
+          padding: 0 !important;
+          background: white;
+        }
+        .page {
+          width: 210mm;
+          height: 297mm;
+          margin: 0 !important;
+          padding: 8mm 10mm 10mm;
+          box-shadow: none;
+          overflow: hidden;
+          page-break-after: always;
+          break-after: page;
+        }
+        .toolbar {
+          display: none !important;
+        }
+        .page:last-child {
+          page-break-after: auto;
+          break-after: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="toolbar">
+      <button class="btn" onclick="toggleCorrection()">
+        Afficher / masquer la correction</button
+      ><button class="btn orange" onclick="window.print()">Imprimer</button>
+    </div>
+
+    <section class="page">
+      <div class="header">
+        <img
+          alt="Logo BTP CFA"
+          src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+        />
+        <div class="header-title">
+          <h1>Journalisme et information fiable</h1>
+          <p>Français - BP 1re année</p>
+        </div>
+      </div>
+      <div class="identity">
+        <div>Nom : <span class="line"></span></div>
+        <div>Prénom : <span class="line"></span></div>
+        <div>Groupe : <span class="line"></span></div>
+        <div>Date : <span class="line"></span></div>
+      </div>
+      <div class="objective">
+        <strong>Objectif de la séquence :</strong> comprendre le rôle du
+        journaliste, expliquer pourquoi l'information doit être vérifiée, puis
+        réfléchir aux nouveaux risques liés à l'intelligence artificielle.
+      </div>
+      <div class="situation">
+        <strong>Question de départ</strong><br />Chaque jour, nous recevons des
+        informations par les médias, les réseaux sociaux, les proches ou les
+        sites internet. Mais toutes ces informations n'ont pas la même valeur.
+        Le journaliste a pour mission de chercher, vérifier, expliquer et
+        transmettre une information fiable au public.
+      </div>
+      <h2>1. Je m'interroge sur le sujet d'étude</h2>
+      <p class="question">
+        a. Pour toi, à quoi sert un journaliste dans la société ?
+      </p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> informer - expliquer - enquêter - actualité
+        - public - citoyens - comprendre le monde
+      </div>
+      <div class="dots xxlarge"></div>
+      <div class="dots xxlarge"></div>
+      <p class="question">
+        b. Quelle différence fais-tu entre un journaliste professionnel et une
+        personne qui partage simplement une information ?
+      </p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> méthode - vérification - responsabilité -
+        règles professionnelles - source - rumeur - opinion
+      </div>
+      <div class="dots xxlarge"></div>
+      <div class="dots xxlarge"></div>
+      <p class="question">
+        c. Pourquoi une information doit-elle être vérifiée avant d'être publiée
+        ?
+      </p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> éviter erreur - rumeur - mensonge -
+        manipulation - conséquences - confiance du public
+      </div>
+      <div class="dots xxlarge"></div>
+      <div class="dots xxlarge"></div>
+      <div class="box green">
+        <strong>Fil conducteur :</strong> un journaliste n'est pas seulement
+        quelqu'un qui écrit. C'est un professionnel qui a un rôle social et des
+        responsabilités.
+      </div>
+      <div class="footer">
+        <span
+          >Thème 1 - Comment s'assurer du bien-fondé d'une information ?</span
+        ><span>Page 1 / 12</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <h2>2. Le journaliste : une figure sociale</h2>
+      <div class="portrait-layout">
+        <div class="doc-card">
+          <img
+            alt="Portrait de la journaliste Sylvia von Harden par Otto Dix"
+            src="https://upload.wikimedia.org/wikipedia/en/5/59/Otto_Dix_Sy_von_Harden.jpg"
+          />
+          <div class="caption">
+            <strong>Doc. 1</strong> Otto Dix,
+            <em>Portrait de la journaliste Sylvia von Harden</em>, 1926.
+          </div>
+        </div>
+        <div>
+          <div class="box orange">
+            <strong>Pour comprendre :</strong> cette peinture représente Sylvia
+            von Harden, journaliste et poétesse allemande. Elle est installée
+            dans un café, un lieu où l'on discute, écrit et échange des idées.
+          </div>
+          <div class="ideas">
+            <div class="idea">
+              <strong>Un lieu social</strong><br />Le café évoque le débat et
+              les échanges.
+            </div>
+            <div class="idea">
+              <strong>Une figure intellectuelle</strong><br />La posture et les
+              objets évoquent l'observation et la réflexion.
+            </div>
+          </div>
+          <p class="question">
+            a. Quels éléments visuels montrent que cette personne peut être
+            journaliste ou intellectuelle ?
+          </p>
+          <div class="correction">
+            <strong>Mots-clés :</strong> café - livre/carnet - table - posture -
+            regard - attitude réfléchie - lieu d'échange
+          </div>
+          <div class="dots xlarge"></div>
+          <div class="dots xlarge"></div>
+          <p class="question">
+            b. Que nous apprend cette image sur le rôle social d'un journaliste
+            ?
+          </p>
+          <div class="correction">
+            <strong>Mots-clés :</strong> figure publique - débat d'idées -
+            observation de la société - rôle intellectuel - influence
+          </div>
+          <div class="dots xxlarge"></div>
+          <div class="dots xxlarge"></div>
+          <p class="question">
+            c. Selon toi, pourquoi un journaliste peut-il être une personne
+            importante dans la société ?
+          </p>
+          <div class="correction">
+            <strong>Mots-clés :</strong> informe les citoyens - explique les
+            faits - aide à comprendre - participe au débat public
+          </div>
+          <div class="dots xxlarge"></div>
+          <div class="dots large"></div>
+        </div>
+      </div>
+      <div class="box green">
+        <strong>À retenir :</strong> le journaliste observe le monde, participe
+        aux débats de son époque et aide le public à comprendre ce qui se passe.
+      </div>
+      <div class="footer">
+        <span>Partie A - Le métier de journaliste</span><span>Page 2 / 12</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <h2>3. Les règles du métier</h2>
+      <div class="doc-card" style="max-width: 88mm; margin: 0 auto 6px">
+        <img
+          alt="Bulletin du Syndicat des journalistes de 1918"
+          src="https://www.lesutopiques.org/wp-content/uploads/2024/08/syndicat-des-joulnalistes-1918-741x1024.webp"
+        />
+        <div class="caption">
+          <strong>Doc. 2</strong> Bulletin du Syndicat des journalistes,
+          décembre 1918.
+        </div>
+      </div>
+      <div class="box orange">
+        <strong>Ce document n'est pas un article de journal.</strong> C'est un
+        texte professionnel : il présente des règles que les journalistes
+        doivent respecter pour exercer leur métier avec sérieux.
+      </div>
+      <h3>Les grandes idées du document</h3>
+      <div class="ideas">
+        <div class="idea">
+          <strong>Vérifier</strong><br />Contrôler ses informations avant de
+          publier.
+        </div>
+        <div class="idea">
+          <strong>Rechercher la vérité</strong><br />Informer le public de façon
+          honnête.
+        </div>
+        <div class="idea">
+          <strong>Refuser le mensonge</strong><br />Ne pas manipuler les faits.
+        </div>
+        <div class="idea">
+          <strong>Être responsable</strong><br />Assumer les conséquences de ses
+          mots.
+        </div>
+      </div>
+      <p class="question">
+        a. Pourquoi les journalistes doivent-ils respecter des règles
+        professionnelles ?
+      </p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> confiance du public - vérité - éviter
+        mensonge - responsabilité - information fiable
+      </div>
+      <div class="dots xxlarge"></div>
+      <div class="dots xxlarge"></div>
+      <p class="question">
+        b. Cite deux devoirs essentiels imposés aux journalistes.
+      </p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> vérifier les faits - rechercher la vérité -
+        refuser le mensonge - être honnête - assumer ses écrits
+      </div>
+      <div class="dots large"></div>
+      <div class="dots large"></div>
+      <p class="question">
+        c. Quelle règle te paraît la plus importante ? Explique pourquoi.
+      </p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> vérification / vérité / honnêteté +
+        conséquences pour le public, confiance, démocratie
+      </div>
+      <div class="dots xxlarge"></div>
+      <div class="dots xxlarge"></div>
+      <div class="footer">
+        <span>Partie A - Le métier de journaliste</span><span>Page 3 / 12</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <h2>4. Je construis une première synthèse</h2>
+      <div class="situation">
+        <strong>Question :</strong> Pourquoi le métier de journaliste est-il
+        essentiel pour garantir une information fiable ?
+      </div>
+      <div class="mini-synthesis">
+        <h3>Je prépare mes idées</h3>
+        <div class="plan-line">
+          <strong>Idée 1 :</strong> le journaliste sert à informer le public sur
+          ce qui se passe dans la société.
+        </div>
+        <div class="plan-line">
+          <strong>Idée 2 :</strong> il ne partage pas seulement une information
+          : il cherche, il vérifie et il explique.
+        </div>
+        <div class="plan-line">
+          <strong>Idée 3 :</strong> son métier est encadré par des règles, car
+          ses mots peuvent influencer le public.
+        </div>
+      </div>
+      <div class="writing-help-grid">
+        <div class="phrase-box">
+          <strong>Débuts possibles</strong><br />Le journaliste est important
+          car...<br />Son rôle est de...<br />Grâce à lui, le public peut...
+        </div>
+        <div class="phrase-box">
+          <strong>Mots utiles</strong><br />informer - vérifier - expliquer -
+          public - vérité - responsabilité - règles professionnelles
+        </div>
+      </div>
+      <p class="question">Je rédige une mini synthèse.</p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> rôle social - informer - expliquer -
+        société - règles professionnelles - responsabilité - confiance
+      </div>
+      <div class="write-zone write-lines">
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+      </div>
+      <div class="box green">
+        <strong>À retenir :</strong> un journaliste joue un rôle social : il
+        informe, vérifie, explique et prend la responsabilité de ce qu'il
+        publie.
+      </div>
+      <div class="footer">
+        <span>Synthèse intermédiaire 1</span><span>Page 4 / 12</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <h2>5. Vérifier l'information : une nécessité</h2>
+      <div class="situation">
+        <strong>Nouvelle question :</strong> que se passe-t-il quand un
+        journaliste ne vérifie pas correctement une information ou cherche avant
+        tout à publier un scoop ?
+      </div>
+      <div class="doc-full">
+        <div class="doc-title">
+          Doc. 3 - L'affaire Glass entache la réputation de rigueur de la grande
+          presse américaine
+        </div>
+        <div class="doc-text compact">
+          <p>
+            Le journaliste Stephen Glass fabriquait ses articles de toutes
+            pièces et réussissait à les faire publier par des journaux réputés,
+            comme le <em>Washington Post</em> et <em>The New Republic</em>. Sur
+            41 articles parus en trois ans, trois ont été fabriqués de toutes
+            pièces et 21 autres au moins partiellement inventés, truffés de
+            citations bidons et s'appuyant sur des sources inexistantes.
+          </p>
+          <p>
+            « Nous avions confiance en lui » bornent-ils [ses employeurs] à
+            répéter, touchant sans doute à l'essence de la relation entre un
+            journaliste et ses éditeurs. La confiance est-elle cependant
+            suffisante ?
+          </p>
+          <p>
+            Certains magazines en doutent. Comme le <em>New Yorker</em> qui,
+            contrairement à la plupart de ses concurrents, vient de renforcer
+            son service de vérificateurs, doté de 16 personnes. Leur tâche :
+            tout contrôler derrière le journaliste, l'orthographe, les
+            descriptions, les citations. Une tâche d'autant plus difficile
+            lorsque les sources désirent rester anonymes.
+          </p>
+          <p>
+            Les journalistes, eux, font porter le chapeau à leurs chefs,
+            engagés, disent-ils, dans une course aux scoops sans merci,
+            privilégiant les histoires juteuses et sexy, aux articles solides,
+            étayés par les faits. La faute aussi à la « starisation » du métier.
+            « Le journaliste n'était pas censé s'adresser à des gens en quête de
+            célébrité », regrette Charlie Peters, éditeur du
+            <em>Washington Monthly</em>.
+          </p>
+          <p>
+            Certains ne s'étonnent guère de pareils dérapages vu les primes -
+            jusqu'à 20 000 dollars par article - offertes par certaines
+            publications, à New York ou Los Angeles, quand le salaire moyen d'un
+            correspondant à Washington pour un journal régional ne dépasse guère
+            30 000 dollars par an.
+          </p>
+          <p class="source-list">
+            Maria Pia Mascaro, www.letemps.ch, 16 juin 1998.
+          </p>
+        </div>
+      </div>
+      <p class="question">
+        a. Que reproche-t-on au journaliste Stephen Glass ?
+      </p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> articles inventés - fausses citations -
+        sources inexistantes - mensonge - fabrication
+      </div>
+      <div class="dots large"></div>
+      <div class="dots large"></div>
+      <p class="question">
+        b. Pourquoi la confiance entre un journaliste et son journal ne
+        suffit-elle pas ?
+      </p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> confiance insuffisante - besoin de preuves
+        - contrôle - vérificateurs - sources
+      </div>
+      <div class="dots large"></div>
+      <div class="dots large"></div>
+      <p class="question">
+        c. Quel est le rôle des vérificateurs dans un journal ?
+      </p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> contrôler - relire - vérifier citations,
+        descriptions, orthographe, sources - fiabiliser
+      </div>
+      <div class="dots large"></div>
+      <div class="dots large"></div>
+      <p class="question">
+        d. Pourquoi la course au scoop peut-elle poser problème ?
+      </p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> publier trop vite - sensationnel - prime -
+        célébrité - pression - oubli des faits
+      </div>
+      <div class="dots large"></div>
+      <div class="dots large"></div>
+      <div class="footer">
+        <span>Partie B - Vérifier l'information</span><span>Page 5 / 12</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <h2>6. Désinformation : informer, alerter, faire réfléchir</h2>
+      <div class="image-row">
+        <div class="doc-card">
+          <img
+            alt="Caricature Evolution of weapons"
+            src="https://s3-eu-central-1.amazonaws.com/cartoons-s3/styles/product_detail_image/s3/Evolution%20of%20weapons%20A3.jpg?itok=0xYq7v7d"
+          />
+          <div class="caption">
+            <strong>Doc. 4</strong> Asier Sanz, <em>Evolution of weapons</em>,
+            Cartoon Movement.
+          </div>
+        </div>
+        <div class="doc-card">
+          <img
+            alt="Affiche Inserm Canal Détox smoothie carotte"
+            src="https://pro.inserm.fr/wp-content/uploads/2024/09/Campagne-Inserm-Canal-detox-3-300x226.png"
+          />
+          <div class="caption">
+            <strong>Doc. 5</strong> Affiche de sensibilisation Inserm Canal
+            Détox.
+          </div>
+        </div>
+      </div>
+      <div class="box orange">
+        <strong>Pour comprendre :</strong> ces deux documents montrent que la
+        désinformation peut devenir dangereuse. La caricature compare le
+        mensonge à une arme ; l'affiche de l'Inserm rappelle qu'il faut vérifier
+        avant de répéter, surtout dans le domaine de la santé.
+      </div>
+      <p class="question">
+        a. Que représente la dernière « arme » montrée dans la caricature ?
+      </p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> nez de Pinocchio - mensonge - fake news -
+        désinformation comme danger
+      </div>
+      <div class="dots large"></div>
+      <div class="dots large"></div>
+      <p class="question">
+        b. En quoi l'affaire Stephen Glass illustre-t-elle le message de cette
+        caricature ?
+      </p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> mensonges publiés - public trompé -
+        confiance abîmée - information comme arme
+      </div>
+      <div class="dots xlarge"></div>
+      <div class="dots large"></div>
+      <p class="question">
+        c. Quels éléments de l'affiche semblent conçus pour attirer l'attention
+        ?
+      </p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> phrase absurde - couleur - QR code - humour
+        - contraste - formule surprenante
+      </div>
+      <div class="dots large"></div>
+      <div class="dots large"></div>
+      <p class="question">
+        d. Quel message l'affiche donne-t-elle sur la fiabilité d'une
+        information en santé ?
+      </p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> ne pas répéter sans vérifier - santé =
+        conséquences graves - source scientifique - vigilance
+      </div>
+      <div class="dots xlarge"></div>
+      <div class="dots large"></div>
+      <div class="footer">
+        <span>Partie B - Vérifier l'information</span><span>Page 6 / 12</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <h2>7. Je construis une deuxième synthèse</h2>
+      <div class="situation">
+        <strong>Question :</strong> Pourquoi vérifier l'information doit-il être
+        un réflexe indispensable ?
+      </div>
+      <div class="mini-synthesis">
+        <h3>Je prépare mes idées</h3>
+        <div class="plan-line">
+          <strong>Idée 1 :</strong> la désinformation peut tromper le public et
+          avoir des conséquences.
+        </div>
+        <div class="plan-line">
+          <strong>Idée 2 :</strong> la recherche du scoop ou du sensationnel
+          peut pousser à publier trop vite.
+        </div>
+        <div class="plan-line">
+          <strong>Idée 3 :</strong> vérifier, c'est chercher des sources, des
+          preuves et croiser les informations.
+        </div>
+      </div>
+      <div class="writing-help-grid">
+        <div class="phrase-box">
+          <strong>Débuts possibles</strong><br />Vérifier une information est
+          nécessaire car...<br />Avant de partager, il faut...<br />Une
+          information fiable doit...
+        </div>
+        <div class="phrase-box">
+          <strong>Mots utiles</strong><br />source - preuve - rumeur - mensonge
+          - scoop - vérifier - comparer - réfléchir
+        </div>
+      </div>
+      <p class="question">Je rédige une mini synthèse.</p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> vérifier - sources - preuves - rumeurs -
+        erreurs - mensonges - conséquences - esprit critique
+      </div>
+      <div class="write-zone write-lines">
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+      </div>
+      <div class="box green">
+        <strong>À retenir :</strong> vérifier une information protège le public
+        : cela évite de diffuser des erreurs, des rumeurs ou des mensonges.
+      </div>
+      <div class="footer">
+        <span>Synthèse intermédiaire 2</span><span>Page 7 / 12</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <h2>8. Quand l'IA brouille notre perception du vrai</h2>
+      <div class="situation">
+        <strong>Nouvelle question :</strong> pourquoi est-il de plus en plus
+        difficile de distinguer le vrai du faux avec l'intelligence artificielle
+        ?
+      </div>
+      <div class="doc-full">
+        <div class="doc-title">
+          Doc. 6 - La désinformation, les armes de l'intelligence artificielle
+        </div>
+        <div class="doc-text">
+          <p>Couverture du magazine <em>Pour la Science</em>, mai 2025.</p>
+          <p>
+            L'image associe intelligence artificielle, réseaux numériques et
+            circulation de fausses informations. Elle présente l'IA comme un
+            outil capable de produire et diffuser rapidement des contenus
+            trompeurs.
+          </p>
+        </div>
+      </div>
+      <div class="doc-full">
+        <div class="doc-title">
+          Doc. 7 - Exemples célèbres d'images générées par l'IA
+        </div>
+        <div class="doc-text">
+          <p>
+            Des images générées par l'IA ont circulé massivement sur les réseaux
+            sociaux : le pape François en doudoune blanche, Emmanuel Macron en
+            éboueur ou Donald Trump arrêté par la police.
+          </p>
+          <p>
+            Ces images peuvent sembler vraies car elles reprennent des
+            personnalités connues dans des situations crédibles ou
+            spectaculaires. Pourtant, elles ne prouvent pas qu'un événement a
+            réellement eu lieu.
+          </p>
+        </div>
+      </div>
+      <div class="doc-card" style="max-width: 72mm; margin: 6px auto">
+        <img
+          referrerpolicy="no-referrer"
+          alt="Image IA du pape François en doudoune blanche"
+          src="https://commons.wikimedia.org/wiki/Special:FilePath/Pope%20Francis%20in%20puffy%20winter%20jacket.jpg"
+        />
+        <div class="caption">
+          <strong>Exemple</strong> Image générée par IA du pape François,
+          devenue virale en 2023.
+        </div>
+      </div>
+      <p class="question">
+        a. En quoi l'IA peut-elle rendre une fausse information crédible ?
+      </p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> image réaliste - imitation - émotion -
+        rapidité - partage massif - apparence de preuve
+      </div>
+      <div class="dots xlarge"></div>
+      <div class="dots xlarge"></div>
+      <p class="question">
+        b. Pourquoi les images générées par IA peuvent-elles tromper le public ?
+      </p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> ressemble à une photo - personnalité connue
+        - contexte crédible - manque de vérification
+      </div>
+      <div class="dots xlarge"></div>
+      <div class="dots large"></div>
+      <div class="footer">
+        <span>Partie C - IA et perception du vrai</span><span>Page 8 / 12</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <h2>9. IA, information et démocratie</h2>
+      <div class="doc-full">
+        <div class="doc-title">
+          Doc. 8 - L'intelligence artificielle : une bombe démocratique ?
+        </div>
+        <div class="doc-text">
+          <p>
+            Le dessin de Stellina représente plusieurs urnes électorales portant
+            des drapeaux de pays différents. Une bombe liée à l'intelligence
+            artificielle semble menacer ces urnes.
+          </p>
+          <p>
+            Le dessin suggère que l'IA peut devenir un danger pour la démocratie
+            si elle sert à diffuser de fausses informations pendant des
+            élections ou à manipuler l'opinion publique.
+          </p>
+        </div>
+      </div>
+      <div class="box orange">
+        <strong>Pour comprendre :</strong> une fausse information n'a pas
+        seulement une conséquence individuelle. Elle peut aussi influencer des
+        choix collectifs, par exemple lors d'une élection.
+      </div>
+      <p class="question">
+        a. Quel lien est fait entre l'IA et la démocratie ?
+      </p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> élections - opinion publique - manipulation
+        - urnes - citoyens - démocratie fragilisée
+      </div>
+      <div class="dots xlarge"></div>
+      <div class="dots xlarge"></div>
+      <p class="question">
+        b. Parmi ces documents, lequel informe, lequel alerte, lequel trompe ?
+        Justifie rapidement.
+      </p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> doc magazine informe/alerte - images IA
+        peuvent tromper - dessin alerte - justification par intention et effet
+      </div>
+      <div class="dots xlarge"></div>
+      <div class="dots xlarge"></div>
+      <p class="question">
+        c. Comment peut-on vérifier une image ou une information avant de la
+        partager ? Donne trois réflexes simples.
+      </p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> chercher source - vérifier date/contexte -
+        comparer médias reconnus - recherche inversée - lire au-delà du titre
+      </div>
+      <div class="dots xlarge"></div>
+      <div class="dots xlarge"></div>
+      <div class="box green">
+        <strong>À retenir :</strong> avec l'IA, vérifier devient encore plus
+        nécessaire : un contenu peut être très réaliste sans être vrai.
+      </div>
+      <div class="footer">
+        <span>Partie C - IA et perception du vrai</span><span>Page 9 / 12</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <h2>10. Je construis une troisième synthèse</h2>
+      <div class="situation">
+        <strong>Question :</strong> Comment vérifier le bien-fondé d'une
+        information à l'époque de l'IA ?
+      </div>
+      <div class="mini-synthesis">
+        <h3>Je prépare mes idées</h3>
+        <div class="plan-line">
+          <strong>Idée 1 :</strong> une image ou une vidéo très réaliste n'est
+          pas forcément une preuve.
+        </div>
+        <div class="plan-line">
+          <strong>Idée 2 :</strong> l'IA peut produire rapidement des contenus
+          trompeurs qui circulent très vite.
+        </div>
+        <div class="plan-line">
+          <strong>Idée 3 :</strong> pour vérifier, il faut rechercher la source,
+          comparer avec des médias fiables et regarder le contexte.
+        </div>
+      </div>
+      <div class="writing-help-grid">
+        <div class="phrase-box">
+          <strong>Débuts possibles</strong><br />À l'époque de l'IA, il
+          faut...<br />Une image réaliste ne prouve pas que...<br />Pour éviter
+          d'être trompé, on peut...
+        </div>
+        <div class="phrase-box">
+          <strong>Mots utiles</strong><br />IA - image générée - source -
+          contexte - médias fiables - démocratie - manipulation - esprit
+          critique
+        </div>
+      </div>
+      <p class="question">Je rédige une mini synthèse.</p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> IA - contenu réaliste - faux crédible -
+        source - contexte - recherche inversée - médias fiables - démocratie
+      </div>
+      <div class="write-zone write-lines">
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+      </div>
+      <div class="box green">
+        <strong>À retenir :</strong> avec l'IA, vérifier devient encore plus
+        nécessaire : un contenu peut être très réaliste sans être vrai.
+      </div>
+      <div class="footer">
+        <span>Synthèse intermédiaire 3</span><span>Page 10 / 12</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <h2>11. Synthèse argumentée finale</h2>
+      <div class="situation">
+        <strong>Sujet :</strong> Pourquoi le métier de journaliste est-il
+        essentiel pour garantir une information fiable, surtout à l'époque de
+        l'IA ?
+      </div>
+      <div class="help box">
+        <strong>Pour réussir, reprends les trois mini synthèses :</strong
+        ><br /><span class="starter">Synthèse 1 :</span> le journaliste a un
+        rôle social : il informe le public, observe la société, explique les
+        faits et respecte des règles professionnelles.<br /><span
+          class="starter"
+          >Synthèse 2 :</span
+        >
+        vérifier l'information est indispensable : cela évite les erreurs, les
+        rumeurs, les mensonges et les publications trop rapides.<br /><span
+          class="starter"
+          >Synthèse 3 :</span
+        >
+        avec l'IA, une image ou une vidéo peut sembler vraie sans l'être : il
+        faut donc renforcer les réflexes de vérification.
+      </div>
+      <div class="help box">
+        <strong>Plan conseillé :</strong><br /><span class="starter"
+          >1. D'abord,</span
+        >
+        explique à quoi sert un journaliste dans la société.<br /><span
+          class="starter"
+          >2. Ensuite,</span
+        >
+        montre qu'il ne partage pas seulement une information : il enquête,
+        vérifie et croise ses sources.<br /><span class="starter"
+          >3. Puis,</span
+        >
+        explique pourquoi son métier doit être encadré par des règles pour
+        protéger le public.<br /><span class="starter">4. Enfin,</span> montre
+        que l'IA rend la vérification encore plus nécessaire.
+      </div>
+      <div class="help box">
+        <strong>Mots et expressions utiles :</strong><br />informer le public -
+        expliquer les faits - vérifier les sources - rechercher la vérité -
+        éviter les rumeurs - refuser le mensonge - respecter une charte -
+        assumer une responsabilité - IA - image générée - esprit critique -
+        garantir une information fiable.
+      </div>
+      <p class="question">Je rédige ma réponse.</p>
+      <div class="correction">
+        <strong>Mots-clés :</strong> journaliste - rôle social - règles - charte
+        - vérification - sources - rumeurs - IA - esprit critique - information
+        fiable
+      </div>
+      <div class="write-zone write-lines">
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+        <div class="dots"></div>
+      </div>
+      <div class="footer">
+        <span>Synthèse argumentée finale</span><span>Page 11 / 12</span>
+      </div>
+    </section>
+
+    <section class="page">
+      <h2>12. Bilan de la séquence</h2>
+      <div class="box green">
+        <strong>Bilan général :</strong> le journaliste contribue à une
+        information fiable parce qu'il ne se contente pas de transmettre. Il
+        enquête, vérifie, choisit ses mots, respecte des règles professionnelles
+        et aide le public à garder un esprit critique face aux contenus
+        trompeurs, notamment ceux produits ou amplifiés par l'IA.
+      </div>
+      <h3>Les trois idées à retenir</h3>
+      <div class="mini-synthesis">
+        <div class="plan-line">
+          <strong>1. Le rôle social du journaliste :</strong> informer,
+          expliquer, rendre les faits compréhensibles.
+        </div>
+        <div class="plan-line">
+          <strong>2. La vérification :</strong> croiser les sources, chercher
+          des preuves, éviter les rumeurs.
+        </div>
+        <div class="plan-line">
+          <strong>3. L'IA et le vrai :</strong> ne pas confondre un contenu
+          réaliste avec une preuve.
+        </div>
+      </div>
+
+      <div class="source-list">
+        Images en ligne utilisées : Wikimedia / Centre Pompidou, Les Utopiques,
+        Cartoon Movement, Inserm, Wikimedia Commons. Les documents C non
+        disponibles en image fiable sont présentés sous forme de documents
+        retranscrits ou décrits.
+      </div>
+      <div class="footer"><span>Bilan</span><span>Page 12 / 12</span></div>
+    </section>
+    <script>
+      function toggleCorrection() {
+        document.body.classList.toggle('show-correction');
+      }
+    </script>
+  </body>
+</html>

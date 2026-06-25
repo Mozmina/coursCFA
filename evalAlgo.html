@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Évaluation Algorithmique BTP (Finale V3) - M. OZMINA</title>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)'],
+          ],
+        },
+        svg: { fontCache: 'global' },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Kalam&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+
+      /* RESET & BASE */
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #525659;
+        margin: 0;
+        padding: 20px;
+        color: #000;
+        font-size: 11pt;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      .page {
+        width: 210mm;
+        height: 297mm;
+        padding: 15mm;
+        margin: 0 auto 20px auto;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        position: relative;
+        overflow: hidden;
+        page-break-after: always;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* EN-TÊTE */
+      .header-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #000;
+        margin-bottom: 20px;
+      }
+      .header-table td {
+        border: 1px solid #000;
+        padding: 5px 10px;
+        vertical-align: middle;
+      }
+      .logo-btp {
+        width: 150px;
+      }
+      .title-main {
+        font-size: 16pt;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: block;
+        text-align: center;
+      }
+      .title-sub {
+        font-size: 12pt;
+        font-style: italic;
+        display: block;
+        text-align: center;
+        margin-top: 5px;
+      }
+
+      /* NOTE */
+      .cell-note {
+        text-align: center;
+        font-weight: bold;
+        background-color: #f9f9f9;
+        width: 80px;
+      }
+      .note-val {
+        font-size: 16pt;
+        display: block;
+        margin-top: 5px;
+      }
+
+      /* TITRES SECTIONS */
+      h2 {
+        font-size: 12pt;
+        background: #eee;
+        color: #000;
+        padding: 8px 10px;
+        margin-top: 15px; /* Marge réduite */
+        margin-bottom: 10px;
+        border-left: 5px solid #000;
+        border-bottom: 1px solid #ccc;
+      }
+
+      /* BOITES DE CODE / ALGOS COMPACTES */
+      .algo-box {
+        display: block;
+        border: 2px solid #333;
+        padding: 10px; /* Padding réduit */
+        margin: 5px 0;
+        background-color: #f4f4f4;
+        font-family: 'Courier Prime', monospace;
+        font-size: 9pt; /* Police réduite pour faire tenir le tout */
+        line-height: 1.2; /* Interligne réduit */
+        white-space: pre-wrap;
+        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+      }
+
+      /* BOITES QUESTIONS */
+      .box-reponse {
+        border: 1px solid #777;
+        padding: 10px;
+        margin: 10px 0;
+        background-color: #fff;
+      }
+      .question-line {
+        margin-bottom: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+      }
+      .dots {
+        border-bottom: 1px dotted #000;
+        flex-grow: 1;
+        margin-left: 10px;
+        height: 1em;
+      }
+
+      /* BANQUE DE MOTS */
+      .word-bank {
+        border: 2px dashed #000;
+        padding: 10px;
+        margin: 10px 0;
+        text-align: center;
+        font-weight: bold;
+        background-color: #e8f4f8;
+        font-family: 'Courier Prime', monospace;
+        font-size: 10pt;
+      }
+      .word-item {
+        display: inline-block;
+        margin: 4px 8px;
+        padding: 6px 10px;
+        background: #fff;
+        border: 1px solid #999;
+        border-radius: 4px;
+        box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+      }
+
+      /* PIED DE PAGE */
+      .footer-page {
+        margin-top: auto;
+        border-top: 1px solid #000;
+        padding-top: 5px;
+        font-size: 9pt;
+        display: flex;
+        justify-content: space-between;
+      }
+
+      /* BOUTON IMPRESSION */
+      .print-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        background: #d35400;
+        color: white;
+        border: 2px solid white;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        z-index: 9999;
+      }
+      @media print {
+        .print-btn {
+          display: none;
+        }
+        body {
+          padding: 0;
+          background: none;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button class="print-btn" onclick="window.print(); return false;">
+      🖨️ IMPRIMER L'ÉVALUATION (3 PAGES)
+    </button>
+
+    <div class="page">
+      <table class="header-table">
+        <tr>
+          <td style="width: 20%; text-align: center; border-bottom: 0">
+            <img
+              src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+              alt="Logo BTP"
+              class="logo-btp"
+            />
+          </td>
+          <td style="width: 60%; border-bottom: 0">
+            <span class="title-main">ÉVALUATION : ALGORITHMIQUE</span>
+            <span class="title-sub">Variables, Conditions & Devis</span>
+          </td>
+          <td style="width: 20%; border-bottom: 0">
+            <strong>Date :</strong><br />...../...../20.....
+          </td>
+        </tr>
+        <tr>
+          <td class="cell-note">
+            NOTE
+            <span class="note-val">/ 20</span>
+          </td>
+          <td colspan="2" style="padding: 15px; vertical-align: bottom">
+            <strong>NOM :</strong>
+            ........................... &nbsp;&nbsp;&nbsp;&nbsp;
+            <strong>Prénom :</strong>
+            ...........................
+          </td>
+        </tr>
+      </table>
+
+      <h2>EXERCICE 1 : ANALYSE DE DEVIS (Compréhension)</h2>
+      <p>
+        <strong>Contexte :</strong> Vous analysez un logiciel qui calcule le
+        prix d'un ravalement de façade. Le prix change selon la hauteur (besoin
+        d'échafaudage) et l'état du mur (besoin de nettoyage).
+      </p>
+
+      <pre class="algo-box" style="font-size: 10pt">
+ 1.  DEBUT
+ 2.  // Tarifs
+ 3.  PrixM2 prend la valeur 30
+ 4.  PrixEchafaudage prend la valeur 200
+ 5.  
+ 6.  // Saisie
+ 7.  Afficher "Surface (m2) ?"
+ 8.  Lire Surface
+ 9.  Afficher "Hauteur > 3m ? (1=Oui / 0=Non)"
+ 10. Lire HauteurRisque
+ 11. Afficher "Mur sale ? (1=Oui / 0=Non)"
+ 12. Lire EtatMur
+ 13.
+ 14. // Calcul de base
+ 15. TotalHT prend la valeur Surface * PrixM2
+ 16.
+ 17. // Option Echafaudage
+ 18. SI HauteurRisque == 1
+ 19. ALORS
+ 20.     TotalHT prend la valeur TotalHT + PrixEchafaudage
+ 21. FIN SI
+ 22.
+ 23. // Option Nettoyage (Si mur sale ET grande surface)
+ 24. SI EtatMur == 1
+ 25. ALORS
+ 26.     SI Surface > 50
+ 27.     ALORS
+ 28.         TotalHT prend la valeur TotalHT + 500
+ 29.     SINON
+ 30.         TotalHT prend la valeur TotalHT + 100
+ 31.     FIN SI
+ 32. FIN SI
+ 33. 
+ 34. Afficher "Prix Final : " + TotalHT
+ 35. FIN
+</pre
+      >
+
+      <div class="footer-page">
+        <div>BTP CFA - Mathématiques & Algo</div>
+        <div>Évaluation Algorithmique</div>
+        <div>Page 1/3</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>SUITE EXERCICE 1 : CALCULS</h2>
+      <p>
+        <strong>Consigne :</strong> En utilisant l'algorithme de la page 1,
+        calculez ce qui se passe pour les deux chantiers suivants.
+      </p>
+
+      <div class="box-reponse">
+        <strong>CHANTIER A : (Petit mur très sale)</strong><br />
+        <ul>
+          <li>Surface : <strong>40 m²</strong></li>
+          <li>Hauteur > 3m : <strong>Non (0)</strong></li>
+          <li>Mur Sale : <strong>Oui (1)</strong></li>
+        </ul>
+        <hr style="border: 0; border-top: 1px dashed #ccc" />
+
+        <div class="question-line">
+          1. Coût de base (Ligne 15) :
+          <div class="dots"></div>
+          €
+        </div>
+        <div class="question-line">
+          2. Le logiciel ajoute-t-il 200€ d'échafaudage ? (Oui/Non) :
+          <div class="dots"></div>
+        </div>
+        <div class="question-line">
+          3. Quel prix de nettoyage est ajouté ? (100€ ou 500€) :
+          <div class="dots"></div>
+          €
+        </div>
+        <div class="question-line" style="font-weight: bold; margin-top: 15px">
+          4. TOTAL FINAL AFFICHÉ :
+          <div class="dots"></div>
+          €
+        </div>
+      </div>
+
+      <div class="box-reponse">
+        <strong>CHANTIER B : (Grand immeuble sale)</strong><br />
+        <ul>
+          <li>Surface : <strong>100 m²</strong></li>
+          <li>Hauteur > 3m : <strong>Oui (1)</strong></li>
+          <li>Mur Sale : <strong>Oui (1)</strong></li>
+        </ul>
+        <hr style="border: 0; border-top: 1px dashed #ccc" />
+
+        <div class="question-line">
+          1. Coût de base (Ligne 15) :
+          <div class="dots"></div>
+          €
+        </div>
+        <div class="question-line">
+          2. Sous-total après échafaudage (Ligne 20) :
+          <div class="dots"></div>
+          €
+        </div>
+        <div class="question-line">
+          3. Quel prix de nettoyage est ajouté ? (100€ ou 500€) :
+          <div class="dots"></div>
+          €
+        </div>
+        <div class="question-line" style="font-weight: bold; margin-top: 15px">
+          4. TOTAL FINAL AFFICHÉ :
+          <div class="dots"></div>
+          €
+        </div>
+      </div>
+
+      <h2>EXERCICE 2 : LE CARRELAGE (Reconstruction)</h2>
+      <p>
+        <strong>Situation :</strong> Vous devez créer l'outil qui fait les devis
+        carrelage automatiquement.
+      </p>
+      <p><strong>Règles métier à respecter (Ordre logique) :</strong></p>
+      <ol>
+        <li>
+          Demander la <strong>Longueur</strong> et la <strong>Largeur</strong>.
+        </li>
+        <li>Calculer la <strong>Surface Réelle</strong> ($L \times l$).</li>
+        <li>
+          Calculer la <strong>Surface à Commander</strong> en ajoutant
+          <strong>10%</strong> de marge (Multiplier par 1,10).
+        </li>
+        <li>Calculer le <strong>Prix Total</strong> (Prix du $m^2$ = 20 €).</li>
+        <li>Vérifier si ça dépasse le <strong>Budget</strong> du client.</li>
+      </ol>
+      <p><em>Tournez la page pour voir le script à compléter...</em></p>
+
+      <div class="footer-page">
+        <div>BTP CFA - Mathématiques & Algo</div>
+        <div>Évaluation Algorithmique</div>
+        <div>Page 2/3</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>SUITE EXERCICE 2 : LE CODE À TROUS</h2>
+      <p>
+        <strong>Consigne :</strong> Il manque <strong>8 blocs</strong> dans le
+        code ci-dessous. Prenez les blocs dans la "Banque de pièces" (en bas) et
+        recopiez-les au bon endroit.
+      </p>
+
+      <pre class="algo-box">
+ DEBUT
+    // 1. Saisie des dimensions
+    Afficher "Entrez la Longueur :"
+    Lire Longueur
+    ......................................................................  <-- Trou 1
+    Lire Largeur
+
+    // 2. Calcul de la surface du sol
+    SurfaceReelle prend la valeur ........................................  <-- Trou 2
+
+    // 3. Ajout de la marge de 10% (Chutes et casses)
+    SurfaceCommande prend la valeur SurfaceReelle * 1.10
+
+    // 4. Calcul du prix (20 euros le m2)
+    PrixTotal prend la valeur ............................................  <-- Trou 3
+    
+    // 5. Vérification du budget
+    Afficher "Votre budget max ?"
+    ......................................................................  <-- Trou 4
+
+    // Si le prix est supérieur au budget...
+    SI ...................................................................  <-- Trou 5
+    ALORS
+         Afficher "Devis refusé : Trop cher !"
+         Afficher "Il manque " + (PrixTotal - Budget) + " euros."
+    ......................................................................  <-- Trou 6
+         Afficher "Devis accepté !"
+         Afficher "Montant à payer : " + .................................  <-- Trou 7
+    ......................................................................  <-- Trou 8
+ FIN
+</pre
+      >
+
+      <h3>BANQUE DE PIÈCES DÉTACHÉES</h3>
+      <p style="margin-top: 0">
+        <em
+          >Voici les 8 pièces à utiliser (Une seule fois chacune, pas de piège)
+          :</em
+        >
+      </p>
+
+      <div class="word-bank">
+        <span class="word-item">Lire Budget</span>
+        <span class="word-item">PrixTotal</span>
+        <span class="word-item">Afficher "Entrez la Largeur :"</span>
+        <span class="word-item">PrixTotal > Budget</span>
+        <span class="word-item">Longueur * Largeur</span>
+        <span class="word-item">FIN SI</span>
+        <span class="word-item">SurfaceCommande * 20</span>
+        <span class="word-item">SINON</span>
+      </div>
+
+      <div class="footer-page">
+        <div>BTP CFA - Mathématiques & Algo</div>
+        <div>Évaluation Algorithmique</div>
+        <div>Page 3/3</div>
+      </div>
+    </div>
+  </body>
+</html>

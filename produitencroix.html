@@ -1,0 +1,1062 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CAP Menuiserie - Produit en croix et tableau</title>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Oswald:wght@500;600;700&family=Kalam:wght@400&display=swap');
+
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        background: #5f6368;
+        color: #111;
+        font-size: 10pt;
+        line-height: 1.25;
+        padding: 18px;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      .print-btn {
+        position: fixed;
+        top: 18px;
+        right: 18px;
+        z-index: 9999;
+        background: #c65f00;
+        color: #fff;
+        border: 2px solid #fff;
+        border-radius: 4px;
+        padding: 9px 16px;
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.35);
+      }
+
+      .page {
+        width: 210mm;
+        height: 297mm;
+        background: #fff;
+        margin: 0 auto 18px auto;
+        padding: 10mm 12mm 11mm 12mm;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.35);
+        page-break-after: always;
+      }
+
+      .header-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #000;
+        margin-bottom: 8px;
+      }
+
+      .header-table td {
+        border: 1px solid #000;
+        padding: 4px 8px;
+        vertical-align: top;
+      }
+      .row-info td {
+        height: 28px;
+        font-weight: 700;
+        font-size: 9.4pt;
+        padding-top: 4px;
+      }
+
+      .logo-cell {
+        width: 25%;
+        padding: 4px !important;
+        text-align: center;
+        vertical-align: middle;
+        height: 68px;
+      }
+      .logo-btp {
+        max-width: 100%;
+        max-height: 58px;
+        height: auto;
+      }
+      .title-cell {
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .title-main {
+        display: block;
+        font-family: 'Oswald', sans-serif;
+        font-size: 14.5pt;
+        font-weight: 700;
+        text-transform: uppercase;
+        line-height: 1.05;
+        letter-spacing: 0.2px;
+      }
+
+      .title-sub {
+        display: block;
+        font-size: 10pt;
+        font-style: italic;
+        margin-top: 2px;
+      }
+
+      h2 {
+        font-family: 'Oswald', sans-serif;
+        font-size: 11.5pt;
+        font-weight: 700;
+        background: #22384d;
+        color: #fff;
+        padding: 6px 12px;
+        margin: 8px 0 6px 0;
+        border-left: 6px solid #f0c419;
+        line-height: 1.15;
+        letter-spacing: 0.2px;
+      }
+
+      h3 {
+        font-family: 'Oswald', sans-serif;
+        font-size: 10.5pt;
+        font-weight: 600;
+        color: #cf5a00;
+        margin: 8px 0 4px 0;
+        padding-bottom: 2px;
+        border-bottom: 1px solid #cf5a00;
+      }
+
+      h4 {
+        font-size: 10pt;
+        margin: 3px 0;
+      }
+      p {
+        margin: 3px 0;
+      }
+      ul {
+        margin: 3px 0;
+        padding-left: 18px;
+      }
+      li {
+        margin: 2px 0;
+      }
+
+      .intro-box {
+        background: #ededed;
+        border: 1px solid #000;
+        padding: 6px 10px;
+        margin-bottom: 6px;
+      }
+
+      .context-box {
+        border-left: 4px solid #27ae60;
+        background: #edf7f0;
+        padding: 6px 10px;
+        margin: 6px 0;
+        font-size: 9.5pt;
+        line-height: 1.3;
+      }
+
+      .warning-box {
+        border: 1.5px solid #a85ad4;
+        background: #faf5ff;
+        padding: 6px 10px;
+        margin: 6px 0;
+        border-radius: 4px;
+      }
+
+      .trace-ecrite {
+        border: 1.5px solid #d63b2d;
+        background: #fff7f5;
+        padding: 8px 10px;
+        margin: 8px 0;
+        border-radius: 4px;
+        position: relative;
+      }
+
+      .trace-ecrite::before {
+        content: 'À RETENIR';
+        position: absolute;
+        top: -11px;
+        left: 12px;
+        background: #c83b2d;
+        color: #fff;
+        font-family: 'Oswald', sans-serif;
+        font-size: 8.8pt;
+        padding: 1px 8px 2px 8px;
+      }
+
+      .grid-two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px;
+        margin-top: 6px;
+      }
+
+      .card {
+        border: 1px solid #7f8c8d;
+        border-radius: 6px;
+        padding: 6px 8px;
+        background: #fafafa;
+      }
+
+      .card-title {
+        font-family: 'Oswald', sans-serif;
+        font-size: 10pt;
+        font-weight: 600;
+        color: #22384d;
+        border-bottom: 1px solid #e0b400;
+        padding-bottom: 2px;
+        margin-bottom: 4px;
+      }
+
+      .method-panel {
+        margin: 12px 0 6px 0;
+        border: 2px solid #d63b2d;
+        border-radius: 5px;
+        background: #fff8f7;
+        padding: 12px 10px 8px 10px;
+        position: relative;
+      }
+
+      .method-label {
+        position: absolute;
+        top: -12px;
+        left: 14px;
+        background: #c83b2d;
+        color: #fff;
+        font-family: 'Oswald', sans-serif;
+        font-size: 9.2pt;
+        font-weight: 600;
+        padding: 2px 8px 2px 8px;
+        letter-spacing: 0.2px;
+      }
+
+      .step-box {
+        border: 1px solid #8aa1b5;
+        background: #f4f8fb;
+        padding: 5px 8px;
+        border-radius: 5px;
+        margin: 4px 0;
+      }
+
+      .table-compact {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 4px 0;
+        font-size: 9.2pt;
+      }
+      .table-compact th,
+      .table-compact td {
+        border: 1px solid #7c7c7c;
+        padding: 4px 6px;
+        vertical-align: middle;
+        text-align: center;
+      }
+      .table-compact th {
+        background: #eef1f4;
+        font-family: 'Oswald', sans-serif;
+        font-weight: 500;
+        height: 26px;
+      }
+      .table-compact td {
+        height: 26px;
+      }
+
+      .analysis-table th {
+        background: #e9f4ff;
+      }
+
+      /* Modifs pour gagner de la place : Flexbox pour le panel croix */
+      .cross-panel {
+        border: 1px solid #6ea3d8;
+        background: #eef6ff;
+        border-radius: 6px;
+        padding: 6px 12px;
+        margin: 6px 0;
+      }
+
+      .cross-title {
+        font-family: 'Oswald', sans-serif;
+        font-size: 10pt;
+        color: #22384d;
+        margin-bottom: 4px;
+      }
+
+      .cross-body {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
+
+      .cross-grid {
+        width: 170px;
+        margin: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto;
+        gap: 12px 35px;
+        position: relative;
+        text-align: center;
+        font-family: 'Oswald', sans-serif;
+        font-size: 14pt;
+        font-weight: 700;
+        color: #111;
+      }
+
+      .cross-grid::before {
+        content: '';
+        position: absolute;
+        left: 28px;
+        right: 28px;
+        top: 50%;
+        border-top: 2.5px solid #d95f02;
+        transform: rotate(32deg);
+        transform-origin: center;
+      }
+
+      .cross-grid::after {
+        content: '';
+        position: absolute;
+        left: 28px;
+        right: 28px;
+        top: 50%;
+        border-top: 2.5px solid #d95f02;
+        transform: rotate(-32deg);
+        transform-origin: center;
+      }
+
+      .cross-cell {
+        background: #fff;
+        border: 1px solid #8aa1b5;
+        border-radius: 4px;
+        padding: 4px 0;
+        position: relative;
+        z-index: 2;
+      }
+
+      .calc-box {
+        text-align: left;
+      }
+      .calc-line {
+        font-size: 9.5pt;
+        margin: 2px 0;
+      }
+
+      .exercise {
+        margin: 6px 0;
+        padding: 6px 8px;
+        border: 1px solid #bdbdbd;
+        border-radius: 5px;
+        background: #fcfcfc;
+      }
+      .exercise-title {
+        font-weight: 700;
+        margin-bottom: 3px;
+      }
+      .analysis-hint {
+        background: #e8f8f5;
+        border-left: 3px solid #1abc9c;
+        padding: 4px 8px;
+        font-size: 9pt;
+        margin: 4px 0;
+        font-style: italic;
+      }
+
+      .dotted-lines {
+        border-bottom: 1px dotted #000;
+        height: 16px;
+        margin-bottom: 2px;
+      }
+      .dotted-lines.large {
+        height: 20px;
+      }
+
+      .draw-zone {
+        border: 2px dashed #95a5a6;
+        height: 90px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #7f8c8d;
+        font-style: italic;
+        background: #fff;
+        margin: 6px 0;
+      }
+
+      .small {
+        font-size: 8.9pt;
+      }
+      .center {
+        text-align: center;
+      }
+
+      .pill {
+        display: inline-block;
+        padding: 1px 8px;
+        border: 1px solid #000;
+        border-radius: 999px;
+        background: #fff;
+        font-size: 8.5pt;
+        margin-right: 4px;
+      }
+
+      .footer-page {
+        position: absolute;
+        bottom: 7mm;
+        left: 12mm;
+        right: 12mm;
+        border-top: 1px solid #000;
+        padding-top: 4px;
+        font-size: 8.5pt;
+        display: flex;
+        justify-content: space-between;
+        background: #fff;
+      }
+
+      @media print {
+        body {
+          background: none;
+          padding: 0;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+        }
+        .print-btn {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <button class="print-btn" onclick="window.print();">
+      🖨️ IMPRIMER LE DOSSIER
+    </button>
+
+    <div class="page">
+      <table class="header-table">
+        <tr class="row-info">
+          <td>Nom :</td>
+          <td>Prénom :</td>
+          <td>Groupe :</td>
+          <td>Date :</td>
+        </tr>
+        <tr>
+          <td class="logo-cell">
+            <img
+              src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+              alt="Logo BTP CFA"
+              class="logo-btp"
+            />
+          </td>
+          <td colspan="3" class="title-cell">
+            <span class="title-main">MATHÉMATIQUES - CAP MENUISERIE</span>
+            <span class="title-sub"
+              >Produit en croix - comprendre le tableau et trouver la bonne
+              méthode</span
+            >
+          </td>
+        </tr>
+      </table>
+
+      <div class="intro-box">
+        <h4 style="margin-top: 0; text-decoration: underline">
+          OBJECTIFS DU DOSSIER
+        </h4>
+        <ul style="margin-bottom: 0">
+          <li>Comprendre quand utiliser un tableau de proportionnalité.</li>
+          <li>Repérer les deux grandeurs utiles dans un problème.</li>
+          <li>Placer correctement les données dans le tableau.</li>
+          <li>
+            Utiliser le produit en croix pour trouver la valeur manquante.
+          </li>
+          <li>Vérifier si le résultat obtenu est logique.</li>
+        </ul>
+      </div>
+
+      <div class="context-box">
+        <strong>Situation métier :</strong> en menuiserie, on compare souvent
+        deux informations qui vont ensemble : nombre de pièces et nombre de vis,
+        nombre de panneaux et temps de découpe, mesure sur le plan et mesure
+        réelle. Quand une valeur manque, le tableau aide à organiser les données
+        puis le produit en croix permet de calculer la case vide.
+      </div>
+
+      <h2>1. COMMENT ANALYSER LE PROBLÈME AVANT DE CALCULER ?</h2>
+
+      <div class="method-panel">
+        <div class="method-label">NOTICE FACILE À SUIVRE</div>
+        <div class="step-box">
+          <strong>Étape 1 :</strong> je lis l'énoncé et je repère
+          <strong>les deux grandeurs</strong>.
+        </div>
+        <div class="step-box">
+          <strong>Étape 2 :</strong> je me demande :
+          <strong>qu'est-ce qu'on compte ? qu'est-ce qu'on mesure ?</strong>
+        </div>
+        <div class="step-box">
+          <strong>Étape 3 :</strong> je donne un nom à chaque colonne.
+        </div>
+        <div class="step-box">
+          <strong>Étape 4 :</strong> je place ensemble les valeurs qui vont
+          ensemble sur la même ligne.
+        </div>
+        <div class="step-box">
+          <strong>Étape 5 :</strong> je repère la case vide (je mets un x) puis
+          je fais le produit en croix.
+        </div>
+        <div class="step-box">
+          <strong>Étape 6 :</strong> je vérifie le résultat : si la première
+          grandeur augmente, la seconde doit augmenter aussi.
+        </div>
+      </div>
+
+      <h3>Comment trouver les colonnes du tableau ?</h3>
+
+      <table class="table-compact analysis-table">
+        <tr>
+          <th style="width: 42%">Question à se poser</th>
+          <th>Ce que j'écris dans le tableau</th>
+        </tr>
+        <tr>
+          <td>De quoi parle la première information ?</td>
+          <td>Nom de la colonne 1</td>
+        </tr>
+        <tr>
+          <td>De quoi parle la deuxième information ?</td>
+          <td>Nom de la colonne 2</td>
+        </tr>
+        <tr>
+          <td>Quelles deux valeurs vont ensemble ?</td>
+          <td>Je les place sur la même ligne</td>
+        </tr>
+        <tr>
+          <td>Quelle valeur manque ?</td>
+          <td>Je note <strong>x</strong> dans la case vide</td>
+        </tr>
+      </table>
+
+      <div class="trace-ecrite">
+        Avant de faire un produit en croix, il faut d'abord construire le bon
+        tableau. Le plus important est donc d'identifier les deux grandeurs et
+        de placer sur la même ligne les valeurs qui vont ensemble.
+      </div>
+
+      <div class="warning-box">
+        <strong>Erreur fréquente :</strong> écrire les nombres trop vite sans
+        nommer les colonnes. Quand les colonnes sont mal choisies, le calcul
+        part dans la mauvaise direction.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Produit en croix - méthode</div>
+        <div>Page 1</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>2. SITUATION 1 - QUANTITÉ DE MATÉRIEL</h2>
+
+      <div class="context-box">
+        <strong>Exemple de situation :</strong> plus on fabrique de pièces, plus
+        il faut de matériel : vis, équerres, tasseaux, charnières...
+      </div>
+
+      <h3>Comment analyser le problème ?</h3>
+
+      <div class="grid-two">
+        <div class="card">
+          <div class="card-title">Ce que je lis</div>
+          <p>Pour 4 cadres, il faut 10 m de tasseaux.</p>
+          <p>Pour 6 cadres, il faut x m de tasseaux.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Ce que je comprends</div>
+          <p>
+            Je compare <strong>un nombre de cadres</strong> et
+            <strong>une longueur de tasseaux</strong>.
+          </p>
+          <p>Mes deux colonnes seront donc :</p>
+          <p>
+            <span class="pill">Cadres</span
+            ><span class="pill">Tasseaux (m)</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="cross-panel">
+        <div class="cross-title">Exemple guidé : Produit en croix</div>
+        <div class="cross-body">
+          <div class="cross-grid">
+            <div class="cross-cell">4</div>
+            <div class="cross-cell">10</div>
+            <div class="cross-cell">6</div>
+            <div class="cross-cell">x</div>
+          </div>
+          <div class="calc-box">
+            <div class="calc-line"><strong>x = (10 × 6) ÷ 4</strong></div>
+            <div class="calc-line">x = 60 ÷ 4 ➔ <strong>x = 15</strong></div>
+            <div class="calc-line">
+              Réponse : il faut <strong>15 m</strong> de tasseaux.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Applications - À toi de jouer !</h3>
+
+      <div class="exercise">
+        <div class="exercise-title">1) NIVEAU 1 : Remplis les nombres</div>
+        <p class="small">
+          Pour 2 tablettes, il faut 8 vis. Combien faut-il de vis pour 6
+          tablettes ?
+        </p>
+        <div class="analysis-hint">
+          Les colonnes sont déjà écrites, place les nombres au bon endroit.
+        </div>
+        <table class="table-compact">
+          <tr>
+            <th>Tablettes</th>
+            <th>Vis</th>
+          </tr>
+          <tr>
+            <td>.........</td>
+            <td>.........</td>
+          </tr>
+          <tr>
+            <td>.........</td>
+            <td>x</td>
+          </tr>
+        </table>
+        <div class="dotted-lines">Calcul :</div>
+        <div class="dotted-lines">Phrase réponse :</div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          2) NIVEAU 2 : Trouve le nom des colonnes
+        </div>
+        <p class="small">
+          Pour 5 meubles, il faut 15 équerres. Combien faut-il d'équerres pour 7
+          meubles ?
+        </p>
+        <div class="analysis-hint">
+          Lis l'énoncé : quelles sont les deux choses dont on parle ?
+        </div>
+        <table class="table-compact">
+          <tr>
+            <th>...............................</th>
+            <th>...............................</th>
+          </tr>
+          <tr>
+            <td>.........</td>
+            <td>.........</td>
+          </tr>
+          <tr>
+            <td>.........</td>
+            <td>x</td>
+          </tr>
+        </table>
+        <div class="dotted-lines">Calcul :</div>
+        <div class="dotted-lines">Phrase réponse :</div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">
+          3) NIVEAU 2 : Trouve le nom des colonnes
+        </div>
+        <p class="small">
+          Pour 3 portes de placard, il faut 12 charnières. Combien faut-il de
+          charnières pour 8 portes ?
+        </p>
+        <table class="table-compact">
+          <tr>
+            <th>...............................</th>
+            <th>...............................</th>
+          </tr>
+          <tr>
+            <td>.........</td>
+            <td>.........</td>
+          </tr>
+          <tr>
+            <td>.........</td>
+            <td>x</td>
+          </tr>
+        </table>
+        <div class="dotted-lines">Calcul :</div>
+        <div class="dotted-lines">Phrase réponse :</div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Quantité de matériel</div>
+        <div>Page 2</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>3. SITUATION 2 - TEMPS DE TRAVAIL</h2>
+
+      <div class="context-box">
+        <strong>Exemple de situation :</strong> plus il y a de pièces à
+        découper, à poncer ou à monter, plus il faut de temps.
+      </div>
+
+      <h3>Comment analyser le problème ?</h3>
+
+      <div class="grid-two">
+        <div class="card">
+          <div class="card-title">Ce que je lis</div>
+          <p>Pour 5 panneaux, il faut 15 minutes.</p>
+          <p>Pour 8 panneaux, il faut x minutes.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Ce que je comprends</div>
+          <p>
+            Je compare <strong>un nombre de panneaux</strong> et
+            <strong>une durée</strong>.
+          </p>
+          <p>Mes deux colonnes seront donc :</p>
+          <p>
+            <span class="pill">Panneaux</span
+            ><span class="pill">Temps (min)</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="cross-panel">
+        <div class="cross-title">Exemple guidé : Produit en croix</div>
+        <div class="cross-body">
+          <div class="cross-grid">
+            <div class="cross-cell">5</div>
+            <div class="cross-cell">15</div>
+            <div class="cross-cell">8</div>
+            <div class="cross-cell">x</div>
+          </div>
+          <div class="calc-box">
+            <div class="calc-line"><strong>x = (15 × 8) ÷ 5</strong></div>
+            <div class="calc-line">x = 120 ÷ 5 ➔ <strong>x = 24</strong></div>
+            <div class="calc-line">
+              Réponse : il faut <strong>24 minutes</strong>.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="trace-ecrite">
+        Dans ce type de problème, je repère d'abord
+        <strong>ce que l'on fait</strong> puis
+        <strong>le temps nécessaire</strong>.
+      </div>
+
+      <h3>Applications - NIVEAU 2</h3>
+
+      <div class="exercise">
+        <div class="exercise-title">1) Découpes et temps</div>
+        <p class="small">
+          Pour 3 pièces, il faut 9 minutes. Combien faut-il de minutes pour 7
+          pièces ?
+        </p>
+        <div class="analysis-hint">
+          Écris le nom des colonnes (ex: Pièces et Temps) puis remplis les
+          lignes.
+        </div>
+        <table class="table-compact">
+          <tr>
+            <th>...............................</th>
+            <th>...............................</th>
+          </tr>
+          <tr>
+            <td>.........</td>
+            <td>.........</td>
+          </tr>
+          <tr>
+            <td>.........</td>
+            <td>x</td>
+          </tr>
+        </table>
+        <div class="dotted-lines">Calcul :</div>
+        <div class="dotted-lines">Phrase réponse :</div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">2) Machine à l'atelier</div>
+        <p class="small">
+          Pour réaliser 4 rainures, il faut 12 minutes. Combien faut-il de
+          minutes pour 10 rainures ?
+        </p>
+        <table class="table-compact">
+          <tr>
+            <th>...............................</th>
+            <th>...............................</th>
+          </tr>
+          <tr>
+            <td>.........</td>
+            <td>.........</td>
+          </tr>
+          <tr>
+            <td>.........</td>
+            <td>x</td>
+          </tr>
+        </table>
+        <div class="dotted-lines">Calcul :</div>
+        <div class="dotted-lines">Phrase réponse :</div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">3) Ponçage des portes</div>
+        <p class="small">
+          Pour poncer 6 portes, il faut 18 minutes. Combien faut-il de minutes
+          pour 9 portes ?
+        </p>
+        <table class="table-compact">
+          <tr>
+            <th>...............................</th>
+            <th>...............................</th>
+          </tr>
+          <tr>
+            <td>.........</td>
+            <td>.........</td>
+          </tr>
+          <tr>
+            <td>.........</td>
+            <td>x</td>
+          </tr>
+        </table>
+        <div class="dotted-lines">Calcul :</div>
+        <div class="dotted-lines">Phrase réponse :</div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Temps de travail</div>
+        <div>Page 3</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>4. SITUATION 3 - PLAN ET MESURE RÉELLE</h2>
+
+      <div class="context-box">
+        <strong>Exemple de situation :</strong> sur un plan, une petite longueur
+        représente une vraie longueur plus grande. On compare donc la mesure sur
+        le plan et la mesure réelle.
+      </div>
+
+      <h3>Comment analyser le problème ?</h3>
+
+      <div class="grid-two">
+        <div class="card">
+          <div class="card-title">Ce que je lis</div>
+          <p>Sur le plan, 2 cm = 50 cm en vrai.</p>
+          <p>Sur le plan, 5 cm = x cm en vrai.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">Ce que je comprends</div>
+          <p>
+            Je compare <strong>une mesure sur le plan</strong> et
+            <strong>une mesure réelle</strong>.
+          </p>
+          <p>
+            <span class="pill">Plan (cm)</span
+            ><span class="pill">Réel (cm)</span>
+          </p>
+        </div>
+      </div>
+
+      <div class="cross-panel">
+        <div class="cross-title">Exemple guidé : Produit en croix</div>
+        <div class="cross-body">
+          <div class="cross-grid">
+            <div class="cross-cell">2</div>
+            <div class="cross-cell">50</div>
+            <div class="cross-cell">5</div>
+            <div class="cross-cell">x</div>
+          </div>
+          <div class="calc-box">
+            <div class="calc-line">
+              <strong>x = (50 × 5) ÷ 2</strong> ➔ x = 125
+            </div>
+            <div class="calc-line">
+              Réponse : la longueur réelle est <strong>125 cm</strong>.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Applications - Vers l'autonomie (NIVEAUX 2 et 3)</h3>
+
+      <div class="exercise">
+        <div class="exercise-title">1) NIVEAU 2 : Lecture de plan</div>
+        <p class="small">
+          Sur un plan, 3 cm représentent 60 cm en vrai. Que représentent 7 cm
+          sur ce plan ?
+        </p>
+        <table class="table-compact">
+          <tr>
+            <th>...............................</th>
+            <th>...............................</th>
+          </tr>
+          <tr>
+            <td>.........</td>
+            <td>.........</td>
+          </tr>
+          <tr>
+            <td>.........</td>
+            <td>x</td>
+          </tr>
+        </table>
+        <div class="dotted-lines">Calcul :</div>
+        <div class="dotted-lines">Phrase réponse :</div>
+      </div>
+
+      <div class="exercise">
+        <div class="exercise-title">2) NIVEAU 2 : Façade de meuble</div>
+        <p class="small">
+          Sur un croquis, 4 cm représentent 80 cm en vrai. Que représentent 10
+          cm ?
+        </p>
+        <table class="table-compact">
+          <tr>
+            <th>...............................</th>
+            <th>...............................</th>
+          </tr>
+          <tr>
+            <td>.........</td>
+            <td>.........</td>
+          </tr>
+          <tr>
+            <td>.........</td>
+            <td>x</td>
+          </tr>
+        </table>
+        <div class="dotted-lines">Calcul :</div>
+        <div class="dotted-lines">Phrase réponse :</div>
+      </div>
+
+      <div class="exercise" style="border-color: #27ae60; background: #f2fbf5">
+        <div class="exercise-title">
+          3) NIVEAU 3 : DESSINE TON PROPRE TABLEAU !
+        </div>
+        <p class="small">
+          Sur un plan, 5 cm représentent 100 cm en vrai. Quelle sera la taille
+          d'une fenêtre de 8 cm sur le plan ?
+        </p>
+        <div class="analysis-hint">
+          Il n'y a plus de modèle. Dessine tes colonnes et tes lignes dans le
+          cadre ci-dessous.
+        </div>
+
+        <div class="draw-zone"></div>
+
+        <div class="dotted-lines">Calcul :</div>
+        <div class="dotted-lines">Réponse :</div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Plan et mesure réelle</div>
+        <div>Page 4</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>5. FICHE SYNTHÈSE - COMMENT SAVOIR QUOI METTRE DANS LE TABLEAU ?</h2>
+
+      <div class="grid-two">
+        <div class="card">
+          <div class="card-title">SITUATION 1</div>
+          <p><strong>Quantité de matériel</strong></p>
+          <p>Exemples : vis, équerres, tasseaux, charnières</p>
+          <p><strong>Colonnes possibles :</strong></p>
+          <p>pièces / vis</p>
+          <p>cadres / tasseaux</p>
+          <p>portes / charnières</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">SITUATION 2</div>
+          <p><strong>Temps de travail</strong></p>
+          <p>Exemples : découpe, montage, ponçage</p>
+          <p><strong>Colonnes possibles :</strong></p>
+          <p>panneaux / minutes</p>
+          <p>découpes / minutes</p>
+          <p>portes / temps</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">SITUATION 3</div>
+          <p><strong>Plan et réalité</strong></p>
+          <p>Exemples : dessin, plan, échelle</p>
+          <p><strong>Colonnes possibles :</strong></p>
+          <p>plan / réel</p>
+          <p>dessin / vrai</p>
+          <p>cm sur plan / cm réels</p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">MÉTHODE GÉNÉRALE</div>
+          <p>1. Je lis le problème.</p>
+          <p>2. Je cherche les deux grandeurs.</p>
+          <p>3. Je nomme les deux colonnes.</p>
+          <p>4. Je place les valeurs sur la bonne ligne.</p>
+          <p>5. Je note x dans la case vide.</p>
+          <p>6. Je fais le produit en croix.</p>
+          <p>7. Je vérifie si le résultat est logique.</p>
+        </div>
+      </div>
+
+      <div class="method-panel">
+        <div class="method-label">PRODUIT EN CROIX</div>
+        <div class="cross-body" style="margin-top: 4px">
+          <div class="cross-grid" style="width: 150px; gap: 10px 30px">
+            <div class="cross-cell">a</div>
+            <div class="cross-cell">b</div>
+            <div class="cross-cell">c</div>
+            <div class="cross-cell">x</div>
+          </div>
+          <div class="calc-box" style="font-size: 11pt">
+            <strong>x = (b × c) ÷ a</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="warning-box">
+        <strong>À vérifier avant de calculer :</strong><br />
+        - Est-ce que j'ai bien trouvé les deux grandeurs ?<br />
+        - Est-ce que les bonnes valeurs sont sur la même ligne ?<br />
+        - Est-ce que j'ai mis x dans la bonne case ?<br />
+        - Est-ce que le résultat final paraît logique ? (Si on augmente les
+        pièces, le nombre de vis doit augmenter aussi !)
+      </div>
+
+      <div class="trace-ecrite">
+        Le vrai travail commence avant le calcul. Si le tableau est bien
+        construit, le produit en croix devient beaucoup plus simple.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Fiche synthèse</div>
+        <div>Page 5</div>
+      </div>
+    </div>
+  </body>
+</html>

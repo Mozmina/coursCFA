@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Notes personnelles de lecture - Réflexivité et pratique réflexive - M.
+      OZMINA
+    </title>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Kalam&display=swap');
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #525659;
+        margin: 0;
+        padding: 18px;
+        color: #000;
+        font-size: 10pt;
+        line-height: 1.28;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      .page {
+        width: 210mm;
+        height: 297mm;
+        padding: 10mm 12mm;
+        margin: 0 auto 18px auto;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        position: relative;
+        overflow: hidden;
+        page-break-after: always;
+      }
+
+      p {
+        margin: 6px 0;
+      }
+
+      ul {
+        margin: 6px 0;
+        padding-left: 18px;
+      }
+
+      li {
+        margin: 3px 0;
+      }
+
+      ol {
+        margin: 6px 0;
+      }
+
+      .print-btn {
+        position: fixed;
+        top: 18px;
+        right: 18px;
+        padding: 9px 16px;
+        background: #d35400;
+        color: white;
+        border: 2px solid white;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        z-index: 9999;
+      }
+
+      .header-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #000;
+        margin-bottom: 10px;
+      }
+
+      .header-table td {
+        border: 1px solid #000;
+        padding: 4px 8px;
+        vertical-align: top;
+      }
+
+      .row-info td {
+        height: 30px;
+        font-weight: bold;
+        font-size: 9.5pt;
+        padding-top: 5px;
+      }
+
+      .logo-cell {
+        width: 25%;
+        padding: 4px !important;
+        text-align: center;
+        vertical-align: middle;
+        height: 72px;
+      }
+
+      .logo-btp {
+        max-width: 100%;
+        height: auto;
+        max-height: 62px;
+      }
+
+      .title-cell {
+        text-align: center;
+        vertical-align: middle;
+        padding: 4px;
+      }
+
+      .title-main {
+        font-size: 15pt;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: block;
+        line-height: 1.1;
+      }
+
+      .title-sub {
+        font-size: 10.5pt;
+        font-style: italic;
+        display: block;
+        margin-top: 2px;
+      }
+
+      h2 {
+        font-size: 12pt;
+        background: #2c3e50;
+        color: white;
+        padding: 5px 10px;
+        margin-top: 10px;
+        margin-bottom: 7px;
+        border-left: 7px solid #f1c40f;
+      }
+
+      h3 {
+        font-size: 11pt;
+        color: #d35400;
+        border-bottom: 1px solid #d35400;
+        padding-bottom: 2px;
+        margin-top: 10px;
+        margin-bottom: 6px;
+      }
+
+      .hero-box {
+        border: 2px solid #2c3e50;
+        background: linear-gradient(135deg, #f8fbff 0%, #eef5fb 100%);
+        padding: 10px 12px;
+        margin: 10px 0;
+      }
+
+      .context-box {
+        border-left: 4px solid #27ae60;
+        background: #f0fff4;
+        padding: 6px 8px;
+        margin: 6px 0;
+        font-style: italic;
+        font-size: 9.5pt;
+      }
+
+      .trace-ecrite {
+        border: 2px solid #c0392b;
+        background: #fff5f5;
+        padding: 8px;
+        margin: 8px 0;
+        position: relative;
+        border-radius: 4px;
+      }
+
+      .trace-ecrite::before {
+        content: 'IDÉE DIRECTRICE';
+        position: absolute;
+        top: -10px;
+        left: 15px;
+        background: #c0392b;
+        color: white;
+        padding: 1px 8px;
+        font-weight: bold;
+        font-size: 9pt;
+      }
+
+      .calc-box {
+        border: 1px solid #2980b9;
+        background-color: #eaf2f8;
+        padding: 8px;
+        margin: 6px 0;
+        border-radius: 5px;
+      }
+
+      .plan-box {
+        border: 1px solid #8e44ad;
+        background: #f8f0ff;
+        padding: 8px;
+        margin: 8px 0;
+        border-radius: 5px;
+      }
+
+      .keyword-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 10px;
+        margin-top: 8px;
+      }
+
+      .keyword-card {
+        border: 1px solid #2c3e50;
+        padding: 8px;
+        border-radius: 6px;
+        background: #fcfcfc;
+      }
+
+      .keyword-card strong {
+        color: #2c3e50;
+      }
+
+      .author-link {
+        border-left: 5px solid #f39c12;
+        background: #fff9ef;
+        padding: 7px 9px;
+        margin: 6px 0;
+      }
+
+      .critical-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 10px;
+        margin-top: 8px;
+      }
+
+      .critical-card {
+        border: 1px solid #555;
+        padding: 8px;
+        background: #fafafa;
+        min-height: 110px;
+      }
+
+      .section-tag {
+        display: inline-block;
+        font-size: 8.8pt;
+        font-weight: bold;
+        background: #2c3e50;
+        color: white;
+        padding: 2px 7px;
+        border-radius: 20px;
+        margin-bottom: 4px;
+      }
+
+      .two-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 12px;
+      }
+
+      .small {
+        font-size: 9.2pt;
+      }
+
+      .quote-box {
+        border-left: 4px solid #34495e;
+        background: #f3f5f7;
+        padding: 8px;
+        margin: 7px 0;
+        font-style: italic;
+      }
+
+      .footer-page {
+        position: absolute;
+        bottom: 7mm;
+        left: 12mm;
+        right: 12mm;
+        border-top: 1px solid #000;
+        padding-top: 4px;
+        font-size: 8.5pt;
+        display: flex;
+        justify-content: space-between;
+        background: white;
+      }
+
+      .cover-grid {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        grid-gap: 14px;
+        margin-top: 14px;
+      }
+
+      .cover-card {
+        border: 1px solid #000;
+        padding: 10px;
+        background: #fff;
+      }
+
+      .cover-badge {
+        display: inline-block;
+        padding: 4px 8px;
+        font-weight: bold;
+        color: white;
+        background: #d35400;
+        margin-bottom: 6px;
+      }
+
+      @media print {
+        body {
+          padding: 0;
+          background: none;
+        }
+
+        .page {
+          margin: 0;
+          box-shadow: none;
+          border: none;
+          width: 210mm;
+          height: 297mm;
+        }
+
+        .print-btn {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <button class="print-btn" id="printBtn" onclick="window.print();">
+      🖨️ IMPRIMER LES NOTES DE LECTURE
+    </button>
+
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        const pages = document.querySelectorAll('.page').length;
+        const btn = document.getElementById('printBtn');
+        btn.textContent =
+          '🖨️ IMPRIMER LES NOTES DE LECTURE (' + pages + ' pages)';
+      });
+    </script>
+
+    <div class="page">
+      <table class="header-table">
+        <tr class="row-info">
+          <td>Nom :</td>
+          <td>Prénom :</td>
+          <td>Parcours :</td>
+          <td>Date :</td>
+        </tr>
+        <tr>
+          <td class="logo-cell">
+            <img
+              src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+              alt="Logo BTP CFA"
+              class="logo-btp"
+            />
+          </td>
+          <td colspan="3" class="title-cell">
+            <span class="title-main">NOTES PERSONNELLES DE LECTURE</span>
+            <span class="title-sub"
+              >Préparation à la licence professionnelle - Réflexivité et
+              pratique réflexive</span
+            >
+          </td>
+        </tr>
+      </table>
+
+      <div class="hero-box">
+        <h2 style="margin-top: 0">Finalité du document</h2>
+        <p>
+          Ce document est un <strong>support personnel de travail</strong>
+          destiné à m’aider à préparer la licence professionnelle. Il rassemble
+          deux fiches de lecture approfondies autour de la
+          <strong>réflexivité</strong> et de la
+          <strong>pratique réflexive</strong>, afin de mieux comprendre les
+          textes, leurs articulations internes, leurs références théoriques et
+          leurs enjeux pour la formation en alternance.
+        </p>
+        <p>
+          L’objectif n’est pas de produire un dossier formel, mais de disposer
+          d’un document clair, structuré et imprimable permettant de
+          <strong>relire rapidement les idées essentielles</strong>, de
+          retrouver les auteurs cités, et de préparer plus efficacement une
+          prise de parole, une discussion de cours ou un travail écrit.
+        </p>
+      </div>
+
+      <div class="cover-grid">
+        <div class="cover-card">
+          <div class="cover-badge">ARTICLE 1</div>
+          <h3 style="margin-top: 4px">
+            Astou Arnould -
+            <em>La réflexivité au cœur de la démarche apprenante</em>
+          </h3>
+          <p>
+            Cette fiche permet de comprendre comment l’autrice construit un lien
+            entre réflexivité, apprentissage expérientiel, formation des
+            apprentis, posture du formateur et professionnalisation du citoyen.
+          </p>
+          <p>
+            Elle met aussi en évidence les appuis théoriques du texte : Dewey,
+            Schön, Kolb, Vermersch, Le Boterf, Astolfi, Morin.
+          </p>
+        </div>
+
+        <div class="cover-card">
+          <div class="cover-badge">ARTICLE 2</div>
+          <h3 style="margin-top: 4px">
+            Bastien Wagener - <em>La pratique réflexive</em>
+          </h3>
+          <p>
+            Cette fiche aide à clarifier la définition de la pratique réflexive,
+            ses différentes formes, ses bénéfices, et la méthode proposée pour
+            analyser une expérience et la transformer en action améliorée.
+          </p>
+          <p>
+            Elle sert surtout de support de compréhension rapide, avec une
+            attention particulière portée au cheminement logique du texte.
+          </p>
+        </div>
+      </div>
+
+      <div class="trace-ecrite">
+        Fil conducteur personnel :
+        <strong
+          >m’approprier les textes au point de pouvoir les expliquer</strong
+        >, les relier à ma pratique de formateur, et mobiliser leurs concepts
+        dans le cadre de la licence professionnelle et de l’analyse réflexive.
+      </div>
+
+      <h2>Contenu du document</h2>
+      <div class="plan-box">
+        <ul style="margin: 0">
+          <li>Pages 2 à 8 : Lecture analytique - Article d’Astou Arnould</li>
+          <li>
+            Pages 9 à 14 : Lecture analytique - Article de Bastien Wagener
+          </li>
+          <li>Pages 15 à 16 : Mise en regard des deux textes</li>
+        </ul>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Préparation licence professionnelle</div>
+        <div>Page 1</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>Lecture analytique - Article 1</h2>
+
+      <div class="context-box">
+        <strong>Référence :</strong> Astou Arnould,
+        <em>La réflexivité au cœur de la démarche apprenante</em>. Le texte
+        appartient à un cadre CCCA-BTP et s’inscrit clairement dans une
+        réflexion sur la professionnalisation des formateurs et des apprentis.
+      </div>
+
+      <div class="trace-ecrite">
+        <strong>Thèse générale de l’article :</strong> la réflexivité possède un
+        pouvoir transformateur. Elle permet de faire émerger de nouveaux savoirs
+        et savoir-faire à partir de l’expérience, à condition que cette
+        expérience soit décrite, explicitée, analysée, explorée puis transférée
+        dans l’action future.
+      </div>
+
+      <h3>Cartographie de l’argumentation</h3>
+
+      <h3>Introduction reconstituée</h3>
+      <div class="calc-box">
+        <p>
+          Le texte s’ouvre par une affirmation forte : la réflexivité est un
+          <strong
+            >processus essentiel dans le développement du citoyen
+            éclairé</strong
+          >
+          et dans sa professionnalisation. L’autrice pose d’emblée quatre verbes
+          qui structurent son propos :
+          <strong>réfléchir, analyser, explorer, transférer</strong>. L’idée
+          n’est donc pas seulement de penser sur son action, mais d’en tirer des
+          apprentissages réutilisables.
+        </p>
+        <p>
+          Dès cette entrée, Arnould ancre la réflexivité dans une perspective
+          large : il ne s’agit pas seulement d’un outil de formation ponctuel,
+          mais d’un levier pour <strong>apprendre à apprendre</strong>, seul et
+          en groupe, tout au long de la vie.
+        </p>
+      </div>
+
+      <h3>Partie 1 - Fondements théoriques de la réflexivité</h3>
+      <div class="plan-box">
+        <p>
+          <strong>Thèse secondaire :</strong> la réflexivité n’est pas une mode
+          récente ; elle s’appuie sur une tradition solide en pédagogie et en
+          psychologie de l’apprentissage.
+        </p>
+        <p>
+          <strong>Argument principal :</strong> plusieurs auteurs majeurs
+          montrent que l’expérience ne devient formatrice qu’à condition d’être
+          reprise par la pensée.
+        </p>
+        <ul>
+          <li>
+            <strong>Dewey</strong> : l’expérience doit être interrogée par le
+            questionnement et l’hypothèse. Il montre que la pensée autonome naît
+            quand on ne subit plus simplement l’expérience, mais qu’on
+            l’examine.
+          </li>
+          <li>
+            <strong>Schön</strong> : il distingue la réflexion dans l’action et
+            sur l’action. Le professionnel compétent n’est pas seulement celui
+            qui agit, mais celui qui peut comprendre ce qu’il fait pendant et
+            après l’action.
+          </li>
+          <li>
+            <strong>Kolb</strong> : il structure l’apprentissage expérientiel en
+            cycle. L’expérience concrète n’est qu’une phase ; elle doit être
+            suivie d’observation réfléchie, de conceptualisation et de nouvelle
+            expérimentation.
+          </li>
+          <li>
+            <strong>Morin</strong> : l’enjeu est aussi de penser la complexité.
+            La réflexivité n’est pas qu’un retour technique sur un geste, c’est
+            une manière de mieux appréhender un monde mouvant et incertain.
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Notes personnelles - Article 1</div>
+        <div>Page 2</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>Lecture analytique - Article 1 (Suite)</h2>
+
+      <h3>Partie 2 - Faire parler son expérience</h3>
+      <div class="plan-box">
+        <p>
+          <strong>Thèse secondaire :</strong> la première étape du travail
+          réflexif consiste à rendre l’expérience dicible.
+        </p>
+        <p>
+          <strong>Argument principal :</strong> on ne peut analyser que ce qui a
+          été décrit avec précision.
+        </p>
+        <p>
+          Arnould insiste sur une série de déplacements : prendre conscience de
+          ses missions, de son contexte, de ses agissements, puis de ce que l’on
+          fait effectivement. L’exemple du formateur qui attribue tous les
+          problèmes à des apprentis perturbateurs est central : il montre qu’un
+          récit spontané peut rester accusateur et externe. Le questionnement
+          fait alors apparaître la part de responsabilité du formateur, par
+          exemple dans sa manière de vérifier la compréhension des consignes.
+        </p>
+        <p>
+          Cette partie sert de bascule : le texte passe d’une définition
+          générale de la réflexivité à une démonstration concrète de sa
+          nécessité dans l’analyse des pratiques.
+        </p>
+      </div>
+
+      <h3>Partie 3 - Du récit à l’apprentissage par explicitation</h3>
+      <div class="plan-box">
+        <p>
+          <strong>Thèse secondaire :</strong> raconter ne suffit pas ; le récit
+          doit être enrichi par un travail d’explicitation.
+        </p>
+        <p>
+          <strong>Argument principal :</strong> un tiers questionneur aide à
+          faire émerger l’implicite de l’action.
+        </p>
+        <p>
+          L’autrice montre que la narration doit porter sur des
+          <strong>faits observables</strong>, mais aussi sur les
+          <strong>émotions</strong> ressenties. La narration à chaud et à froid
+          permet de croiser deux temporalités : la proximité émotionnelle et la
+          prise de distance.
+        </p>
+        <p>
+          Le rôle du tiers est essentiel : il ne donne pas de solution, il
+          facilite la description. Cette idée s’appuie très clairement sur
+          <strong>Vermersch</strong> et l’entretien d’explicitation : l’action
+          est largement opaque pour celui qui agit. Le savoir pratique est
+          souvent préréfléchi, donc non immédiatement conscient. La coopération
+          et le questionnement sont ainsi présentés comme des moteurs de
+          conscientisation.
+        </p>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Notes personnelles - Article 1</div>
+        <div>Page 3</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>Lecture analytique - Article 1 (Suite)</h2>
+
+      <h3>
+        Partie 4 - Analyse, exploration et construction de nouveaux
+        apprentissages
+      </h3>
+      <div class="plan-box">
+        <p>
+          <strong>Thèse secondaire :</strong> l’analyse réflexive n’a de sens
+          que si elle débouche sur des explications, des solutions et des essais
+          nouveaux.
+        </p>
+        <p>
+          <strong>Argument principal :</strong> il faut mettre en relation les
+          éléments de la situation, confronter plusieurs ressources et
+          sélectionner les réponses les plus pertinentes.
+        </p>
+        <p>
+          Le texte fait ici un pas important : après la description et
+          l’explicitation, vient le moment d’<strong>analyser</strong>. Cette
+          analyse consiste à relier faits, émotions, intentions, contraintes et
+          résultats. Elle permet d’identifier à la fois ce qui a réussi et ce
+          qui a dysfonctionné.
+        </p>
+        <p>
+          Arnould invoque alors <strong>Le Boterf</strong> : le professionnel
+          attendu aujourd’hui est celui qui sait non seulement agir, mais
+          expliquer comment et pourquoi il agit. Le professionnalisme est donc
+          lié à la capacité d’explication de sa propre pratique.
+        </p>
+        <p>
+          Cette phase doit être interdisciplinaire : on mobilise ses
+          connaissances, on échange avec ses collègues, on compare, on
+          investigue, puis on synthétise. La réflexivité n’est pas présentée
+          comme un repli introspectif, mais comme une enquête sur son activité.
+        </p>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Notes personnelles - Article 1</div>
+        <div>Page 4</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>Lecture analytique - Article 1 (Suite)</h2>
+
+      <h3>Partie 5 - Transposition pédagogique vers les apprentis</h3>
+      <div class="plan-box">
+        <p>
+          <strong>Thèse secondaire :</strong> si les formateurs pratiquent
+          eux-mêmes la réflexivité, ils peuvent en faire une modalité
+          d’apprentissage pour les apprentis.
+        </p>
+        <p>
+          <strong>Argument principal :</strong> l’alternance fournit une matière
+          idéale, car elle articule situations vécues et formation.
+        </p>
+        <p>
+          C’est ici que le texte se déplace vers la pédagogie. Arnould montre
+          que le CCCA-BTP a déjà tenté une telle transposition via la
+          <strong>séquence professionnelle</strong>, inspirée du cycle de Kolb.
+          L’idée est de récupérer du vécu professionnel, de le mettre en mots,
+          de le confronter en sous-groupes, de chercher les difficultés
+          récurrentes, d’explorer des réponses et de rédiger les nouveaux
+          apprentissages.
+        </p>
+        <p>
+          Un point fort du texte est ici de montrer que la réflexivité ne
+          s’oppose pas à l’action. Elle la nourrit. On part d’une installation
+          concrète, comme celle d’une salle de bain, pour amener les apprentis à
+          verbaliser ce qu’ils ont fait, les difficultés rencontrées, les
+          solutions retenues et les expérimentations futures.
+        </p>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Notes personnelles - Article 1</div>
+        <div>Page 5</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>Lecture analytique - Article 1 (Suite)</h2>
+
+      <h3>Conclusion reconstituée</h3>
+      <div class="calc-box">
+        <p>
+          La conclusion élargit encore la portée du propos. La réflexivité
+          devient une <strong>posture au monde</strong>. Elle ne concerne plus
+          uniquement l’analyse de pratique professionnelle, mais une manière de
+          se regarder agir, de comprendre ses décisions, ses émotions, ses
+          interactions et leur impact sur le collectif.
+        </p>
+        <p>
+          En mobilisant la métaphore de Fernagu-Oudet, se regarder marcher tout
+          en marchant, l’autrice souligne que la distance réflexive permet une
+          vue plus globale. La formation vise alors à former des
+          <strong>professionnels citoyens</strong>, capables de justifier leurs
+          choix, de s’adapter, de contribuer au collectif et d’apprendre de
+          manière continue.
+        </p>
+      </div>
+
+      <h3>Le Pitch - 30 mots max</h3>
+      <div class="quote-box">
+        La réflexivité transforme l’expérience vécue en apprentissages nouveaux
+        et en pouvoir d’agir, pour former des professionnels capables d’analyser
+        leurs pratiques, d’évoluer et de contribuer au collectif.
+      </div>
+
+      <h3>Résumé analytique développé</h3>
+      <div class="calc-box">
+        <p>
+          Le texte progresse en cinq temps. D’abord, il affirme la valeur
+          fondatrice de la réflexivité pour apprendre et se professionnaliser.
+          Ensuite, il légitime cette idée par de grands auteurs de
+          l’apprentissage, afin de montrer que penser l’expérience est une
+          exigence théorique solide.
+        </p>
+        <p>
+          Puis il opère une première bascule concrète : pour réfléchir, il faut
+          d’abord raconter précisément ce qui s’est passé, en évitant les
+          jugements hâtifs. Cette description est ensuite approfondie grâce à
+          l’explicitation, avec l’aide d’un tiers qui aide à faire apparaître ce
+          qui restait implicite dans l’action.
+        </p>
+        <p>
+          À partir de là, l’autrice fait passer le lecteur de la compréhension à
+          la transformation : il ne suffit pas de prendre conscience, il faut
+          analyser, explorer, comparer, synthétiser et réinvestir dans une
+          situation future. Enfin, elle montre que cette logique peut devenir un
+          dispositif pédagogique en alternance et même une philosophie
+          professionnelle plus large.
+        </p>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Notes personnelles - Article 1</div>
+        <div>Page 6</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>Lecture analytique - Article 1 (Suite)</h2>
+
+      <h3>Boîte à outils conceptuelle</h3>
+      <div class="keyword-grid">
+        <div class="keyword-card">
+          <strong>Réflexivité</strong><br />
+          Capacité à revenir sur son action, ses pensées et ses émotions afin de
+          transformer l’expérience en connaissance, puis en action améliorée.
+        </div>
+        <div class="keyword-card">
+          <strong>Explicitation</strong><br />
+          Travail consistant à rendre conscient et verbalisable ce qui, dans
+          l’action, restait implicite, automatique ou préréfléchi.
+        </div>
+        <div class="keyword-card">
+          <strong>Apprentissage expérientiel</strong><br />
+          Idée selon laquelle l’expérience devient formatrice seulement si elle
+          est observée, analysée, conceptualisée puis réinvestie.
+        </div>
+        <div class="keyword-card">
+          <strong>Professionnel réflexif</strong><br />
+          Professionnel capable d’agir efficacement et de justifier, analyser et
+          transformer sa manière d’agir.
+        </div>
+        <div class="keyword-card">
+          <strong>Transfert</strong><br />
+          Réemploi de nouveaux savoirs et savoir-faire dans une situation
+          similaire ou proche, après analyse d’une situation passée.
+        </div>
+        <div class="keyword-card">
+          <strong>Professionnel citoyen</strong><br />
+          Figure finale visée par le texte : un acteur conscient, critique,
+          responsable et capable de contribuer au collectif.
+        </div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Notes personnelles - Article 1</div>
+        <div>Page 7</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>Lecture analytique - Article 1 (Fin)</h2>
+
+      <h3>Quand l’article cite d’autres auteurs : le lien à comprendre</h3>
+      <div class="author-link">
+        <strong>Dewey</strong> apporte le noyau philosophique : on n’apprend pas
+        par simple exposition au réel, mais par enquête, questionnement,
+        formulation d’hypothèses et retour critique sur l’expérience.
+      </div>
+      <div class="author-link">
+        <strong>Schön</strong> apporte le cadre professionnel : le praticien
+        compétent réfléchit dans l’action et sur l’action. Arnould s’appuie sur
+        lui pour montrer que la réflexivité n’est pas séparée du métier.
+      </div>
+      <div class="author-link">
+        <strong>Kolb</strong> apporte la structure cyclique : expérience,
+        observation réfléchie, conceptualisation, expérimentation nouvelle. Il
+        permet de penser la réflexivité comme un processus dynamique.
+      </div>
+      <div class="author-link">
+        <strong>Vermersch</strong> apporte la méthode de l’explicitation :
+        l’acteur ne sait pas toujours dire ce qu’il a réellement fait. Il faut
+        des questions précises pour accéder au savoir incorporé dans l’action.
+      </div>
+      <div class="author-link">
+        <strong>Le Boterf</strong> apporte le critère de compétence : être
+        professionnel, ce n’est pas seulement réussir, c’est aussi savoir
+        expliquer les raisons et les modalités de son action.
+      </div>
+      <div class="author-link">
+        <strong>Astolfi</strong> éclaire la place de l’erreur : elle n’est pas
+        seulement une faute à corriger, mais un point d’appui pour comprendre et
+        progresser.
+      </div>
+
+      <h3>Regard critique - préparation au cours</h3>
+      <div class="critical-grid">
+        <div class="critical-card">
+          <div class="section-tag">ÉTONNEMENT 1</div>
+          Le texte ne présente pas la réflexivité comme un simple outil
+          pédagogique, mais comme une manière de former le citoyen. Cela élargit
+          fortement sa portée par rapport à une vision strictement technique de
+          la formation.
+        </div>
+        <div class="critical-card">
+          <div class="section-tag">ÉTONNEMENT 2</div>
+          L’exemple du formateur montre que le problème ne réside pas toujours
+          chez les apprentis. Le travail réflexif oblige à déplacer le regard et
+          à interroger sa propre part dans la situation.
+        </div>
+        <div class="critical-card">
+          <div class="section-tag">ZONE D’OMBRE 1</div>
+          Comment faire entrer durablement des apprentis peu enclins à la
+          verbalisation dans une démarche réflexive sans la transformer en
+          exercice scolaire artificiel ?
+        </div>
+        <div class="critical-card">
+          <div class="section-tag">ZONE D’OMBRE 2</div>
+          Le texte valorise fortement la coopération et le tiers questionneur.
+          Mais quelles conditions institutionnelles sont nécessaires pour que ce
+          travail prenne réellement place dans le quotidien des centres ?
+        </div>
+      </div>
+
+      <h3>Interpellation - question d’ouverture</h3>
+      <div class="quote-box">
+        La réflexivité doit-elle être enseignée comme une compétence explicite
+        au même titre qu’un savoir professionnel, ou doit-elle rester un effet
+        secondaire d’une pédagogie bien pensée ?
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Notes personnelles - Article 1</div>
+        <div>Page 8</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>Lecture analytique - Article 2</h2>
+
+      <div class="context-box">
+        <strong>Référence :</strong> Bastien Wagener,
+        <em>La pratique réflexive</em>. Le texte est plus didactique et
+        procédural. Il vise à clarifier une démarche, à la distinguer d’autres
+        attitudes proches, et à fournir une méthode exploitable.
+      </div>
+
+      <div class="trace-ecrite">
+        <strong>Thèse générale de l’article :</strong> l’action brute ne suffit
+        pas pour progresser. Sans pauses réflexives, on risque de répéter les
+        mêmes schémas, de s’épuiser et de manquer ses objectifs. La pratique
+        réflexive augmente au contraire l’efficacité, la compréhension et les
+        apprentissages.
+      </div>
+
+      <h3>Cartographie de l’argumentation</h3>
+
+      <h3>Introduction reconstituée</h3>
+      <div class="calc-box">
+        <p>
+          Wagener part d’une opposition immédiatement parlante :
+          <strong>faire sans recul</strong> est aussi stérile que
+          <strong>réfléchir sans agir</strong>. Il critique l’enfermement dans
+          l’action pure, ce qu’il appelle en substance le fait de travailler
+          sans pause analytique. L’entrée dans le texte repose donc sur un enjeu
+          d’efficacité concrète.
+        </p>
+        <p>
+          Ce début prépare la suite : la pratique réflexive n’est pas un luxe ni
+          un supplément théorique, mais une condition pour éviter les obstacles,
+          corriger les trajectoires et mieux atteindre ses buts.
+        </p>
+      </div>
+
+      <h3>Partie 1 - Définir la pratique réflexive</h3>
+      <div class="plan-box">
+        <p>
+          <strong>Thèse secondaire :</strong> la pratique réflexive consiste à
+          problématiser son vécu pour en faire un matériau d’apprentissage.
+        </p>
+        <p>
+          <strong>Argument principal :</strong> il faut articuler données
+          objectives et données subjectives pour mieux comprendre une situation
+          et améliorer l’avenir.
+        </p>
+        <p>
+          L’auteur précise qu’il ne s’agit pas d’atteindre une objectivité
+          totale. Il s’agit plutôt de prendre conscience de ses présupposés, de
+          ses attentes, de ses réactions et de leurs liens avec les faits. C’est
+          en ce sens qu’il parle de se "décoller" du vécu.
+        </p>
+        <p>
+          Cette définition est intéressante car elle ne réduit pas la
+          réflexivité à une simple collecte de faits. Les émotions, sentiments,
+          hypothèses et perceptions ont aussi une valeur, à condition de ne pas
+          les confondre avec les faits eux-mêmes.
+        </p>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Notes personnelles - Article 2</div>
+        <div>Page 9</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>Lecture analytique - Article 2 (Suite)</h2>
+
+      <h3>Partie 2 - Distinguer les formes de réflexivité</h3>
+      <div class="plan-box">
+        <p>
+          <strong>Thèse secondaire :</strong> toute réflexivité n’a pas le même
+          statut ni la même temporalité.
+        </p>
+        <p>
+          <strong>Argument principal :</strong> il faut distinguer
+          l’autorégulation immédiate et la démarche plus complète de la pratique
+          réflexive.
+        </p>
+        <ul>
+          <li>
+            <strong>Réflexivité en action</strong> : ajustements en direct
+            pendant l’activité.
+          </li>
+          <li>
+            <strong>Réflexivité sur l’action</strong> : retour plus élaboré
+            après coup.
+          </li>
+          <li>
+            <strong>Réflexivité à chaud</strong> : proche de l’événement, plus
+            marquée par les émotions.
+          </li>
+          <li>
+            <strong>Réflexivité à froid</strong> : plus distante, plus claire,
+            plus stabilisée.
+          </li>
+        </ul>
+        <p>
+          Ce passage joue un rôle essentiel : il évite les confusions. L’auteur
+          montre que prendre du recul ne veut pas toujours dire s’installer dans
+          une longue séance d’analyse ; cela peut aussi être une
+          micro-régulation instantanée. Mais la vraie pratique réflexive, au
+          sens fort, suppose un travail plus construit.
+        </p>
+      </div>
+
+      <h3>Partie 3 - Les bénéfices de la pratique réflexive</h3>
+      <div class="plan-box">
+        <p>
+          <strong>Thèse secondaire :</strong> la pratique réflexive améliore les
+          apprentissages, les performances et la compréhension de soi comme de
+          son environnement.
+        </p>
+        <p>
+          <strong>Argument principal :</strong> les recherches montrent que
+          l’analyse délibérée de l’expérience permet de mieux intégrer ce qui a
+          été vécu.
+        </p>
+        <p>
+          L’article insiste sur une idée forte : accumuler de l’expérience ne
+          garantit pas le progrès. Une fois les premiers automatismes installés,
+          on peut stagner. Pour continuer à progresser, il faut organiser un
+          système d’analyse.
+        </p>
+        <p>
+          L’auteur prend des exemples parlants, comme le chirurgien ou
+          l’artisan, pour montrer que la répétition seule produit souvent les
+          mêmes résultats. La réflexivité permet alors d’ouvrir d’autres options
+          et d’éviter des erreurs inutiles, c’est-à-dire des erreurs qui
+          n’enseignent rien.
+        </p>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Notes personnelles - Article 2</div>
+        <div>Page 10</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>Lecture analytique - Article 2 (Suite)</h2>
+
+      <h3>Partie 4 - La méthode en 6 étapes</h3>
+      <div class="plan-box">
+        <p>
+          <strong>Thèse secondaire :</strong> la pratique réflexive peut être
+          rendue opératoire grâce à un cycle explicite.
+        </p>
+        <p>
+          <strong>Argument principal :</strong> une analyse efficace suit une
+          progression ordonnée allant des faits vers l’action transformée.
+        </p>
+        <ol style="margin: 6px 0 0 18px; padding-left: 15px">
+          <li>
+            <strong>Description des faits</strong> : établir le quoi, qui,
+            quand, où, sans interprétation.
+          </li>
+          <li>
+            <strong>Investigation de l’expérience subjective</strong> :
+            identifier sentiments, pensées, perceptions.
+          </li>
+          <li>
+            <strong>Analyse et évaluation</strong> : relier les éléments pour
+            comprendre ce qui s’est joué.
+          </li>
+          <li>
+            <strong>Exploration</strong> : examiner ce qui aurait pu être fait
+            autrement.
+          </li>
+          <li>
+            <strong>Synthèse et plans pour l’avenir</strong> : structurer les
+            leçons tirées.
+          </li>
+          <li>
+            <strong>Retour à l’action</strong> : concrétiser la réflexion dans
+            de nouvelles pratiques.
+          </li>
+        </ol>
+        <p>
+          La logique du texte est très claire ici : la réflexion n’est pas une
+          boucle fermée, elle doit obligatoirement revenir à l’action. Sans ce
+          retour, elle reste stérile.
+        </p>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Notes personnelles - Article 2</div>
+        <div>Page 11</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>Lecture analytique - Article 2 (Suite)</h2>
+
+      <h3>Conclusion reconstituée</h3>
+      <div class="calc-box">
+        <p>
+          Wagener conclut en rappelant que la pratique réflexive est à la fois
+          évidente et difficile. Évidente, car nous la mobilisons déjà parfois
+          spontanément. Difficile, car il faut apprendre à la conduire
+          régulièrement et rigoureusement.
+        </p>
+        <p>
+          La dernière idée est décisive : réfléchir n’est pas la fin du
+          processus. Le véritable critère de la pratique réflexive, c’est sa
+          capacité à produire des <strong>changements concrets</strong>.
+        </p>
+      </div>
+
+      <h3>Le Pitch - 30 mots max</h3>
+      <div class="quote-box">
+        La pratique réflexive transforme l’expérience en compréhension puis en
+        action améliorée, grâce à une méthode structurée qui évite la répétition
+        aveugle et soutient le progrès.
+      </div>
+
+      <h3>Résumé analytique développé</h3>
+      <div class="calc-box">
+        <p>
+          Le texte part d’un constat pragmatique : l’hyperactivité sans recul
+          conduit à l’inefficacité. Il définit ensuite la pratique réflexive
+          comme un travail sur le vécu, associant faits, émotions et
+          représentations, afin de prendre de la distance.
+        </p>
+        <p>
+          L’auteur consacre ensuite un moment important à clarifier les formes
+          de réflexivité, pour éviter les confusions entre ajustement immédiat,
+          analyse après coup, réflexion à chaud et réflexion à froid. Cette mise
+          au clair prépare l’argument suivant : la pratique réflexive a des
+          bénéfices réels, documentés par la recherche, sur les apprentissages,
+          la performance et la compréhension des situations.
+        </p>
+        <p>
+          Enfin, il propose une méthode précise. La structure du texte est donc
+          progressive :
+          <strong>problème</strong>, <strong>définition</strong>,
+          <strong>distinctions conceptuelles</strong>,
+          <strong>bénéfices</strong>, puis <strong>procédure d’action</strong>.
+        </p>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Notes personnelles - Article 2</div>
+        <div>Page 12</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>Lecture analytique - Article 2 (Suite)</h2>
+
+      <h3>Boîte à outils conceptuelle</h3>
+      <div class="keyword-grid">
+        <div class="keyword-card">
+          <strong>Pratique réflexive</strong><br />
+          Démarche structurée d’analyse du vécu visant l’apprentissage et
+          l’amélioration future de l’action.
+        </div>
+        <div class="keyword-card">
+          <strong>Réflexivité en action</strong><br />
+          Ajustement immédiat en situation, proche de l’autorégulation, pendant
+          que l’activité se déroule.
+        </div>
+        <div class="keyword-card">
+          <strong>Réflexivité sur l’action</strong><br />
+          Retour plus long et plus construit après l’événement, pour en tirer
+          des stratégies et des leçons durables.
+        </div>
+        <div class="keyword-card">
+          <strong>Réflexivité à chaud / à froid</strong><br />
+          Deux temporalités d’analyse : l’une encore traversée par l’émotion,
+          l’autre davantage stabilisée par la distance.
+        </div>
+        <div class="keyword-card">
+          <strong>Expérience subjective</strong><br />
+          Ensemble des pensées, émotions, perceptions et hypothèses associées à
+          la situation vécue.
+        </div>
+        <div class="keyword-card">
+          <strong>Retour à l’action</strong><br />
+          Étape finale et décisive : les apprentissages tirés de l’analyse
+          doivent être traduits en modifications concrètes de pratique.
+        </div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Notes personnelles - Article 2</div>
+        <div>Page 13</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>Lecture analytique - Article 2 (Fin)</h2>
+
+      <h3>Quand l’article cite d’autres travaux : le lien à comprendre</h3>
+      <div class="author-link">
+        <strong>Lawrence-Wilkes et Ashmore</strong> soutiennent l’idée du
+        praticien réflexif en formation professionnelle. Leur apport nourrit la
+        définition générale de la réflexivité comme démarche d’apprentissage.
+      </div>
+      <div class="author-link">
+        <strong>Di Stefano, Gino, Pisano et Staats</strong> servent à étayer
+        empiriquement l’idée que la réflexion améliore la performance : penser
+        son expérience aide à mieux apprendre.
+      </div>
+      <div class="author-link">
+        <strong>James Clear</strong> est mobilisé dans une logique de progrès :
+        répéter sans analyser fait stagner ; de petits ajustements réfléchis
+        peuvent produire des transformations significatives.
+      </div>
+      <div class="author-link">
+        <strong>Schippers, Homan et van Knippenberg</strong> permettent d’ouvrir
+        la réflexion aux équipes : la réflexivité n’est pas seulement
+        individuelle, elle peut améliorer l’apprentissage collectif.
+      </div>
+      <div class="author-link">
+        <strong>Bolton et Delderfield</strong> appuient l’idée que l’écriture et
+        la formalisation soutiennent le développement professionnel réflexif.
+      </div>
+      <div class="author-link">
+        <strong>Gibbs</strong> est présent en arrière-plan pour le cycle
+        réflexif. On retrouve chez Wagener une logique voisine : description,
+        émotions, analyse, conclusion, plan d’action.
+      </div>
+
+      <h3>Regard critique - préparation au cours</h3>
+      <div class="critical-grid">
+        <div class="critical-card">
+          <div class="section-tag">ÉTONNEMENT 1</div>
+          L’article montre que l’expérience répétée peut devenir un frein au
+          progrès si elle n’est jamais analysée. Cela va contre l’idée spontanée
+          selon laquelle l’ancienneté suffit à devenir meilleur.
+        </div>
+        <div class="critical-card">
+          <div class="section-tag">ÉTONNEMENT 2</div>
+          Le texte donne un statut positif aux émotions dans l’analyse. Elles ne
+          sont pas des parasites, mais des données à interpréter avec prudence.
+        </div>
+        <div class="critical-card">
+          <div class="section-tag">ZONE D’OMBRE 1</div>
+          Comment éviter qu’une pratique réflexive institutionnalisée se réduise
+          à un rituel formel ou bureaucratique, rempli sans véritable
+          approfondissement ?
+        </div>
+        <div class="critical-card">
+          <div class="section-tag">ZONE D’OMBRE 2</div>
+          La méthode en 6 étapes est claire, mais nécessite du temps et une
+          certaine culture de l’analyse. Comment la rendre accessible à des
+          publics peu familiers de la verbalisation de soi ?
+        </div>
+      </div>
+
+      <h3>Interpellation - question d’ouverture</h3>
+      <div class="quote-box">
+        Une organisation professionnelle devrait-elle réserver un temps
+        institutionnel à la pratique réflexive, ou bien cette démarche doit-elle
+        rester une responsabilité individuelle de chaque professionnel ?
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Notes personnelles - Article 2</div>
+        <div>Page 14</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>Mise en regard pour révision</h2>
+
+      <div class="trace-ecrite">
+        Les deux textes défendent une même idée de fond : on n’apprend pas
+        réellement de l’expérience si l’on ne prend pas le temps de la
+        questionner. Mais ils le font avec des focales différentes.
+      </div>
+
+      <div class="two-cols">
+        <div class="calc-box">
+          <h3 style="margin-top: 0">Ce que fait surtout Arnould</h3>
+          <ul>
+            <li>
+              Elle inscrit la réflexivité dans une visée éducative, citoyenne et
+              professionnalisante.
+            </li>
+            <li>
+              Elle insiste sur le passage de l’expérience vécue à
+              l’apprentissage, puis du formateur vers l’apprenti.
+            </li>
+            <li>
+              Elle mobilise de nombreux auteurs pour montrer que la réflexivité
+              forme un socle théorique robuste.
+            </li>
+            <li>
+              Elle montre que l’analyse réflexive peut devenir une modalité
+              pédagogique en alternance.
+            </li>
+          </ul>
+        </div>
+
+        <div class="calc-box">
+          <h3 style="margin-top: 0">Ce que fait surtout Wagener</h3>
+          <ul>
+            <li>Il clarifie le concept et ses distinctions internes.</li>
+            <li>
+              Il montre les bénéfices de manière plus pragmatique et appuyée par
+              la recherche.
+            </li>
+            <li>
+              Il outille la démarche à travers un cycle concret en 6 étapes.
+            </li>
+            <li>
+              Il insiste fortement sur le retour à l’action comme critère de
+              réussite de la réflexion.
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <h3>Points communs essentiels</h3>
+      <div class="plan-box">
+        <ul>
+          <li>
+            Les deux textes refusent l’opposition entre action et réflexion.
+          </li>
+          <li>
+            Les deux voient l’expérience comme une matière première, pas comme
+            une garantie d’apprentissage.
+          </li>
+          <li>
+            Les deux accordent une place aux émotions, à la subjectivité et à
+            leur articulation avec les faits.
+          </li>
+          <li>
+            Les deux textes pensent la réflexivité comme un processus orienté
+            vers la transformation des pratiques.
+          </li>
+        </ul>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Notes personnelles - Révision croisée</div>
+        <div>Page 15</div>
+      </div>
+    </div>
+
+    <div class="page">
+      <h2>Mise en regard pour révision (Fin)</h2>
+
+      <h3>Différences structurantes</h3>
+      <div class="plan-box">
+        <ul>
+          <li>
+            <strong>Arnould</strong> pense la réflexivité dans le cadre de la
+            formation en alternance et de la construction du professionnel
+            citoyen.
+          </li>
+          <li>
+            <strong>Wagener</strong> pense la pratique réflexive comme un outil
+            méthodique de progression individuelle et collective.
+          </li>
+          <li>
+            <strong>Arnould</strong> insiste davantage sur le rôle du tiers, de
+            l’explicitation et de la coopération.
+          </li>
+          <li>
+            <strong>Wagener</strong> insiste davantage sur la séquence
+            procédurale et l’efficacité de la démarche.
+          </li>
+        </ul>
+      </div>
+
+      <h3>Question de synthèse pour un cours ou un oral</h3>
+      <div class="quote-box">
+        Peut-on dire que la réflexivité est aujourd’hui une compétence
+        professionnelle à part entière, au même titre qu’un savoir technique,
+        dès lors qu’elle conditionne la capacité à apprendre, à s’adapter et à
+        justifier ses choix ?
+      </div>
+
+      <h3>Mini synthèse finale</h3>
+      <div class="calc-box small">
+        <p>
+          Au total, les deux articles se complètent très bien. Arnould donne une
+          profondeur théorique et pédagogique à la réflexivité. Wagener en
+          propose une grammaire plus directement actionnable. Lu ensemble, le
+          duo permet de comprendre à la fois <strong>pourquoi</strong> la
+          réflexivité est importante et <strong>comment</strong> on peut la
+          mettre en œuvre dans une pratique de formation ou de travail.
+        </p>
+        <p>
+          Pour une lecture de niveau expertise, ce point est central :
+          <strong>la réflexivité n’est pas une simple introspection</strong>.
+          C’est un processus rigoureux de mise en forme de l’expérience, orienté
+          vers l’apprentissage, la professionnalisation et la transformation
+          future de l’action.
+        </p>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Notes personnelles - Révision croisée</div>
+        <div>Page 16</div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,1220 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Conclusion - Ondes, Son et Lumiere (CAP) - M. OZMINA</title>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)'],
+          ],
+        },
+        svg: { fontCache: 'global' },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Kalam:wght@300;400;700&display=swap');
+
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #525659;
+        margin: 0;
+        padding: 20px;
+        color: #000;
+        font-size: 11pt;
+        line-height: 1.35;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      .toolbar {
+        position: fixed;
+        top: 18px;
+        right: 18px;
+        display: flex;
+        gap: 10px;
+        z-index: 9999;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+      }
+      .btn {
+        padding: 10px 14px;
+        background: #d35400;
+        color: #fff;
+        border: 2px solid #fff;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 800;
+        letter-spacing: 0.2px;
+        user-select: none;
+      }
+      .btn.secondary {
+        background: #2c3e50;
+      }
+      .btn.ghost {
+        background: #7f8c8d;
+      }
+      .badge-mode {
+        position: fixed;
+        top: 18px;
+        left: 18px;
+        z-index: 9999;
+        background: #ffffff;
+        border: 2px solid #000;
+        padding: 8px 10px;
+        border-radius: 8px;
+        font-weight: 900;
+        font-size: 10pt;
+      }
+
+      .page {
+        width: 210mm;
+        height: 297mm;
+        padding: 12mm 15mm;
+        padding-bottom: 26mm; /* reserve footer space */
+        margin: 0 auto 20px auto;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        position: relative;
+        overflow: hidden;
+        page-break-after: always;
+      }
+
+      /* Header */
+      .header-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #000;
+        margin-bottom: 12px;
+      }
+      .header-table td {
+        border: 1px solid #000;
+        padding: 5px 10px;
+        vertical-align: top;
+      }
+      .row-info td {
+        height: 35px;
+        font-weight: 800;
+        font-size: 10pt;
+        padding-top: 6px;
+      }
+      .logo-cell {
+        width: 25%;
+        padding: 5px !important;
+        text-align: center;
+        vertical-align: middle;
+        height: 78px;
+      }
+      .logo-btp {
+        max-width: 100%;
+        height: auto;
+        max-height: 68px;
+      }
+      .title-cell {
+        text-align: center;
+        vertical-align: middle;
+        padding: 5px;
+      }
+      .title-main {
+        font-size: 16pt;
+        font-weight: 900;
+        text-transform: uppercase;
+        display: block;
+      }
+      .title-sub {
+        font-size: 11pt;
+        font-style: italic;
+        display: block;
+        margin-top: 2px;
+      }
+
+      /* Titles */
+      h2 {
+        font-size: 13pt;
+        background: #2c3e50;
+        color: #fff;
+        padding: 6px 12px;
+        margin: 12px 0 8px 0;
+        border-left: 8px solid #f1c40f;
+      }
+      h3 {
+        font-size: 12pt;
+        color: #d35400;
+        border-bottom: 1px solid #d35400;
+        padding-bottom: 2px;
+        margin: 12px 0 6px 0;
+      }
+      .kalam {
+        font-family: 'Kalam', cursive;
+      }
+
+      /* Blocks */
+      .context-box {
+        border-left: 4px solid #27ae60;
+        background: #f0fff4;
+        padding: 8px;
+        margin: 8px 0;
+        font-style: italic;
+        font-size: 10pt;
+      }
+
+      .trace-ecrite {
+        border: 2px solid #c0392b;
+        background: #fff5f5;
+        padding: 12px 10px 10px 10px;
+        margin: 12px 0;
+        position: relative;
+        border-radius: 4px;
+      }
+      .trace-ecrite::before {
+        content: 'A RETENIR';
+        position: absolute;
+        top: -10px;
+        left: 15px;
+        background: #c0392b;
+        color: #fff;
+        padding: 1px 8px;
+        font-weight: 900;
+        font-size: 9pt;
+      }
+
+      .method-box {
+        border: 1px solid #7f8c8d;
+        background: #f7f7f7;
+        padding: 8px 10px;
+        border-radius: 6px;
+        margin: 8px 0 10px 0;
+        font-size: 10pt;
+      }
+      .method-box strong {
+        color: #2c3e50;
+      }
+
+      .calc-box {
+        border: 1px solid #2980b9;
+        background: #eaf2f8;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 6px;
+      }
+
+      /* Response zones */
+      .dotted-lines {
+        border-bottom: 1px dotted #000;
+        height: 22px;
+        margin-bottom: 4px;
+        width: 100%;
+      }
+      .inline-dots {
+        display: inline-block;
+        border-bottom: 1px dotted #000;
+        width: 180px;
+        transform: translateY(-2px);
+      }
+
+      /* Tables */
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 8px 0;
+        font-size: 10.5pt;
+      }
+      .data-table th,
+      .data-table td {
+        border: 1px solid #7f8c8d;
+        padding: 7px;
+        text-align: left;
+      }
+      .data-table th {
+        background-color: #ecf0f1;
+      }
+
+      /* Visual */
+      .img-container {
+        text-align: center;
+        margin: 10px 0 12px 0;
+      }
+      .caption {
+        font-size: 9pt;
+        color: #555;
+        font-style: italic;
+        margin-top: 6px;
+      }
+
+      /* Footer */
+      .footer-page {
+        position: absolute;
+        bottom: 10mm;
+        left: 15mm;
+        right: 15mm;
+        border-top: 1px solid #000;
+        padding-top: 5px;
+        font-size: 9pt;
+        display: flex;
+        justify-content: space-between;
+        background: #fff;
+      }
+
+      .small {
+        font-size: 10pt;
+      }
+
+      /* Sections visibility (screen) */
+      body.mode-revision .evaluation-section {
+        display: none;
+      }
+      body.mode-evaluation .revision-section {
+        display: none;
+      }
+
+      /* Print: only current mode prints */
+      @media print {
+        body {
+          padding: 0;
+          background: none;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+          border: none;
+          width: 210mm;
+          height: 297mm;
+        }
+        .toolbar,
+        .badge-mode {
+          display: none !important;
+        }
+        body.mode-revision .evaluation-section {
+          display: none !important;
+        }
+        body.mode-evaluation .revision-section {
+          display: none !important;
+        }
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="mode-revision">
+    <div class="badge-mode" id="modeBadge">MODE: REVISION</div>
+
+    <div class="toolbar">
+      <button class="btn secondary" onclick="setMode('revision')">
+        Afficher revision
+      </button>
+      <button class="btn secondary" onclick="setMode('evaluation')">
+        Afficher evaluation
+      </button>
+      <button class="btn" onclick="window.print(); return false;">
+        Imprimer
+      </button>
+      <button class="btn ghost" onclick="scrollToTop()">Haut de page</button>
+    </div>
+
+    <div class="revision-section">
+      <div class="page">
+        <table class="header-table">
+          <tr class="row-info">
+            <td style="width: 25%">Nom :</td>
+            <td style="width: 25%">Prenom :</td>
+            <td style="width: 25%">Groupe :</td>
+            <td style="width: 25%">Date :</td>
+          </tr>
+          <tr>
+            <td class="logo-cell">
+              <img
+                src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+                alt="Logo BTP CFA"
+                class="logo-btp"
+              />
+            </td>
+            <td colspan="3" class="title-cell">
+              <span class="title-main">SCIENCES PHYSIQUES (CAP)</span>
+              <span class="title-sub"
+                >Conclusion - Ondes, Son et Lumiere (revision)</span
+              >
+            </td>
+          </tr>
+        </table>
+
+        <div
+          style="
+            background: #eee;
+            padding: 14px;
+            border: 1px solid #000;
+            margin-bottom: 12px;
+          "
+        >
+          <div style="display: flex; gap: 16px; align-items: flex-start">
+            <div style="flex: 1">
+              <h4
+                style="
+                  margin: 0 0 8px 0;
+                  text-decoration: underline;
+                  font-weight: 900;
+                "
+              >
+                OBJECTIFS
+              </h4>
+              <ul style="margin: 0; padding-left: 18px">
+                <li>
+                  Reviser les notions utiles en situation professionnelle.
+                </li>
+                <li>Reussir les calculs essentiels (T, f, angles, dB).</li>
+                <li>Choisir des protections adaptees (audition, yeux).</li>
+              </ul>
+            </div>
+            <div style="width: 260px">
+              <h4
+                style="
+                  margin: 0 0 8px 0;
+                  text-decoration: underline;
+                  font-weight: 900;
+                "
+              >
+                TEMPS CONSEILLE
+              </h4>
+              <div class="small">
+                Lancement + EPI: 10 min<br />
+                Onde (T, f): 15 min<br />
+                Acoustique: 30 min<br />
+                Optique: 25 min<br />
+                Couleurs + bilan: 10 min
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h2>1) LANCEMENT CHANTIER - RISQUES ET PROTECTIONS (10 min)</h2>
+        <div class="context-box">
+          Sur un chantier, 4 situations se deroulent en meme temps: un niveau
+          laser est utilise pour aligner, une disqueuse decoupe du metal, un
+          poste a souder fonctionne, et une perceuse tourne dans un local ferme.
+        </div>
+
+        <h3>1.1 Recherche rapide</h3>
+        <p class="small">
+          Pour chaque situation, indique un risque principal et un moyen de
+          protection (EPI ou organisation).
+        </p>
+
+        <table class="data-table">
+          <tr>
+            <th>Situation</th>
+            <th>Risque (Son ou Lumière)</th>
+            <th>Protection</th>
+          </tr>
+          <tr>
+            <td>Niveau laser (faisceau)</td>
+            <td>........................................</td>
+            <td>........................................</td>
+          </tr>
+          <tr>
+            <td>Disqueuse - decoupe metal</td>
+            <td>........................................</td>
+            <td>........................................</td>
+          </tr>
+          <tr>
+            <td>Poste a souder</td>
+            <td>........................................</td>
+            <td>........................................</td>
+          </tr>
+          <tr>
+            <td>Perceuse en local ferme</td>
+            <td>........................................</td>
+            <td>........................................</td>
+          </tr>
+        </table>
+
+        <h3>1.2 Micro question</h3>
+        <p class="small">Donne 2 facteurs augmentant le risque du son.</p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+
+        <div class="footer-page">
+          <div>M. OZMINA</div>
+          <div>Conclusion - Revision</div>
+          <div>Revision - Page 1/8</div>
+        </div>
+      </div>
+
+      <div class="page">
+        <h2>2) ONDES - SIGNAL, PERIODE ET FREQUENCE (15 min)</h2>
+
+        <div class="img-container">
+          <svg
+            viewBox="0 0 900 320"
+            width="100%"
+            height="220"
+            aria-label="Signal periodique"
+          >
+            <rect x="0" y="0" width="900" height="320" fill="#fff"></rect>
+            <rect
+              x="60"
+              y="40"
+              width="780"
+              height="220"
+              fill="#fff"
+              stroke="#000"
+              stroke-width="1.2"
+            ></rect>
+
+            <g stroke="#c9c9c9" stroke-width="0.6">
+              <line x1="138" y1="40" x2="138" y2="260"></line>
+              <line x1="216" y1="40" x2="216" y2="260"></line>
+              <line x1="294" y1="40" x2="294" y2="260"></line>
+              <line x1="372" y1="40" x2="372" y2="260"></line>
+              <line x1="450" y1="40" x2="450" y2="260"></line>
+              <line x1="528" y1="40" x2="528" y2="260"></line>
+              <line x1="606" y1="40" x2="606" y2="260"></line>
+              <line x1="684" y1="40" x2="684" y2="260"></line>
+              <line x1="762" y1="40" x2="762" y2="260"></line>
+              <line x1="840" y1="40" x2="840" y2="260"></line>
+
+              <line x1="60" y1="95" x2="840" y2="95"></line>
+              <line x1="60" y1="150" x2="840" y2="150"></line>
+              <line x1="60" y1="205" x2="840" y2="205"></line>
+            </g>
+
+            <line
+              x1="60"
+              y1="150"
+              x2="840"
+              y2="150"
+              stroke="#000"
+              stroke-width="1.6"
+            ></line>
+            <line
+              x1="100"
+              y1="40"
+              x2="100"
+              y2="260"
+              stroke="#000"
+              stroke-width="1.6"
+            ></line>
+
+            <path
+              d="M100,150
+                 C140,75 180,75 220,150
+                 C260,225 300,225 340,150
+                 C380,75 420,75 460,150
+                 C500,225 540,225 580,150
+                 C620,75 660,75 700,150
+                 C740,225 780,225 820,150"
+              fill="none"
+              stroke="#2980b9"
+              stroke-width="4"
+            ></path>
+
+            <text x="850" y="156" font-size="14">temps</text>
+            <text x="100" y="30" font-size="14" text-anchor="middle">
+              signal
+            </text>
+          </svg>
+          <div class="caption">
+            Consigne: entoure un motif complet et indique la periode T (sans
+            correction sur la figure).
+          </div>
+        </div>
+
+        <h3>2.1 Questions</h3>
+        <p><strong>a)</strong> La periode T correspond au :</p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+
+        <div class="calc-box">
+          <strong>b)</strong> Si $T = 0{,}010\;s$, calcule la frequence $f$.
+          <div style="margin-top: 6px">
+            $f = \dfrac{1}{T} =$
+            <span class="inline-dots"></span> $ = $
+            <span class="inline-dots"></span> Hz
+          </div>
+        </div>
+
+        <div class="calc-box">
+          <strong>c)</strong> Un son se repete 1500 fois par seconde. Quelle est
+          sa frequence?
+          <div style="margin-top: 6px">
+            $f =$ <span class="inline-dots"></span> Hz
+          </div>
+        </div>
+
+        <div class="trace-ecrite">
+          <ul style="margin: 0; padding-left: 18px">
+            <li>Periode $T$: duree d'un motif (en secondes).</li>
+            <li>Frequence $f$: nombre de motifs par seconde (en Hz).</li>
+          </ul>
+          <div style="text-align: center; margin-top: 8px">
+            <strong>$f = \dfrac{1}{T}$</strong>
+          </div>
+        </div>
+
+        <div class="footer-page">
+          <div>M. OZMINA</div>
+          <div>Conclusion - Revision</div>
+          <div>Revision - Page 2/8</div>
+        </div>
+      </div>
+
+      <div class="page">
+        <h2>3) ACOUSTIQUE - FREQUENCE: GRAVE OU AIGU (10 min)</h2>
+
+        <h3>3.1 Classement</h3>
+        <p class="small">Coche la bonne case.</p>
+        <table class="data-table">
+          <tr>
+            <th>Frequence</th>
+            <th>Son grave</th>
+            <th>Son aigu</th>
+          </tr>
+          <tr>
+            <td>90 Hz</td>
+            <td style="width: 18%">□</td>
+            <td style="width: 18%">□</td>
+          </tr>
+          <tr>
+            <td>500 Hz</td>
+            <td>□</td>
+            <td>□</td>
+          </tr>
+          <tr>
+            <td>16 000 Hz</td>
+            <td>□</td>
+            <td>□</td>
+          </tr>
+        </table>
+
+        <h3>3.2 Interpretation</h3>
+        <p class="small">
+          <strong>Explique</strong> avec tes mots ce que signifie "frequence
+          elevee".
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+
+        <div class="trace-ecrite">
+          <ul style="margin: 0; padding-left: 18px">
+            <li>Frequence faible - son grave.</li>
+            <li>Frequence elevee - son aigu.</li>
+            <li>Plus $T$ est petite, plus $f$ est grande.</li>
+          </ul>
+        </div>
+
+        <div class="footer-page">
+          <div>M. OZMINA</div>
+          <div>Conclusion - Revision</div>
+          <div>Revision - Page 3/8</div>
+        </div>
+      </div>
+
+      <div class="page">
+        <h2>4) ACOUSTIQUE - NIVEAU SONORE EN dB (20 min)</h2>
+
+        <h3>4.1 Donnees (valeurs fournies)</h3>
+        <table class="data-table">
+          <tr>
+            <th>Lieu - situation</th>
+            <th>Niveau sonore</th>
+          </tr>
+
+          <tr>
+            <td>Decoupe metal (outil bruyant)</td>
+            <td>104 dB</td>
+          </tr>
+          <tr>
+            <td>Local calme (bureau)</td>
+            <td>45 dB</td>
+          </tr>
+
+          <tr>
+            <td>Atelier (bruit de fond)</td>
+            <td>89 dB</td>
+          </tr>
+          <tr>
+            <td>Rue avec circulation</td>
+            <td>76 dB</td>
+          </tr>
+        </table>
+
+        <h3>Questions</h3>
+        <p><strong>a)</strong> Classe du moins au plus bruyant:</p>
+        <div class="dotted-lines"></div>
+
+        <p>
+          <strong>b)</strong> A partir de quel niveau une exposition prolongee
+          devient dangereuse et la protection auditive devient obligatoire?
+          <span class="inline-dots"></span> dB
+        </p>
+
+        <h3>4.2 Idee d'echelle (3 dB)</h3>
+
+        <div class="calc-box">
+          <strong>Complete le tableau:</strong>
+          <table class="data-table" style="background: #fff; margin-top: 10px">
+            <tr>
+              <th>Nombre de ventilateurs</th>
+              <th>Niveau</th>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>79 dB</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>........ dB</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>........ dB</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="trace-ecrite">
+          <ul style="margin: 0; padding-left: 18px">
+            <li>Le niveau sonore se mesure en dB.</li>
+            <li>+3 dB correspond a environ 2 fois plus d'energie sonore.</li>
+          </ul>
+        </div>
+
+        <div class="footer-page">
+          <div>M. OZMINA</div>
+          <div>Conclusion - Revision</div>
+          <div>Revision - Page 4/8</div>
+        </div>
+      </div>
+
+      <div class="page">
+        <h2>5) OPTIQUE - SECURITE LASER (10 min)</h2>
+
+        <div class="context-box">
+          Un niveau laser sert a aligner. Le risque principal concerne les yeux,
+          surtout en vision directe ou par reflexion sur surface brillante.
+        </div>
+
+        <h3>5.1 Comportements</h3>
+        <p class="small">
+          <strong>a)</strong> Cite 2 comportements interdits avec un laser sur
+          chantier:
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+
+        <p class="small">
+          <strong>b)</strong> Donne de bons reflexes d'organisation :
+        </p>
+        <div class="dotted-lines"></div>
+
+        <h3>5.2 Protection</h3>
+        <p class="small">
+          Dans quels cas des lunettes adaptees au laser peuvent etre exigees?
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+
+        <div class="trace-ecrite">
+          <p style="margin: 0">
+            Le danger depend de la classe du laser. On evite toute vision
+            directe du faisceau et les reflets sur surfaces brillantes. On évite
+            aussi d'orienter le laser vers le ciel.
+          </p>
+        </div>
+
+        <div class="footer-page">
+          <div>M. OZMINA</div>
+          <div>Conclusion - Revision</div>
+          <div>Revision - Page 5/8</div>
+        </div>
+      </div>
+
+      <div class="page">
+        <h2>6) OPTIQUE - REFLEXION (10 min)</h2>
+
+        <div class="method-box">
+          <strong>Methode:</strong> L'angle de reflexion $r$ est egal a l'angle
+          d'incidence $i$. Donc <strong>$i = r$</strong>.
+        </div>
+
+        <div class="calc-box">
+          <p style="margin: 0 0 6px 0">
+            <strong>Exercice 1:</strong> $i = 50^{\circ}$.
+          </p>
+          
+          <strong>1)</strong> Fais un schema ci-dessous représentant la situation, en y faisant apparaître la normale.
+          <svg
+            viewBox="0 0 900 320"
+            width="100%"
+            height="250"
+            aria-label="Signal periodique"
+          >
+            <rect
+              x="60"
+              y="40"
+              width="780"
+              height="250"
+              fill="#fff"
+              stroke="#000"
+              stroke-width="1.2"
+            ></rect>
+
+          </svg>
+        </p>
+        <strong>2)</strong> Donne $r$.
+          </p>
+          <div class="dotted-lines"></div>
+          <p style="margin: 12px 0 6px 0">
+            <strong>Exercice 2:</strong> L'angle entre le rayon et la surface du
+            miroir est $20^{\circ}$. Trouve $i$ puis $r$.
+          </p>
+          <strong>1)</strong> Fais un schema ci-dessous représentant la situation, en y faisant apparaître la normale.
+          <svg
+            viewBox="0 0 900 320"
+            width="100%"
+            height="250"
+            aria-label="Signal periodique"
+          >
+            <rect
+              x="60"
+              y="40"
+              width="780"
+              height="250"
+              fill="#fff"
+              stroke="#000"
+              stroke-width="1.2"
+            ></rect>
+
+          </svg>
+        </p>
+        <strong>2)</strong> Donne $r$.
+          </p>
+          <div class="dotted-lines"></div>
+        </div>
+
+        <h3>Mini lien chantier</h3>
+        <p class="small">
+          Cite un exemple de surface qui peut provoquer un reflet intense sur
+          chantier.
+        </p>
+        <div class="dotted-lines"></div>
+
+        <div class="footer-page">
+          <div>M. OZMINA</div>
+          <div>Conclusion - Revision</div>
+          <div>Revision - Page 6/8</div>
+        </div>
+      </div>
+
+      <div class="page">
+        <h2>7) OPTIQUE - REFRACTION ET RAYONNEMENTS INVISIBLES (15 min)</h2>
+
+        <h3>7.1 Refraction (qualitatif)</h3>
+        <p class="small">
+          Quand un rayon passe de l'air vers l'eau (ou le verre), il se
+          rapproche de la normale.
+        </p>
+        
+        
+        <p><strong>1)</strong> Fais un schema ci-dessous représentant une réfraction air -> eau, en y faisant apparaître la normale.
+          <svg
+            viewBox="0 0 900 320"
+            width="100%"
+            height="250"
+            aria-label="Signal periodique"
+          >
+            <rect
+              x="60"
+              y="40"
+              width="780"
+              height="250"
+              fill="#fff"
+              stroke="#000"
+              stroke-width="1.2"
+            ></rect>
+
+          </svg></p>
+
+        <h3>7.2 UV et IR</h3>
+        <table class="data-table">
+          <tr>
+            <th>Rayonnement</th>
+            <th>Associer (Chaleur / Energie)</th>
+            <th>Protection</th>
+          </tr>
+          <tr>
+            <td>Infrarouge (IR)</td>
+            <td>........................................</td>
+            <td>........................................</td>
+          </tr>
+          <tr>
+            <td>Ultraviolet (UV)</td>
+            <td>........................................</td>
+            <td>........................................</td>
+          </tr>
+        </table>
+
+
+        <div class="footer-page">
+          <div>M. OZMINA</div>
+          <div>Conclusion - Revision</div>
+          <div>Revision - Page 7/8</div>
+        </div>
+      </div>
+
+      <div class="page">
+        <h2>8) COULEURS - SYNTHESE ADDITIVE ET BILAN (10 min)</h2>
+
+        <h3>8.1 Synthese additive (RVB)</h3>
+        <p class="small">Complete avec: cyan, magenta, jaune, blanc.</p>
+        <div style="border: 1px solid #999; padding: 10px; background: #fff">
+          <p style="margin: 6px 0">
+            Rouge + Vert = .....................................
+          </p>
+          <p style="margin: 6px 0">
+            Rouge + Bleu = .....................................
+          </p>
+          <p style="margin: 6px 0">
+            Bleu + Vert = .....................................
+          </p>
+          <p style="margin: 6px 0">
+            Rouge + Vert + Bleu = .............................
+          </p>
+        </div>
+
+        <h3>8.2 Bilan final (a completer)</h3>
+        <div
+          style="
+            background: #cccccc;
+            color: #000;
+            padding: 14px;
+            border-radius: 6px;
+            margin-top: 12px;
+          "
+        >
+          <div
+            class="kalam"
+            style="font-size: 13pt; font-weight: 900; color: #fff"
+          >
+            BILAN
+          </div>
+          <p style="line-height: 2; margin: 8px 0 0 0">
+            Une onde transporte de l'........................................<br />
+            La periode s'exprime en ........................................ et
+            la frequence en .........................................<br />
+            Le niveau sonore s'exprime en
+            ........................................ et la protection
+            auditive devient obligatoire a partir de
+            ........................................ dB.<br />
+            Loi de la reflexion: ........................................<br />
+            Les UV sont dangereux car ils sont liés à ........................................
+            et les IR sont lies a ........................................
+          </p>
+        </div>
+
+        <div class="footer-page">
+          <div>M. OZMINA</div>
+          <div>Conclusion - Revision</div>
+          <div>Revision - Page 8/8</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="evaluation-section">
+      <div class="page">
+        <table class="header-table">
+          <tr class="row-info">
+            <td style="width: 25%">Nom :</td>
+            <td style="width: 25%">Prenom :</td>
+            <td style="width: 25%">Groupe :</td>
+            <td style="width: 25%">Date :</td>
+          </tr>
+          <tr>
+            <td class="logo-cell">
+              <img
+                src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+                alt="Logo BTP CFA"
+                class="logo-btp"
+              />
+            </td>
+            <td colspan="3" class="title-cell">
+              <span class="title-main">CCF 2 (CAP)</span>
+              <span class="title-sub"
+                >Ondes, Son et Lumiere - Duree: 30 min</span
+              >
+            </td>
+          </tr>
+        </table>
+
+        <div
+          style="
+            background: #eee;
+            padding: 12px;
+            border: 1px solid #000;
+            margin-bottom: 12px;
+          "
+        >
+          <strong>Consignes:</strong> reponds proprement, indique les unites, et
+          une justification courte quand c'est demande.
+        </div>
+
+        <h2>EXERCICE 1 - SIGNAL, PERIODE, FREQUENCE</h2>
+        <p class="small">
+          Un signal periodique a une periode $T = 10s$.
+          <div style="text-align: center; margin-top: 8px">
+          <strong>$f = \dfrac{1}{T}$</strong>
+        </div>
+        </p>
+        
+
+        <p><strong>1)</strong> Calcule la frequence $f$.</p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+
+        <p>
+          <strong>2)</strong> En une phrase, explique ce que signifie "frequence
+          elevee".
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+
+        <h2>EXERCICE 2 - ACOUSTIQUE ET SECURITE</h2>
+        <table class="data-table">
+          <tr>
+            <th>Situation</th>
+            <th>Niveau</th>
+          </tr>
+          <tr>
+            <td>Atelier (bruit de fond)</td>
+            <td>88 dB</td>
+          </tr>
+          <tr>
+            <td>Decoupe metal</td>
+            <td>103 dB</td>
+          </tr>
+          <tr>
+            <td>Local calme</td>
+            <td>45 dB</td>
+          </tr>
+        </table>
+
+        <p><strong>1)</strong> Classe du moins au plus bruyant.</p>
+        <div class="dotted-lines"></div>
+
+        <p>
+          <strong>2)</strong> Indique si une protection auditive est a prevoir:
+        </p>
+        <table class="data-table">
+          <tr>
+            <th>Situation</th>
+            <th>Protection auditive?</th>
+            <th>Justification (1 idee)</th>
+          </tr>
+          <tr>
+            <td>Atelier (88 dB)</td>
+            <td>□ Oui □ Non</td>
+            <td>........................................</td>
+          </tr>
+          <tr>
+            <td>Ventilateur (79 dB)</td>
+            <td>□ Oui □ Non</td>
+            <td>........................................</td>
+          </tr>
+        </table>
+
+        <p class="small">
+          <p><strong>3)</strong> Si 1 ventilateur fait 79 dB, combien feront 2
+          ventilateurs? </p>
+          <span class="inline-dots"></span> dB
+        </p>
+
+        <div class="footer-page">
+          <div>M. OZMINA</div>
+          <div>CCF - Ondes, Son et Lumiere</div>
+          <div>CCF - Page 1/2</div>
+        </div>
+      </div>
+
+      <div class="page">
+        <h2>EXERCICE 3 - OPTIQUE: REFLEXION ET REFRACTION</h2>
+
+        <p>
+          L'angle entre le rayon et la surface du
+            miroir est $20^{\circ}$. Trouve $i$ puis $r$.
+        </p>
+        <p  class="small"> 
+        <strong>1)</strong> Fais un schema ci-dessous représentant la situation, en y faisant apparaître la normale.
+          <svg
+            viewBox="0 0 900 320"
+            width="100%"
+            height="250"
+            aria-label="Signal periodique"
+          >
+            <rect
+              x="60"
+              y="40"
+              width="780"
+              height="250"
+              fill="#fff"
+              stroke="#000"
+              stroke-width="1.2"
+            ></rect>
+
+          </svg>
+          <strong>2)</strong> Donne l'angle d'incidence $i$ puis celui de reflexion $r$.
+        <div class="dotted-lines"></div>
+        </p>
+        <p class="small">
+          <strong>2)</strong> Un rayon passe de l'air vers l'eau. Le rayon
+          refracte se rapproche-t-il de la normale? □ Oui □ Non
+        </p>
+
+        <p class="small">
+          <strong>3)</strong> En une phrase, explique pourquoi.
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+
+        <h2>EXERCICE 4 - LUMIERE: UV, IR, COULEURS</h2>
+
+        <table class="data-table">
+          <tr>
+            <th>Rayonnement</th>
+            <th>Associer</th>
+          </tr>
+          <tr>
+            <td>UV</td>
+            <td>□ chaleur □ énergie</td>
+          </tr>
+          <tr>
+            <td>IR</td>
+            <td>□ chaleur □ énergie</td>
+          </tr>
+        </table>
+
+        <h2>EXERCICE 5 - Signal</h2>
+        <p>
+        Encadrer/Surligner un motif complet et indique la periode T.
+      </p>
+      <svg
+            viewBox="0 0 900 320"
+            width="100%"
+            height="220"
+            aria-label="Signal periodique"
+          >
+            <rect x="0" y="0" width="900" height="320" fill="#fff"></rect>
+            <rect
+              x="60"
+              y="40"
+              width="780"
+              height="220"
+              fill="#fff"
+              stroke="#000"
+              stroke-width="1.2"
+            ></rect>
+
+            <g stroke="#c9c9c9" stroke-width="0.6">
+              <line x1="138" y1="40" x2="138" y2="260"></line>
+              <line x1="216" y1="40" x2="216" y2="260"></line>
+              <line x1="294" y1="40" x2="294" y2="260"></line>
+              <line x1="372" y1="40" x2="372" y2="260"></line>
+              <line x1="450" y1="40" x2="450" y2="260"></line>
+              <line x1="528" y1="40" x2="528" y2="260"></line>
+              <line x1="606" y1="40" x2="606" y2="260"></line>
+              <line x1="684" y1="40" x2="684" y2="260"></line>
+              <line x1="762" y1="40" x2="762" y2="260"></line>
+              <line x1="840" y1="40" x2="840" y2="260"></line>
+
+              <line x1="60" y1="95" x2="840" y2="95"></line>
+              <line x1="60" y1="150" x2="840" y2="150"></line>
+              <line x1="60" y1="205" x2="840" y2="205"></line>
+            </g>
+
+            <line
+              x1="60"
+              y1="150"
+              x2="840"
+              y2="150"
+              stroke="#000"
+              stroke-width="1.6"
+            ></line>
+            <line
+              x1="100"
+              y1="40"
+              x2="100"
+              y2="260"
+              stroke="#000"
+              stroke-width="1.6"
+            ></line>
+
+            <path
+              d="M100,150
+                 C140,75 180,75 220,150
+                 C260,225 300,225 340,150
+                 C380,75 420,75 460,150
+                 C500,225 540,225 580,150
+                 C620,75 660,75 700,150
+                 C740,225 780,225 820,150"
+              fill="none"
+              stroke="#2980b9"
+              stroke-width="4"
+            ></path>
+
+            <text x="850" y="156" font-size="14">temps</text>
+            <text x="100" y="30" font-size="14" text-anchor="middle">
+              signal
+            </text>
+          </svg>
+        <div class="footer-page">
+          <div>M. OZMINA</div>
+          <div>CCF - Ondes, Son et Lumiere</div>
+          <div>CCF - Page 2/2</div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function setMode(mode) {
+        const body = document.body;
+        const badge = document.getElementById('modeBadge');
+
+        if (mode === 'evaluation') {
+          body.classList.remove('mode-revision');
+          body.classList.add('mode-evaluation');
+          badge.textContent = 'MODE: EVALUATION';
+          document.title =
+            'Evaluation - Ondes, Son et Lumiere (CAP) - M. OZMINA';
+          scrollToTop();
+          return;
+        }
+
+        body.classList.remove('mode-evaluation');
+        body.classList.add('mode-revision');
+        badge.textContent = 'MODE: REVISION';
+        document.title = 'Conclusion - Ondes, Son et Lumiere (CAP) - M. OZMINA';
+        scrollToTop();
+      }
+
+      function scrollToTop() {
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+      }
+    </script>
+  </body>
+</html>

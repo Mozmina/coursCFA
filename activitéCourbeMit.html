@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Fiche d'Intervention - Thermica Services</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Kalam:wght@400&family=Courier+Prime&family=Montserrat:wght@700;900&display=swap');
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #525659;
+        font-size: 9pt;
+        color: #222;
+        line-height: 1.4;
+      }
+      .page {
+        width: 210mm;
+        height: 297mm;
+        padding: 12mm;
+        margin: 10px auto;
+        background: #fff;
+        position: relative;
+        overflow: hidden;
+        page-break-after: always;
+        display: flex;
+        flex-direction: column;
+        border: 1px solid #000;
+      }
+
+      .corp-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 3px solid #0b2a7a;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+      }
+      .logo-area h1 {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 24pt;
+        color: #0b2a7a;
+        margin: 0;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .logo-area p {
+        margin: 0;
+        font-weight: bold;
+        font-size: 8.5pt;
+        color: #555;
+        letter-spacing: 2px;
+      }
+      .doc-type {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16pt;
+        font-weight: 900;
+        text-align: right;
+        background: #0b2a7a;
+        color: white;
+        padding: 8px 15px;
+        border-radius: 4px;
+      }
+
+      .meta-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+      }
+      .meta-table th,
+      .meta-table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+      }
+      .meta-table th {
+        background: #f4f4f4;
+        width: 20%;
+        font-size: 8pt;
+        text-transform: uppercase;
+        color: #555;
+      }
+      .meta-table td {
+        font-weight: bold;
+        font-size: 9.5pt;
+      }
+
+      .section-title {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 12pt;
+        color: #0b2a7a;
+        border-bottom: 2px solid #eee;
+        padding-bottom: 5px;
+        margin: 20px 0 10px 0;
+        text-transform: uppercase;
+      }
+      .box-grey {
+        background: #f9f9f9;
+        padding: 15px;
+        border-left: 4px solid #0b2a7a;
+        margin-bottom: 15px;
+      }
+
+      .graph-container {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        margin-top: 15px;
+        padding: 10px;
+        position: relative;
+      }
+      .y-axis-label {
+        position: absolute;
+        top: -15px;
+        left: -10px;
+        font-weight: bold;
+        font-size: 8.5pt;
+        color: #000;
+      }
+      .x-axis-label {
+        position: absolute;
+        bottom: -20px;
+        right: 0;
+        font-weight: bold;
+        font-size: 8.5pt;
+        color: #000;
+      }
+      .graph-wrapper {
+        position: relative;
+        flex-grow: 1;
+        margin: 20px 20px 30px 40px;
+      }
+
+      .graph-grid {
+        width: 100%;
+        height: 100%;
+        background-color: #fff;
+        background-image: linear-gradient(to right, #888 1px, transparent 1px),
+          linear-gradient(to top, #888 1px, transparent 1px),
+          linear-gradient(to right, #e0e0e0 1px, transparent 1px),
+          linear-gradient(to top, #e0e0e0 1px, transparent 1px);
+        background-size: 50px 100%, 100% 50px, 10px 100%, 100% 10px;
+        background-position: left bottom;
+        border-left: 2px solid #000;
+        border-bottom: 2px solid #000;
+      }
+      .graph-grid::before {
+        content: '▲';
+        position: absolute;
+        top: -12px;
+        left: -6px;
+        font-size: 10px;
+        color: #000;
+      }
+      .graph-grid::after {
+        content: '▶';
+        position: absolute;
+        bottom: -6px;
+        right: -12px;
+        font-size: 10px;
+        color: #000;
+      }
+
+      .grad-origin {
+        position: absolute;
+        bottom: -15px;
+        left: -10px;
+        font-size: 8pt;
+        font-weight: bold;
+      }
+      .grad-x1 {
+        position: absolute;
+        bottom: -15px;
+        left: 47px;
+        font-size: 8pt;
+        font-weight: bold;
+      }
+      .grad-x2 {
+        position: absolute;
+        bottom: -15px;
+        left: 97px;
+        font-size: 8pt;
+        font-weight: bold;
+      }
+      .grad-y1 {
+        position: absolute;
+        bottom: 43px;
+        left: -20px;
+        font-size: 8pt;
+        font-weight: bold;
+      }
+      .grad-y2 {
+        position: absolute;
+        bottom: 93px;
+        left: -20px;
+        font-size: 8pt;
+        font-weight: bold;
+      }
+
+      .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 10px;
+        text-align: center;
+      }
+      .data-table th,
+      .data-table td {
+        border: 1px solid #000;
+        padding: 8px;
+        font-size: 10pt;
+      }
+      .data-table th {
+        background: #eee;
+        font-weight: bold;
+      }
+      .handwritten {
+        font-family: 'Kalam', cursive;
+        color: #c0392b;
+        font-size: 11pt;
+        background: #ffebee;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ffcdd2;
+        transform: rotate(-1deg);
+        margin-top: 10px;
+      }
+
+      .tech-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
+      .tech-box {
+        border: 1px solid #ccc;
+        padding: 15px;
+        position: relative;
+      }
+      .mini-title {
+        font-weight: 900;
+        text-transform: uppercase;
+        font-size: 8.5pt;
+        color: #333;
+        margin-bottom: 8px;
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 4px;
+      }
+
+      /* Zone de rédaction guidée */
+      .drafting-box {
+        background: #fff;
+        border: 2px solid #0b2a7a;
+        padding: 15px;
+        margin-top: 15px;
+        border-radius: 4px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .footer {
+        border-top: 1px solid #ccc;
+        padding-top: 8px;
+        font-size: 7.5pt;
+        display: flex;
+        justify-content: space-between;
+        font-weight: bold;
+        color: #777;
+        margin-top: auto;
+      }
+      @media print {
+        body {
+          background: #fff;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+          border: none;
+        }
+        .btn-print {
+          display: none;
+        }
+      }
+      .btn-print {
+        position: fixed;
+        top: 10px;
+        right: 10px;
+        padding: 12px 25px;
+        background: #0b2a7a;
+        color: #fff;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 100;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="btn-print" onclick="window.print()">
+      🖨️ IMPRIMER DOSSIER MIT
+    </button>
+
+    <div class="page">
+      <div class="corp-header">
+        <div class="logo-area">
+          <h1>THERMICA SERVICES</h1>
+          <p>INSTALLATION & MAINTENANCE THERMIQUE</p>
+        </div>
+        <div class="doc-type">FICHE D'INTERVENTION</div>
+      </div>
+
+      <table class="meta-table">
+        <tr>
+          <th>Réf. Dossier</th>
+          <td>TS-2026-03</td>
+          <th>Date de la séance</th>
+          <td>............ / ............ / 2026</td>
+        </tr>
+        <tr>
+          <th>Lieu d'intervention</th>
+          <td>Bâtiment Administratif</td>
+          <th>Superviseur</th>
+          <td>Responsable Maintenance</td>
+        </tr>
+        <tr>
+          <th>Équipe assignée</th>
+          <td colspan="3">
+            Groupe d'apprentis :
+            ....................................................................................
+          </td>
+        </tr>
+      </table>
+
+      <h2 class="section-title">1. Contexte de l'intervention</h2>
+      <p>
+        L'équipe de montage a récemment achevé l'installation d'un nouveau
+        système de chauffage central. Avant la réception définitive par le
+        client prévue à la fin de ce semestre, notre pôle maintenance doit
+        impérativement certifier le bon fonctionnement de la régulation.
+      </p>
+
+      <h2 class="section-title">2. Objectif de la séance</h2>
+      <div class="box-grey">
+        <p>
+          <strong
+            >Votre groupe doit établir un diagnostic technique de mise en
+            service.</strong
+          >
+          Vous devrez :
+        </p>
+        <ul style="margin-bottom: 0">
+          <li>
+            Tracer la courbe de la température de l'eau dans le circuit
+            (Graphique 1).
+          </li>
+          <li>
+            Tracer la courbe de la température ambiante de la pièce (Graphique
+            2).
+          </li>
+          <li>
+            Vérifier la bonne corrélation entre les deux graphiques pour valider
+            le système.
+          </li>
+        </ul>
+      </div>
+
+      <h2 class="section-title">
+        3. Document de référence : Principe de régulation
+      </h2>
+      <p>
+        Lorsqu'un système de chauffage démarre correctement : la température de
+        l'eau augmente d'abord rapidement. Ensuite, lorsque la pièce se
+        réchauffe et atteint la température demandée au thermostat, l'eau doit
+        se stabiliser, puis le système doit réduire sa puissance pour éviter une
+        surconsommation.
+      </p>
+
+      <div class="handwritten">
+        "Suivez bien les 4 étapes de construction pour vos graphiques. L'origine
+        et les premiers repères sont déjà placés pour vous aider à démarrer
+        l'échelle !"
+      </div>
+
+      <div class="footer">
+        <span>THERMICA SERVICES - DOCUMENT INTERNE</span
+        ><span>PAGE 1/4 - FICHE D'INTERVENTION</span>
+      </div>
+    </div>
+
+    <div class="page">
+      <div
+        class="corp-header"
+        style="
+          padding-bottom: 5px;
+          margin-bottom: 10px;
+          border-bottom: 1px solid #ccc;
+        "
+      >
+        <div class="logo-area">
+          <h1 style="font-size: 14pt">THERMICA SERVICES</h1>
+        </div>
+        <div style="font-size: 10pt; font-weight: bold">ANNEXE TECHNIQUE 1</div>
+      </div>
+
+      <div class="tech-box">
+        <div class="mini-title">Relevés sondes : Température de l'eau</div>
+        <table class="data-table">
+          <tr>
+            <th>Heure du relevé</th>
+            <td>6h</td>
+            <td>7h</td>
+            <td>8h</td>
+            <td>9h</td>
+            <td>10h</td>
+            <td>11h</td>
+            <td>12h</td>
+            <td>13h</td>
+            <td>14h</td>
+            <td>15h</td>
+            <td>16h</td>
+          </tr>
+          <tr>
+            <th>Temp. eau (°C)</th>
+            <td>25</td>
+            <td>32</td>
+            <td>40</td>
+            <td>48</td>
+            <td>55</td>
+            <td>60</td>
+            <td>60</td>
+            <td>58</td>
+            <td>55</td>
+            <td>50</td>
+            <td>45</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="graph-container">
+        <div class="mini-title">TRAVAIL DE L'ÉQUIPE : TRACÉ DU GRAPHIQUE 1</div>
+        <p style="margin: 5px 0; font-size: 8.5pt; color: #555">
+          <strong>Consignes :</strong> 1. Continuer de graduer l'axe horizontal.
+          | 2. Continuer de graduer l'axe vertical. | 3. Placer les points du
+          tableau. | 4. Relier les points.
+        </p>
+        <div class="graph-wrapper">
+          <div class="y-axis-label">Température (°C)</div>
+          <div class="graph-grid"></div>
+          <div class="grad-origin">6h</div>
+          <div class="grad-x1">7h</div>
+          <div class="grad-x2">8h</div>
+          <div class="grad-y1">10</div>
+          <div class="grad-y2">20</div>
+          <div class="x-axis-label">Temps (Heures)</div>
+        </div>
+      </div>
+
+      <div class="box-grey" style="margin-top: 15px">
+        <div class="mini-title">
+          QUESTIONS D'ANALYSE (À remplir par le groupe)
+        </div>
+        <p>
+          • Quelle est la température de l'eau à 10 h ?
+          ............................................................................
+        </p>
+        <p>
+          • À quelle heure atteint-elle 60 °C ?
+          ..........................................................................................
+        </p>
+        <p>
+          • Compléter la phrase : "La température augmente sur l'intervalle [
+          ........ ; ........ ]."
+        </p>
+        <p>
+          • Compléter la phrase : "La température diminue sur l'intervalle [
+          ........ ; ........ ]."
+        </p>
+        <p>
+          • À partir de 11h, la consigne d'arrêt d'urgence a-t-elle été
+          respectée (T° > 60°C) ? .......................
+        </p>
+      </div>
+      <div class="footer">
+        <span>ARCHIVES THERMIQUES</span><span>PAGE 2/4 - TRACÉ EAU</span>
+      </div>
+    </div>
+
+    <div class="page">
+      <div
+        class="corp-header"
+        style="
+          padding-bottom: 5px;
+          margin-bottom: 10px;
+          border-bottom: 1px solid #ccc;
+        "
+      >
+        <div class="logo-area">
+          <h1 style="font-size: 14pt">THERMICA SERVICES</h1>
+        </div>
+        <div style="font-size: 10pt; font-weight: bold">ANNEXE TECHNIQUE 2</div>
+      </div>
+
+      <div class="tech-box">
+        <div class="mini-title">
+          Relevés sondes : Température ambiante de la pièce
+        </div>
+        <table class="data-table">
+          <tr>
+            <th>Heure du relevé</th>
+            <td>6h</td>
+            <td>7h</td>
+            <td>8h</td>
+            <td>9h</td>
+            <td>10h</td>
+            <td>11h</td>
+            <td>12h</td>
+            <td>13h</td>
+            <td>14h</td>
+            <td>15h</td>
+            <td>16h</td>
+          </tr>
+          <tr>
+            <th>Temp. pièce (°C)</th>
+            <td>12</td>
+            <td>13</td>
+            <td>15</td>
+            <td>17</td>
+            <td>18</td>
+            <td>19</td>
+            <td>20</td>
+            <td>21</td>
+            <td>21</td>
+            <td>20</td>
+            <td>19</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="graph-container">
+        <div class="mini-title">TRAVAIL DE L'ÉQUIPE : TRACÉ DU GRAPHIQUE 2</div>
+        <p style="margin: 5px 0; font-size: 8.5pt; color: #555">
+          <strong>Consignes :</strong> 1. Continuer de graduer l'axe horizontal.
+          | 2. Continuer de graduer l'axe vertical. | 3. Placer les points du
+          tableau. | 4. Relier les points.
+        </p>
+        <div class="graph-wrapper">
+          <div class="y-axis-label">Température (°C)</div>
+          <div class="graph-grid"></div>
+          <div class="grad-origin">6h</div>
+          <div class="grad-x1">7h</div>
+          <div class="grad-x2">8h</div>
+          <div class="grad-y1">5</div>
+          <div class="grad-y2">10</div>
+          <div class="x-axis-label">Temps (Heures)</div>
+        </div>
+      </div>
+
+      <div class="box-grey" style="margin-top: 15px">
+        <div class="mini-title">
+          QUESTIONS D'ANALYSE (À remplir par le groupe)
+        </div>
+        <p>
+          • Quelle est la température à 9 h ?
+          ............................................................................................
+        </p>
+        <p>
+          • La pièce atteint-elle les 20 °C ? Si oui, à quelle heure ?
+          ...........................................................
+        </p>
+        <p>
+          • Le système chauffe-t-il la pièce correctement le matin ?
+          .........................................................
+        </p>
+        <p>
+          • Compléter la phrase : "La température de la pièce est stable sur
+          l'intervalle [ ........ ; ........ ]."
+        </p>
+      </div>
+      <div class="footer">
+        <span>ARCHIVES THERMIQUES</span><span>PAGE 3/4 - TRACÉ PIÈCE</span>
+      </div>
+    </div>
+
+    <div class="page">
+      <div class="corp-header">
+        <div class="logo-area">
+          <h1>THERMICA SERVICES</h1>
+        </div>
+        <div class="doc-type" style="background: #333">SYNTHÈSE TECHNIQUE</div>
+      </div>
+
+      <h2 class="section-title">4. Consignes du chantier</h2>
+      <div class="tech-box">
+        <p>
+          Pour que l'installation soit définitivement validée, le cahier des
+          charges impose que :
+        </p>
+        <ul>
+          <li>
+            <strong>Condition 1 (Confort) :</strong> La température de la pièce
+            doit réussir à se maintenir
+            <strong>entre 19 °C et 21 °C</strong> (inclus) pendant au moins une
+            partie de la journée.
+          </li>
+          <li>
+            <strong>Condition 2 (Sécurité) :</strong> Pour cette intervention,
+            le responsable maintenance demande que la température de l'eau dans
+            le circuit primaire <strong>ne dépasse pas 60 °C</strong>.
+          </li>
+        </ul>
+      </div>
+
+      <h2 class="section-title">
+        5. Rapport d'intervention (Diagnostic final)
+      </h2>
+      <p>
+        <strong>Mission :</strong> L'installation fonctionne-t-elle correctement
+        et respecte-t-elle les exigences ? Croisez les informations de vos deux
+        graphiques pour rédiger le bilan de mise en service ci-dessous.
+      </p>
+
+      <div class="drafting-box">
+        <div
+          class="mini-title"
+          style="border: none; color: #0b2a7a; font-size: 11pt"
+        >
+          BILAN DE MISE EN SERVICE :
+        </div>
+
+        <p style="font-weight: bold; margin-top: 10px; margin-bottom: 5px">
+          1. Bilan de la zone de confort (Graphique 2)
+        </p>
+        <p style="margin-top: 0">
+          La température de la pièce se maintient bien dans la zone demandée
+          (entre 19°C et 21°C) sur l'intervalle de temps [ ........ ; ........
+          ].
+        </p>
+
+        <p style="font-weight: bold; margin-top: 15px; margin-bottom: 5px">
+          2. Bilan de sécurité du circuit (Graphique 1)
+        </p>
+        <p style="margin-top: 0">
+          La température maximale atteinte par l'eau est de ........ °C. Le
+          seuil de sécurité est-il respecté ? ........................
+        </p>
+
+        <p
+          style="
+            font-weight: bold;
+            margin-top: 15px;
+            color: #0b2a7a;
+            margin-bottom: 5px;
+          "
+        >
+          3. Avis technique de l'équipe
+        </p>
+        <p
+          style="
+            font-size: 8.5pt;
+            color: #555;
+            margin-top: 0;
+            font-style: italic;
+          "
+        >
+          Consigne : Rédigez votre conclusion finale. L'installation peut-elle
+          être certifiée ? Justifiez votre décision en résumant le comportement
+          du système (montée en température, stabilité, etc.).
+        </p>
+
+        <div
+          style="
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+          "
+        >
+          <div
+            style="border-bottom: 1px dotted #888; width: 100%; height: 25px"
+          ></div>
+          <div
+            style="border-bottom: 1px dotted #888; width: 100%; height: 25px"
+          ></div>
+          <div
+            style="border-bottom: 1px dotted #888; width: 100%; height: 25px"
+          ></div>
+          <div
+            style="border-bottom: 1px dotted #888; width: 100%; height: 25px"
+          ></div>
+        </div>
+      </div>
+
+      <div
+        style="
+          border: 1px dashed #ccc;
+          height: 60px;
+          margin-top: 15px;
+          display: flex;
+          align-items: flex-end;
+          padding: 10px;
+          color: #999;
+        "
+      >
+        Visa du groupe d'apprentis (Signatures) :
+      </div>
+      <div class="footer">
+        <span>DIRECTION MAINTENANCE - VALIDATION</span
+        ><span>PAGE 4/4 - DIAGNOSTIC</span>
+      </div>
+    </div>
+  </body>
+</html>

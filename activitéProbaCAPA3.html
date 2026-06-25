@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Fiche Réponse A3 Verticale - Analyse de Jeu</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&display=swap');
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #333;
+      }
+      /* FORMAT A3 VERTICAL OPTIMISÉ */
+      .page-a3 {
+        width: 297mm;
+        height: 420mm;
+        padding: 10mm; /* Marges réduites */
+        margin: 5px auto;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        gap: 15px; /* Espacement réduit entre les blocs */
+        border: 4px solid #000;
+        overflow: hidden;
+      }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 5px solid #2c3e50;
+        padding-bottom: 10px;
+      }
+      .box {
+        border: 2px solid #2c3e50;
+        padding: 15px;
+        position: relative;
+        background: #fff;
+        border-radius: 8px;
+        width: 100%;
+      }
+      .box-title {
+        position: absolute;
+        top: -14px;
+        left: 20px;
+        background: #2c3e50;
+        color: #fff;
+        padding: 2px 15px;
+        font-weight: 900;
+        text-transform: uppercase;
+        font-size: 12pt;
+        border-radius: 4px;
+      }
+      .write-area {
+        width: 100%;
+        border: 1px dashed #bbb;
+        margin-top: 10px;
+        background-image: repeating-linear-gradient(
+          transparent,
+          transparent 29px,
+          #f2f2f2 29px,
+          #f2f2f2 30px
+        );
+        padding: 5px;
+      }
+      /* HAUTEURS AJUSTÉES POUR ÉVITER LE DÉBORDEMENT */
+      .area-investigation {
+        height: 160px;
+      }
+      .area-calculs {
+        height: 230px;
+      }
+      .area-modelisation {
+        height: 500px;
+      } /* Zone principale */
+      .area-verdict {
+        height: 100px;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 26pt;
+        color: #2c3e50;
+        font-weight: 900;
+      }
+      .label {
+        font-weight: bold;
+        color: #c0392b;
+        text-transform: uppercase;
+        font-size: 10pt;
+      }
+      .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        margin-top: 10px;
+      }
+      .info-item {
+        border-bottom: 2px solid #eee;
+        padding: 5px 0;
+        font-size: 12pt;
+      }
+      .footer-a3 {
+        text-align: right;
+        font-size: 10pt;
+        font-weight: bold;
+        border-top: 1px solid #eee;
+        padding-top: 10px;
+        margin-top: auto;
+      }
+
+      @media print {
+        body {
+          background: #fff;
+          padding: 0;
+        }
+        .page-a3 {
+          margin: 0;
+          border-width: 3px;
+          width: 297mm;
+          height: 420mm;
+        }
+        .no-print {
+          display: none;
+        }
+      }
+
+      .no-print {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 30px;
+        background: #27ae60;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 100;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        font-size: 12pt;
+      }
+    </style>
+  </head>
+  <body>
+    <button class="no-print" onclick="window.print()">
+      🖨️ IMPRIMER LA FICHE A3
+    </button>
+
+    <div class="page-a3">
+      <div class="header">
+        <div>
+          <h1>RAPPORT D'ANALYSE TECHNIQUE</h1>
+          <div style="margin-top: 10px; font-size: 14pt">
+            <strong>Apprentis</strong> :
+            ........................................................................................
+          </div>
+        </div>
+        <div
+          style="
+            text-align: right;
+            border-left: 4px solid #2c3e50;
+            padding-left: 20px;
+          "
+        >
+          <strong>GROUPE</strong> : MA MIT <br />
+          <strong>SÉANCE</strong> : PROBABILITÉS<br />
+          <strong>SEMESTRE</strong> 2 - 2026
+        </div>
+      </div>
+
+      <div class="box">
+        <div class="box-title">1. Investigation (Tri des informations)</div>
+        <div class="info-grid">
+          <div class="info-item">
+            <span class="label">Nom du Jeu :</span>
+            ............................................
+          </div>
+          <div class="info-item">
+            <span class="label">Mise de départ :</span> ................... €
+          </div>
+        </div>
+        <p style="margin-top: 15px">
+          <span class="label">Analyse de la Presse :</span> Quels sont les
+          arguments du journal ? Sont-ils mathématiquement justes ?
+        </p>
+        <div class="write-area area-investigation"></div>
+      </div>
+
+      <div class="box">
+        <div class="box-title">2. Calculs des Probabilités et des Gains</div>
+        <div class="write-area area-calculs"></div>
+        <div
+          style="
+            margin-top: 10px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 5px;
+          "
+        >
+          <div class="info-item" style="font-size: 9pt">
+            $P(\text{Gain} \ge \text{Mise})$ :
+          </div>
+          <div class="info-item" style="font-size: 9pt">
+            $P(\text{Tout perdre})$ :
+          </div>
+          <div class="info-item" style="font-size: 9pt">
+            $P(\text{Jackpot})$ :
+          </div>
+        </div>
+      </div>
+
+      <div class="box" style="flex-grow: 1">
+        <div class="box-title">
+          3. Modélisation Graphique (Arbre ou Tableau)
+        </div>
+        <div
+          class="write-area area-modelisation"
+          style="background-image: none; border: 1px dashed #666"
+        ></div>
+      </div>
+
+      <div class="box">
+        <div class="box-title">4. Verdict pour l'Oral (5 minutes)</div>
+        <p>
+          <span class="label">Conclusion :</span> Ce jeu est-il un bon
+          investissement pour un <strong>apprenti</strong> ? Justifiez.
+        </p>
+        <div class="write-area area-verdict"></div>
+      </div>
+
+      <div class="footer-a3">
+        Document de travail - CFA BTP de la Marne - 2026
+      </div>
+    </div>
+  </body>
+</html>

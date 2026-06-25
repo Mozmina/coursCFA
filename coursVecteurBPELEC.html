@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dossier Vecteurs et Forces BP - M. OZMINA</title>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)'],
+          ],
+        },
+        svg: { fontCache: 'global' },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Kalam&display=swap');
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #525659;
+        margin: 0;
+        padding: 18px;
+        color: #000;
+        font-size: 10pt;
+        line-height: 1.24;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      .page {
+        width: 210mm;
+        height: 297mm;
+        padding: 10mm 12mm;
+        margin: 0 auto 18px auto;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        position: relative;
+        overflow: hidden;
+        page-break-after: always;
+      }
+
+      p {
+        margin: 6px 0;
+      }
+      ul {
+        margin: 6px 0;
+      }
+      li {
+        margin: 3px 0;
+      }
+
+      .print-btn {
+        position: fixed;
+        top: 18px;
+        right: 18px;
+        padding: 9px 16px;
+        background: #d35400;
+        color: white;
+        border: 2px solid white;
+        border-radius: 4px;
+        cursor: pointer;
+        font-weight: bold;
+        z-index: 9999;
+      }
+
+      .header-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #000;
+        margin-bottom: 10px;
+      }
+      .header-table td {
+        border: 1px solid #000;
+        padding: 4px 8px;
+        vertical-align: top;
+      }
+
+      .row-info td {
+        height: 30px;
+        font-weight: bold;
+        font-size: 9.5pt;
+        padding-top: 5px;
+      }
+
+      .logo-cell {
+        width: 25%;
+        padding: 4px !important;
+        text-align: center;
+        vertical-align: middle;
+        height: 72px;
+      }
+      .logo-btp {
+        max-width: 100%;
+        height: auto;
+        max-height: 62px;
+      }
+
+      .title-cell {
+        text-align: center;
+        vertical-align: middle;
+        padding: 4px;
+      }
+      .title-main {
+        font-size: 15pt;
+        font-weight: bold;
+        text-transform: uppercase;
+        display: block;
+        line-height: 1.1;
+      }
+      .title-sub {
+        font-size: 10.5pt;
+        font-style: italic;
+        display: block;
+        margin-top: 2px;
+      }
+
+      h2 {
+        font-size: 12pt;
+        background: #2c3e50;
+        color: white;
+        padding: 5px 10px;
+        margin-top: 10px;
+        margin-bottom: 7px;
+        border-left: 7px solid #f1c40f;
+      }
+      h3 {
+        font-size: 11pt;
+        color: #d35400;
+        border-bottom: 1px solid #d35400;
+        padding-bottom: 2px;
+        margin-top: 10px;
+        margin-bottom: 6px;
+      }
+
+      .context-box {
+        border-left: 4px solid #27ae60;
+        background: #f0fff4;
+        padding: 6px 8px;
+        margin: 6px 0;
+        font-style: italic;
+        font-size: 9.5pt;
+      }
+
+      .trace-ecrite {
+        border: 2px solid #c0392b;
+        background: #fff5f5;
+        padding: 8px;
+        margin: 8px 0;
+        position: relative;
+        border-radius: 4px;
+      }
+      .trace-ecrite::before {
+        content: 'NOTION CLÉ';
+        position: absolute;
+        top: -10px;
+        left: 15px;
+        background: #c0392b;
+        color: white;
+        padding: 1px 8px;
+        font-weight: bold;
+        font-size: 9pt;
+      }
+
+      .calc-box {
+        border: 1px solid #2980b9;
+        background-color: #eaf2f8;
+        padding: 8px;
+        margin: 6px 0;
+        border-radius: 5px;
+      }
+
+      .dotted-lines {
+        border-bottom: 1px dotted #000;
+        height: 18px;
+        margin-bottom: 3px;
+      }
+
+      .img-wrapper {
+        text-align: center;
+        margin: 6px 0;
+      }
+      .img-wrapper .caption {
+        font-size: 8.8pt;
+        color: #333;
+        margin-top: 4px;
+        font-style: italic;
+      }
+      .schema {
+        width: 100%;
+        border: 1px solid #000;
+        padding: 6px;
+        background: #fff;
+      }
+
+      .grid {
+        width: 100%;
+        border: 1px solid #000;
+        background: #fff;
+        padding: 6px;
+      }
+      .grid svg {
+        width: 100%;
+        height: 150px;
+        display: block;
+      }
+
+      .grid-synthesis {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 12px;
+        margin-top: 10px;
+      }
+      .card-synthesis {
+        border: 1px solid #2c3e50;
+        border-radius: 8px;
+        padding: 9px;
+        background: #fdfdfd;
+        display: flex;
+        flex-direction: column;
+      }
+      .card-title {
+        font-weight: bold;
+        color: #2c3e50;
+        border-bottom: 2px solid #f1c40f;
+        margin-bottom: 6px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .card-content {
+        font-size: 9.5pt;
+      }
+
+      .footer-page {
+        position: absolute;
+        bottom: 7mm;
+        left: 12mm;
+        right: 12mm;
+        border-top: 1px solid #000;
+        padding-top: 4px;
+        font-size: 8.5pt;
+        display: flex;
+        justify-content: space-between;
+        background: white;
+      }
+
+      /* Petit style pour labels sur SVG */
+      .svg-label {
+        font-size: 14px;
+        font-weight: bold;
+      }
+      .svg-note {
+        font-size: 13px;
+      }
+
+      @media print {
+        body {
+          padding: 0;
+          background: none;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+          border: none;
+          width: 210mm;
+          height: 297mm;
+        }
+        .print-btn {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <button class="print-btn" id="printBtn" onclick="window.print();">
+      🖨️ IMPRIMER LE DOSSIER COMPLET
+    </button>
+
+    <script>
+      window.addEventListener('DOMContentLoaded', () => {
+        const pages = document.querySelectorAll('.page').length;
+        const btn = document.getElementById('printBtn');
+        btn.textContent =
+          '🖨️ IMPRIMER LE DOSSIER COMPLET (' + pages + ' pages)';
+      });
+    </script>
+
+    <!-- PAGE 1 -->
+    <div class="page">
+      <table class="header-table">
+        <tr class="row-info">
+          <td>Nom :</td>
+          <td>Prénom :</td>
+          <td>Groupe :</td>
+          <td>Date :</td>
+        </tr>
+        <tr>
+          <td class="logo-cell">
+            <img
+              src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+              alt="Logo BTP CFA"
+              class="logo-btp"
+            />
+          </td>
+          <td colspan="3" class="title-cell">
+            <span class="title-main">SCIENCES PHYSIQUES (BP)</span>
+            <span class="title-sub"
+              >Vecteurs et forces - Mécanique et ouverture
+              électrotechnique</span
+            >
+          </td>
+        </tr>
+      </table>
+
+      <div
+        style="
+          background: #eee;
+          padding: 10px;
+          border: 1px solid #000;
+          margin-bottom: 10px;
+        "
+      >
+        <h4 style="margin: 0 0 6px 0; text-decoration: underline">
+          OBJECTIFS DU DOSSIER (BP)
+        </h4>
+        <ul style="padding-left: 18px; margin: 0">
+          <li>
+            <strong>Représenter :</strong> lire et tracer un vecteur (direction,
+            sens, intensité).
+          </li>
+          <li>
+            <strong>Mécanique :</strong> représenter une force et interpréter
+            l'équilibre.
+          </li>
+          <li>
+            <strong>Calcul simple :</strong> coordonnées et norme d'un vecteur
+            dans un repère.
+          </li>
+          <li>
+            <strong>Ouverture électrotech :</strong> comprendre l'idée de phase
+            via le cercle trigonométrique (lecture).
+          </li>
+        </ul>
+      </div>
+
+      <h2>0. Introduction - Pourquoi des vecteurs en sciences ?</h2>
+
+      <div class="context-box">
+        <strong>Intérêt métier :</strong> Sur chantier, un support, une fixation
+        ou un équipement subit plusieurs actions en même temps. Pour décider si
+        cela tient, bascule ou se déforme, on doit représenter ces actions
+        clairement.
+      </div>
+
+      <div class="trace-ecrite">
+        En sciences, une action (comme une <strong>force</strong>) ne se décrit
+        pas seulement par une valeur. Il faut aussi connaître sa
+        <strong>direction</strong> et son <strong>sens</strong>. Pour
+        représenter tout cela en même temps, on utilise une
+        <strong>flèche</strong> appelée <strong>vecteur</strong>.
+      </div>
+
+      <h3>Mini activité de démarrage</h3>
+      <p>
+        Sur un support mural, on fixe une goulotte. On exerce une force vers le
+        bas (poids), et le support exerce une force vers le haut (réaction). A
+        ton avis, quand est-ce que "ça tient" ?
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP Électricien - Vecteurs et forces</div>
+        <div>Page 1</div>
+      </div>
+    </div>
+
+    <!-- PAGE 2 : VECTEURS (FLECHES) - FLECHES AMELIOREES + NOMS -->
+    <div class="page">
+      <h2>1. Vecteur - représentation par une flèche</h2>
+
+      <div class="context-box">
+        <strong>Intérêt métier :</strong> Sur un schéma, les flèches indiquent
+        un sens (déplacement, action, courant). En mécanique, une flèche
+        représente une <strong>force</strong>.
+      </div>
+
+      <div class="trace-ecrite">
+        Un <strong>vecteur</strong> est une flèche. Il possède :
+        <ul style="margin: 6px 0 0 18px">
+          <li>
+            une <strong>direction</strong> (verticale, horizontale, inclinée)
+          </li>
+          <li>
+            un <strong>sens</strong> (vers la droite, vers la gauche, vers le
+            haut, vers le bas)
+          </li>
+          <li>
+            une <strong>intensité</strong> (représentée par la longueur de la
+            flèche)
+          </li>
+        </ul>
+      </div>
+
+      <h3>Schéma support</h3>
+      <div class="img-wrapper">
+        <div class="schema">
+          <svg
+            viewBox="0 0 900 240"
+            width="100%"
+            height="170"
+            aria-label="Vecteurs flèches"
+          >
+            <defs>
+              <!-- Flèche plus belle et stable, même quand le segment est court -->
+              <marker
+                id="arrowNice"
+                viewBox="0 0 12 12"
+                refX="10"
+                refY="6"
+                markerWidth="8"
+                markerHeight="8"
+                orient="auto"
+                markerUnits="strokeWidth"
+              >
+                <path d="M0,1 L11,6 L0,11 L2.2,6 Z" fill="#000"></path>
+              </marker>
+            </defs>
+
+            <!-- Ligne de base -->
+            <line
+              x1="40"
+              y1="205"
+              x2="860"
+              y2="205"
+              stroke="#000"
+              stroke-width="2"
+            ></line>
+            <text x="40" y="228" font-size="14">Référence</text>
+
+            <!-- V1 -->
+            <line
+              x1="120"
+              y1="170"
+              x2="290"
+              y2="170"
+              stroke="#000"
+              stroke-width="5"
+              stroke-linecap="round"
+              marker-end="url(#arrowNice)"
+            ></line>
+            <text class="svg-label" x="120" y="155">V1</text>
+
+            <!-- V2 -->
+            <line
+              x1="360"
+              y1="185"
+              x2="360"
+              y2="65"
+              stroke="#000"
+              stroke-width="5"
+              stroke-linecap="round"
+              marker-end="url(#arrowNice)"
+            ></line>
+            <text class="svg-label" x="340" y="58">V2</text>
+
+            <!-- V3 -->
+            <line
+              x1="520"
+              y1="170"
+              x2="405"
+              y2="170"
+              stroke="#000"
+              stroke-width="5"
+              stroke-linecap="round"
+              marker-end="url(#arrowNice)"
+            ></line>
+            <text class="svg-label" x="500" y="155">V3</text>
+
+            <!-- V4 -->
+            <line
+              x1="610"
+              y1="185"
+              x2="745"
+              y2="85"
+              stroke="#000"
+              stroke-width="5"
+              stroke-linecap="round"
+              marker-end="url(#arrowNice)"
+            ></line>
+            <text class="svg-label" x="750" y="88">V4</text>
+
+            <!-- V5 (court) - on garde une flèche lisible -->
+            <line
+              x1="780"
+              y1="170"
+              x2="835"
+              y2="170"
+              stroke="#000"
+              stroke-width="5"
+              stroke-linecap="round"
+              marker-end="url(#arrowNice)"
+            ></line>
+            <text class="svg-label" x="780" y="155">V5</text>
+          </svg>
+        </div>
+        <div class="caption">
+          Vecteurs V1 à V5. La longueur représente l'intensité.
+        </div>
+      </div>
+
+      <h3>Mini exercice 1 (lecture)</h3>
+      <div class="calc-box">
+        <p style="margin-top: 0">
+          Pour chaque vecteur V1 à V5 :
+          <br />
+          1) indiquer la <strong>direction</strong>
+          <br />
+          2) indiquer le <strong>sens</strong>
+          <br />
+          3) dire si l'intensité est <strong>faible</strong> ou
+          <strong>forte</strong> (en comparant les longueurs)
+        </p>
+
+        <p style="margin: 6px 0 4px 0"><strong>V1 :</strong></p>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0"><strong>V2 :</strong></p>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0"><strong>V3 :</strong></p>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0"><strong>V4 :</strong></p>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0"><strong>V5 :</strong></p>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <h3>Mini exercice 2 (lien métier)</h3>
+      <p>
+        Associe une situation possible à chaque vecteur : traction vers la
+        droite, poussée vers la gauche, action vers le haut, action inclinée.
+      </p>
+      <div class="dotted-lines"></div>
+      <div class="dotted-lines"></div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP Électricien - Vecteurs et forces</div>
+        <div>Page 2</div>
+      </div>
+    </div>
+
+    <!-- PAGE 3 : VECTEUR AB + COORDONNEES (inchangé côté contenu) -->
+    <div class="page">
+      <h2>2. Vecteur entre deux points - coordonnées dans un repère</h2>
+
+      <div class="context-box">
+        <strong>Intérêt métier :</strong> Sur un plan ou un schéma, on se
+        déplace d'un point à un autre. Le vecteur permet de décrire ce
+        déplacement et de le chiffrer dans un repère.
+      </div>
+
+      <div class="trace-ecrite">
+        Le vecteur $\overrightarrow{AB}$ représente le déplacement
+        <strong>du point A vers le point B</strong>. Il dépend de :
+        <strong>direction</strong>, <strong>sens</strong>,
+        <strong>longueur</strong>. <br /><br />
+        Dans un repère, les coordonnées d'un vecteur décrivent :
+        <strong>le déplacement horizontal</strong> et
+        <strong>le déplacement vertical</strong>.
+      </div>
+
+      <h3>Repère (support)</h3>
+      <div class="grid">
+        <svg viewBox="0 0 900 300" aria-label="Repère et points A B">
+          <defs>
+            <marker
+              id="arrowNice2"
+              viewBox="0 0 12 12"
+              refX="10"
+              refY="6"
+              markerWidth="8"
+              markerHeight="8"
+              orient="auto"
+              markerUnits="strokeWidth"
+            >
+              <path d="M0,1 L11,6 L0,11 L2.2,6 Z" fill="#000"></path>
+            </marker>
+          </defs>
+
+          <!-- Grille -->
+          <g stroke="#bbb" stroke-width="1">
+            <line x1="60" y1="20" x2="60" y2="280" />
+            <line x1="140" y1="20" x2="140" y2="280" />
+            <line x1="220" y1="20" x2="220" y2="280" />
+            <line x1="300" y1="20" x2="300" y2="280" />
+            <line x1="380" y1="20" x2="380" y2="280" />
+            <line x1="460" y1="20" x2="460" y2="280" />
+            <line x1="540" y1="20" x2="540" y2="280" />
+            <line x1="620" y1="20" x2="620" y2="280" />
+            <line x1="700" y1="20" x2="700" y2="280" />
+            <line x1="780" y1="20" x2="780" y2="280" />
+            <line x1="860" y1="20" x2="860" y2="280" />
+
+            <line x1="60" y1="40" x2="860" y2="40" />
+            <line x1="60" y1="80" x2="860" y2="80" />
+            <line x1="60" y1="120" x2="860" y2="120" />
+            <line x1="60" y1="160" x2="860" y2="160" />
+            <line x1="60" y1="200" x2="860" y2="200" />
+            <line x1="60" y1="240" x2="860" y2="240" />
+          </g>
+
+          <!-- Axes -->
+          <line
+            x1="60"
+            y1="160"
+            x2="860"
+            y2="160"
+            stroke="#000"
+            stroke-width="2"
+          />
+          <line
+            x1="460"
+            y1="20"
+            x2="460"
+            y2="280"
+            stroke="#000"
+            stroke-width="2"
+          />
+
+          <!-- Graduations dans le repère -->
+          <g font-size="14" fill="#000">
+            <text x="455" y="155">O</text>
+            <text x="850" y="155">x</text>
+            <text x="466" y="32">y</text>
+
+            <text x="140" y="155">-4</text>
+            <text x="220" y="155">-3</text>
+            <text x="300" y="155">-2</text>
+            <text x="380" y="155">-1</text>
+            <text x="540" y="155">1</text>
+            <text x="620" y="155">2</text>
+            <text x="700" y="155">3</text>
+            <text x="780" y="155">4</text>
+
+            <text x="466" y="240">-2</text>
+            <text x="466" y="200">-1</text>
+            <text x="466" y="120">1</text>
+            <text x="466" y="80">2</text>
+            <text x="466" y="40">3</text>
+          </g>
+
+          <!-- Points A(-2,-1) et B(3,2) -->
+          <circle cx="300" cy="200" r="6" fill="#000" />
+          <text x="312" y="205" font-size="16">A</text>
+
+          <circle cx="700" cy="80" r="6" fill="#000" />
+          <text x="712" y="85" font-size="16">B</text>
+
+          <!-- Vecteur AB -->
+          <line
+            x1="300"
+            y1="200"
+            x2="700"
+            y2="80"
+            stroke="#000"
+            stroke-width="4"
+            stroke-linecap="round"
+            marker-end="url(#arrowNice2)"
+          />
+          <text x="470" y="95" font-size="16">$\overrightarrow{AB}$</text>
+        </svg>
+      </div>
+
+      <h3>Mini exercice 3 (entre deux points)</h3>
+      <div class="calc-box">
+        <p style="margin-top: 0">
+          Sur le repère, on lit : $A(-2;-1)$ et $B(3;2)$.
+        </p>
+        <p style="margin: 6px 0 4px 0">
+          1) Dans quel <strong>sens</strong> va $\overrightarrow{AB}$ ?
+        </p>
+        <div class="dotted-lines"></div>
+
+        <p style="margin: 6px 0 4px 0">
+          2) Déplacement horizontal entre A et B : combien d'unités ?
+        </p>
+        <div class="dotted-lines"></div>
+
+        <p style="margin: 6px 0 4px 0">
+          3) Déplacement vertical entre A et B : combien d'unités ?
+        </p>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <h3>Mini exercice 4 (coordonnées du vecteur)</h3>
+      <div class="calc-box">
+        <p style="margin-top: 0">
+          4) En déduire les coordonnées de $\overrightarrow{AB}$ : $(\; \; ; \;
+          \;)$
+        </p>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0">
+          5) Explique en une phrase ce que signifient ces coordonnées
+          (déplacement).
+        </p>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP Électricien - Vecteurs et forces</div>
+        <div>Page 3</div>
+      </div>
+    </div>
+
+    <!-- PAGE 4 : FORCE + NORME (labels OK) -->
+    <div class="page">
+      <h2>3. Vecteur force et norme</h2>
+
+      <div class="context-box">
+        <strong>Intérêt métier :</strong> Une fixation, une goulotte, un support
+        subit des actions. Pour juger si c'est sûr, on compare l'intensité des
+        forces et leur direction.
+      </div>
+
+      <div class="trace-ecrite">
+        Une <strong>force</strong> se représente par un
+        <strong>vecteur force</strong>. On précise :
+        <ul style="margin: 6px 0 0 18px">
+          <li><strong>Point d'application</strong> (où la force agit)</li>
+          <li><strong>Direction</strong></li>
+          <li><strong>Sens</strong></li>
+          <li><strong>Intensité</strong> (en newton, N)</li>
+        </ul>
+        <br />
+        La <strong>norme</strong> d'un vecteur est sa <strong>longueur</strong>.
+        Pour un vecteur de coordonnées $(x;y)$ :
+        <center style="margin: 6px 0">
+          <strong>$\|\vec{u}\|=\sqrt{x^2+y^2}$</strong>
+        </center>
+      </div>
+
+      <h3>Mini exercice 5 (lecture de forces)</h3>
+      <div class="img-wrapper">
+        <div class="schema">
+          <svg
+            viewBox="0 0 900 230"
+            width="100%"
+            height="160"
+            aria-label="Forces sur un objet"
+          >
+            <defs>
+              <marker
+                id="arrowNice3"
+                viewBox="0 0 12 12"
+                refX="10"
+                refY="6"
+                markerWidth="8"
+                markerHeight="8"
+                orient="auto"
+                markerUnits="strokeWidth"
+              >
+                <path d="M0,1 L11,6 L0,11 L2.2,6 Z" fill="#000"></path>
+              </marker>
+            </defs>
+
+            <!-- Objet -->
+            <rect
+              x="400"
+              y="105"
+              width="120"
+              height="60"
+              fill="none"
+              stroke="#000"
+              stroke-width="3"
+            ></rect>
+            <text x="415" y="140" font-size="16">Objet</text>
+
+            <!-- Poids P (vers le bas, mais on le dessine vers le bas pour être intuitif) -->
+            <line
+              x1="465"
+              y1="165"
+              x2="465"
+              y2="95"
+              stroke="#000"
+              stroke-width="5"
+              stroke-linecap="round"
+              marker-end="url(#arrowNice3)"
+            />
+            <text x="472" y="58" font-size="16">$\vec{R}$</text>
+            <text x="410" y="35" font-size="13">Reaction</text>
+
+            <!-- Réaction R -->
+            <line
+              x1="460"
+              y1="137"
+              x2="460"
+              y2="207"
+              stroke="#000"
+              stroke-width="5"
+              stroke-linecap="round"
+              marker-end="url(#arrowNice3)"
+            />
+            <text x="472" y="214" font-size="16">$\vec{P}$</text>
+            <text x="405" y="228" font-size="13">Poids</text>
+
+            <!-- Traction T -->
+            <line
+              x1="520"
+              y1="135"
+              x2="770"
+              y2="135"
+              stroke="#000"
+              stroke-width="5"
+              stroke-linecap="round"
+              marker-end="url(#arrowNice3)"
+            />
+            <text x="780" y="140" font-size="16">$\vec{T}$</text>
+            <text x="635" y="125" font-size="13">Traction</text>
+
+            <!-- Sol -->
+            <line
+              x1="320"
+              y1="165"
+              x2="820"
+              y2="165"
+              stroke="#000"
+              stroke-width="2"
+            ></line>
+          </svg>
+        </div>
+        <div class="caption">
+          Exemple : poids $\vec{P}$, réaction $\vec{R}$, traction $\vec{T}$.
+        </div>
+      </div>
+
+      <div class="calc-box">
+        <p style="margin-top: 0">
+          1) Citer la <strong>direction</strong> de $\vec{P}$ et de $\vec{R}$.
+        </p>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0">
+          2) Donner le <strong>sens</strong> de $\vec{T}$.
+        </p>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0">
+          3) Donner un exemple métier où une traction existe réellement.
+        </p>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <h3>Mini exercice 6 (norme, calcul très court)</h3>
+      <div class="calc-box">
+        <p style="margin-top: 0">
+          On considère un vecteur $\vec{u}$ de coordonnées $(3;4)$.
+        </p>
+        <p style="margin: 6px 0 4px 0">1) Calculer $\|\vec{u}\|$.</p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0">
+          2) Interpréter en une phrase : que représente cette norme ?
+        </p>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP Électricien - Vecteurs et forces</div>
+        <div>Page 4</div>
+      </div>
+    </div>
+
+    <!-- PAGE 5 : SOMME (ok) -->
+    <div class="page">
+      <h2>4. Somme de vecteurs forces - équilibre</h2>
+
+      <div class="context-box">
+        <strong>Intérêt métier :</strong> Un équipement reste en place si les
+        actions se compensent. En diagnostic, on cherche souvent "qu'est-ce qui
+        tire plus fort" et dans quel sens.
+      </div>
+
+      <div class="trace-ecrite">
+        Quand plusieurs forces s'exercent sur un objet, on étudie leur
+        <strong>somme</strong>. La force équivalente s'appelle la
+        <strong>résultante</strong>. <br /><br />
+        Méthode graphique :
+        <ul style="margin: 6px 0 0 18px">
+          <li>
+            on place les vecteurs <strong>bout à bout</strong> (tête-queue)
+          </li>
+          <li>
+            la résultante va du <strong>début</strong> du premier vecteur à la
+            <strong>fin</strong> du dernier vecteur
+          </li>
+        </ul>
+        <br />
+        Équilibre : l'objet est à l'équilibre si la somme des forces est
+        <strong>nulle</strong>.
+      </div>
+
+      <h3>Schéma support (tête-queue)</h3>
+      <div class="img-wrapper">
+        <div class="schema">
+          <svg
+            viewBox="0 0 900 220"
+            width="100%"
+            height="160"
+            aria-label="Somme de vecteurs"
+          >
+            <defs>
+              <marker
+                id="arrowNice4"
+                viewBox="0 0 12 12"
+                refX="10"
+                refY="6"
+                markerWidth="8"
+                markerHeight="8"
+                orient="auto"
+                markerUnits="strokeWidth"
+              >
+                <path d="M0,1 L11,6 L0,11 L2.2,6 Z" fill="#000"></path>
+              </marker>
+            </defs>
+
+            <line
+              x1="120"
+              y1="120"
+              x2="360"
+              y2="120"
+              stroke="#000"
+              stroke-width="5"
+              stroke-linecap="round"
+              marker-end="url(#arrowNice4)"
+            />
+            <text x="120" y="100" font-size="16">$\\vec{F_1}$</text>
+
+            <line
+              x1="360"
+              y1="120"
+              x2="520"
+              y2="60"
+              stroke="#000"
+              stroke-width="5"
+              stroke-linecap="round"
+              marker-end="url(#arrowNice4)"
+            />
+            <text x="530" y="62" font-size="16">$\\vec{F_2}$</text>
+
+            <line
+              x1="120"
+              y1="120"
+              x2="520"
+              y2="60"
+              stroke="#000"
+              stroke-width="3"
+              stroke-linecap="round"
+              marker-end="url(#arrowNice4)"
+              stroke-dasharray="8,6"
+            />
+            <text x="220" y="55" font-size="16">
+              $\\vec{R}=\\vec{F_1}+\\vec{F_2}$
+            </text>
+
+            <text x="120" y="195" font-size="14">
+              Résultante (pointillés) va du départ du vecteur F1 à la fin du
+              vecteur F2
+            </text>
+          </svg>
+        </div>
+      </div>
+
+      <h3>Mini exercice 7 (addition graphique)</h3>
+      <div class="calc-box">
+        <p style="margin-top: 0">
+          1) Sur le schéma, repère la résultante $\vec{R}$. Est-elle plutôt
+          longue ou courte par rapport à $\vec{F_1}$ ?
+        </p>
+        <div class="dotted-lines"></div>
+
+        <p style="margin: 6px 0 4px 0">
+          2) Si on ajoute une troisième force $\vec{F_3}$ qui ramène la fin du
+          trajet exactement au point de départ, que peut-on conclure ?
+        </p>
+        <div class="dotted-lines"></div>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <h3>Mini exercice 8 (équilibre simple)</h3>
+      <div class="calc-box">
+        <p style="margin-top: 0">
+          Un objet subit deux forces colinéaires :
+          <br />
+          $\vec{F_1}$ vers la droite de 120 N et $\vec{F_2}$ vers la gauche de
+          120 N.
+        </p>
+        <p style="margin: 6px 0 4px 0">
+          1) La somme des forces est-elle nulle ?
+        </p>
+        <div class="dotted-lines"></div>
+        <p style="margin: 6px 0 4px 0">
+          2) L'objet est-il à l'équilibre ? Justifie en une phrase.
+        </p>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP Électricien - Vecteurs et forces</div>
+        <div>Page 5</div>
+      </div>
+    </div>
+
+    <!-- PAGE 6 : CERCLE TRIGO - DEGRES + RADIANS COTE A COTE -->
+    <div class="page">
+      <h2>5. Ouverture électrotechnique - cercle trigonométrique et phase</h2>
+
+      <div class="context-box">
+        <strong>Intérêt métier :</strong> En électrotechnique, on compare des
+        grandeurs variables. Les représentations "en vecteurs" aident à discuter
+        de l'idée de décalage (phase).
+      </div>
+
+      <div class="trace-ecrite">
+        Le <strong>cercle trigonométrique</strong> permet de repérer une
+        direction grâce à un angle. On rencontre deux écritures d'angles :
+        <ul style="margin: 6px 0 0 18px">
+          <li>en <strong>degrés</strong> (0°, 90°, 180°...)</li>
+          <li>en <strong>radians</strong> (0, $\pi/2$, $\pi$...)</li>
+        </ul>
+        Les projections sur les axes donnent :
+        <center style="margin: 6px 0">
+          <strong>abscisse = $\cos(\theta)$</strong> et
+          <strong>ordonnée = $\sin(\theta)$</strong>
+        </center>
+        Ici, on fait surtout de la <strong>lecture</strong> et de
+        l'interprétation.
+      </div>
+
+      <h3>Cercles trigonométriques (degrés et radians)</h3>
+      <div class="img-wrapper">
+        <div class="schema">
+          <svg
+            viewBox="0 0 900 300"
+            width="100%"
+            height="210"
+            aria-label="Deux cercles trigonométriques"
+          >
+            <defs>
+              <marker
+                id="arrowNice5"
+                viewBox="0 0 12 12"
+                refX="10"
+                refY="6"
+                markerWidth="7"
+                markerHeight="7"
+                orient="auto"
+                markerUnits="strokeWidth"
+              >
+                <path d="M0,1 L11,6 L0,11 L2.2,6 Z" fill="#000"></path>
+              </marker>
+            </defs>
+
+            <!-- TITRES -->
+            <text x="210" y="24" font-size="16" font-weight="bold">
+              En degrés
+            </text>
+            <text x="640" y="24" font-size="16" font-weight="bold">
+              En radians
+            </text>
+
+            <!-- GAUCHE : DEGRES -->
+            <g transform="translate(0,0)">
+              <!-- Axes -->
+              <line
+                x1="225"
+                y1="45"
+                x2="225"
+                y2="255"
+                stroke="#000"
+                stroke-width="2"
+              />
+              <line
+                x1="110"
+                y1="150"
+                x2="340"
+                y2="150"
+                stroke="#000"
+                stroke-width="2"
+              />
+              <text x="332" y="145" font-size="14">x</text>
+              <text x="230" y="58" font-size="14">y</text>
+
+              <!-- Cercle -->
+              <circle
+                cx="225"
+                cy="150"
+                r="85"
+                fill="none"
+                stroke="#000"
+                stroke-width="2"
+              />
+
+              <!-- Repères principaux -->
+              <text x="314" y="154" font-size="13">0°</text>
+              <text x="216" y="62" font-size="13">90°</text>
+              <text x="118" y="154" font-size="13">180°</text>
+              <text x="213" y="246" font-size="13">270°</text>
+
+              <!-- Repères usuels -->
+              <text x="290" y="98" font-size="12">45°</text>
+              <text x="285" y="123" font-size="12">30°</text>
+              <text x="272" y="78" font-size="12">60°</text>
+
+              <text x="145" y="98" font-size="12">135°</text>
+              <text x="156" y="78" font-size="12">120°</text>
+              <text x="132" y="123" font-size="12">150°</text>
+
+              <text x="145" y="208" font-size="12">225°</text>
+              <text x="156" y="222" font-size="12">240°</text>
+              <text x="132" y="184" font-size="12">210°</text>
+
+              <text x="290" y="208" font-size="12">315°</text>
+              <text x="285" y="184" font-size="12">330°</text>
+              <text x="272" y="222" font-size="12">300°</text>
+
+              <!-- Vecteur exemple : on le fait TOUCHER le cercle -->
+              <!-- Centre C(225,150), rayon r=85 -->
+              <!-- Exemple a 60° : extrémité = (225 + 85*cos60 ; 150 - 85*sin60) = (267.5 ; 76.39) -->
+              <line
+                x1="225"
+                y1="150"
+                x2="267.5"
+                y2="76.4"
+                stroke="#000"
+                stroke-width="4"
+                stroke-linecap="round"
+                marker-end="url(#arrowNice5)"
+              />
+              <text x="274" y="80" font-size="14">$\vec{u}$</text>
+              <text x="250" y="92" font-size="14">$\theta$</text>
+
+              <!-- Projections (alignées avec la nouvelle extrémité) -->
+              <line
+                x1="267.5"
+                y1="76.4"
+                x2="267.5"
+                y2="150"
+                stroke="#000"
+                stroke-width="2"
+                stroke-dasharray="6,6"
+              />
+              <line
+                x1="267.5"
+                y1="76.4"
+                x2="225"
+                y2="76.4"
+                stroke="#000"
+                stroke-width="2"
+                stroke-dasharray="6,6"
+              />
+              <text x="272" y="166" font-size="12">$\cos(\theta)$</text>
+              <text x="232" y="72" font-size="12">$\sin(\theta)$</text>
+            </g>
+
+            <!-- DROITE : RADIANS -->
+            <g transform="translate(420,0)">
+              <!-- Axes -->
+              <line
+                x1="225"
+                y1="45"
+                x2="225"
+                y2="255"
+                stroke="#000"
+                stroke-width="2"
+              />
+              <line
+                x1="110"
+                y1="150"
+                x2="340"
+                y2="150"
+                stroke="#000"
+                stroke-width="2"
+              />
+              <text x="332" y="145" font-size="14">x</text>
+              <text x="230" y="58" font-size="14">y</text>
+
+              <!-- Cercle -->
+              <circle
+                cx="225"
+                cy="150"
+                r="85"
+                fill="none"
+                stroke="#000"
+                stroke-width="2"
+              />
+
+              <!-- Repères principaux -->
+              <text x="314" y="154" font-size="13">$0$</text>
+              <text x="210" y="62" font-size="13">$\pi/2$</text>
+              <text x="122" y="154" font-size="13">$\pi$</text>
+              <text x="206" y="246" font-size="13">$3\pi/2$</text>
+
+              <!-- Repères usuels -->
+              <text x="292" y="98" font-size="12">$\pi/4$</text>
+              <text x="282" y="123" font-size="12">$\pi/6$</text>
+              <text x="270" y="78" font-size="12">$\pi/3$</text>
+
+              <text x="140" y="98" font-size="12">$3\pi/4$</text>
+              <text x="156" y="78" font-size="12">$2\pi/3$</text>
+              <text x="128" y="123" font-size="12">$5\pi/6$</text>
+
+              <text x="140" y="208" font-size="12">$5\pi/4$</text>
+              <text x="156" y="222" font-size="12">$4\pi/3$</text>
+              <text x="128" y="184" font-size="12">$7\pi/6$</text>
+
+              <text x="292" y="208" font-size="12">$7\pi/4$</text>
+              <text x="282" y="184" font-size="12">$11\pi/6$</text>
+              <text x="270" y="222" font-size="12">$5\pi/3$</text>
+
+              <!-- Même vecteur exemple : mêmes coordonnées car même cercle -->
+              <line
+                x1="225"
+                y1="150"
+                x2="267.5"
+                y2="76.4"
+                stroke="#000"
+                stroke-width="4"
+                stroke-linecap="round"
+                marker-end="url(#arrowNice5)"
+              />
+              <text x="274" y="80" font-size="14">$\vec{u}$</text>
+              <text x="250" y="92" font-size="14">$\theta$</text>
+
+              <!-- Projections -->
+              <line
+                x1="267.5"
+                y1="76.4"
+                x2="267.5"
+                y2="150"
+                stroke="#000"
+                stroke-width="2"
+                stroke-dasharray="6,6"
+              />
+              <line
+                x1="267.5"
+                y1="76.4"
+                x2="225"
+                y2="76.4"
+                stroke="#000"
+                stroke-width="2"
+                stroke-dasharray="6,6"
+              />
+              <text x="272" y="166" font-size="12">$\cos(\theta)$</text>
+              <text x="232" y="72" font-size="12">$\sin(\theta)$</text>
+            </g>
+
+            <!-- Petite consigne -->
+            <text x="22" y="288" font-size="13">
+              Lecture : même direction, deux écritures d'angle. Occasion de
+              discuter "degrés" vs "radians".
+            </text>
+          </svg>
+        </div>
+        <div class="caption">
+          Deux cercles côte à côte : mêmes repères, deux écritures d'angle.
+        </div>
+      </div>
+
+      <h3>Mini exercice 9 (lecture, discussion)</h3>
+      <div class="calc-box">
+        <p style="margin-top: 0">
+          1) Donne une correspondance : $180^\circ$ correspond à quel angle en
+          radians ?
+        </p>
+        <div class="dotted-lines"></div>
+
+        <p style="margin: 6px 0 4px 0">
+          2) Donne une correspondance : $90^\circ$ correspond à quel angle en
+          radians ?
+        </p>
+        <div class="dotted-lines"></div>
+
+        <p style="margin: 6px 0 4px 0">
+          3) Sur les cercles, la flèche est environ à $60^\circ$. Quelle
+          écriture en radians est cohérente ?
+        </p>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <h3>Mini exercice 10 (phase, sans calcul)</h3>
+      <div class="calc-box">
+        <p style="margin-top: 0">
+          Deux grandeurs alternatives sont représentées par deux flèches.
+        </p>
+        <p style="margin: 6px 0 4px 0">
+          1) Si elles sont au même endroit sur le cercle, sont-elles en phase ou
+          décalées ?
+        </p>
+        <div class="dotted-lines"></div>
+
+        <p style="margin: 6px 0 4px 0">
+          2) Si l'une est à 0° et l'autre à 180°, sont-elles dans le même sens
+          ou en sens opposé ?
+        </p>
+        <div class="dotted-lines"></div>
+
+        <p style="margin: 6px 0 4px 0">
+          3) Donne un exemple d'idée de "décalage" en électricité, en mots (sans
+          formule).
+        </p>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP Électricien - Ouverture électrotechnique</div>
+        <div>Page 6</div>
+      </div>
+    </div>
+
+    <!-- PAGE 7 : SYNTHÈSE -->
+    <div class="page" style="background: #f4f7f6">
+      <h2
+        style="
+          text-align: center;
+          background: #2c3e50;
+          border: none;
+          padding: 12px;
+          margin-top: 0;
+        "
+      >
+        SYNTHÈSE VISUELLE - VECTEURS ET FORCES
+      </h2>
+
+      <div class="grid-synthesis">
+        <div class="card-synthesis">
+          <div class="card-title">📌 Vecteur <span>Flèche</span></div>
+          <div class="card-content">
+            Un vecteur a : direction, sens, intensité (longueur).
+          </div>
+        </div>
+
+        <div class="card-synthesis">
+          <div class="card-title">🧰 Vecteur force <span>N</span></div>
+          <div class="card-content">
+            Une force : point d'application, direction, sens, intensité.
+          </div>
+        </div>
+
+        <div class="card-synthesis">
+          <div class="card-title">🧭 Coordonnées <span>(x;y)</span></div>
+          <div class="card-content">
+            Coordonnées : déplacement horizontal et vertical.
+          </div>
+        </div>
+
+        <div class="card-synthesis">
+          <div class="card-title">📏 Norme <span>Longueur</span></div>
+          <div class="card-content">
+            $\|\vec{u}\|=\sqrt{x^2+y^2}$ (calcul simple). La norme représente
+            l'intensité.
+          </div>
+        </div>
+
+        <div class="card-synthesis" style="grid-column: span 2">
+          <div class="card-title">
+            ⚖️ Somme des forces <span>Équilibre</span>
+          </div>
+          <div class="card-content">
+            Addition graphique (tête-queue). Équilibre si la somme des forces
+            est nulle (tracé fermé).
+          </div>
+        </div>
+
+        <div class="card-synthesis" style="grid-column: span 2">
+          <div class="card-title">
+            🔌 Cercle trigo <span>Degrés et radians</span>
+          </div>
+          <div class="card-content">
+            Deux écritures d'angle pour discuter l'électrotech. Projections :
+            $\cos(\theta)$ et $\sin(\theta)$.
+          </div>
+        </div>
+      </div>
+
+      <div
+        style="
+          margin-top: 10px;
+          padding: 10px;
+          background: white;
+          border-radius: 10px;
+          border: 2px dashed #27ae60;
+        "
+      >
+        <h4 style="margin: 0; color: #27ae60">MINI QUIZ DE CONTRÔLE</h4>
+
+        <p style="font-size: 9pt; margin: 6px 0 3px 0">
+          1) Citer les trois caractéristiques d'un vecteur.
+        </p>
+        <div class="dotted-lines"></div>
+
+        <p style="font-size: 9pt; margin: 6px 0 3px 0">
+          2) Que signifie "norme" d'un vecteur ?
+        </p>
+        <div class="dotted-lines"></div>
+
+        <p style="font-size: 9pt; margin: 6px 0 3px 0">
+          3) Un solide est à l'équilibre si la somme des forces est ...
+        </p>
+        <div class="dotted-lines"></div>
+
+        <p style="font-size: 9pt; margin: 6px 0 3px 0">
+          4) Donner une égalité : $180^\circ =$ .......... (en radians)
+        </p>
+        <div class="dotted-lines"></div>
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>BP Électricien - Synthèse</div>
+        <div>Page 7</div>
+      </div>
+    </div>
+  </body>
+</html>

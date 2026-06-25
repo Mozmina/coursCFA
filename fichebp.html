@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Fiche grille - 51-1BP-PAR1-B</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Oswald:wght@500;600;700&display=swap');
+
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Roboto', Arial, sans-serif;
+        background: #5f6368;
+        color: #111;
+        padding: 12px;
+      }
+
+      .page {
+        width: 297mm;
+        height: 210mm;
+        margin: 0 auto;
+        background: white;
+        padding: 10mm;
+        display: flex;
+        flex-direction: column;
+        gap: 7mm;
+      }
+
+      .header {
+        border: 2px solid #1f2937;
+        border-radius: 10px;
+        padding: 8px 12px;
+        display: grid;
+        grid-template-columns: 1.4fr 1fr 1fr;
+        gap: 10px;
+        align-items: center;
+      }
+
+      h1 {
+        font-family: 'Oswald', Arial, sans-serif;
+        margin: 0;
+        font-size: 24pt;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+        color: #1f2937;
+      }
+
+      .info {
+        font-size: 10pt;
+        line-height: 1.35;
+      }
+
+      .box {
+        border-left: 4px solid #f59e0b;
+        padding-left: 8px;
+      }
+
+      .small-label {
+        font-weight: 900;
+        text-transform: uppercase;
+        color: #374151;
+        font-size: 8.5pt;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        flex: 1;
+      }
+
+      th {
+        background: #bfbfc0;
+        color: white;
+        font-family: 'Oswald', Arial, sans-serif;
+        font-size: 10pt;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        border: 1.5px solid #111827;
+        padding: 7px 5px;
+        text-align: center;
+      }
+
+      td {
+        border: 1.5px solid #374151;
+        padding: 6px 5px;
+        height: 14mm;
+        font-size: 11pt;
+        vertical-align: middle;
+      }
+
+      tbody tr:nth-child(even) td {
+        background: #f8fafc;
+      }
+
+      .num {
+        width: 7mm;
+        text-align: center;
+        font-weight: 700;
+      }
+
+      .nom {
+        font-weight: 900;
+        text-transform: uppercase;
+      }
+
+      .prenom {
+        font-weight: 500;
+      }
+
+      .note {
+        text-align: center;
+      }
+
+      .obs {
+        font-size: 10pt;
+      }
+
+      .footer {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8mm;
+        font-size: 10pt;
+      }
+
+      .sign {
+        border: 1.5px solid #374151;
+        border-radius: 8px;
+        min-height: 18mm;
+        padding: 6px 8px;
+      }
+
+      .sign-title {
+        font-weight: 900;
+        text-transform: uppercase;
+        font-size: 8.5pt;
+        color: #374151;
+        margin-bottom: 6px;
+      }
+
+      .print-button {
+        position: fixed;
+        right: 18px;
+        top: 18px;
+        border: none;
+        background: #1f2937;
+        color: white;
+        font-weight: 700;
+        padding: 10px 16px;
+        border-radius: 8px;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      }
+
+      @page {
+        size: A4 landscape;
+        margin: 0;
+      }
+
+      @media print {
+        body {
+          background: white;
+          padding: 0;
+        }
+
+        .page {
+          margin: 0;
+          box-shadow: none;
+          width: 297mm;
+          height: 210mm;
+        }
+
+        .print-button {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button class="print-button" onclick="window.print()">Imprimer</button>
+
+    <main class="page">
+      <section class="header">
+        <div>
+          <h1>Fiche grille</h1>
+          <div class="info">
+            Groupe : <strong>51-1BP-PAR1-B</strong> - BP PAR 1ère année
+          </div>
+        </div>
+        <div class="info box">
+          <div class="small-label">Séance / activité</div>
+          ....................................................................
+        </div>
+        <div class="info box">
+          <div class="small-label">Date</div>
+          ........ / ........ / ........
+        </div>
+      </section>
+
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 8mm">N°</th>
+            <th style="width: 36mm">Nom</th>
+            <th style="width: 32mm">Prénom</th>
+            <th style="width: 178mm"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="num">1</td>
+            <td class="nom">BOLAND</td>
+            <td class="prenom">Jessica</td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td class="num">2</td>
+            <td class="nom">BROSSAY</td>
+            <td class="prenom">Baptiste</td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td class="num">3</td>
+            <td class="nom">BURY</td>
+            <td class="prenom">Bryan</td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td class="num">4</td>
+            <td class="nom">CRETON</td>
+            <td class="prenom">Paul</td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td class="num">5</td>
+            <td class="nom">DA MOTA</td>
+            <td class="prenom">Lorenzo</td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td class="num">6</td>
+            <td class="nom">DIOT</td>
+            <td class="prenom">Léo</td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td class="num">7</td>
+            <td class="nom">DOUMBIA</td>
+            <td class="prenom">Mamadou</td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td class="num">8</td>
+            <td class="nom">LALONDE</td>
+            <td class="prenom">Noa</td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td class="num">9</td>
+            <td class="nom">LEVEQUE</td>
+            <td class="prenom">Corentin</td>
+            <td></td>
+          </tr>
+
+          <tr>
+            <td class="num">10</td>
+            <td class="nom">LURETTE</td>
+            <td class="prenom">Mathis</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </main>
+  </body>
+</html>

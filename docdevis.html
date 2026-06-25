@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Dossier Ressources - Chantier DUBOIS</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Kalam:wght@300;400&family=Courier+Prime&display=swap');
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 0;
+        background: #eee;
+        color: #333;
+      }
+
+      /* Simulation de la feuille A4 à l'écran */
+      .page {
+        width: 210mm;
+        min-height: 297mm;
+        padding: 20mm;
+        margin: 10mm auto;
+        border: 1px solid #d3d3d3;
+        border-radius: 5px;
+        background: white;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        box-sizing: border-box;
+        position: relative;
+      }
+
+      /* --- STYLES SPÉCIFIQUES --- */
+
+      /* Doc 1 : Manuscrit */
+      .handwritten {
+        font-family: 'Kalam', cursive;
+        color: #000080; /* Bleu stylo */
+        font-size: 1.3em;
+        line-height: 1.6;
+      }
+      .notebook-lines {
+        background-image: linear-gradient(#e1e1e1 1px, transparent 1px);
+        background-size: 100% 2em;
+        line-height: 2em;
+      }
+
+      /* Doc 2 : Email */
+      .email-header {
+        border-bottom: 1px solid #ccc;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        font-family: Arial, sans-serif;
+      }
+      .email-field {
+        margin-bottom: 5px;
+      }
+      .email-label {
+        color: #777;
+        font-weight: bold;
+        width: 60px;
+        display: inline-block;
+      }
+
+      /* Doc 3 : Tableau Excel */
+      .excel-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: Arial, sans-serif;
+      }
+      .excel-table th {
+        background: #f2f2f2;
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+      }
+      .excel-table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+      }
+
+      /* Doc 4 : Note de Service */
+      .memo-box {
+        border: 4px solid #c0392b;
+        padding: 20px;
+        text-align: center;
+      }
+      .memo-title {
+        color: #c0392b;
+        font-weight: bold;
+        font-size: 2em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      /* Bouton Impression */
+      .print-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #2c3e50;
+        color: white;
+        border: none;
+        padding: 15px 30px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 1.1em;
+        z-index: 1000;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      }
+      .print-btn:hover {
+        background: #e67e22;
+      }
+
+      /* --- IMPRESSION --- */
+      @media print {
+        body {
+          background: white;
+        }
+        .page {
+          margin: 0;
+          border: initial;
+          border-radius: initial;
+          width: initial;
+          min-height: initial;
+          box-shadow: initial;
+          background: initial;
+          page-break-after: always; /* Saut de page forcé après chaque bloc */
+        }
+        .print-btn {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button class="print-btn" onclick="window.print()">
+      🖨️ IMPRIMER TOUT LE DOSSIER
+    </button>
+
+    <!-- PAGE 1 : FICHE CHANTIER (Manuscrite) -->
+    <div class="page">
+      <div
+        style="
+          border: 2px solid #333;
+          padding: 10px;
+          margin-bottom: 20px;
+          display: flex;
+          justify-content: space-between;
+        "
+      >
+        <strong>BATI-PRO 51</strong>
+        <span>FICHE DE VISITE - COMMERCIAL</span>
+      </div>
+
+      <div style="margin-bottom: 30px; font-family: 'Courier Prime', monospace">
+        <p><strong>CLIENT :</strong> Mme DUBOIS Sophie</p>
+        <p><strong>ADRESSE :</strong> 15 Allée des Érables, 51100 REIMS</p>
+        <p><strong>DATE :</strong> 24/10/2023</p>
+        <p><strong>PROJET :</strong> Terrasse Sud</p>
+      </div>
+
+      <h3>Relevé de terrain & Notes :</h3>
+      <div class="handwritten notebook-lines">
+        <p>
+          Vu avec la cliente ce matin.<br />
+          Pour la terrasse, on part sur une surface rectangulaire simple.<br />
+          J'ai mesuré : ça fait exactement <strong>40 m²</strong>.<br />
+          <br />
+          Elle veut les dalles "Ton Pierre" (Réf DAL-GR-01).<br />
+          Pour poser tout ça, il faut prévoir un lit de sable.<br />
+          J'ai calculé le volume, commande <strong>3 Big-Bags</strong> de sable,
+          ça suffira.<br />
+          <br />
+          Niveau main d'œuvre, j'ai vu avec le chef d'équipe.<br />
+          À deux, ils vont mettre environ <strong>20 heures</strong> pour tout
+          boucler (prépa + pose).<br />
+          <br />
+          <em
+            >Attention à l'accès : le camion ne passe pas derrière, il faudra
+            tout décharger devant.</em
+          >
+        </p>
+      </div>
+
+      <div
+        style="
+          position: absolute;
+          bottom: 20mm;
+          right: 20mm;
+          border: 3px double red;
+          padding: 10px;
+          transform: rotate(-5deg);
+          color: red;
+          font-weight: bold;
+        "
+      >
+        URGENT :<br />Client pressé !
+      </div>
+    </div>
+
+    <!-- PAGE 2 : EMAIL DIRECTION (Règles Calcul) -->
+    <div class="page">
+      <div class="email-header">
+        <div class="email-field">
+          <span class="email-label">De :</span>
+          directeur.commercial@bati-pro51.fr
+        </div>
+        <div class="email-field">
+          <span class="email-label">À :</span> service.devis@bati-pro51.fr
+        </div>
+        <div class="email-field">
+          <span class="email-label">Date :</span> Lundi 23 Octobre 2023 08:45
+        </div>
+        <div class="email-field">
+          <span class="email-label">Objet :</span>
+          <strong>Rappel procédure chiffrage 2023</strong>
+        </div>
+      </div>
+
+      <p>Bonjour à tous,</p>
+      <p>
+        Je constate encore des erreurs dans les marges sur les derniers
+        dossiers. Voici un rappel des règles à appliquer strictement pour cette
+        fin d'année :
+      </p>
+
+      <br />
+
+      <h4 style="background: #eee; padding: 10px">
+        1. CALCUL DES PRIX DE VENTE (PV)
+      </h4>
+      <p>
+        Nous ne vendons pas à prix coûtant ! Vous devez appliquer une marge
+        commerciale.
+      </p>
+      <p>
+        La règle est simple :
+        <strong
+          >Multipliez tous les PRIX D'ACHAT (Matériaux et Main d'œuvre) par
+          1,40.</strong
+        >
+      </p>
+      <p
+        style="
+          border-left: 3px solid orange;
+          padding-left: 10px;
+          font-style: italic;
+        "
+      >
+        Exemple : Si on achète une brique 1,00 €, on la revend 1,40 €.
+      </p>
+
+      <br />
+
+      <h4 style="background: #eee; padding: 10px">2. POLITIQUE DE REMISE</h4>
+      <p>Les remises ne sont pas automatiques. Elles se méritent.</p>
+      <ul>
+        <li>
+          Si le total "Vente" (avant transport) est inférieur à 1 500 € :
+          <strong>0%</strong>.
+        </li>
+        <li>
+          Si le total "Vente" dépasse <strong>1 500 €</strong> : Vous pouvez
+          accorder <strong>5%</strong>.
+        </li>
+      </ul>
+      <p style="color: red; font-weight: bold">
+        IMPORTANT : La remise s'applique uniquement sur votre sous-total
+        travaux. JAMAIS DE REMISE SUR LE TRANSPORT.
+      </p>
+
+      <br />
+      <p>Merci de votre vigilance.</p>
+      <p>Cordialement,<br />La Direction.</p>
+    </div>
+
+    <!-- PAGE 3 : CATALOGUE FOURNISSEUR & LOGISTIQUE -->
+    <div class="page">
+      <div style="text-align: center; margin-bottom: 30px">
+        <h2 style="border-bottom: 2px solid #333; display: inline-block">
+          EXTRAIT TARIF FOURNISSEURS 2023
+        </h2>
+      </div>
+
+      <h3>1. MATÉRIAUX (Prix Achat HT)</h3>
+      <table class="excel-table">
+        <thead>
+          <tr>
+            <th>RÉFÉRENCE</th>
+            <th>DÉSIGNATION</th>
+            <th>UNITÉ</th>
+            <th>PRIX ACHAT HT</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>DAL-GR-01</td>
+            <td>Dalle Gravillonnée 40x40 "Ton Pierre"</td>
+            <td>m²</td>
+            <td><strong>15,00 €</strong></td>
+          </tr>
+          <tr>
+            <td>DAL-GR-02</td>
+            <td>Dalle Gravillonnée 50x50 "Gris"</td>
+            <td>m²</td>
+            <td>18,50 €</td>
+          </tr>
+          <tr>
+            <td>BIG-SAB</td>
+            <td>Sable à maçonner (Big-Bag 1T)</td>
+            <td>Unité</td>
+            <td><strong>40,00 €</strong></td>
+          </tr>
+          <tr>
+            <td>MO-INT</td>
+            <td>Coût Horaire Main d'Oeuvre (Interne)</td>
+            <td>Heure</td>
+            <td><strong>30,00 €</strong></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <br /><br /><br />
+
+      <h3>2. TRANSPORTS & LIVRAISONS</h3>
+      <p><em>Facturation au forfait selon le type de camion utilisé.</em></p>
+      <table class="excel-table">
+        <thead>
+          <tr>
+            <th>VÉHICULE</th>
+            <th>CAPACITÉ</th>
+            <th>FORFAIT (Zone 1)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Camionnette</td>
+            <td>< 1 Tonne</td>
+            <td>50,00 € HT</td>
+          </tr>
+          <tr>
+            <td>Camion Benne</td>
+            <td>< 3.5 Tonnes</td>
+            <td><strong>120,00 € HT</strong></td>
+          </tr>
+          <tr>
+            <td>Camion Grue</td>
+            <td>> 3.5 Tonnes</td>
+            <td>200,00 € HT</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div
+        style="
+          margin-top: 40px;
+          border: 2px solid #333;
+          padding: 15px;
+          background: #f9f9f9;
+        "
+      >
+        <strong>MÉMO FISCALITÉ (TVA) :</strong><br />
+        Le taux normal de <strong>20%</strong> s'applique à l'ensemble de la
+        facture.<br />
+        La base de calcul de la TVA comprend : Les Marchandises + La Main
+        d'œuvre + Les Frais de Transport.
+      </div>
+    </div>
+
+    <!-- PAGE 4 : LE LEURRE (SÉCURITÉ) -->
+    <div class="page">
+      <div class="memo-box">
+        <div class="memo-title">NOTE DE SERVICE SÉCURITÉ</div>
+        <p><strong>OBJET : RAPPEL OBLIGATIONS E.P.I.</strong></p>
+
+        <p style="text-align: justify; margin: 20px 0">
+          Suite à la visite de l'inspection du travail sur le chantier de Reims
+          le 12/09, nous vous rappelons que le port des Équipements de
+          Protection Individuelle est <strong>STRICTEMENT OBLIGATOIRE</strong>.
+        </p>
+
+        <ul style="text-align: left; list-style-type: square; margin-left: 30%">
+          <li>Casque (Norme EN 397)</li>
+          <li>Chaussures de sécurité (S3)</li>
+          <li>Gants de manutention</li>
+          <li>Gilet Haute Visibilité</li>
+        </ul>
+
+        <div
+          style="
+            font-size: 3em;
+            color: #c0392b;
+            margin: 30px 0;
+            border: 3px solid #c0392b;
+            display: inline-block;
+            padding: 10px;
+            transform: rotate(-10deg);
+          "
+        >
+          TOLÉRANCE<br />ZÉRO
+        </div>
+
+        <p>
+          <em
+            >Tout manquement constaté entraînera une mise à pied immédiate.</em
+          >
+        </p>
+        <p>La Direction.</p>
+      </div>
+    </div>
+  </body>
+</html>

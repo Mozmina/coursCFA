@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>
+      BP MIGCS - Introduction à l'algorithmique avec une V3V électronique
+    </title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&family=Oswald:wght@500;600;700&display=swap');
+
+      :root {
+        --primary: #174a72;
+        --secondary: #2f7e8c;
+        --accent: #e9922b;
+        --light: #eef5f8;
+        --lighter: #f8fbfc;
+        --dark: #1c2730;
+        --red: #b64343;
+        --green: #3f7d55;
+        --grey: #6b7378;
+      }
+
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #646a70;
+        color: var(--dark);
+        font-family: 'Roboto', sans-serif;
+        font-size: 9.6pt;
+        line-height: 1.24;
+      }
+
+      body {
+        padding: 14px 0 30px;
+      }
+
+      .page {
+        width: 210mm;
+        height: 297mm;
+        min-height: 297mm;
+        margin: 0 auto 14px;
+        background: white;
+        padding: 8mm 10mm 9mm;
+        position: relative;
+        overflow: hidden;
+        page-break-after: always;
+        break-after: page;
+      }
+
+      .page:last-child {
+        page-break-after: auto;
+      }
+
+      .header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        border-bottom: 4px solid var(--primary);
+        padding-bottom: 7px;
+        margin-bottom: 10px;
+      }
+
+      .header img {
+        width: 54mm;
+        height: auto;
+        object-fit: contain;
+      }
+
+      .header-title {
+        flex: 1;
+        text-align: right;
+      }
+
+      .header-title h1 {
+        font-family: 'Oswald', sans-serif;
+        color: var(--primary);
+        font-size: 21pt;
+        margin: 0;
+        line-height: 1.05;
+        text-transform: uppercase;
+      }
+
+      .header-title p {
+        margin: 3px 0 0;
+        color: var(--grey);
+        font-weight: 500;
+      }
+
+      h2 {
+        font-family: 'Oswald', sans-serif;
+        color: var(--primary);
+        font-size: 15pt;
+        margin: 4px 0 6px;
+        padding-bottom: 2px;
+        border-bottom: 2px solid #bdd1dc;
+      }
+
+      h3 {
+        font-family: 'Oswald', sans-serif;
+        color: var(--secondary);
+        font-size: 11.5pt;
+        margin: 5px 0 3px;
+      }
+
+      p {
+        margin: 3px 0;
+      }
+
+      .identity {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 18px;
+        margin: 7px 0 6px;
+        padding: 6px;
+        background: var(--lighter);
+        border: 1px solid #ccd8de;
+        border-radius: 6px;
+      }
+
+      .line {
+        display: inline-block;
+        min-width: 72%;
+        border-bottom: 1px solid #333;
+        height: 17px;
+        vertical-align: bottom;
+      }
+
+      .box {
+        border: 1.4px solid #b7c8d2;
+        border-left: 6px solid var(--primary);
+        border-radius: 6px;
+        padding: 6px 8px;
+        margin: 4px 0;
+        background: #fff;
+      }
+
+      .box.orange {
+        border-left-color: var(--accent);
+        background: #fff8ee;
+      }
+
+      .box.green {
+        border-left-color: var(--green);
+        background: #f3faf5;
+      }
+
+      .box.red {
+        border-left-color: var(--red);
+        background: #fff5f5;
+      }
+
+      .objective {
+        background: linear-gradient(135deg, #edf5f9, #f9fcfd);
+        border: 1px solid #b7cdd9;
+        padding: 6px 8px;
+        border-radius: 7px;
+        margin: 5px 0;
+      }
+
+      .objective strong {
+        color: var(--primary);
+      }
+
+      .situation {
+        background: #fff7ea;
+        border: 2px solid #edb969;
+        border-radius: 8px;
+        padding: 7px 9px;
+        margin: 5px 0;
+      }
+
+      .question {
+        margin: 5px 0 2px;
+        font-weight: 500;
+      }
+
+      .dots {
+        height: 14px;
+        border-bottom: 1px dotted #555;
+        margin: 2px 0 5px;
+      }
+
+      .dots.large {
+        height: 20px;
+      }
+
+      .dots.xlarge {
+        height: 27px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 4px 0 6px;
+        font-size: 9.1pt;
+      }
+
+      th,
+      td {
+        border: 1px solid #8799a4;
+        padding: 3px 5px;
+        vertical-align: top;
+      }
+
+      th {
+        background: var(--primary);
+        color: white;
+        font-weight: 700;
+        text-align: center;
+      }
+
+      td.center {
+        text-align: center;
+        vertical-align: middle;
+      }
+
+      .small {
+        font-size: 8.8pt;
+      }
+
+      .code {
+        display: block;
+        font-family: Consolas, 'Courier New', monospace;
+        background: #f5f7f8;
+        border: 1px solid #aebbc2;
+        border-radius: 6px;
+        padding: 6px 8px;
+        white-space: pre-wrap;
+        tab-size: 4;
+        -moz-tab-size: 4;
+        margin: 5px 0;
+        font-size: 8.9pt;
+        line-height: 1.35;
+        overflow: visible;
+      }
+
+      .wordbank {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        padding: 8px;
+        border: 1px dashed var(--secondary);
+        background: #f2fafb;
+        border-radius: 6px;
+        margin: 6px 0;
+      }
+
+      .word {
+        background: white;
+        border: 1px solid #9bc1c8;
+        border-radius: 14px;
+        padding: 3px 9px;
+        font-weight: 500;
+      }
+
+      .diagram {
+        width: 100%;
+        margin: 5px 0;
+        border: 1px solid #bac8d0;
+        border-radius: 7px;
+        background: #fbfdfe;
+        padding: 6px;
+      }
+
+      .two-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 7px;
+        align-items: start;
+      }
+
+      .three-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 6px;
+      }
+
+      .badge {
+        display: inline-block;
+        background: var(--primary);
+        color: #fff;
+        font-weight: 700;
+        border-radius: 14px;
+        padding: 2px 8px;
+        margin-right: 5px;
+        font-size: 8.8pt;
+      }
+
+      .exercise-title {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        margin-top: 5px;
+      }
+
+      .num {
+        width: 26px;
+        height: 20px;
+        border-radius: 50%;
+        background: var(--accent);
+        color: white;
+        font-weight: 900;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex: none;
+      }
+
+      .exercise-title h3 {
+        margin: 0;
+        color: var(--dark);
+      }
+
+      .footer {
+        position: absolute;
+        left: 10mm;
+        right: 10mm;
+        bottom: 4mm;
+        display: flex;
+        justify-content: space-between;
+        color: #66737b;
+        font-size: 8.2pt;
+        border-top: 1px solid #d4dde2;
+        padding-top: 3px;
+      }
+
+      .check {
+        display: inline-block;
+        width: 13px;
+        height: 13px;
+        border: 1.3px solid #333;
+        margin-right: 4px;
+        vertical-align: -2px;
+        background: white;
+      }
+
+      .summary-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+      }
+
+      .fill {
+        display: inline-block;
+        min-width: 110px;
+        height: 17px;
+        border-bottom: 1px dotted #333;
+        vertical-align: bottom;
+      }
+
+      .warning {
+        font-size: 9pt;
+        color: #5b3b18;
+        background: #fff2d9;
+        border: 1px solid #e3bd77;
+        padding: 6px 8px;
+        border-radius: 5px;
+      }
+
+      .flow {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr auto 1fr;
+        gap: 6px;
+        align-items: center;
+        margin: 5px 0;
+      }
+
+      .flow div {
+        text-align: center;
+        padding: 8px 5px;
+        border: 1px solid #9eb3bf;
+        border-radius: 6px;
+        background: #f5f9fb;
+        font-weight: 700;
+      }
+
+      .arrow {
+        font-size: 18pt;
+        color: var(--primary);
+        border: none !important;
+        background: none !important;
+        padding: 0 !important;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      /* Sécurisation des coupures à l'impression */
+      table,
+      .box,
+      .objective,
+      .situation,
+      .code,
+      .wordbank,
+      .exercise-title,
+      .summary-grid,
+      .flow,
+      .diagram {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      tr,
+      td,
+      th {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      /* Le grand bloc de rédaction de la page 7 doit rester compact */
+      .page:nth-of-type(7) .code[style] {
+        min-height: 175px !important;
+      }
+
+      /* La synthèse finale doit tenir sur une page */
+      .page:nth-of-type(8) .summary-grid {
+        gap: 5px;
+      }
+
+      .page:nth-of-type(8) table {
+        font-size: 8.7pt;
+      }
+
+      .page:nth-of-type(8) .code {
+        font-size: 8.5pt;
+        line-height: 1.25;
+      }
+
+      @media print {
+        html,
+        body {
+          width: 210mm;
+          margin: 0 !important;
+          padding: 0 !important;
+          background: white;
+        }
+
+        body {
+          font-size: 9.2pt;
+        }
+
+        .page {
+          width: 210mm;
+          height: 297mm;
+          min-height: 297mm;
+          margin: 0 !important;
+          padding: 8mm 10mm 9mm;
+          box-shadow: none;
+          overflow: hidden;
+          page-break-after: always;
+          break-after: page;
+        }
+
+        .page:last-child {
+          page-break-after: auto;
+          break-after: auto;
+        }
+
+        .header {
+          margin-bottom: 6px;
+          padding-bottom: 5px;
+        }
+
+        .header-title h1 {
+          font-size: 19pt;
+        }
+
+        .diagram {
+          margin: 4px 0;
+        }
+
+        .footer {
+          bottom: 4mm;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="page">
+      <div class="header">
+        <img
+          alt="Logo BTP CFA"
+          src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+        />
+        <div class="header-title">
+          <h1>Introduction à l'algorithmique</h1>
+          <p>BP MIGCS - Piloter une vanne 3 voies électronique</p>
+        </div>
+      </div>
+      <div class="identity">
+        <div>Nom : <span class="line"></span></div>
+        <div>Prénom : <span class="line"></span></div>
+        <div>Groupe : <span class="line"></span></div>
+        <div>Date : <span class="line"></span></div>
+      </div>
+      <div class="objective">
+        <strong>Objectif de la séance :</strong> comprendre comment un système
+        automatique utilise des variables, des comparaisons et des conditions
+        pour commander une vanne 3 voies motorisée.
+      </div>
+      <div class="situation">
+        <strong>Situation professionnelle</strong><br />
+        Une chaudière produit une eau à <strong>65 °C</strong>. Un plancher
+        chauffant doit recevoir une eau à environ <strong>35 °C</strong>. Une
+        vanne 3 voies motorisée mélange l'eau chaude provenant de la chaudière
+        avec l'eau plus froide revenant du plancher chauffant. <br /><br />
+        Une sonde mesure la température de départ. Le régulateur doit ensuite
+        décider s'il faut ouvrir davantage le passage d'eau chaude, le réduire
+        ou conserver la position actuelle.
+      </div>
+      <div class="diagram">
+        <img
+          alt="Schéma de fonctionnement d'une vanne 3 voies motorisée"
+          src="https://classwise-reservation.netlify.app/v3v.png"
+          style="display: block; width: 100%; height: auto; border-radius: 6px"
+        />
+      </div>
+      <div class="box orange">
+        <strong>Problème à résoudre :</strong> comment traduire le
+        fonctionnement de cette installation sous la forme d'un algorithme
+        compréhensible par un automate ?
+      </div>
+      <div class="question">
+        Avant de commencer, écris avec tes mots ce que doit faire le régulateur.
+      </div>
+      <div class="dots large"></div>
+      <div class="dots large"></div>
+      <div class="footer">
+        <span>BP MIGCS - Mathématiques / Sciences</span>
+        <span>Page 1 / 8</span>
+      </div>
+    </section>
+    <section class="page">
+      <h2>1. Comprendre le système</h2>
+      <div class="exercise-title">
+        <div class="num">1</div>
+        <h3>Identifier les éléments de l'installation</h3>
+      </div>
+      <p>
+        À l'aide de la vidéo et du schéma de la page précédente, complète le
+        tableau.
+      </p>
+      <table>
+        <tr>
+          <th>Élément</th>
+          <th>Rôle dans l'installation</th>
+        </tr>
+        <tr>
+          <td>Chaudière</td>
+          <td style="height: 42px"></td>
+        </tr>
+        <tr>
+          <td>Vanne 3 voies</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Servomoteur</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Sonde de température</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Régulateur</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Plancher chauffant</td>
+          <td></td>
+        </tr>
+      </table>
+      <div class="exercise-title">
+        <div class="num">2</div>
+        <h3>Classer les informations</h3>
+      </div>
+      <p>
+        Dans un système automatisé, on peut distinguer les
+        <strong>entrées</strong>, le <strong>traitement</strong> et les
+        <strong>sorties</strong>.
+      </p>
+      <div class="flow">
+        <div>Entrées<br /><span class="small">informations reçues</span></div>
+        <div class="arrow">→</div>
+        <div>
+          Traitement<br /><span class="small">décision du régulateur</span>
+        </div>
+        <div class="arrow">→</div>
+        <div>Sorties<br /><span class="small">actions commandées</span></div>
+      </div>
+      <p>Classe les éléments suivants dans la bonne colonne :</p>
+      <div class="wordbank">
+        <span class="word">température mesurée</span>
+        <span class="word">température de consigne</span>
+        <span class="word">comparaison des températures</span>
+        <span class="word">ouvrir la vanne</span>
+        <span class="word">fermer la vanne</span>
+        <span class="word">maintenir la position</span>
+      </div>
+      <table>
+        <tr>
+          <th>Entrées</th>
+          <th>Traitement</th>
+          <th>Sorties</th>
+        </tr>
+        <tr>
+          <td style="height: 95px"></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+      <div class="exercise-title">
+        <div class="num">3</div>
+        <h3>Décrire la boucle de régulation</h3>
+      </div>
+      <p>Numérote les étapes de 1 à 5 dans l'ordre de fonctionnement.</p>
+      <table>
+        <tr>
+          <td class="center" style="width: 42px"></td>
+          <td>Le régulateur choisit une action.</td>
+        </tr>
+        <tr>
+          <td class="center"></td>
+          <td>La sonde mesure la température de départ.</td>
+        </tr>
+        <tr>
+          <td class="center"></td>
+          <td>Le servomoteur déplace la vanne.</td>
+        </tr>
+        <tr>
+          <td class="center"></td>
+          <td>Le régulateur compare la température mesurée à la consigne.</td>
+        </tr>
+        <tr>
+          <td class="center"></td>
+          <td>La température est mesurée de nouveau.</td>
+        </tr>
+      </table>
+      <div class="box green">
+        <strong>À retenir :</strong> la régulation fonctionne en boucle. Le
+        système mesure, compare, décide, agit, puis recommence.
+      </div>
+      <div class="footer">
+        <span>BP MIGCS - Mathématiques / Sciences</span>
+        <span>Page 2 / 8</span>
+      </div>
+    </section>
+    <section class="page">
+      <h2>2. Découvrir la notion de variable</h2>
+      <div class="box">
+        Une <strong>variable</strong> est un emplacement utilisé pour conserver
+        une information dont la valeur peut changer pendant le fonctionnement du
+        programme.
+      </div>
+      <div class="exercise-title">
+        <div class="num">4</div>
+        <h3>Repérer ce qui peut varier</h3>
+      </div>
+      <p>
+        Coche les informations qui peuvent changer pendant le fonctionnement de
+        l'installation.
+      </p>
+      <div class="two-cols">
+        <div class="box">
+          <p><span class="check"></span> La température mesurée</p>
+          <p><span class="check"></span> Le nom du fabricant</p>
+          <p><span class="check"></span> La position de la vanne</p>
+        </div>
+        <div class="box">
+          <p><span class="check"></span> La température de consigne</p>
+          <p><span class="check"></span> La couleur du servomoteur</p>
+          <p><span class="check"></span> L'ordre envoyé au moteur</p>
+        </div>
+      </div>
+      <div class="exercise-title">
+        <div class="num">5</div>
+        <h3>Nommer les variables</h3>
+      </div>
+      <p>
+        En algorithmique, un nom de variable doit être clair et sans ambiguïté.
+        Relie chaque information au nom de variable le plus adapté.
+      </p>
+      <table>
+        <tr>
+          <th>Information</th>
+          <th>Nom de variable</th>
+        </tr>
+        <tr>
+          <td>Température donnée par la sonde</td>
+          <td class="center">temperature_mesuree</td>
+        </tr>
+        <tr>
+          <td>Température recherchée</td>
+          <td class="center">temperature_consigne</td>
+        </tr>
+        <tr>
+          <td>Pourcentage d'ouverture de la vanne</td>
+          <td class="center">position_vanne</td>
+        </tr>
+      </table>
+      <div class="exercise-title">
+        <div class="num">6</div>
+        <h3>Affecter une valeur à une variable</h3>
+      </div>
+      <p>
+        Donner une valeur à une variable s'appelle une
+        <strong>affectation</strong>.
+      </p>
+      <pre class="code">temperature_consigne ← 35</pre>
+      <p>
+        Cette instruction signifie que la variable
+        <strong>temperature_consigne</strong> contient la valeur
+        <strong>35</strong>.
+      </p>
+      <p>Traduis les informations suivantes sous forme d'affectations.</p>
+      <p class="question">a. La sonde mesure 32 °C.</p>
+      <pre class="code">temperature_mesuree ← ______</pre>
+      <p class="question">b. La vanne est ouverte à 40 %.</p>
+      <pre class="code">_______________________ ← ______</pre>
+      <p class="question">c. La consigne est réglée à 36 °C.</p>
+      <pre class="code">_______________________ ← ______</pre>
+      <div class="exercise-title">
+        <div class="num">7</div>
+        <h3>Lire l'évolution d'une variable</h3>
+      </div>
+      <table>
+        <tr>
+          <th>Instant</th>
+          <th>temperature_mesuree</th>
+          <th>position_vanne</th>
+        </tr>
+        <tr>
+          <td class="center">t1</td>
+          <td class="center">30 °C</td>
+          <td class="center">35 %</td>
+        </tr>
+        <tr>
+          <td class="center">t2</td>
+          <td class="center">32 °C</td>
+          <td class="center">45 %</td>
+        </tr>
+        <tr>
+          <td class="center">t3</td>
+          <td class="center">34,5 °C</td>
+          <td class="center">55 %</td>
+        </tr>
+      </table>
+      <p class="question">Quelle variable augmente entre t1 et t3 ?</p>
+      <div class="dots"></div>
+      <p class="question">
+        Pourquoi la température mesurée n'est-elle pas toujours identique ?
+      </p>
+      <div class="dots large"></div>
+      <div class="dots large"></div>
+      <div class="footer">
+        <span>BP MIGCS - Mathématiques / Sciences</span>
+        <span>Page 3 / 8</span>
+      </div>
+    </section>
+    <section class="page">
+      <h2>3. Comparer des valeurs</h2>
+      <div class="box">
+        Une <strong>comparaison</strong> permet de déterminer si une affirmation
+        est vraie ou fausse.
+      </div>
+      <table>
+        <tr>
+          <th>Symbole</th>
+          <th>Signification</th>
+          <th>Exemple</th>
+        </tr>
+        <tr>
+          <td class="center">&lt;</td>
+          <td>est inférieur à</td>
+          <td>32 &lt; 35</td>
+        </tr>
+        <tr>
+          <td class="center">&gt;</td>
+          <td>est supérieur à</td>
+          <td>39 &gt; 35</td>
+        </tr>
+        <tr>
+          <td class="center">=</td>
+          <td>est égal à</td>
+          <td>35 = 35</td>
+        </tr>
+        <tr>
+          <td class="center">≤</td>
+          <td>est inférieur ou égal à</td>
+          <td>34 ≤ 35</td>
+        </tr>
+        <tr>
+          <td class="center">≥</td>
+          <td>est supérieur ou égal à</td>
+          <td>36 ≥ 35</td>
+        </tr>
+      </table>
+      <div class="exercise-title">
+        <div class="num">8</div>
+        <h3>Vrai ou faux ?</h3>
+      </div>
+      <p>Pour chaque ligne, indique si la comparaison est vraie ou fausse.</p>
+      <table>
+        <tr>
+          <th>Comparaison</th>
+          <th>Vraie</th>
+          <th>Fausse</th>
+        </tr>
+        <tr>
+          <td>32 &lt; 35</td>
+          <td class="center"></td>
+          <td class="center"></td>
+        </tr>
+        <tr>
+          <td>38 &lt; 35</td>
+          <td class="center"></td>
+          <td class="center"></td>
+        </tr>
+        <tr>
+          <td>35 = 35</td>
+          <td class="center"></td>
+          <td class="center"></td>
+        </tr>
+        <tr>
+          <td>36 &gt; 34</td>
+          <td class="center"></td>
+          <td class="center"></td>
+        </tr>
+        <tr>
+          <td>34 ≥ 35</td>
+          <td class="center"></td>
+          <td class="center"></td>
+        </tr>
+      </table>
+      <div class="exercise-title">
+        <div class="num">9</div>
+        <h3>Comparer la température mesurée à la consigne</h3>
+      </div>
+      <p>La consigne est fixée à 35 °C. Complète avec &lt;, &gt; ou =.</p>
+      <table>
+        <tr>
+          <th>Température mesurée</th>
+          <th>Comparaison</th>
+          <th>Interprétation</th>
+        </tr>
+        <tr>
+          <td class="center">31 °C</td>
+          <td class="center">31 ___ 35</td>
+          <td>L'eau est trop __________________.</td>
+        </tr>
+        <tr>
+          <td class="center">35 °C</td>
+          <td class="center">35 ___ 35</td>
+          <td>La température est __________________.</td>
+        </tr>
+        <tr>
+          <td class="center">39 °C</td>
+          <td class="center">39 ___ 35</td>
+          <td>L'eau est trop __________________.</td>
+        </tr>
+      </table>
+      <div class="exercise-title">
+        <div class="num">10</div>
+        <h3>Découvrir la zone de tolérance</h3>
+      </div>
+      <div class="situation">
+        Pour éviter que la vanne change sans arrêt de sens, on accepte une
+        température comprise entre <strong>34 °C et 36 °C</strong>. Cette zone
+        est appelée <strong>zone de tolérance</strong>.
+      </div>
+      <p>Pour chaque température, indique la situation correspondante.</p>
+      <table>
+        <tr>
+          <th>Température</th>
+          <th>Inférieure à 34 °C</th>
+          <th>Entre 34 °C et 36 °C</th>
+          <th>Supérieure à 36 °C</th>
+        </tr>
+        <tr>
+          <td class="center">32 °C</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="center">34,5 °C</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="center">36 °C</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="center">38 °C</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+      <div class="footer">
+        <span>BP MIGCS - Mathématiques / Sciences</span>
+        <span>Page 4 / 8</span>
+      </div>
+    </section>
+    <section class="page">
+      <h2>4. Utiliser des conditions</h2>
+      <div class="box">
+        Une <strong>condition</strong> permet au programme de choisir une action
+        selon qu'une comparaison est vraie ou fausse.
+      </div>
+      <pre class="code">
+SI condition
+ALORS
+    action
+FIN SI</pre
+      >
+      <div class="exercise-title">
+        <div class="num">11</div>
+        <h3>Associer chaque situation à une action</h3>
+      </div>
+      <table>
+        <tr>
+          <th>Situation</th>
+          <th>Action du régulateur</th>
+        </tr>
+        <tr>
+          <td>La température est inférieure à 34 °C.</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>La température est comprise entre 34 °C et 36 °C.</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>La température est supérieure à 36 °C.</td>
+          <td></td>
+        </tr>
+      </table>
+      <div class="wordbank">
+        <span class="word">ouvrir davantage le passage chaud</span>
+        <span class="word">maintenir la position</span>
+        <span class="word">réduire le passage chaud</span>
+      </div>
+      <div class="exercise-title">
+        <div class="num">12</div>
+        <h3>Compléter une condition simple</h3>
+      </div>
+      <pre class="code">
+SI temperature_mesuree &lt; ______
+ALORS
+    ouvrir davantage le passage chaud
+FIN SI</pre
+      >
+      <p class="question">Quelle valeur faut-il écrire ? Justifie.</p>
+      <div class="dots large"></div>
+      <div class="exercise-title">
+        <div class="num">13</div>
+        <h3>Compléter une structure à plusieurs cas</h3>
+      </div>
+      <p>Complète l'algorithme avec les mots et valeurs proposés.</p>
+      <div class="wordbank">
+        <span class="word">34</span>
+        <span class="word">36</span>
+        <span class="word">maintenir la position</span>
+        <span class="word">réduire le passage chaud</span>
+        <span class="word">ouvrir davantage le passage chaud</span>
+      </div>
+      <pre class="code">
+SI temperature_mesuree &lt; ______
+ALORS
+    ______________________________________
+
+SINON SI temperature_mesuree &gt; ______
+ALORS
+    ______________________________________
+
+SINON
+    ______________________________________
+
+FIN SI</pre
+      >
+      <div class="exercise-title">
+        <div class="num">14</div>
+        <h3>Comprendre le rôle de SINON</h3>
+      </div>
+      <p class="question">
+        Dans l'algorithme précédent, à quelles températures correspond la partie
+        SINON ?
+      </p>
+      <div class="dots large"></div>
+      <p class="question">
+        Pourquoi ne faut-il pas écrire uniquement « température égale à 35 °C »
+        ?
+      </p>
+      <div class="dots large"></div>
+      <div class="dots large"></div>
+      <div class="box orange">
+        <strong>Attention :</strong> le programme teste les conditions dans
+        l'ordre. Dès qu'une condition est vraie, l'action correspondante est
+        exécutée.
+      </div>
+      <div class="footer">
+        <span>BP MIGCS - Mathématiques / Sciences</span>
+        <span>Page 5 / 8</span>
+      </div>
+    </section>
+    <section class="page">
+      <h2>5. Exécuter un algorithme</h2>
+      <pre class="code">
+temperature_consigne ← 35
+
+SI temperature_mesuree &lt; 34
+ALORS
+    action ← "ouvrir"
+
+SINON SI temperature_mesuree &gt; 36
+ALORS
+    action ← "fermer"
+
+SINON
+    action ← "maintenir"
+
+FIN SI</pre
+      >
+      <div class="exercise-title">
+        <div class="num">15</div>
+        <h3>Tester l'algorithme avec plusieurs valeurs</h3>
+      </div>
+      <p>
+        Pour chaque température mesurée, indique le résultat des comparaisons et
+        l'action obtenue.
+      </p>
+      <table>
+        <tr>
+          <th>temperature_mesuree</th>
+          <th>temperature_mesuree &lt; 34</th>
+          <th>temperature_mesuree &gt; 36</th>
+          <th>Action</th>
+        </tr>
+        <tr>
+          <td class="center">31 °C</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="center">34 °C</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="center">35 °C</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="center">36 °C</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="center">38 °C</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+      <div class="exercise-title">
+        <div class="num">16</div>
+        <h3>Suivre l'évolution du système</h3>
+      </div>
+      <p>La température est mesurée toutes les 30 secondes.</p>
+      <table>
+        <tr>
+          <th>Temps</th>
+          <th>Température mesurée</th>
+          <th>Action commandée</th>
+        </tr>
+        <tr>
+          <td class="center">0 s</td>
+          <td class="center">31 °C</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="center">30 s</td>
+          <td class="center">32,5 °C</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="center">60 s</td>
+          <td class="center">34 °C</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="center">90 s</td>
+          <td class="center">35,5 °C</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="center">120 s</td>
+          <td class="center">37 °C</td>
+          <td></td>
+        </tr>
+      </table>
+      <p class="question">
+        À quel instant le régulateur commence-t-il à maintenir la position de la
+        vanne ?
+      </p>
+      <div class="dots"></div>
+      <p class="question">
+        À quel instant doit-il réduire le passage d'eau chaude ?
+      </p>
+      <div class="dots"></div>
+      <p class="question">
+        Pourquoi l'algorithme doit-il être exécuté plusieurs fois ?
+      </p>
+      <div class="dots large"></div>
+      <div class="dots large"></div>
+      <div class="box green">
+        Dans une installation réelle, la boucle est répétée automatiquement tant
+        que le système fonctionne.
+      </div>
+      <div class="footer">
+        <span>BP MIGCS - Mathématiques / Sciences</span>
+        <span>Page 6 / 8</span>
+      </div>
+    </section>
+    <section class="page">
+      <h2>6. Corriger et construire un algorithme</h2>
+      <div class="exercise-title">
+        <div class="num">17</div>
+        <h3>Repérer une erreur de logique</h3>
+      </div>
+      <pre class="code">
+SI temperature_mesuree &gt; 36
+ALORS
+    ouvrir davantage le passage chaud
+
+SINON SI temperature_mesuree &lt; 34
+ALORS
+    réduire le passage chaud
+
+SINON
+    maintenir la position
+
+FIN SI</pre
+      >
+      <p class="question">Cet algorithme est-il correct ?</p>
+      <p><span class="check"></span> Oui     <span class="check"></span> Non</p>
+      <p class="question">Explique l'erreur.</p>
+      <div class="dots large"></div>
+      <div class="dots large"></div>
+      <p class="question">Réécris les deux actions au bon endroit.</p>
+      <pre class="code">
+SI temperature_mesuree &gt; 36
+ALORS
+    ______________________________________
+
+SINON SI temperature_mesuree &lt; 34
+ALORS
+    ______________________________________</pre
+      >
+      <div class="exercise-title">
+        <div class="num">18</div>
+        <h3>Écrire l'algorithme complet</h3>
+      </div>
+      <p>
+        Écris un algorithme permettant de commander la V3V avec les règles
+        suivantes :
+      </p>
+      <div class="box">
+        <p><span class="badge">1</span> La consigne est fixée à 35 °C.</p>
+        <p>
+          <span class="badge">2</span> La sonde mesure la température de départ.
+        </p>
+        <p>
+          <span class="badge">3</span> En dessous de 34 °C, ouvrir davantage le
+          passage chaud.
+        </p>
+        <p>
+          <span class="badge">4</span> Au-dessus de 36 °C, réduire le passage
+          chaud.
+        </p>
+        <p><span class="badge">5</span> Sinon, maintenir la position.</p>
+      </div>
+      <pre class="code" style="min-height: 245px">
+DÉBUT
+
+________________________________________________________
+
+________________________________________________________
+
+________________________________________________________
+
+________________________________________________________
+
+________________________________________________________
+
+________________________________________________________
+
+________________________________________________________
+
+________________________________________________________
+
+FIN</pre
+      >
+      <div class="footer">
+        <span>BP MIGCS - Mathématiques / Sciences</span>
+        <span>Page 7 / 8</span>
+      </div>
+    </section>
+    <section class="page">
+      <h2>7. Synthèse de la séance</h2>
+      <div class="summary-grid">
+        <div class="box">
+          <h3>Algorithme</h3>
+          <p>
+            Suite organisée d'<span class="fill"></span> permettant de résoudre
+            un problème ou de réaliser une tâche.
+          </p>
+        </div>
+        <div class="box">
+          <h3>Variable</h3>
+          <p>
+            Emplacement utilisé pour conserver une
+            <span class="fill"></span> dont la valeur peut changer.
+          </p>
+        </div>
+        <div class="box">
+          <h3>Comparaison</h3>
+          <p>
+            Opération permettant de savoir si une affirmation est
+            <span class="fill"></span> ou fausse.
+          </p>
+        </div>
+        <div class="box">
+          <h3>Condition</h3>
+          <p>
+            Instruction permettant de choisir une
+            <span class="fill"></span> selon le résultat d'une comparaison.
+          </p>
+        </div>
+      </div>
+      <div class="wordbank">
+        <span class="word">action</span>
+        <span class="word">information</span>
+        <span class="word">instructions</span>
+        <span class="word">vraie</span>
+      </div>
+      <h3>Les principales variables de notre installation</h3>
+      <table>
+        <tr>
+          <th>Nom de la variable</th>
+          <th>Information conservée</th>
+          <th>Exemple de valeur</th>
+        </tr>
+        <tr>
+          <td>temperature_mesuree</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>temperature_consigne</td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>position_vanne</td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+      <h3>L'algorithme à retenir</h3>
+      <pre class="code">
+RÉPÉTER
+
+    lire temperature_mesuree
+
+    SI temperature_mesuree &lt; 34
+    ALORS
+        ouvrir davantage le passage chaud
+
+    SINON SI temperature_mesuree &gt; 36
+    ALORS
+        réduire le passage chaud
+
+    SINON
+        maintenir la position
+
+    FIN SI
+
+FIN RÉPÉTER</pre
+      >
+      <div class="exercise-title">
+        <div class="num">19</div>
+        <h3>Autoévaluation</h3>
+      </div>
+      <table>
+        <tr>
+          <th>Je suis capable de...</th>
+          <th>Oui</th>
+          <th>Encore un peu</th>
+          <th>Non</th>
+        </tr>
+        <tr>
+          <td>identifier les entrées et les sorties d'un système automatisé</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>reconnaître une variable</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>comparer deux valeurs</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>lire une condition SI... ALORS...</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>exécuter un algorithme simple</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>écrire un algorithme de commande de V3V</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+      </table>
+      <div class="box orange">
+        <strong>Ouverture :</strong> le même principe peut être utilisé pour
+        commander une pompe, un ventilateur, une chaudière ou une vanne de
+        dérivation. Les variables et les conditions changent, mais la logique
+        reste similaire.
+      </div>
+      <div class="footer">
+        <span>BP MIGCS - Mathématiques / Sciences</span>
+        <span>Page 8 / 8</span>
+      </div>
+    </section>
+  </body>
+</html>

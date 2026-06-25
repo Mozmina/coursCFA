@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dossier Algo BTP - Partie 2 (Version Finale)</title>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)'],
+          ],
+        },
+        svg: { fontCache: 'global' },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Kalam&display=swap');
+      @import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
+
+      /* RESET & BASICS */
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #525659;
+        margin: 0;
+        padding: 20px;
+        color: #000;
+      }
+
+      /* PAGE A4 CONFIGURATION */
+      @page {
+        size: A4;
+        margin: 0;
+      }
+      .page {
+        width: 210mm;
+        height: 297mm; /* A4 exact height */
+        margin: 0 auto 20px auto;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        position: relative;
+        page-break-after: always;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* PAGE 1 : COUVERTURE */
+      .cover-page {
+        padding: 10mm;
+        border: 4px solid #00b0f0;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .cover-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 40px;
+      }
+      .student-info-box {
+        border: 2px solid #000;
+        padding: 15px;
+        width: 50%;
+        font-size: 12pt;
+        font-weight: bold;
+      }
+      .student-info-box div {
+        margin-bottom: 10px;
+      }
+      .logo-btp {
+        width: 200px;
+      }
+      .cover-titles {
+        text-align: center;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      .main-title {
+        font-family: 'Kalam', cursive;
+        font-size: 32pt;
+        font-weight: bold;
+        margin-bottom: 30px;
+      }
+      .sub-title {
+        font-family: 'Kalam', cursive;
+        font-size: 28pt;
+        font-style: italic;
+        margin-bottom: 20px;
+      }
+      .part-title {
+        font-family: 'Kalam', cursive;
+        font-size: 24pt;
+      }
+      .objectives-box {
+        border: 3px solid #000;
+        padding: 15px;
+        font-size: 11pt;
+      }
+      .objectives-title {
+        font-weight: bold;
+        text-decoration: underline;
+        margin-bottom: 10px;
+      }
+
+      /* HEADER INTERNE */
+      .content-page {
+        padding: 15mm;
+      }
+      .header-strip {
+        border-bottom: 2px solid #000;
+        padding-bottom: 5px;
+        margin-bottom: 15px;
+        display: flex;
+        justify-content: space-between;
+        font-size: 10pt;
+        color: #555;
+      }
+
+      /* TYPOGRAPHIE */
+      h2 {
+        background-color: #2c3e50;
+        color: white;
+        padding: 6px 15px;
+        border-radius: 4px;
+        font-size: 13pt;
+        margin-top: 0;
+        margin-bottom: 15px;
+        border-left: 10px solid #f1c40f;
+      }
+      h3 {
+        color: #d35400;
+        border-bottom: 2px solid #d35400;
+        padding-bottom: 2px;
+        margin-top: 15px;
+        margin-bottom: 10px;
+        font-size: 12pt;
+      }
+
+      /* ZONE D'EXEMPLE DE CODE (LECTURE SEULE) */
+      .algo-read-box {
+        font-family: 'Courier Prime', monospace;
+        background: #fff;
+        border: 1px solid #999;
+        padding: 10px;
+        border-radius: 5px;
+        line-height: 1.4;
+        font-size: 10pt;
+        margin-bottom: 10px;
+        box-shadow: 2px 2px 0px #eee;
+      }
+
+      /* === NOUVEAU STYLE : ZONE RÉPONSE ALGO (LIGNES GRISES) === */
+      .algo-write-box {
+        font-family: 'Courier Prime', monospace;
+        background-color: #f7f7f7;
+        border: 2px solid #7f8c8d;
+        border-radius: 4px;
+        width: 100%;
+        margin-top: 10px;
+        padding: 0;
+        line-height: 40px; /* Hauteur de ligne pour écrire */
+        background-image: repeating-linear-gradient(
+          transparent,
+          transparent 39px,
+          #ccc 40px
+        );
+        font-size: 10pt;
+        color: #2c3e50;
+        /* Force le background lines à s'afficher à l'impression */
+        -webkit-print-color-adjust: exact;
+      }
+      /* Pour simuler les lignes vides, on met des <br> ou on fixe la hauteur en px */
+
+      /* === NOUVEAU STYLE : ZONE RÉPONSE TEXTE (POINTILLÉS) === */
+      .text-answer-line {
+        border-bottom: 2px dotted #000;
+        height: 30px;
+        margin-bottom: 15px;
+        width: 100%;
+      }
+
+      /* BOITE CONTEXTE */
+      .context-box {
+        background-color: #eaf2f8;
+        border-left: 5px solid #2980b9;
+        padding: 8px;
+        margin: 10px 0;
+        font-style: italic;
+        font-size: 10pt;
+      }
+
+      .keyword {
+        color: #d35400;
+        font-weight: bold;
+      }
+      .var {
+        color: #2980b9;
+        font-weight: bold;
+      }
+      .str {
+        color: #27ae60;
+      }
+
+      /* SPECIFIC MEMENTO PAGE TWEAKS */
+      .memento-box {
+        padding: 5px;
+        margin-bottom: 5px;
+        font-size: 9pt;
+      }
+      .memento-title {
+        margin-top: 10px;
+        margin-bottom: 5px;
+      }
+
+      /* PRINT BUTTON */
+      .print-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 15px 30px;
+        background: #d35400;
+        color: white;
+        font-size: 16px;
+        border: 2px solid white;
+        cursor: pointer;
+        z-index: 9999;
+      }
+      @media print {
+        .print-btn {
+          display: none;
+        }
+        body {
+          padding: 0;
+          background: none;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button class="print-btn" onclick="window.print()">
+      🖨️ IMPRIMER LE DOSSIER (16 PAGES)
+    </button>
+
+    <div class="page">
+      <div class="cover-page">
+        <div class="cover-header">
+          <div class="student-info-box">
+            <div>NOM : ............................................</div>
+            <div>Prénom : ........................................</div>
+            <div>Section : ........................................</div>
+          </div>
+          <img
+            src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+            alt="Logo BTP CFA"
+            class="logo-btp"
+          />
+        </div>
+
+        <div class="cover-titles">
+          <div class="main-title">DOSSIER TRAVAIL<br />MATHEMATIQUES</div>
+          <div class="sub-title">ALGORITHMIQUE &<br />LOGIQUE</div>
+          <div class="part-title">Partie 2 : Résolution de Problèmes</div>
+        </div>
+
+        <div class="objectives-box">
+          <div class="objectives-title">Objectifs :</div>
+          <ul style="margin: 0; padding-left: 20px; list-style-type: -">
+            <li>
+              Analyser un problème professionnel (BTP) pour le traduire en
+              langage informatique.
+            </li>
+            <li>
+              Construire des algorithmes utilisant des
+              <strong>Variables</strong>, des
+              <strong>Conditions</strong> (Si/Sinon) et des
+              <strong>Boucles</strong>.
+            </li>
+            <li>
+              Automatiser des calculs de devis, de métrés et vérifier des règles
+              de sécurité.
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>Algorithmique Partie 2</span>
+        <span>Page 2/16</span>
+      </div>
+
+      <h2
+        style="
+          background-color: #c0392b;
+          border-left-color: #2c3e50;
+          margin-bottom: 10px;
+        "
+      >
+        MÉMENTO DE L'APPRENTI
+      </h2>
+
+      <h3 class="memento-title">1. LES VARIABLES (Les Boîtes)</h3>
+      <p style="margin: 0; font-size: 10pt">
+        Stocker une information pour s'en servir plus tard.
+      </p>
+      <div class="algo-read-box memento-box">
+        <span class="keyword">Lire</span> <span class="var">A</span><br />
+        <span class="var">Surface</span>
+        <span class="keyword">prend la valeur</span>
+        <span class="var">A</span> * 5<br />
+        <span class="keyword">Afficher</span> <span class="var">Surface</span>
+      </div>
+
+      <h3 class="memento-title">2. LES CONDITIONS (Les Choix)</h3>
+      <p style="margin: 0; font-size: 10pt">Permet de prendre une décision.</p>
+      <div class="algo-read-box memento-box">
+        <span class="keyword">SI</span> <span class="var">MurHumide</span> est
+        VRAI<br />
+        &nbsp;&nbsp;<span class="keyword">ALORS</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">Afficher</span>
+        <span class="str">"Traiter"</span><br />
+        &nbsp;&nbsp;<span class="keyword">SINON</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">Afficher</span>
+        <span class="str">"Peindre"</span><br />
+        <span class="keyword">FIN SI</span>
+      </div>
+
+      <h3 class="memento-title">3. LES BOUCLES (La Répétition)</h3>
+      <p style="margin: 0; font-size: 10pt">
+        Répéter une action tant qu'un objectif n'est pas atteint.
+      </p>
+      <div class="algo-read-box memento-box">
+        <span class="keyword">TANT QUE</span>
+        <span class="var">MurPasFini</span> est VRAI<br />
+        &nbsp;&nbsp;<span class="keyword">FAIRE</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">Afficher</span>
+        <span class="str">"Poser parpaing"</span><br />
+        <span class="keyword">FIN TANT QUE</span>
+      </div>
+
+      <h3 class="memento-title">4. OPÉRATEURS LOGIQUES</h3>
+      <table
+        border="1"
+        cellpadding="5"
+        cellspacing="0"
+        style="
+          width: 100%;
+          text-align: center;
+          border-collapse: collapse;
+          font-size: 9pt;
+        "
+      >
+        <tr style="background: #eee">
+          <th>Symbole</th>
+          <th>Signification</th>
+          <th>Exemple</th>
+        </tr>
+        <tr>
+          <td>+ - * /</td>
+          <td>Calculs</td>
+          <td>PrixHT * 1.20</td>
+        </tr>
+        <tr>
+          <td>&lt;</td>
+          <td>Plus petit que</td>
+          <td>Age &lt; 18</td>
+        </tr>
+        <tr>
+          <td>&gt;</td>
+          <td>Plus grand que</td>
+          <td>Poids &gt; 100</td>
+        </tr>
+        <tr>
+          <td>&lt;=</td>
+          <td>Plus petit ou égal</td>
+          <td>Taux &lt;= 3</td>
+        </tr>
+        <tr>
+          <td>&gt;=</td>
+          <td>Plus grand ou égal</td>
+          <td>Note &gt;= 10</td>
+        </tr>
+        <tr>
+          <td>==</td>
+          <td>Égal à</td>
+          <td>Code == 1234</td>
+        </tr>
+      </table>
+
+      <div
+        style="
+          margin-top: 15px;
+          border: 1px dashed #000;
+          padding: 5px;
+          font-size: 9pt;
+          background: #ffffe0;
+        "
+      >
+        <strong>Astuce :</strong> L'ordinateur lit les lignes une par une, de
+        haut en bas. Il ne devine rien. Si vous ne lui dites pas d'afficher le
+        résultat, il le garde en mémoire mais ne l'écrit pas !
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉQUENCE 1 : VARIABLES</span>
+        <span>Page 3/16</span>
+      </div>
+
+      <h2>EXERCICE 1 : COMMANDE DE PARQUET</h2>
+
+      <div class="context-box">
+        <strong>Situation :</strong> Vous devez calculer la surface d'une pièce
+        rectangulaire pour commander du parquet. <br />Formule : $Surface =
+        Longueur \times Largeur$.
+      </div>
+
+      <p>
+        <strong>Consigne :</strong> Complétez les trous pour finir le programme.
+        <br /><em
+          >Aidez-vous des commentaires en gris pour comprendre l'étape.</em
+        >
+      </p>
+
+      <div
+        class="algo-write-box"
+        style="height: 480px; padding-left: 15px; padding-top: 5px"
+      >
+        <span class="keyword">DEBUT</span><br />
+        <span style="color: #7f8c8d">// 1. On demande les dimensions</span>
+        <span class="keyword">Afficher</span>
+        <span class="str">"Entrez la longueur (en m) :"</span><br />
+        <span class="keyword">Lire</span>
+        ....................................................
+        <span style="color: #7f8c8d">(Variable L)</span><br />
+        <span class="keyword">Afficher</span>
+        <span class="str">"Entrez la largeur (en m) :"</span><br />
+        <span class="keyword">Lire</span>
+        ....................................................
+        <span style="color: #7f8c8d">(Variable l)</span><br />
+        <span style="color: #7f8c8d">// 2. On fait le calcul (L x l)</span
+        ><br />
+        <span class="var">Surface</span>
+        <span class="keyword">prend la valeur</span>
+        .................... * ....................<br />
+        <span style="color: #7f8c8d"
+          >// 3. On affiche le résultat au client</span
+        ><br />
+        <span class="keyword">Afficher</span>
+        <span class="str">"Surface à commander : "</span> +
+        ....................<br />
+        <span class="keyword">FIN</span>
+      </div>
+
+      <p style="margin-top: 20px">
+        <strong>Question Bonus :</strong> Si le client veut prévoir 10% de
+        chutes en plus, par combien faut-il multiplier la surface ? (Ex: 1,10 ou
+        0,90 ?)
+      </p>
+      <div class="text-answer-line"></div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉQUENCE 1 : VARIABLES</span>
+        <span>Page 4/16</span>
+      </div>
+
+      <h2>EXERCICE 2 : VOLUME DE BÉTON</h2>
+
+      <div class="context-box">
+        <strong>Situation :</strong> Calculer le volume pour une dalle.
+        <br /><strong>Problème :</strong> La Longueur et la Largeur sont en
+        mètres (m), mais l'épaisseur est donnée en centimètres (cm). <br />Il
+        faut convertir l'épaisseur en mètres avant de calculer !
+      </div>
+
+      <p><strong>Consigne :</strong> Complétez l'algorithme suivant.</p>
+      <ul style="font-size: 10pt">
+        <li>On demande les 3 dimensions.</li>
+        <li>On divise l'épaisseur par 100 pour l'avoir en mètres.</li>
+        <li>On calcule le volume ($L \times l \times h$).</li>
+      </ul>
+
+      <div class="algo-write-box" style="height: 650px; padding-left: 15px">
+        <span class="keyword">DEBUT</span><br />
+        <span class="keyword">Afficher</span>
+        <span class="str">"Longueur (en m) ?"</span><br />
+        <span class="keyword">Lire</span>
+        ........................................<br />
+        <span class="keyword">Afficher</span>
+        <span class="str">"Largeur (en m) ?"</span><br />
+        <span class="keyword">Lire</span>
+        ........................................<br />
+        <span class="keyword">Afficher</span>
+        <span class="str">"Epaisseur (en cm) ?"</span><br />
+        <span class="keyword">Lire</span> <span class="var">EpaisseurCM</span
+        ><br /><span class="var">EpaisseurM</span>
+        <span class="keyword">prend la valeur</span>
+        <span class="var">EpaisseurCM</span> / ...........<br />
+        <span class="var">Volume</span>
+        <span class="keyword">prend la valeur</span>
+        .................... * .................... *
+        <span class="var">EpaisseurM</span><br />
+        <span class="keyword">Afficher</span>
+        <span class="str">"Le volume nécessaire est : "</span> +
+        ....................<br />
+        <span class="keyword">FIN</span>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉQUENCE 1 : VARIABLES</span>
+        <span>Page 5/16</span>
+      </div>
+
+      <h2>EXERCICE 3 : LA FACTURE</h2>
+
+      <div class="context-box">
+        <strong>Logique :</strong> Un algorithme a été mélangé. Remettez de
+        l'ordre. <br />Données : Prix HT = 500 €. TVA = 20% (multiplication par
+        0.20).
+      </div>
+
+      <table
+        style="width: 100%; border-collapse: collapse; margin-bottom: 20px"
+        border="1"
+        cellpadding="8"
+      >
+        <tr style="background: #f0f0f0">
+          <th>Code en désordre</th>
+        </tr>
+        <tr>
+          <td>
+            <span class="keyword">Afficher</span>
+            <span class="str">"TVA : "</span> +
+            <span class="var">MontantTVA</span>
+          </td>
+        </tr>
+        <tr>
+          <td><span class="keyword">DEBUT</span></td>
+        </tr>
+        <tr>
+          <td><span class="keyword">FIN</span></td>
+        </tr>
+        <tr>
+          <td>
+            <span class="var">PrixTTC</span>
+            <span class="keyword">prend la valeur</span>
+            <span class="var">PrixHT</span> +
+            <span class="var">MontantTVA</span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="keyword">Lire</span> <span class="var">PrixHT</span>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="var">MontantTVA</span>
+            <span class="keyword">prend la valeur</span>
+            <span class="var">PrixHT</span> * 0.20
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span class="keyword">Afficher</span>
+            <span class="str">"Total TTC : "</span> +
+            <span class="var">PrixTTC</span>
+          </td>
+        </tr>
+      </table>
+
+      <p><strong>Recopiez l'algorithme dans le bon ordre :</strong></p>
+      <div class="algo-write-box" style="height: 350px; padding-left: 15px">
+        <span class="keyword">DEBUT</span><br />
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉQUENCE 1 : VARIABLES</span>
+        <span>Page 6/16</span>
+      </div>
+
+      <h2>EXERCICE 4 : LE DEVIS PEINTURE</h2>
+
+      <div class="context-box">
+        <strong>Données :</strong>
+        <ul>
+          <li>Prix Peinture : <strong>25 € par m²</strong>.</li>
+          <li>Forfait Déplacement : <strong>50 €</strong> (fixe).</li>
+        </ul>
+      </div>
+
+      <p><strong>Consigne :</strong> Écrivez l'algorithme complet.</p>
+      <ol>
+        <li>Demander la surface.</li>
+        <li>Calculer le prix total.</li>
+        <li>Afficher le devis.</li>
+      </ol>
+
+      <div class="algo-write-box" style="height: 550px; padding-left: 15px">
+        <span class="keyword">DEBUT</span><br />
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉQUENCE 2 : CONDITIONS</span>
+        <span>Page 7/16</span>
+      </div>
+
+      <h2>EXERCICE 5 : SÉCURITÉ (SI / SINON)</h2>
+
+      <div class="context-box">
+        <strong>Règle :</strong> Si le bruit dépasse <strong>85 dB</strong>, le
+        casque est OBLIGATOIRE. Sinon, il est juste conseillé.
+      </div>
+
+      <p>
+        <strong>Consigne :</strong> Complétez le bloc de condition
+        (Si/Alors/Sinon) ci-dessous.
+      </p>
+
+      <div
+        class="algo-write-box"
+        style="height: 500px; padding-left: 15px; padding-top: 5px"
+      >
+        <span class="keyword">DEBUT</span><br />
+        <span class="keyword">Afficher</span>
+        <span class="str">"Niveau sonore ?"</span><br />
+        <span class="keyword">Lire</span> <span class="var">Bruit</span><br />
+        <br />
+        <span class="keyword">SI</span>
+        ...........................................................<br />
+        &nbsp;&nbsp;<span class="keyword">ALORS</span><br />
+        <br />
+        <br />
+        <br />
+        &nbsp;&nbsp;<span class="keyword">SINON</span><br />
+        <br />
+        <br />
+        <span class="keyword">FIN SI</span><br />
+        <span class="keyword">FIN</span>
+      </div>
+
+      <p>
+        <strong>Question :</strong> Si le bruit est de 100 dB, que va afficher
+        l'écran ?
+      </p>
+      <div class="text-answer-line"></div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉQUENCE 2 : CONDITIONS</span>
+        <span>Page 8/16</span>
+      </div>
+
+      <h2>EXERCICE 6 : L'ÉCHAFAUDAGE</h2>
+
+      <div class="context-box">
+        <strong>Situation :</strong> Charge max autorisée =
+        <strong>200 kg</strong>. <br />On veut vérifier si un maçon + sa palette
+        peuvent monter.
+      </div>
+
+      <p>
+        <strong>Consigne :</strong> Écrivez l'algorithme qui demande les poids,
+        fait le total et affiche "AUTORISÉ" ou "INTERDIT".
+      </p>
+
+      <div class="algo-write-box" style="height: 600px; padding-left: 15px">
+        <span class="keyword">DEBUT</span><br />
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉQUENCE 2 : CONDITIONS</span>
+        <span>Page 9/16</span>
+      </div>
+
+      <h2>EXERCICE 7 : CONDUITE D'ENGIN</h2>
+
+      <div class="context-box">
+        <strong>Conditions cumulées (ET) :</strong>
+        1. Avoir 18 ans ou plus. 2. Avoir le CACES.
+      </div>
+
+      <p>
+        <strong>Consigne :</strong> Écrivez l'algorithme. Demandez à
+        l'utilisateur de répondre par 1 (Oui) ou 0 (Non) pour le CACES.
+      </p>
+
+      <div class="algo-write-box" style="height: 725px; padding-left: 15px">
+        <span class="keyword">DEBUT</span><br />
+        <span class="keyword">Afficher</span> <span class="str">"Age ?"</span
+        ><br />
+        <span class="keyword">Lire</span> <span class="var">Age</span><br />
+        <span class="keyword">Afficher</span>
+        <span class="str">"CACES ? (1=Oui / 0=Non)"</span><br />
+        <span class="keyword">Lire</span> <span class="var">Caces</span><br />
+        <br />
+        <span class="keyword">SI</span>
+        ............................................................................<br />
+        &nbsp;&nbsp;<span class="keyword">ALORS</span><br />
+        <br />
+        <br />
+        <br />
+        <br />
+        &nbsp;&nbsp;<span class="keyword">SINON</span><br />
+        <br />
+        <br />
+        <br />
+        <span class="keyword">FIN SI</span><br />
+        <span class="keyword">FIN</span>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉQUENCE 2 : CONDITIONS</span>
+        <span>Page 10/16</span>
+      </div>
+
+      <h2>EXERCICE 8 : DIAGNOSTIC THERMIQUE</h2>
+
+      <div class="context-box">
+        <ul>
+          <li>Conso < 50 : <strong>Classe A</strong></li>
+          <li>Conso entre 50 et 150 : <strong>Classe C</strong></li>
+          <li>Conso > 150 : <strong>Classe F</strong></li>
+        </ul>
+      </div>
+
+      <p>
+        <strong>Consigne :</strong> Écrivez l'algorithme (Utilisez
+        <em>SINON SI</em>).
+      </p>
+
+      <div class="algo-write-box" style="height: 525px; padding-left: 15px">
+        <span class="keyword">DEBUT</span><br />
+        <span class="keyword">Lire</span> <span class="var">Conso</span><br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <span class="keyword">FIN</span>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉQUENCE 2 : CONDITIONS</span>
+        <span>Page 11/16</span>
+      </div>
+
+      <h2>EXERCICE 9 : LA REMISE COMMERCIALE</h2>
+
+      <div class="context-box">
+        <strong>Offre :</strong>
+        <br />Si Achats > <strong>1000 €</strong> alors <strong>-5%</strong> de
+        remise. <br />Sinon, pas de remise.
+      </div>
+
+      <p>
+        <strong>Consigne :</strong> Écrivez l'algorithme complet (Demande
+        montant, calcul éventuel, affichage final).
+      </p>
+
+      <div class="algo-write-box" style="height: 600px; padding-left: 15px">
+        <span class="keyword">DEBUT</span><br />
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉQUENCE 3 : BOUCLES</span>
+        <span>Page 12/16</span>
+      </div>
+
+      <h2>EXERCICE 10 : CHARGEMENT DE BENNE</h2>
+
+      <div class="algo-read-box">
+        <span class="var">PoidsActuel</span>
+        <span class="keyword">prend la valeur</span> 0<br />
+        <span class="keyword">TANT QUE</span>
+        <span class="var">PoidsActuel</span> < 500<br />
+        &nbsp;&nbsp;<span class="keyword">FAIRE</span><br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="var">PoidsActuel</span>
+        <span class="keyword">prend la valeur</span>
+        <span class="var">PoidsActuel</span> + 50<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">Afficher</span>
+        <span class="str">"On verse une brouette..."</span><br />
+        <span class="keyword">FIN TANT QUE</span><br />
+        <span class="keyword">Afficher</span>
+        <span class="str">"STOP ! Benne pleine."</span>
+      </div>
+
+      <p><strong>1. Au départ, combien pèse la benne ?</strong></p>
+      <div class="text-answer-line"></div>
+
+      <p><strong>2. Combien pèse une brouette d'après le code ?</strong></p>
+      <div class="text-answer-line"></div>
+
+      <p>
+        <strong
+          >3. Combien de fois la phrase "On verse une brouette..." va-t-elle
+          s'afficher au total ? (Détaillez le calcul)</strong
+        >
+      </p>
+      <div class="text-answer-line"></div>
+      <div class="text-answer-line"></div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉQUENCE 3 : BOUCLES</span>
+        <span>Page 13/16</span>
+      </div>
+
+      <h2>EXERCICE 11 : LE PONÇAGE</h2>
+
+      <div class="context-box">
+        <strong>Situation :</strong> Tant que le bois n'est pas lisse, on ponce.
+        <br />L'ordinateur doit demander "Est-ce lisse ? (O/N)" à chaque fois.
+      </div>
+
+      <p>
+        <strong>Consigne :</strong> Écrivez l'algorithme complet avec une boucle
+        TANT QUE.
+      </p>
+
+      <div class="algo-write-box" style="height: 520px; padding-left: 15px">
+        <span class="keyword">DEBUT</span><br />
+        <span class="keyword">Afficher</span>
+        <span class="str">"Est-ce lisse ? (O/N)"</span><br />
+        <span class="keyword">Lire</span> <span class="var">Reponse</span><br />
+        <br />
+        <span class="keyword">TANT QUE</span>
+        ....................................................<br />
+        &nbsp;&nbsp;<span class="keyword">FAIRE</span><br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <span class="keyword">FIN TANT QUE</span><br />
+        <span class="keyword">Afficher</span> <span class="str">"Fini !"</span
+        ><br />
+        <span class="keyword">FIN</span>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉQUENCE 3 : BOUCLES</span>
+        <span>Page 14/16</span>
+      </div>
+
+      <h2>EXERCICE 12 : LE MUR DE PARPAINGS</h2>
+
+      <div class="context-box">
+        <strong>Situation :</strong> Monter un mur de
+        <strong>6 rangées</strong>. <br />Utilisez une variable
+        <code>NumeroRangee</code> qui commence à 0.
+      </div>
+
+      <p>
+        <strong>Consigne :</strong> Écrivez la boucle qui compte de 1 à 6 et
+        affiche "Rangée X terminée" à chaque tour.
+      </p>
+
+      <div class="algo-write-box" style="height: 480px; padding-left: 15px">
+        <span class="keyword">DEBUT</span><br />
+        <span class="var">NumeroRangee</span>
+        <span class="keyword">prend la valeur</span> 0<br />
+        <br />
+        <span class="keyword">TANT QUE</span>
+        ...............................................<br />
+        &nbsp;&nbsp;<span class="keyword">FAIRE</span><br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <span class="keyword">FIN TANT QUE</span><br />
+        <span class="keyword">FIN</span>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉQUENCE 4 : SYNTHÈSE</span>
+        <span>Page 15/16</span>
+      </div>
+
+      <h2>EXERCICE 13 : CONTRÔLE D'ACCÈS</h2>
+
+      <div class="context-box">
+        <strong>Défi :</strong> Code d'entrée = <strong>4215</strong>. <br />3
+        essais maximum.
+      </div>
+
+      <p>
+        <strong>Consigne :</strong> Écrivez l'algorithme complet (Variables :
+        Code, Essai). C'est le niveau le plus difficile, prenez votre temps.
+      </p>
+
+      <div class="algo-write-box" style="height: 650px; padding-left: 15px">
+        <span class="keyword">DEBUT</span><br />
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉQUENCE 4 : SYNTHÈSE</span>
+        <span>Page 16/16</span>
+      </div>
+
+      <h2>EXERCICE 14 : LE CAMION TOUPIE</h2>
+
+      <div class="context-box">
+        <strong>Situation :</strong> Camion = <strong>7 m³</strong>. <br />On a
+        un volume total à couler (ex: 30 m³). <br />On veut savoir combien de
+        camions pleins il faut.
+      </div>
+
+      <p>
+        <strong>Consigne :</strong> Écrivez l'algorithme qui demande le volume
+        total et calcule le nombre de tours (utilisez une division ou une
+        boucle).
+      </p>
+
+      <div class="algo-write-box" style="height: 650px; padding-left: 15px">
+        <span class="keyword">DEBUT</span><br />
+      </div>
+    </div>
+  </body>
+</html>

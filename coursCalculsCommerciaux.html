@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dossier Calculs Commerciaux et Financiers BP</title>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)'],
+          ],
+        },
+        svg: { fontCache: 'global' },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&display=swap');
+
+      :root {
+        --primary-color: #2c3e50; /* Bleu foncé */
+        --accent-color: #e67e22; /* Orange BTP */
+        --excel-green: #27ae60; /* Vert Excel */
+        --light-gray: #ecf0f1;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #525659; /* Fond gris pour voir les pages */
+        margin: 0;
+        padding: 20px;
+        color: #000;
+        font-size: 11pt;
+        -webkit-print-color-adjust: exact; /* Force l'impression des couleurs */
+        print-color-adjust: exact;
+      }
+
+      /* Configuration pour l'impression A4 */
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      .page {
+        width: 210mm;
+        height: 297mm;
+        padding: 0;
+        margin: 0 auto 20px auto;
+        background: white;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        position: relative;
+        overflow: hidden;
+        page-break-after: always;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* PAGE DE GARDE */
+      .cover-page {
+        padding: 15mm;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        border: 1px solid #ddd;
+      }
+
+      .cover-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+
+      .student-info-box {
+        border: 2px solid #000;
+        padding: 15px;
+        width: 60%;
+        font-weight: bold;
+        line-height: 2;
+      }
+
+      .logo-btp {
+        max-width: 150px;
+        height: auto;
+      }
+
+      .cover-titles {
+        text-align: center;
+        margin-top: 20px;
+      }
+
+      .main-title {
+        font-size: 24pt;
+        font-weight: 900;
+        border: 3px solid #000;
+        padding: 20px;
+        margin-bottom: 20px;
+        background-color: #f0f0f0;
+        text-transform: uppercase;
+      }
+
+      .sub-title {
+        font-size: 18pt;
+        font-weight: bold;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+      }
+
+      .part-title {
+        font-size: 14pt;
+        font-style: italic;
+        color: var(--accent-color);
+      }
+
+      .objectives-box {
+        border: 2px solid var(--primary-color);
+        border-radius: 10px;
+        padding: 20px;
+        background-color: #f9f9f9;
+        margin-top: auto;
+        margin-bottom: 50px;
+      }
+
+      .objectives-title {
+        font-weight: bold;
+        text-decoration: underline;
+        margin-bottom: 10px;
+        font-size: 12pt;
+      }
+
+      .objectives-box ul li {
+        margin-bottom: 8px;
+      }
+
+      /* ELEMENTS GENERAUX */
+      .header-strip {
+        background-color: var(--primary-color);
+        color: white;
+        height: 15mm;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 15mm;
+        font-weight: bold;
+        font-size: 10pt;
+        border-bottom: 3px solid var(--accent-color);
+      }
+
+      .page-content {
+        padding: 15mm;
+        flex-grow: 1;
+      }
+
+      h1 {
+        color: var(--primary-color);
+        border-bottom: 2px solid var(--accent-color);
+        padding-bottom: 5px;
+        font-size: 16pt;
+        margin-top: 0;
+      }
+
+      h2 {
+        color: var(--accent-color);
+        font-size: 14pt;
+        margin-top: 20px;
+      }
+
+      h3 {
+        color: #2980b9;
+        font-size: 12pt;
+        margin-top: 15px;
+        margin-bottom: 5px;
+      }
+
+      /* BOITES DE CONTENU */
+      .definition-box {
+        background-color: #e8f6f3;
+        border-left: 5px solid #1abc9c;
+        padding: 10px;
+        margin: 10px 0;
+        font-size: 0.95em;
+      }
+
+      .formula-box {
+        background-color: #fffce0;
+        border: 2px solid #f1c40f;
+        padding: 15px;
+        margin: 15px 0;
+        text-align: center;
+        font-weight: bold;
+        border-radius: 8px;
+      }
+
+      .excel-box {
+        background-color: #eafaf1;
+        border: 1px solid var(--excel-green);
+        padding: 10px;
+        border-radius: 5px;
+        margin: 10px 0;
+      }
+
+      .excel-header {
+        color: var(--excel-green);
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 5px;
+      }
+
+      .warning-box {
+        background-color: #fadbd8;
+        border-left: 5px solid #c0392b;
+        padding: 10px;
+        margin: 10px 0;
+        font-style: italic;
+      }
+
+      /* CASCADE DE PRIX (DESIGN MODERNE) */
+      .cascade-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 500px;
+        margin: 20px auto;
+        font-family: 'Roboto', sans-serif;
+      }
+
+      .cascade-box {
+        background: white;
+        border: 2px solid var(--primary-color);
+        border-radius: 8px;
+        padding: 10px 20px;
+        width: 100%;
+        text-align: center;
+        font-weight: bold;
+        font-size: 11pt;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        position: relative;
+        z-index: 2;
+      }
+
+      .cascade-box.final {
+        background-color: var(--primary-color);
+        color: white;
+        border: 2px solid var(--primary-color);
+      }
+
+      .cascade-link {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 40px;
+        position: relative;
+        width: 100%;
+      }
+
+      .cascade-link::before {
+        content: '';
+        position: absolute;
+        height: 100%;
+        width: 2px;
+        background-color: #bdc3c7;
+        z-index: 0;
+      }
+
+      .cascade-link::after {
+        content: '▼';
+        font-size: 10px;
+        color: #bdc3c7;
+        position: absolute;
+        bottom: 0;
+        z-index: 1;
+      }
+
+      .calc-badge {
+        background-color: white;
+        z-index: 2;
+        padding: 4px 12px;
+        font-size: 10pt;
+        font-weight: bold;
+        border-radius: 12px;
+        border: 1px solid #ccc;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      }
+
+      .op-minus {
+        color: #c0392b;
+      }
+      .op-plus-blue {
+        color: #2980b9;
+      }
+      .op-plus-green {
+        color: #27ae60;
+      }
+      .op-plus-orange {
+        color: #e67e22;
+      }
+
+      /* SIMULATION TABLEUR EXCEL */
+      .spreadsheet {
+        border-collapse: collapse;
+        width: 100%;
+        margin: 10px 0;
+        font-family: monospace;
+        font-size: 10pt;
+        background: white;
+      }
+
+      .spreadsheet td,
+      .spreadsheet th {
+        border: 1px solid #ccc;
+        padding: 4px;
+        text-align: center;
+      }
+
+      .spreadsheet th {
+        background-color: #f0f0f0;
+        font-weight: bold;
+        color: #555;
+      }
+
+      .spreadsheet .col-header {
+        background-color: #e0e0e0;
+        width: 30px;
+      }
+
+      .spreadsheet .row-header {
+        background-color: #e0e0e0;
+        width: 30px;
+      }
+
+      .spreadsheet .cell-input {
+        background-color: #ffffcc;
+      }
+
+      .spreadsheet .cell-formula {
+        color: blue;
+      }
+
+      .write-zone {
+        border: 1px dashed #aaa;
+        background-color: #fafafa;
+        height: 80px;
+        margin: 10px 0;
+        border-radius: 5px;
+        padding: 5px;
+        color: #888;
+        font-size: 0.8em;
+      }
+
+      /* BOUTON IMPRESSION */
+      .print-btn {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 10px 20px;
+        background-color: var(--accent-color);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      }
+
+      @media print {
+        body {
+          background: none;
+          padding: 0;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+        }
+        .print-btn {
+          display: none;
+        }
+        .cascade-box {
+          box-shadow: none;
+          border: 2px solid #000;
+        }
+        .calc-badge {
+          border: 1px solid #ccc;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <button class="print-btn" onclick="window.print()">
+      🖨️ IMPRIMER LE DOSSIER
+    </button>
+
+    <div class="page">
+      <div class="cover-page">
+        <div class="cover-header">
+          <div class="student-info-box">
+            <div>NOM : ............................................</div>
+            <div>Prénom : ........................................</div>
+            <div>Groupe : ........................................</div>
+          </div>
+          <img
+            src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+            alt="Logo BTP CFA"
+            class="logo-btp"
+          />
+        </div>
+
+        <div class="cover-titles">
+          <div class="main-title">DOSSIER TRAVAIL<br />MATHÉMATIQUES</div>
+          <div class="sub-title">CALCULS COMMERCIAUX &<br />FINANCIERS</div>
+          <div class="part-title">Module : Excel & Gestion</div>
+        </div>
+
+        <div class="objectives-box">
+          <div class="objectives-title">Objectifs du module (5 Heures) :</div>
+          <ul style="margin: 0; padding-left: 20px; list-style-type: square">
+            <li>
+              <strong>Comprendre</strong> la formation d'un prix (HT, TTC,
+              Marges) et les calculs d'intérêts.
+            </li>
+            <li>
+              <strong>Découvrir Excel</strong> : Saisir des formules, utiliser
+              des références absolues ($).
+            </li>
+            <li>
+              <strong>Automatiser</strong> des documents commerciaux (Devis,
+              Factures).
+            </li>
+            <li>
+              <strong>Modéliser</strong> un emprunt bancaire (Tableau
+              d'amortissement).
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉANCE 1 : THÉORIE COMMERCIALE</span>
+        <span>Page 2/16</span>
+      </div>
+      <div class="page-content">
+        <h1>I. LES BASES DU CALCUL COMMERCIAL</h1>
+
+        <p>
+          Avant d'utiliser Excel, il faut maîtriser les règles mathématiques "à
+          la main".
+        </p>
+
+        <h2>1. Le Coefficient Multiplicateur (L'outil roi)</h2>
+        <div class="definition-box">
+          Sur Excel, on évite les additions de pourcentages. On utilise la
+          multiplication.<br />
+          Augmenter un prix de <strong>t%</strong> revient à le multiplier par
+          <strong>(1 + t)</strong>.
+        </div>
+
+        <h3>A. Augmentation (Exemple : TVA)</h3>
+        <p>
+          Une TVA de 20% correspond à un coefficient de : $1 + 0,20 = 1,20$.
+        </p>
+        <div class="formula-box">$$Prix_{TTC} = Prix_{HT} \times 1,20$$</div>
+
+        <h3>B. Réduction (Exemple : Remise)</h3>
+        <p>
+          Une remise de 5% correspond à un coefficient de : $1 - 0,05 = 0,95$.
+        </p>
+        <div class="formula-box">$$Prix_{Net} = Prix_{Brut} \times 0,95$$</div>
+
+        <h3>C. Le piège des pourcentages successifs</h3>
+        <div class="warning-box">
+          ⚠️ <strong>ATTENTION :</strong> -10% puis -10% NE FAIT PAS -20% !
+        </div>
+        <p>
+          Si un fournisseur vous accorde une remise de 10% puis une remise
+          supplémentaire de 5% :
+        </p>
+        <p><strong>Calcul correct :</strong> On multiplie les coefficients.</p>
+        <p>$$Coeff_{Global} = 0,90 \times 0,95 = 0,855$$</p>
+        <p>
+          Cela correspond à une baisse réelle de : $1 - 0,855 = 0,145$ soit
+          <strong>14,5%</strong>.
+        </p>
+
+        <div class="write-zone">
+          <strong>Exercice Rapide :</strong><br />
+          Un article coûte 100€. On applique une hausse de 50%, puis une baisse
+          de 50%.<br />
+          Quel est le prix final ? (Faites le calcul avec les coefficients)<br />
+          ...................................................................................................
+        </div>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉANCE 1 : THÉORIE COMMERCIALE</span>
+        <span>Page 3/16</span>
+      </div>
+      <div class="page-content">
+        <h2>2. La Formation du Prix (La Cascade)</h2>
+        <p>
+          En entreprise, le prix se construit étape par étape. Voici la logique
+          verticale avec des exemples :
+        </p>
+
+        <div class="cascade-container">
+          <div class="cascade-box">
+            Prix d'Achat Brut (PAB)<br />
+            <span style="font-weight: normal; font-size: 0.8em; color: #666"
+              >(Prix catalogue)</span
+            >
+          </div>
+
+          <div class="cascade-link">
+            <span class="calc-badge op-minus"
+              >Ex : &times; 0,95 (Remise de 5%)</span
+            >
+          </div>
+
+          <div class="cascade-box">Prix d'Achat Net (PAN)</div>
+
+          <div class="cascade-link">
+            <span class="calc-badge op-plus-blue"
+              >Ex : + 50 € (Frais Transport de 50€)</span
+            >
+          </div>
+
+          <div class="cascade-box">Coût d'Achat</div>
+
+          <div class="cascade-link">
+            <span class="calc-badge op-plus-green"
+              >Ex : x 1,40 € (40% de Marge)</span
+            >
+          </div>
+
+          <div class="cascade-box">Prix de Vente H.T. (PVHT)</div>
+
+          <div class="cascade-link">
+            <span class="calc-badge op-plus-orange"
+              >Ex : &times; 1,20 (TVA 20%)</span
+            >
+          </div>
+
+          <div class="cascade-box final">
+            PRIX DE VENTE T.T.C.<br />
+            <span style="font-weight: normal; font-size: 0.8em; opacity: 0.9"
+              >(Payé par le client)</span
+            >
+          </div>
+        </div>
+
+        <h3>Retrouver le HT à partir du TTC</h3>
+        <p>
+          C'est l'erreur la plus fréquente. Pour enlever la TVA, on ne soustrait
+          pas 20%, on divise !
+        </p>
+        <div class="formula-box">$$PV_{HT} = \frac{PV_{TTC}}{1 + t}$$</div>
+
+        <div class="write-zone">
+          <strong>Exemple :</strong><br />
+          Vous achetez une perceuse à 240 € TTC. Quel est son prix HT ?<br /><br />
+          Calcul :
+          ............................................................................................
+        </div>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉANCE 1 : THÉORIE FINANCIÈRE</span>
+        <span>Page 4/16</span>
+      </div>
+      <div class="page-content">
+        <h1>II. LES CALCULS FINANCIERS</h1>
+        <p>
+          L'argent a un coût au fil du temps. C'est le principe de l'intérêt.
+        </p>
+
+        <h2>1. Les Intérêts Simples (Court terme)</h2>
+        <div class="definition-box">
+          Utilisés pour les placements ou crédits de
+          <strong>moins d'un an</strong> (découvert bancaire, escompte, livrets
+          court terme).
+        </div>
+
+        <h3>La Formule Fondamentale</h3>
+        <div class="formula-box">$$I = C \times t \times n$$</div>
+        <ul>
+          <li><strong>I</strong> : Montant des Intérêts (en €).</li>
+          <li><strong>C</strong> : Capital placé ou emprunté (en €).</li>
+          <li>
+            <strong>t</strong> : Taux annuel (en décimal, ex: 0,05 pour 5%).
+          </li>
+          <li>
+            <strong>n</strong> : Durée du placement <strong>EN ANNÉES</strong>.
+          </li>
+        </ul>
+
+        <h3>Comment gérer la durée (n) ?</h3>
+        <p>Si la durée n'est pas en années, il faut convertir :</p>
+        <table style="width: 100%; border: 1px solid #ccc">
+          <tr>
+            <td style="padding: 10px">Si durée en <strong>Mois</strong></td>
+            <td style="padding: 10px">
+              $$n = \frac{\text{nombre de mois}}{12}$$
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 10px">Si durée en <strong>Jours</strong></td>
+            <td style="padding: 10px">
+              $$n = \frac{\text{nombre de jours}}{360}$$
+            </td>
+          </tr>
+        </table>
+        <p>
+          <em
+            >Note : En commerce, on compte souvent l'année bancaire à 360
+            jours.</em
+          >
+        </p>
+
+        <h3>La Valeur Acquise (Va)</h3>
+        <p>
+          C'est la somme totale que l'on récupère à la fin (Capital + Intérêts).
+        </p>
+        <div class="formula-box">$$Va = C + I$$</div>
+
+        <div class="write-zone">
+          <strong>Exercice :</strong><br />
+          Placement de 10 000 € à 4% pendant 6 mois.<br />
+          Calculer les intérêts (I) :
+          ............................................................................<br />
+          Calculer la Valeur Acquise (Va) :
+          .................................................................
+        </div>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉANCE 1 : THÉORIE FINANCIÈRE</span>
+        <span>Page 5/16</span>
+      </div>
+      <div class="page-content">
+        <h2>2. Les Intérêts Composés (Long terme)</h2>
+        <div class="definition-box">
+          Utilisés pour les placements de <strong>plus d'un an</strong>. Les
+          intérêts de l'année 1 s'ajoutent au capital et produisent eux-mêmes
+          des intérêts l'année 2. C'est l'effet "boule de neige".
+        </div>
+
+        <h3>Formule de la Valeur Acquise</h3>
+        <div class="formula-box">$$C_n = C_0 \times (1 + t)^n$$</div>
+        <ul>
+          <li><strong>$C_n$</strong> : Valeur acquise au bout de n années.</li>
+          <li><strong>$C_0$</strong> : Capital de départ.</li>
+          <li><strong>n</strong> : Nombre d'années (en exposant).</li>
+        </ul>
+
+        <h2>3. L'Emprunt (Vocabulaire)</h2>
+        <p>
+          Pour le tableau d'amortissement (que nous ferons sur Excel), il faut
+          comprendre les termes :
+        </p>
+
+        <ul>
+          <li>
+            <strong>Capital Emprunté :</strong> La somme prêtée par la banque.
+          </li>
+          <li>
+            <strong>Capital Restant Dû :</strong> Ce qu'il reste à rembourser à
+            un instant T.
+          </li>
+          <li>
+            <strong>Mensualité (ou Annuité) :</strong> Ce qu'on paie tous les
+            mois à la banque.
+          </li>
+          <li>
+            <strong>Amortissement :</strong> La part de la mensualité qui
+            rembourse vraiment la dette.
+          </li>
+          <li><strong>Intérêt :</strong> Le bénéfice de la banque.</li>
+        </ul>
+
+        <div class="formula-box">$$Mensualité = Amortissement + Intérêt$$</div>
+        <p>
+          <strong>Règle d'or :</strong> L'intérêt est toujours calculé sur le
+          <strong>Capital Restant Dû</strong>, jamais sur le capital de départ
+          (sauf le premier mois).
+        </p>
+
+        <div class="warning-box">
+          Sur Excel, la difficulté sera de lier les lignes entre elles :<br />
+          <em
+            >Le Capital restant dû en début de mois M = Le Capital restant dû en
+            fin de mois M-1.</em
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉANCE 2 : DÉCOUVERTE EXCEL</span>
+        <span>Page 6/16</span>
+      </div>
+      <div class="page-content">
+        <h1>III. PRISE EN MAIN D'EXCEL</h1>
+
+        <h2>1. L'Interface : La Bataille Navale</h2>
+        <div class="excel-box">
+          <div class="excel-header">💡 PRINCIPE</div>
+          Excel est une grille géante.<br />
+          <ul>
+            <li>
+              Les colonnes sont nommées par des <strong>Lettres</strong> (A, B,
+              C...).
+            </li>
+            <li>
+              Les lignes sont nommées par des <strong>Chiffres</strong> (1, 2,
+              3...).
+            </li>
+            <li>
+              L'intersection s'appelle une <strong>CELLULE</strong> (ex: B4).
+            </li>
+          </ul>
+        </div>
+
+        <table class="spreadsheet">
+          <tr>
+            <th class="col-header"></th>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+          </tr>
+          <tr>
+            <td class="row-header">1</td>
+            <td>Article</td>
+            <td>Prix</td>
+            <td>Qté</td>
+          </tr>
+          <tr>
+            <td class="row-header">2</td>
+            <td>Vis</td>
+            <td>0,10</td>
+            <td>500</td>
+          </tr>
+          <tr>
+            <td class="row-header">3</td>
+            <td>Clou</td>
+            <td>0,05</td>
+            <td>1000</td>
+          </tr>
+        </table>
+        <p style="text-align: center; font-style: italic">
+          Dans cet exemple, le prix des clous est dans la cellule
+          <strong>B3</strong>.
+        </p>
+
+        <h2>2. La Règle d'Or : Le signe ÉGAL (=)</h2>
+        <p>
+          Excel peut stocker du texte ou faire des calculs. Comment fait-il la
+          différence ?
+        </p>
+
+        <table style="width: 100%; border: 1px solid #ccc; margin-bottom: 20px">
+          <tr>
+            <th style="padding: 10px; background: #eee">
+              Si j'écris dans une cellule
+            </th>
+            <th style="padding: 10px; background: #eee">Excel comprend</th>
+            <th style="padding: 10px; background: #eee">Résultat affiché</th>
+          </tr>
+          <tr>
+            <td style="padding: 10px; text-align: center">
+              <code>10 + 20</code>
+            </td>
+            <td style="padding: 10px; text-align: center">Du texte</td>
+            <td style="padding: 10px; text-align: center">10 + 20</td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; text-align: center">
+              <code>=10 + 20</code>
+            </td>
+            <td style="padding: 10px; text-align: center">Un calcul</td>
+            <td style="padding: 10px; text-align: center">
+              <strong>30</strong>
+            </td>
+          </tr>
+        </table>
+
+        <div class="warning-box">
+          TOUTE FORMULE DOIT COMMENCER PAR <strong>=</strong>
+        </div>
+
+        <h2>3. Les Opérateurs</h2>
+        <p>Sur le pavé numérique de votre clavier :</p>
+        <ul>
+          <li>Pour additionner : <strong>+</strong></li>
+          <li>Pour soustraire : <strong>-</strong></li>
+          <li>Pour multiplier : <strong>*</strong> (L'étoile)</li>
+          <li>Pour diviser : <strong>/</strong> (Le slash)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉANCE 2 : DÉCOUVERTE EXCEL</span>
+        <span>Page 7/16</span>
+      </div>
+      <div class="page-content">
+        <h2>4. L'Adressage (Calculer intelligent)</h2>
+        <p>
+          L'intérêt d'Excel n'est pas de calculer <code>=10*5</code>. Si le prix
+          change, il faut refaire le calcul.<br />
+          L'intérêt est de dire : "Prends ce qu'il y a dans la case Prix et
+          multiplie par la case Qté".
+        </p>
+
+        <h3>TP 1 : L'Épicerie (A faire sur Excel)</h3>
+        <p>Reproduisez le tableau suivant :</p>
+
+        <table class="spreadsheet">
+          <tr>
+            <th class="col-header"></th>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+            <th>D</th>
+          </tr>
+          <tr>
+            <td class="row-header">1</td>
+            <td><strong>Produit</strong></td>
+            <td><strong>Prix U</strong></td>
+            <td><strong>Qté</strong></td>
+            <td><strong>TOTAL</strong></td>
+          </tr>
+          <tr>
+            <td class="row-header">2</td>
+            <td>Marteau</td>
+            <td>12</td>
+            <td>2</td>
+            <td class="cell-input" style="color: blue">=B2*C2</td>
+          </tr>
+          <tr>
+            <td class="row-header">3</td>
+            <td>Tournevis</td>
+            <td>5</td>
+            <td>10</td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="row-header">4</td>
+            <td>Scie</td>
+            <td>30</td>
+            <td>1</td>
+            <td></td>
+          </tr>
+        </table>
+
+        <div class="excel-box">
+          <div class="excel-header">🖱️ ASTUCE : La Poignée de Recopie</div>
+          1. Sélectionnez la cellule <strong>D2</strong> (où vous avez fait la
+          formule).<br />
+          2. Placez votre souris sur le <strong>petit carré noir</strong> en bas
+          à droite de la cellule.<br />
+          3. Cliquez et maintenez pour "tirer" vers le bas jusqu'à la ligne
+          4.<br />
+          <em
+            >Excel adapte automatiquement la formule pour les lignes suivantes
+            !</em
+          >
+        </div>
+
+        <h3>Exercice Pratique</h3>
+        <p>Dans votre fichier Excel :</p>
+        <ol>
+          <li>Remplissez les colonnes A, B et C.</li>
+          <li>
+            En D2, écrivez <code>=</code> puis cliquez sur B2, tapez
+            <code>*</code>, cliquez sur C2.
+          </li>
+          <li>Appuyez sur <strong>Entrée</strong>.</li>
+          <li>
+            Utilisez la poignée de recopie pour calculer les autres lignes.
+          </li>
+          <li>
+            Changez le prix du Marteau à 15€. Vérifiez que le Total change tout
+            seul.
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉANCE 3 : FORMATS & FONCTIONS</span>
+        <span>Page 8/16</span>
+      </div>
+      <div class="page-content">
+        <h1>IV. FORMATS ET SOMME AUTOMATIQUE</h1>
+
+        <h2>1. Ne jamais taper "€" à la main !</h2>
+        <div class="warning-box">
+          Si vous tapez "20 €" dans une cellule, Excel considère que c'est du
+          <strong>TEXTE</strong> (comme "Bonjour"). Il ne pourra pas faire de
+          calculs avec.<br />
+          Vous devez taper "20", puis appliquer le
+          <strong>Format Monétaire</strong>.
+        </div>
+        <ul>
+          <li>Sélectionnez vos cellules de prix.</li>
+          <li>
+            Dans le Ruban (Haut), onglet Accueil, cherchez le symbole
+            <strong> billets/pièces</strong> ou choisissez "Monétaire" dans la
+            liste déroulante.
+          </li>
+        </ul>
+
+        <h2>2. La Fonction SOMME ($\Sigma$)</h2>
+        <p>
+          Pour calculer le total d'une longue colonne, on n'utilise pas
+          <code>=D2+D3+D4+...</code>.
+        </p>
+        <p>
+          On utilise le bouton
+          <strong>Somme Automatique ($\Sigma$)</strong> situé en haut à droite
+          du ruban Accueil.
+        </p>
+
+        <h3>TP 2 : La Facture Simple</h3>
+        <table class="spreadsheet">
+          <tr>
+            <th class="col-header"></th>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+            <th>D</th>
+          </tr>
+          <tr>
+            <td class="row-header">1</td>
+            <td colspan="4" style="text-align: center; font-weight: bold">
+              FACTURE N°123
+            </td>
+          </tr>
+          <tr>
+            <td class="row-header">2</td>
+            <td>Désignation</td>
+            <td>PU HT</td>
+            <td>Qté</td>
+            <td>Total HT</td>
+          </tr>
+          <tr>
+            <td class="row-header">3</td>
+            <td>Peinture (L)</td>
+            <td>15,00 €</td>
+            <td>10</td>
+            <td class="cell-formula">=B3*C3</td>
+          </tr>
+          <tr>
+            <td class="row-header">4</td>
+            <td>Pinceau</td>
+            <td>4,50 €</td>
+            <td>5</td>
+            <td class="cell-formula">...</td>
+          </tr>
+          <tr>
+            <td class="row-header">5</td>
+            <td></td>
+            <td></td>
+            <td style="text-align: right"><strong>TOTAL HT :</strong></td>
+            <td class="cell-input" style="border: 2px solid green">
+              =SOMME(D3:D4)
+            </td>
+          </tr>
+          <tr>
+            <td class="row-header">6</td>
+            <td></td>
+            <td></td>
+            <td style="text-align: right">TVA (20%) :</td>
+            <td class="cell-input">=D5*0,20</td>
+          </tr>
+          <tr>
+            <td class="row-header">7</td>
+            <td></td>
+            <td></td>
+            <td style="text-align: right; font-weight: bold">TOTAL TTC :</td>
+            <td class="cell-input">=D5+D6</td>
+          </tr>
+        </table>
+
+        <p>
+          <strong>Consigne :</strong> Réalisez cette facture sur Excel. Mettez
+          les bordures et les couleurs.
+        </p>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉANCE 3 : RÉFÉRENCE ABSOLUE</span>
+        <span>Page 9/16</span>
+      </div>
+      <div class="page-content">
+        <h1>V. LA RÉFÉRENCE ABSOLUE ($)</h1>
+        <p>C'est la notion la plus importante pour réussir ses tableaux.</p>
+
+        <h2>1. Le Problème</h2>
+        <p>
+          Imaginez que le taux de Remise (10%) soit écrit dans une seule case en
+          haut (B1).
+        </p>
+        <table class="spreadsheet">
+          <tr>
+            <th class="col-header"></th>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+            <th>D</th>
+          </tr>
+          <tr>
+            <td class="row-header">1</td>
+            <td>Remise :</td>
+            <td style="background: #ffcccc">10%</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="row-header">2</td>
+            <td><strong>Article</strong></td>
+            <td><strong>Prix</strong></td>
+            <td><strong>Remise €</strong></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="row-header">3</td>
+            <td>A</td>
+            <td>100</td>
+            <td>=B3*B1</td>
+            <td><em>(Ça marche : 100 * 10%)</em></td>
+          </tr>
+          <tr>
+            <td class="row-header">4</td>
+            <td>B</td>
+            <td>200</td>
+            <td>=B4*B2</td>
+            <td><em>(Erreur ! Il multiplie par "Prix")</em></td>
+          </tr>
+        </table>
+        <p>
+          Quand on tire la formule vers le bas,
+          <strong>B1 descend aussi</strong> et devient B2, B3... Ce qui est faux
+          !
+        </p>
+
+        <h2>2. La Solution : Le Cadenas ($)</h2>
+        <div class="definition-box">
+          Pour bloquer une cellule dans une formule, on ajoute des signes
+          dollars <strong>$</strong> devant la lettre et le chiffre.<br />
+          Exemple : <strong>$B$1</strong>
+        </div>
+
+        <div class="excel-box">
+          <div class="excel-header">⌨️ RACCOURCI CLAVIER</div>
+          Quand vous cliquez sur la cellule B1 dans votre formule, appuyez
+          immédiatement sur la touche <strong>F4</strong> de votre clavier.<br />
+          Excel ajoute les $ tout seul !
+        </div>
+
+        <h3>TP 3 : Devis avec Remise Globale</h3>
+        <p>
+          Réalisez ce tableau. En <strong>C4</strong>, calculez le montant de la
+          remise en utilisant la case B1.
+        </p>
+        <p>Formule correcte en C4 : <code>=B4 * $B$1</code></p>
+
+        <table class="spreadsheet">
+          <tr>
+            <th class="col-header"></th>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+            <th>D</th>
+          </tr>
+          <tr>
+            <td class="row-header">1</td>
+            <td>Taux Remise :</td>
+            <td style="background: yellow; font-weight: bold">5%</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="row-header">2</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="row-header">3</td>
+            <td><strong>Article</strong></td>
+            <td><strong>Prix Brut</strong></td>
+            <td><strong>Montant Remise</strong></td>
+            <td><strong>Prix Net</strong></td>
+          </tr>
+          <tr>
+            <td class="row-header">4</td>
+            <td>Ciment</td>
+            <td>10,00 €</td>
+            <td class="cell-input">?????</td>
+            <td class="cell-formula">=B4-C4</td>
+          </tr>
+          <tr>
+            <td class="row-header">5</td>
+            <td>Sable</td>
+            <td>45,00 €</td>
+            <td>...</td>
+            <td>...</td>
+          </tr>
+          <tr>
+            <td class="row-header">6</td>
+            <td>Gravier</td>
+            <td>30,00 €</td>
+            <td>...</td>
+            <td>...</td>
+          </tr>
+        </table>
+        <p>
+          Tirez les formules vers le bas. Si vous changez le taux en B1 (passez
+          à 10%), tout doit se recalculer !
+        </p>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉANCE 4 : LOGIQUE (SI)</span>
+        <span>Page 10/16</span>
+      </div>
+      <div class="page-content">
+        <h1>VI. LA FONCTION LOGIQUE "SI"</h1>
+        <p>Excel peut prendre des décisions à votre place.</p>
+
+        <h2>1. Syntaxe de la fonction</h2>
+        <div class="formula-box">
+          =SI( <strong>Test</strong> ; <strong>Valeur si VRAI</strong> ;
+          <strong>Valeur si FAUX</strong> )
+        </div>
+        <ul>
+          <li><strong>Test :</strong> Une comparaison (ex: B4 > 100).</li>
+          <li>
+            <strong>Valeur si Vrai :</strong> Ce qu'affiche Excel si la
+            condition est remplie.
+          </li>
+          <li><strong>Valeur si Faux :</strong> Ce qu'affiche Excel sinon.</li>
+        </ul>
+
+        <h2>2. TP 4 : Frais de Port Automatiques</h2>
+        <p><strong>Règle commerciale :</strong></p>
+        <ul>
+          <li>
+            Si le Total de la commande dépasse <strong>500 €</strong>, la
+            livraison est <strong>GRATUITE</strong> (0 €).
+          </li>
+          <li>Sinon, la livraison coûte <strong>25 €</strong>.</li>
+        </ul>
+
+        <table class="spreadsheet">
+          <tr>
+            <th class="col-header"></th>
+            <th>A</th>
+            <th>B</th>
+          </tr>
+          <tr>
+            <td class="row-header">1</td>
+            <td>Total Commande</td>
+            <td>450 €</td>
+          </tr>
+          <tr>
+            <td class="row-header">2</td>
+            <td>Frais de Port</td>
+            <td class="cell-input">=SI( B1 > 500 ; 0 ; 25 )</td>
+          </tr>
+          <tr>
+            <td class="row-header">3</td>
+            <td><strong>TOTAL A PAYER</strong></td>
+            <td>=B1+B2</td>
+          </tr>
+        </table>
+
+        <h3>À faire :</h3>
+        <ol>
+          <li>Reproduisez ce petit tableau.</li>
+          <li>Écrivez la formule SI en B2.</li>
+          <li>
+            Testez ! Changez le montant en B1 par 600 €. Les frais de port
+            doivent passer à 0 €.
+          </li>
+        </ol>
+
+        <h2>3. Comparateurs utiles</h2>
+        <ul>
+          <li><strong>></strong> : Supérieur strict</li>
+          <li><strong>>=</strong> : Supérieur ou égal</li>
+          <li><strong><</strong> : Inférieur strict</li>
+          <li><strong>=</strong> : Égal</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉANCE 4 : ANALYSE DE MARGES</span>
+        <span>Page 11/16</span>
+      </div>
+      <div class="page-content">
+        <h1>VII. CONTRÔLE DE RENTABILITÉ</h1>
+        <p>Nous allons combiner calculs commerciaux et alertes visuelles.</p>
+
+        <h2>TP 5 : Analyse des Marges</h2>
+        <p>
+          Vous êtes le gérant. Vous voulez repérer immédiatement les chantiers
+          où la marge est trop faible (inférieure à 20%).
+        </p>
+
+        <table class="spreadsheet">
+          <tr>
+            <th class="col-header"></th>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+            <th>D</th>
+            <th>E</th>
+          </tr>
+          <tr>
+            <td class="row-header">1</td>
+            <td><strong>Chantier</strong></td>
+            <td><strong>Prix Vente</strong></td>
+            <td><strong>Coût Revient</strong></td>
+            <td><strong>Marge €</strong></td>
+            <td><strong>Alerte</strong></td>
+          </tr>
+          <tr>
+            <td class="row-header">2</td>
+            <td>M. DUPONT</td>
+            <td>1000</td>
+            <td>850</td>
+            <td class="cell-formula">=B2-C2</td>
+            <td class="cell-input">=SI(D2 < 200 ; "ATTENTION" ; "OK")</td>
+          </tr>
+          <tr>
+            <td class="row-header">3</td>
+            <td>Mme DURAND</td>
+            <td>2000</td>
+            <td>1200</td>
+            <td>...</td>
+            <td>...</td>
+          </tr>
+        </table>
+
+        <h3>1. Les Calculs</h3>
+        <ul>
+          <li>En colonne D : Calculez la marge (Prix Vente - Coût).</li>
+          <li>
+            En colonne E : Utilisez la fonction SI. Si la marge est inférieure à
+            200 €, écrire "ATTENTION", sinon écrire "OK".
+          </li>
+        </ul>
+
+        <h3>2. La Mise en Forme Conditionnelle (La couleur auto)</h3>
+        <p>
+          Pour que le mot "ATTENTION" apparaisse en
+          <strong>ROUGE</strong> automatiquement :
+        </p>
+        <ol>
+          <li>Sélectionnez les cellules de la colonne E (Alerte).</li>
+          <li>
+            Ruban Accueil > <strong>Mise en forme conditionnelle</strong>.
+          </li>
+          <li>
+            Règles de mise en surbrillance >
+            <strong>Texte qui contient...</strong>
+          </li>
+          <li>Tapez "ATTENTION" et choisissez le remplissage Rouge clair.</li>
+        </ol>
+
+        <div class="write-zone">
+          <strong>Observation :</strong><br />
+          Modifiez le coût du chantier DURAND pour que la marge devienne très
+          faible.<br />
+          Est-ce que la cellule change de couleur ?<br />
+          ........................................................................................
+        </div>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉANCE 5 : EXCEL FINANCIER</span>
+        <span>Page 12/16</span>
+      </div>
+      <div class="page-content">
+        <h1>VIII. AUTOMATISER LES CALCULS FINANCIERS</h1>
+
+        <h2>TP 6 : La Calculette d'Agios (Intérêts Simples)</h2>
+        <p>
+          Votre entreprise est à découvert. Vous voulez vérifier le montant que
+          la banque vous prélève.
+        </p>
+        <p><strong>Formule :</strong> $I = C \times t \times \frac{n}{360}$</p>
+
+        <table class="spreadsheet">
+          <tr>
+            <th class="col-header"></th>
+            <th>A</th>
+            <th>B</th>
+          </tr>
+          <tr>
+            <td class="row-header">1</td>
+            <td colspan="2" style="background: #ddd; font-weight: bold">
+              SIMULATEUR DECOUVERT
+            </td>
+          </tr>
+          <tr>
+            <td class="row-header">2</td>
+            <td>Montant Découvert (€) :</td>
+            <td class="cell-input">5000</td>
+          </tr>
+          <tr>
+            <td class="row-header">3</td>
+            <td>Taux Banque annuel :</td>
+            <td class="cell-input">12%</td>
+          </tr>
+          <tr>
+            <td class="row-header">4</td>
+            <td>Durée (Jours) :</td>
+            <td class="cell-input">18</td>
+          </tr>
+          <tr>
+            <td class="row-header">5</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="row-header">6</td>
+            <td><strong>Coût (Agios) :</strong></td>
+            <td class="cell-formula" style="border: 2px solid blue">
+              =B2 * B3 * (B4/360)
+            </td>
+          </tr>
+        </table>
+
+        <h3>Consignes :</h3>
+        <ol>
+          <li>
+            Reproduisez le tableau. N'oubliez pas le format
+            <strong>%</strong> en B3.
+          </li>
+          <li>Saisissez la formule en B6.</li>
+          <li>
+            Testez : Combien cela coûte-t-il si le découvert dure 45 jours ?
+          </li>
+        </ol>
+        <div class="write-zone">
+          Réponse : ............................................ €
+        </div>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉANCE 5 : PUISSANCES</span>
+        <span>Page 13/16</span>
+      </div>
+      <div class="page-content">
+        <h2>TP 7 : Le Livret d'Épargne (Intérêts Composés)</h2>
+        <p>Calculer combien rapporte un placement sur plusieurs années.</p>
+        <p>
+          <strong>Formule Mathématique :</strong> $Valeur = Capital \times (1 +
+          t)^n$
+        </p>
+
+        <div class="excel-box">
+          <div class="excel-header">⌨️ LA TOUCHE PUISSANCE</div>
+          Sur Excel, pour faire une puissance (exposant), on utilise le symbole
+          <strong>^</strong> (l'accent circonflexe).<br />
+          Exemple : <code>= 10 ^ 2</code> donne 100.
+        </div>
+
+        <table class="spreadsheet">
+          <tr>
+            <th class="col-header"></th>
+            <th>A</th>
+            <th>B</th>
+          </tr>
+          <tr>
+            <td class="row-header">1</td>
+            <td>Capital Placé :</td>
+            <td>10 000 €</td>
+          </tr>
+          <tr>
+            <td class="row-header">2</td>
+            <td>Taux annuel :</td>
+            <td>3%</td>
+          </tr>
+          <tr>
+            <td class="row-header">3</td>
+            <td>Durée (Années) :</td>
+            <td>10</td>
+          </tr>
+          <tr>
+            <td class="row-header">4</td>
+            <td></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td class="row-header">5</td>
+            <td><strong>VALEUR FINALE :</strong></td>
+            <td class="cell-formula">=B1 * (1+B2)^B3</td>
+          </tr>
+        </table>
+
+        <h3>Comparaison Intérêt Simple vs Composé</h3>
+        <p>
+          Ajoutez une ligne en dessous pour calculer ce que cela aurait rapporté
+          en intérêt simple (formule du TP 6 avec n en années).
+        </p>
+        <p>Formule Simple : <code>= B1 * (1 + B2 * B3)</code></p>
+
+        <div class="write-zone">
+          Quelle est la différence de gain au bout de 10 ans ?<br />
+          Gain Composé : ...................... €<br />
+          Gain Simple : ......................... €<br />
+          Différence : ............................ €
+        </div>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉANCE 5 : TABLEAU D'EMPRUNT</span>
+        <span>Page 14/16</span>
+      </div>
+      <div class="page-content">
+        <h1>IX. LE TABLEAU D'AMORTISSEMENT</h1>
+        <p>
+          C'est l'exercice final du module. Il combine adressage absolu, calculs
+          et recopie.
+        </p>
+
+        <h2>Étape 1 : Les Données de l'Emprunt</h2>
+        <p>En haut de votre feuille, créez la zone de paramétrage :</p>
+        <table class="spreadsheet">
+          <tr>
+            <th class="col-header"></th>
+            <th>A</th>
+            <th>B</th>
+          </tr>
+          <tr>
+            <td class="row-header">1</td>
+            <td>Emprunt :</td>
+            <td>20 000 €</td>
+          </tr>
+          <tr>
+            <td class="row-header">2</td>
+            <td>Taux annuel :</td>
+            <td>4%</td>
+          </tr>
+          <tr>
+            <td class="row-header">3</td>
+            <td>Durée (mois) :</td>
+            <td>24</td>
+          </tr>
+          <tr>
+            <td class="row-header">4</td>
+            <td><strong>MENSUALITÉ :</strong></td>
+            <td class="cell-formula">=VPM(B2/12 ; B3 ; -B1)</td>
+          </tr>
+        </table>
+        <div class="definition-box">
+          La fonction <strong>VPM</strong> calcule automatiquement combien payer
+          par mois.<br />
+          Attention : Divisez le taux par 12 (pour avoir des mois) et mettez un
+          "moins" devant le capital emprunté.
+        </div>
+
+        <h2>Étape 2 : Initialiser la Première Ligne</h2>
+        <p>
+          Créez le tableau en ligne 7. Remplissez la ligne du Mois 1 "à la main"
+          avec des formules.
+        </p>
+
+        <table class="spreadsheet">
+          <tr>
+            <th class="col-header"></th>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+            <th>D</th>
+            <th>E</th>
+            <th>F</th>
+          </tr>
+          <tr>
+            <td class="row-header">7</td>
+            <td>Mois</td>
+            <td>Cap. Début</td>
+            <td>Intérêts</td>
+            <td>Amortiss.</td>
+            <td>Mensualité</td>
+            <td>Cap. Fin</td>
+          </tr>
+          <tr>
+            <td class="row-header">8</td>
+            <td>1</td>
+            <td>=B1</td>
+            <td>=B8*$B$2/12</td>
+            <td>=E8-C8</td>
+            <td>=$B$4</td>
+            <td>=B8-D8</td>
+          </tr>
+        </table>
+
+        <h3>Explications des formules (Ligne 8) :</h3>
+        <ul>
+          <li>
+            <strong>Cap. Début :</strong> On récupère le montant emprunté en
+            haut (B1).
+          </li>
+          <li>
+            <strong>Intérêts :</strong> Cap. Début * Taux annuel / 12.
+            <strong>Attention :</strong> Mettez des $ sur le Taux (B2) !
+          </li>
+          <li>
+            <strong>Mensualité :</strong> On récupère le calcul VPM (B4). Mettez
+            des $ !
+          </li>
+          <li><strong>Amortiss. :</strong> Mensualité - Intérêts.</li>
+          <li><strong>Cap. Fin :</strong> Cap. Début - Amortiss.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>SÉANCE 5 : TABLEAU D'EMPRUNT</span>
+        <span>Page 15/16</span>
+      </div>
+      <div class="page-content">
+        <h2>Étape 3 : La Deuxième Ligne (Le Secret)</h2>
+        <p>
+          Pour que l'automatisation fonctionne, il faut lier la ligne 2 à la
+          ligne 1.
+        </p>
+        <div class="excel-box">
+          <strong>LOGIQUE :</strong> Le Capital restant au début du mois 2 est
+          égal au Capital restant à la fin du mois 1.
+        </div>
+
+        <table class="spreadsheet">
+          <tr>
+            <th class="col-header"></th>
+            <th>A</th>
+            <th>B</th>
+            <th>C</th>
+            <th>...</th>
+          </tr>
+          <tr>
+            <td class="row-header">8</td>
+            <td>1</td>
+            <td>20 000</td>
+            <td>...</td>
+            <td>...</td>
+          </tr>
+          <tr>
+            <td class="row-header">9</td>
+            <td>2</td>
+            <td class="cell-formula" style="color: red; font-weight: bold">
+              =F8
+            </td>
+            <td>(Recopier formule du haut)</td>
+            <td>...</td>
+          </tr>
+        </table>
+
+        <h3>Action :</h3>
+        <ol>
+          <li>En <strong>A9</strong>, écrivez 2.</li>
+          <li>
+            En <strong>B9</strong> (Cap Début), écrivez <code>=F8</code> (la
+            case Cap Fin du mois d'avant).
+          </li>
+          <li>
+            Pour les colonnes C, D, E, F : Sélectionnez les cellules de la ligne
+            8 et tirez-les vers le bas sur la ligne 9.
+          </li>
+        </ol>
+
+        <h2>Étape 4 : Le Grand Final</h2>
+        <ol>
+          <li>Sélectionnez toute la ligne 9 (de A9 à F9).</li>
+          <li>Utilisez la poignée de recopie et tirez jusqu'au mois 24.</li>
+        </ol>
+
+        <h3>Vérification de réussite</h3>
+        <div class="warning-box">
+          Regardez la colonne <strong>Cap. Fin</strong> du mois 24.<br />
+          Le résultat doit être <strong>0,00 €</strong>.<br />
+          Si ce n'est pas le cas, vous avez oublié un dollar ($) quelque part !
+        </div>
+
+        <div class="write-zone">
+          <strong>Analyse du coût :</strong><br />
+          Faites la SOMME de la colonne "Intérêts".<br />
+          Combien cet emprunt de 20 000€ a-t-il coûté au final ?<br />
+          Coût total : .......................................... €
+        </div>
+      </div>
+    </div>
+
+    <div class="page content-page">
+      <div class="header-strip">
+        <span>MÉMO & NOTES</span>
+        <span>Page 16/16</span>
+      </div>
+      <div class="page-content">
+        <h1>MÉMO EXPRESS EXCEL</h1>
+
+        <table style="width: 100%; border-collapse: collapse">
+          <tr style="background-color: var(--primary-color); color: white">
+            <th style="padding: 10px; border: 1px solid #000">POUR...</th>
+            <th style="padding: 10px; border: 1px solid #000">
+              ACTION / FORMULE
+            </th>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border: 1px solid #ccc">
+              Commencer un calcul
+            </td>
+            <td
+              style="padding: 10px; border: 1px solid #ccc; font-weight: bold"
+            >
+              = (Signe Égal)
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border: 1px solid #ccc">
+              Bloquer une cellule ($)
+            </td>
+            <td style="padding: 10px; border: 1px solid #ccc">
+              Touche <strong>F4</strong>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border: 1px solid #ccc">
+              Additionner une colonne
+            </td>
+            <td style="padding: 10px; border: 1px solid #ccc">
+              Bouton <strong>$\Sigma$</strong> (Somme Auto)
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border: 1px solid #ccc">
+              Mettre en euros
+            </td>
+            <td style="padding: 10px; border: 1px solid #ccc">
+              Format <strong>Monétaire</strong>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border: 1px solid #ccc">
+              Faire une puissance
+            </td>
+            <td style="padding: 10px; border: 1px solid #ccc">
+              Symbole <strong>^</strong> (ex: 10^2)
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 10px; border: 1px solid #ccc">
+              Condition (Si... Alors)
+            </td>
+            <td style="padding: 10px; border: 1px solid #ccc">
+              <code>=SI(Test ; Vrai ; Faux)</code>
+            </td>
+          </tr>
+        </table>
+
+        <h2>VOS NOTES PERSONNELLES</h2>
+        <div
+          style="
+            border: 1px solid #ccc;
+            background: repeating-linear-gradient(white, white 29px, #cee 30px);
+            height: 500px;
+            width: 100%;
+            line-height: 30px;
+            padding-left: 10px;
+            color: #555;
+          "
+        ></div>
+      </div>
+    </div>
+  </body>
+</html>

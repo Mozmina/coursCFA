@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Planning Réunions Bilans - Semaine A</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+
+      :root {
+        --primary-dark: #2c3e50;
+        --btp-yellow: #f1c40f;
+        --accent-blue: #3498db;
+        --accent-orange: #e67e22;
+        --bg-color: #f4f6f7;
+        --text-color: #333;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        min-height: 100vh;
+        padding: 40px;
+      }
+
+      /* --- EN-TÊTE --- */
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+        background: white;
+        padding: 30px 60px;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        width: 100%;
+        max-width: 1000px;
+        border-bottom: 5px solid var(--btp-yellow);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .header::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background: var(--primary-dark);
+      }
+
+      .logo {
+        max-height: 40px;
+        margin-bottom: 20px;
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        color: var(--primary-dark);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+      }
+
+      .subtitle {
+        font-size: 1.2rem;
+        color: #7f8c8d;
+        font-weight: 500;
+      }
+
+      .week-badge {
+        display: inline-block;
+        background: var(--primary-dark);
+        color: white;
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.9rem;
+        margin-top: 10px;
+        font-weight: bold;
+      }
+
+      /* --- CONTENEUR PRINCIPAL --- */
+      .main-container {
+        display: flex;
+        gap: 40px;
+        width: 100%;
+        max-width: 1200px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      /* --- CARTES --- */
+      .card {
+        flex: 1;
+        min-width: 350px;
+        background: white;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+        transition: transform 0.3s ease;
+      }
+
+      .card:hover {
+        transform: translateY(-5px);
+      }
+
+      .card-header {
+        padding: 20px;
+        color: white;
+        text-align: center;
+      }
+
+      .card-header h2 {
+        font-size: 1.5rem;
+        margin-bottom: 5px;
+      }
+
+      .card-header .location {
+        font-size: 0.9rem;
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .card-header .intervener {
+        margin-top: 10px;
+        font-weight: bold;
+        background: rgba(255, 255, 255, 0.2);
+        display: inline-block;
+        padding: 5px 15px;
+        border-radius: 15px;
+      }
+
+      /* Style spécifique Carte 1 (Salle Conseil) */
+      .card-sp .card-header {
+        background: linear-gradient(135deg, #2c3e50, #4ca1af);
+      }
+
+      /* Style spécifique Carte 2 (CRAF) */
+      .card-jpb .card-header {
+        background: linear-gradient(135deg, #e67e22, #f39c12);
+      }
+
+      /* --- LISTE DES HORAIRES --- */
+      .schedule-list {
+        padding: 0;
+        list-style: none;
+      }
+
+      .schedule-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 30px;
+        border-bottom: 1px solid #eee;
+        transition: background 0.2s;
+      }
+
+      .schedule-item:last-child {
+        border-bottom: none;
+      }
+
+      .schedule-item:hover {
+        background-color: #f9f9f9;
+      }
+
+      .time {
+        font-weight: 900;
+        font-size: 1.4rem;
+        color: var(--primary-dark);
+        font-variant-numeric: tabular-nums;
+      }
+
+      .group {
+        font-weight: 500;
+        font-size: 1.2rem;
+        color: #555;
+        background: #eef2f3;
+        padding: 8px 15px;
+        border-radius: 8px;
+        border-left: 4px solid var(--btp-yellow);
+      }
+
+      /* --- PIED DE PAGE --- */
+      .footer {
+        margin-top: 50px;
+        font-size: 0.9rem;
+        color: #999;
+        text-align: center;
+      }
+
+      /* --- IMPRESSION --- */
+      @media print {
+        body {
+          background: white;
+          padding: 0;
+        }
+        .header {
+          box-shadow: none;
+          border: 1px solid #ccc;
+        }
+        .card {
+          box-shadow: none;
+          border: 1px solid #ccc;
+          break-inside: avoid;
+        }
+        .schedule-item {
+          border-bottom: 1px solid #ddd;
+        }
+        .group {
+          background: none;
+          border: 1px solid #ccc;
+        }
+        /* Force l'impression des couleurs de fond */
+        * {
+          -webkit-print-color-adjust: exact !important;
+          print-color-adjust: exact !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <img
+        src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+        alt="BTP CFA Marne"
+        class="logo"
+      />
+      <h1>Réunions Bilans</h1>
+      <div class="week-badge">30 Janvier 2026 - Semaine A</div>
+    </header>
+
+    <div class="main-container">
+      <!-- Carte 1 : SALLE DU CONSEIL -->
+      <div class="card card-sp">
+        <div class="card-header">
+          <h2>VENDREDI</h2>
+          <div class="location">📍 Salle du Conseil</div>
+          <div class="intervener">Avec SP</div>
+        </div>
+        <ul class="schedule-list">
+          <li class="schedule-item">
+            <span class="time">13h05</span>
+            <span class="group">1ELEC1</span>
+          </li>
+          <li class="schedule-item">
+            <span class="time">13h40</span>
+            <span class="group">1PAR1</span>
+          </li>
+          <li class="schedule-item">
+            <span class="time">14h15</span>
+            <span class="group">1MA1</span>
+          </li>
+          <li class="schedule-item">
+            <span class="time">14h50</span>
+            <span class="group">1MIT1</span>
+          </li>
+          <li class="schedule-item">
+            <span class="time">15h25</span>
+            <span class="group">1MEF1</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Carte 2 : CRAF -->
+      <div class="card card-jpb">
+        <div class="card-header">
+          <h2>VENDREDI</h2>
+          <div class="location">📍 CRAF</div>
+          <div class="intervener">Avec JPB</div>
+        </div>
+        <ul class="schedule-list">
+          <li class="schedule-item">
+            <span class="time">13h05</span>
+            <span class="group">1BPMIGCS1</span>
+          </li>
+          <li class="schedule-item">
+            <span class="time">14h05</span>
+            <span class="group">1BPMA1</span>
+          </li>
+          <!-- Espace vide pour équilibrer visuellement si besoin -->
+          <li class="schedule-item" style="opacity: 0">
+            <span class="time">-</span>
+            <span class="group">-</span>
+          </li>
+          <li class="schedule-item" style="opacity: 0">
+            <span class="time">-</span>
+            <span class="group">-</span>
+          </li>
+          <li class="schedule-item" style="opacity: 0">
+            <span class="time">-</span>
+            <span class="group">-</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer">BTP CFA MARNE - Planning généré le 29/01/2026</div>
+  </body>
+</html>

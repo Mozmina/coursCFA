@@ -1,0 +1,1752 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dossier Passerelle BP - Ondes, Son et Lumière - M. OZMINA</title>
+
+    <script>
+      window.MathJax = {
+        tex: {
+          inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)'],
+          ],
+          displayMath: [
+            ['$$', '$$'],
+            ['\\[', '\\]'],
+          ],
+        },
+        svg: { fontCache: 'global' },
+      };
+    </script>
+    <script
+      id="MathJax-script"
+      async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+    ></script>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Kalam:wght@400&family=Oswald:wght@500&display=swap');
+
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Roboto', sans-serif;
+        background: #525659;
+        color: #111;
+        font-size: 10pt;
+        line-height: 1.28;
+        padding: 18px;
+      }
+
+      @page {
+        size: A4;
+        margin: 0;
+      }
+
+      .page {
+        width: 210mm;
+        height: 297mm;
+        padding: 10mm 12mm 12mm 12mm;
+        margin: 0 auto 18px auto;
+        background: #ffffff;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.45);
+        page-break-after: always;
+      }
+
+      .print-btn {
+        position: fixed;
+        top: 18px;
+        right: 18px;
+        z-index: 9999;
+        background: #d35400;
+        color: #fff;
+        border: 2px solid #fff;
+        border-radius: 4px;
+        padding: 9px 16px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      .header-table {
+        width: 100%;
+        border-collapse: collapse;
+        border: 2px solid #000;
+        margin-bottom: 10px;
+      }
+
+      .header-table td {
+        border: 1px solid #000;
+        padding: 4px 8px;
+        vertical-align: top;
+      }
+
+      .row-info td {
+        height: 30px;
+        font-weight: 700;
+        font-size: 9.5pt;
+        padding-top: 5px;
+      }
+
+      .logo-cell {
+        width: 25%;
+        padding: 4px !important;
+        text-align: center;
+        vertical-align: middle;
+        height: 72px;
+      }
+
+      .logo-btp {
+        max-width: 100%;
+        max-height: 62px;
+        height: auto;
+      }
+
+      .title-cell {
+        text-align: center;
+        vertical-align: middle;
+        padding: 4px;
+      }
+
+      .title-main {
+        display: block;
+        font-size: 15pt;
+        font-weight: 900;
+        text-transform: uppercase;
+        line-height: 1.08;
+      }
+
+      .title-sub {
+        display: block;
+        font-size: 10.3pt;
+        font-style: italic;
+        margin-top: 2px;
+      }
+
+      h2 {
+        font-size: 12pt;
+        background: #2c3e50;
+        color: #fff;
+        padding: 5px 10px;
+        margin: 10px 0 7px 0;
+        border-left: 7px solid #f1c40f;
+        line-height: 1.2;
+      }
+
+      h3 {
+        font-size: 11pt;
+        color: #d35400;
+        border-bottom: 1px solid #d35400;
+        padding-bottom: 2px;
+        margin: 10px 0 6px 0;
+        line-height: 1.2;
+      }
+
+      h4 {
+        font-size: 10.2pt;
+        margin: 6px 0 5px 0;
+      }
+
+      p {
+        margin: 5px 0;
+      }
+
+      ul {
+        margin: 5px 0;
+        padding-left: 18px;
+      }
+
+      li {
+        margin: 2px 0;
+      }
+
+      .intro-box {
+        background: #ededed;
+        border: 1px solid #000;
+        padding: 9px 10px;
+        margin-bottom: 10px;
+      }
+
+      .context-box {
+        border-left: 4px solid #27ae60;
+        background: #f0fff4;
+        padding: 7px 9px;
+        margin: 6px 0;
+        font-style: italic;
+        font-size: 9.55pt;
+      }
+
+      .debat-box {
+        border-left: 4px solid #f39c12;
+        background: #fff7df;
+        padding: 7px 9px;
+        margin: 6px 0;
+        font-size: 9.55pt;
+      }
+
+      .trace-ecrite {
+        border: 2px solid #c0392b;
+        background: #fff5f5;
+        padding: 9px;
+        margin: 8px 0;
+        position: relative;
+        border-radius: 4px;
+      }
+
+      .trace-ecrite::before {
+        content: 'À RETENIR';
+        position: absolute;
+        top: -10px;
+        left: 14px;
+        background: #c0392b;
+        color: #fff;
+        padding: 1px 8px;
+        font-size: 8.8pt;
+        font-weight: 700;
+      }
+
+      .calc-box {
+        border: 1px solid #2980b9;
+        background: #eaf2f8;
+        padding: 8px 9px;
+        margin: 7px 0;
+        border-radius: 5px;
+      }
+
+      .mini-box {
+        border: 1px solid #7f8c8d;
+        background: #f7f7f7;
+        padding: 8px 9px;
+        margin: 7px 0;
+        border-radius: 5px;
+      }
+
+      .transition-box {
+        border: 2px dashed #8e44ad;
+        background: #faf5ff;
+        padding: 9px;
+        margin: 8px 0;
+        border-radius: 7px;
+      }
+
+      .warning-box {
+        border: 2px solid #8e44ad;
+        background: #f7f0ff;
+        padding: 8px 9px;
+        margin: 7px 0;
+        border-radius: 6px;
+      }
+
+      .table-compact {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 6px 0;
+        font-size: 9.4pt;
+      }
+
+      .table-compact th,
+      .table-compact td {
+        border: 1px solid #6f6f6f;
+        padding: 5px 6px;
+        vertical-align: top;
+      }
+
+      .table-compact th {
+        background: #ecf0f1;
+      }
+
+      .dotted-lines {
+        border-bottom: 1px dotted #000;
+        height: 18px;
+        margin-bottom: 3px;
+      }
+
+      .dotted-lines.large {
+        height: 22px;
+      }
+
+      .dotted-lines.xlarge {
+        height: 26px;
+      }
+
+      .grid-two {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 8px;
+      }
+
+      .grid-three {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 8px;
+        margin-top: 8px;
+      }
+
+      .card {
+        border: 1px solid #2c3e50;
+        border-radius: 8px;
+        padding: 8px;
+        background: #fff;
+      }
+
+      .card-title {
+        font-weight: 700;
+        color: #2c3e50;
+        border-bottom: 2px solid #f1c40f;
+        margin-bottom: 6px;
+        padding-bottom: 3px;
+      }
+
+      .small {
+        font-size: 9pt;
+      }
+
+      .center {
+        text-align: center;
+      }
+
+      .footer-page {
+        position: absolute;
+        bottom: 7mm;
+        left: 12mm;
+        right: 12mm;
+        border-top: 1px solid #000;
+        padding-top: 4px;
+        font-size: 8.5pt;
+        display: flex;
+        justify-content: space-between;
+        background: #fff;
+      }
+
+      .signature-zone {
+        height: 44px;
+        border: 1px dashed #888;
+        margin-top: 6px;
+      }
+
+      .spacer-4 {
+        height: 4px;
+      }
+
+      .spacer-6 {
+        height: 6px;
+      }
+
+      .spacer-8 {
+        height: 8px;
+      }
+
+      .spacer-10 {
+        height: 10px;
+      }
+
+      .tagline {
+        font-family: 'Kalam', cursive;
+        color: #7f8c8d;
+        font-size: 9.5pt;
+      }
+
+      .pill {
+        display: inline-block;
+        padding: 2px 8px;
+        border: 1px solid #000;
+        border-radius: 999px;
+        font-size: 8.7pt;
+        background: #fff;
+        margin-right: 6px;
+      }
+
+      .tight p,
+      .tight li {
+        margin-top: 2px;
+        margin-bottom: 2px;
+      }
+
+      @media print {
+        body {
+          background: none;
+          padding: 0;
+        }
+
+        .page {
+          margin: 0;
+          box-shadow: none;
+          width: 210mm;
+          height: 297mm;
+        }
+
+        .print-btn {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <button class="print-btn" onclick="window.print();">
+      🖨️ IMPRIMER LE DOSSIER
+    </button>
+
+    <!-- PAGE 1 -->
+    <div class="page">
+      <table class="header-table">
+        <tr class="row-info">
+          <td>Nom :</td>
+          <td>Prénom :</td>
+          <td>Groupe :</td>
+          <td>Date :</td>
+        </tr>
+        <tr>
+          <td class="logo-cell">
+            <img
+              src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+              alt="Logo BTP CFA"
+              class="logo-btp"
+            />
+          </td>
+          <td colspan="3" class="title-cell">
+            <span class="title-main">SCIENCES PHYSIQUES - BP</span>
+            <span class="title-sub">
+              Dossier passerelle - Ondes, son, lumière et analyse métier
+            </span>
+          </td>
+        </tr>
+      </table>
+
+      <div class="intro-box">
+        <h4 style="margin-top: 0; text-decoration: underline">
+          OBJECTIFS DU DOSSIER PASSERELLE
+        </h4>
+        <ul style="margin-bottom: 0">
+          <li>
+            Repartir des bases déjà rencontrées sur l’onde, le son et la
+            lumière.
+          </li>
+          <li>
+            Introduire un niveau d’analyse plus exigeant attendu en Brevet
+            Professionnel.
+          </li>
+          <li>
+            Construire une réflexion utile pour les deux dossiers
+            d’approfondissement : acoustique et optique.
+          </li>
+          <li>
+            Mettre en lien les notions scientifiques, les usages métier et la
+            sécurité.
+          </li>
+        </ul>
+      </div>
+
+      <div class="context-box">
+        <strong>Fil conducteur :</strong> sur un chantier, un apprenti n’est pas
+        simplement entouré de “bruit” et de “lumière”. Il est confronté à des
+        phénomènes physiques qui transportent de l’énergie, donnent de
+        l’information, permettent de travailler, mais peuvent aussi créer un
+        risque. En BP, on attend donc une analyse plus fine : identifier le
+        phénomène, comprendre ce qui se propage, caractériser ce signal et
+        justifier un choix professionnel.
+      </div>
+
+      <h2>1. POINT DE DÉPART : OBSERVER AVANT DE NOMMER</h2>
+
+      <div class="mini-box">
+        <strong>Situation globale de chantier</strong><br />
+        Dans une même zone de travail, on observe les situations suivantes :
+        <ul>
+          <li>un collègue utilise un niveau laser pour un traçage,</li>
+          <li>un autre découpe un matériau avec une machine bruyante,</li>
+          <li>une soudure est réalisée à proximité,</li>
+          <li>des coups sont donnés sur une canalisation métallique,</li>
+          <li>un local technique reste mal éclairé malgré un projecteur.</li>
+        </ul>
+      </div>
+
+      <h3>Discussion guidée - faire émerger les familles de phénomènes</h3>
+
+      <p>
+        1) Dans cette situation, quels phénomènes sont perçus d’abord par
+        l’oreille ? Quels phénomènes sont perçus d’abord par l’œil ?
+      </p>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines"></div>
+
+      <p>
+        2) Est-ce que tous ces phénomènes fonctionnent selon un seul et même
+        principe physique ? Justifie en donnant au moins deux différences
+        importantes.
+      </p>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+
+      <p>
+        3) Sans faire encore de calcul, explique pourquoi il est utile pour un
+        professionnel du bâtiment de ne pas rester à une simple description
+        “j’entends / je vois”, mais de chercher à comprendre ce qui se passe.
+      </p>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+
+      <div class="trace-ecrite">
+        Dans ce dossier, on ne cherche pas encore à approfondir complètement
+        l’acoustique ou l’optique. On cherche d’abord à construire une
+        <strong>base de raisonnement commune</strong> : comprendre ce qu’est une
+        onde, ce qui se propage réellement, comment distinguer signal sonore et
+        signal lumineux, et comment ces phénomènes deviennent des outils ou des
+        risques sur chantier.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Passerelle BP - Ondes</div>
+        <div>Page 1</div>
+      </div>
+    </div>
+
+    <!-- PAGE 2 -->
+    <div class="page">
+      <h2>2. PREMIÈRE IDÉE FONDAMENTALE : QU’EST-CE QUI VOYAGE RÉELLEMENT ?</h2>
+
+      <div class="context-box">
+        <strong>Rappel issu du niveau précédent :</strong> une onde est un
+        phénomène de propagation d’une perturbation. Elle transporte de
+        l’énergie, mais ne transporte pas de matière.
+      </div>
+
+      <h3>Situation d’analyse</h3>
+
+      <div class="mini-box">
+        Un ouvrier frappe une canalisation métallique à plusieurs mètres de toi.
+        En posant ta main sur le tuyau, tu ressens quelque chose. Quelques
+        instants plus tard, tu entends également le bruit.
+      </div>
+
+      <p>
+        1) Décris précisément ce qui peut être perçu dans cette situation :
+        sensation dans la main, bruit entendu, localisation de l’impact, etc.
+      </p>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+
+      <p>
+        2) Est-ce que le morceau de métal frappé s’est déplacé physiquement
+        jusqu’à ta main ? Pourquoi cette question est-elle importante pour
+        comprendre le phénomène ?
+      </p>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+
+      <div class="debat-box">
+        <strong>Erreur fréquente d’apprenant :</strong><br />
+        “Le son ou la vibration se déplacent comme un objet qui glisse à
+        l’intérieur du matériau.”
+      </div>
+
+      <p>
+        3) Explique pourquoi cette affirmation n’est pas correcte. On attend une
+        explication physique, pas seulement “c’est faux”.
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines large"></div>
+
+      <p>
+        4) Reformule avec tes mots ce qui a réellement “voyagé” entre la zone de
+        l’impact et la zone où l’on perçoit l’effet.
+      </p>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+
+      <div class="trace-ecrite">
+        Une onde ne doit pas être pensée comme un “objet” qui se déplace. Ce qui
+        se propage, c’est une <strong>perturbation</strong>, c’est-à-dire une
+        modification locale de l’état du milieu. Cette propagation transporte de
+        l’<strong>énergie</strong> et parfois de l’<strong>information</strong>,
+        sans transport global de matière.
+      </div>
+
+      <div class="warning-box small">
+        Cette idée est essentielle pour la suite. Sans elle, les notions de
+        propagation, de vitesse, de fréquence, d’atténuation ou de longueur
+        d’onde deviennent artificielles. Avec elle, elles commencent à prendre
+        du sens.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Passerelle BP - Ondes</div>
+        <div>Page 2</div>
+      </div>
+    </div>
+
+    <!-- PAGE 3 -->
+    <div class="page">
+      <h2>3. ONDE SONORE ET ONDE LUMINEUSE : DEUX CAS À NE PAS CONFONDRE</h2>
+
+      <div class="grid-two">
+        <div class="card">
+          <div class="card-title">CAS 1 - LE SON</div>
+          <p>
+            Un signal sonore est produit par une vibration. Il se propage dans
+            un milieu matériel : air, eau, bois, béton, métal...
+          </p>
+          <p>
+            Quand le milieu change, la propagation peut être modifiée :
+            transmission plus ou moins efficace, atténuation, sensation
+            différente, détection plus ou moins facile.
+          </p>
+        </div>
+
+        <div class="card">
+          <div class="card-title">CAS 2 - LA LUMIÈRE</div>
+          <p>
+            Un signal lumineux est une onde électromagnétique. Il n’a pas besoin
+            d’air pour se propager.
+          </p>
+          <p>
+            Il peut être visible ou invisible, utile pour travailler, mais aussi
+            dangereux pour les yeux ou pour l’analyse d’une situation si on le
+            maîtrise mal.
+          </p>
+        </div>
+      </div>
+
+      <h3>Questionnement comparatif</h3>
+
+      <p>
+        1) À partir de ces deux descriptions, donne une différence fondamentale
+        entre la propagation du son et celle de la lumière.
+      </p>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+
+      <p>
+        2) Explique pourquoi il ne suffit pas de dire “ce sont deux ondes” pour
+        affirmer qu’elles se comportent de la même manière.
+      </p>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines"></div>
+
+      <p>
+        3) En quoi cette distinction est-elle importante pour la sécurité sur
+        chantier ?
+      </p>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+
+      <div class="trace-ecrite">
+        Le <strong>son</strong> et la <strong>lumière</strong> appartiennent à
+        la grande famille des ondes, mais ils ne se décrivent pas avec les mêmes
+        propriétés, n’impliquent pas les mêmes risques et ne conduisent pas aux
+        mêmes décisions professionnelles.
+      </div>
+
+      <div class="transition-box">
+        <strong>Transition vers les prochains dossiers :</strong><br />
+        Le dossier acoustique approfondira la propagation, la caractérisation et
+        la mesure des signaux sonores. Le dossier optique approfondira la
+        sécurité laser, les phénomènes de réflexion et de réfraction, le spectre
+        et la caractérisation des rayonnements lumineux.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Passerelle BP - Ondes</div>
+        <div>Page 3</div>
+      </div>
+    </div>
+
+    <!-- PAGE 4 -->
+    <div class="page">
+      <h2>4. LE RÔLE DU MILIEU : UNE EXIGENCE DE RAISONNEMENT EN BP</h2>
+
+      <div class="context-box">
+        <strong>Question centrale :</strong> un phénomène se propage, d’accord.
+        Mais <em>dans quoi</em> se propage-t-il ? Et pourquoi ce “dans quoi”
+        change-t-il la manière dont on le perçoit ?
+      </div>
+
+      <div class="mini-box">
+        On compare trois situations :
+        <ul>
+          <li>
+            un choc est donné sur une plaque métallique et perçu à distance,
+          </li>
+          <li>un bruit est entendu dans l’air au milieu d’un atelier,</li>
+          <li>
+            un son est perçu au travers d’une cloison ou d’une structure
+            porteuse.
+          </li>
+        </ul>
+      </div>
+
+      <p>
+        1) Dans lequel de ces cas as-tu le plus de chances de constater une
+        transmission efficace du phénomène ? Réponds en argumentant.
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+
+      <p>
+        2) Pourquoi un matériau solide peut-il transmettre certaines vibrations
+        de manière particulièrement efficace ? Tu peux t’appuyer sur l’idée
+        d’organisation de la matière.
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines"></div>
+
+      <p>
+        3) Formule une conclusion de niveau BP : on n’attend pas “le métal
+        transmet mieux parce que c’est dur”, mais une explication plus
+        construite.
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+
+      <h3>Exploitation métier</h3>
+
+      <p>
+        4) Donne deux situations professionnelles où une structure peut
+        transmettre un bruit ou une vibration de manière gênante ou dangereuse.
+      </p>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines"></div>
+
+      <div class="trace-ecrite">
+        Pour une onde sonore, le <strong>milieu de propagation</strong> n’est
+        pas un détail secondaire. Il conditionne la transmission, la perception,
+        l’atténuation et donc la manière d’analyser une nuisance ou un risque.
+      </div>
+
+      <div class="calc-box">
+        <strong>Reformulation attendue :</strong><br />
+        En BP, on cherche moins à réciter “le son se propage dans les solides”
+        qu’à expliquer pourquoi cette propagation est parfois plus efficace dans
+        une structure que dans l’air, et quelles conséquences cela a pour le
+        bâtiment.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Passerelle BP - Ondes</div>
+        <div>Page 4</div>
+      </div>
+    </div>
+
+    <!-- PAGE 5 -->
+    <div class="page">
+      <h2>5. DÉCRIRE UN SIGNAL : PASSER DE L’INTUITION À LA CARACTÉRISATION</h2>
+
+      <div class="context-box">
+        <strong>Au niveau précédent</strong>, on a déjà rencontré l’idée qu’un
+        son peut être grave ou aigu selon sa fréquence, et qu’un signal simple
+        peut être représenté par un motif qui se répète.
+      </div>
+
+      <h3>Réactivation raisonnée</h3>
+
+      <p>
+        1) Explique avec tes mots ce que signifie : “un motif se répète”.
+        Pourquoi cette idée est-elle utile pour décrire un signal ?
+      </p>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+
+      <p>
+        2) Sans encore entrer dans un dossier spécialisé, rappelle ce que sont :
+      </p>
+      <table class="table-compact">
+        <tr>
+          <th style="width: 25%">Notion</th>
+          <th>Définition attendue</th>
+        </tr>
+        <tr>
+          <td><strong>Période</strong></td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+        </tr>
+        <tr>
+          <td><strong>Fréquence</strong></td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+        </tr>
+      </table>
+
+      <p>
+        3) Pourquoi dit-on qu’un son de fréquence faible est grave, et qu’un son
+        de fréquence élevée est aigu ? On attend une relation entre fréquence,
+        rapidité des vibrations et perception.
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines large"></div>
+
+      <div class="debat-box">
+        <strong>Erreur fréquente :</strong> “grave” et “fort” veulent dire la
+        même chose. “aigu” et “faible” veulent dire la même chose.
+      </div>
+
+      <p>
+        4) Montre pourquoi cette confusion est problématique. Tu distingueras la
+        notion liée à la fréquence et la notion liée à l’intensité ou au niveau
+        sonore.
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+
+      <div class="trace-ecrite">
+        Décrire un signal de manière scientifique, ce n’est pas seulement dire
+        “j’entends un bruit” ou “je vois une lumière”. C’est
+        <strong>caractériser</strong> ce signal avec des grandeurs adaptées :
+        fréquence, période, niveau sonore, longueur d’onde, domaine spectral,
+        éclairement, etc. Les dossiers suivants détailleront précisément ces
+        outils.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Passerelle BP - Ondes</div>
+        <div>Page 5</div>
+      </div>
+    </div>
+
+    <!-- PAGE 6 -->
+    <div class="page">
+      <h2>6. SON : CE QUI SERA APPROFONDI ENSUITE EN ACOUSTIQUE</h2>
+
+      <div class="mini-box tight">
+        <span class="pill">Entrée BP</span>
+        <span class="pill">Préparation dossier acoustique</span>
+        <span class="pill">Analyse métier</span>
+      </div>
+
+      <h3>À partir d’une situation simple</h3>
+
+      <div class="context-box">
+        Dans un atelier, une machine produit un bruit continu. À proximité, une
+        alarme émet un son plus net, plus identifiable. Plus loin, un choc
+        ponctuel sur une structure métallique est aussi perçu.
+      </div>
+
+      <p>
+        1) Pourquoi ces trois sons ne doivent-ils pas être mis dans le même
+        “paquet” sans réflexion ? Quelles différences de nature ou de
+        caractérisation peux-tu déjà pressentir ?
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+
+      <p>
+        2) Dans quel cas serait-il particulièrement utile d’introduire une
+        mesure objective plutôt que de rester à une impression subjective ?
+        Justifie.
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+
+      <p>
+        3) Pourquoi la notion de <strong>niveau sonore</strong> est-elle
+        indispensable en milieu professionnel ? Tu peux mobiliser les idées de
+        nuisance, fatigue, durée d’exposition et danger.
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines large"></div>
+
+      <h3>Relier le sonore au métier</h3>
+
+      <table class="table-compact">
+        <tr>
+          <th style="width: 34%">Situation</th>
+          <th style="width: 33%">
+            Pourquoi une analyse scientifique est utile
+          </th>
+          <th>Conséquence possible sur chantier</th>
+        </tr>
+        <tr>
+          <td>Bruit continu d’une machine</td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Transmission de vibration dans une structure</td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Alarme ou signal sonore de sécurité</td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+        </tr>
+      </table>
+
+      <div class="trace-ecrite">
+        Le futur dossier acoustique ne servira pas uniquement à “faire des
+        décibels”. Il servira à comprendre la propagation du son, à caractériser
+        un signal sonore, à distinguer son pur et son complexe, à analyser une
+        mesure, et à décider d’une prévention pertinente.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Passerelle BP - Ondes</div>
+        <div>Page 6</div>
+      </div>
+    </div>
+
+    <!-- PAGE 7 -->
+    <div class="page">
+      <h2>7. LUMIÈRE : CE QUI SERA APPROFONDI ENSUITE EN OPTIQUE</h2>
+
+      <div class="mini-box tight">
+        <span class="pill">Entrée BP</span>
+        <span class="pill">Préparation dossier optique</span>
+        <span class="pill">Analyse métier</span>
+      </div>
+
+      <div class="context-box">
+        Sur chantier ou en atelier, on rencontre par exemple : un niveau laser,
+        une zone de travail mal éclairée, des surfaces brillantes, une soudure
+        émettant une lumière intense, une caméra thermique, des rayonnements UV
+        ou infrarouges.
+      </div>
+
+      <p>
+        1) Pourquoi toutes ces situations relèvent-elles de l’optique au sens
+        large, alors qu’elles ne renvoient pas toutes au même type d’usage ?
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+
+      <p>
+        2) À ton avis, pourquoi le futur dossier optique devra-t-il distinguer :
+        visibilité, sécurité, propagation, réflexion, réfraction, couleur,
+        longueur d’onde, éclairement ?
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines large"></div>
+
+      <div class="debat-box">
+        <strong>Erreur fréquente :</strong><br />
+        “Une lumière visible est forcément la plus dangereuse, puisqu’on la voit
+        mieux.”<br />
+        “Une lumière invisible est sans importance puisqu’on ne la perçoit pas
+        directement.”
+      </div>
+
+      <p>
+        3) Discute ces deux affirmations. Tu pourras t’appuyer sur les UV, les
+        IR, les lasers et la perception humaine.
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+
+      <h3>Ouvrir vers les notions à venir</h3>
+
+      <table class="table-compact">
+        <tr>
+          <th style="width: 35%">Notion optique</th>
+          <th>À quoi elle pourra servir en situation professionnelle</th>
+        </tr>
+        <tr>
+          <td>Sécurité laser</td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Réflexion sur surface brillante</td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Réfraction dans un matériau transparent</td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Éclairement d’un poste de travail</td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+        </tr>
+      </table>
+
+      <div class="trace-ecrite">
+        Le futur dossier optique permettra de passer d’une vision intuitive de
+        la lumière à une vision
+        <strong>scientifique et professionnelle</strong> : identifier le domaine
+        concerné, analyser un risque, comprendre une déviation, justifier un
+        choix technique, ou vérifier une conformité.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Passerelle BP - Ondes</div>
+        <div>Page 7</div>
+      </div>
+    </div>
+
+    <!-- PAGE 8 -->
+    <div class="page">
+      <h2>
+        8. VISIBLE, INVISIBLE, AUDIBLE, NON AUDIBLE : LIMITES DE NOS CAPTEURS
+      </h2>
+
+      <div class="context-box">
+        Le corps humain ne perçoit pas tout. L’oreille et l’œil sont des
+        capteurs performants, mais limités. Cette idée est essentielle parce
+        qu’un phénomène non directement perçu peut tout de même exister, être
+        exploitable ou représenter un danger.
+      </div>
+
+      <h3>Discussion de fond</h3>
+
+      <p>
+        1) Pourquoi l’affirmation “je ne le vois pas, donc il n’y a rien”
+        est-elle scientifiquement fausse dans l’étude des rayonnements lumineux
+        ?
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+
+      <p>
+        2) Pourquoi l’affirmation “je ne trouve pas ce bruit très fort, donc ce
+        n’est pas dangereux” est-elle insuffisante d’un point de vue
+        professionnel ?
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+
+      <div class="grid-two">
+        <div class="card">
+          <div class="card-title">POUR L’OREILLE</div>
+          <p>
+            Une partie des signaux sonores est réellement perçue, mais la
+            perception ne suffit pas à elle seule à évaluer un risque. Il faut
+            tenir compte du niveau, de la durée, du contexte, des répétitions,
+            et parfois des mesures.
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-title">POUR L’ŒIL</div>
+          <p>
+            Certaines radiations sont visibles, d’autres non. Pourtant, les UV
+            et les IR ont des effets réels. Une radiation invisible n’est ni
+            neutre ni inexistante.
+          </p>
+        </div>
+      </div>
+
+      <h3>Application raisonnée</h3>
+
+      <table class="table-compact">
+        <tr>
+          <th style="width: 36%">Exemple</th>
+          <th style="width: 32%">Ce que l’on perçoit directement</th>
+          <th>Ce qu’il faut tout de même analyser</th>
+        </tr>
+        <tr>
+          <td>Arc de soudage</td>
+          <td>
+            <div class="dotted-lines"></div>
+          </td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Caméra thermique</td>
+          <td>
+            <div class="dotted-lines"></div>
+          </td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Machine bruyante en atelier</td>
+          <td>
+            <div class="dotted-lines"></div>
+          </td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+        </tr>
+      </table>
+
+      <div class="trace-ecrite">
+        En BP, on attend que tu dépasses le simple ressenti. Une analyse
+        scientifique et professionnelle commence souvent quand on comprend que
+        nos sens sont utiles, mais partiels. Il faut alors introduire des
+        notions, des grandeurs et parfois des instruments.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Passerelle BP - Ondes</div>
+        <div>Page 8</div>
+      </div>
+    </div>
+
+    <!-- PAGE 9 -->
+    <div class="page">
+      <h2>
+        9. UTILITÉ PROFESSIONNELLE : QUAND LA SCIENCE ÉCLAIRE LE GESTE MÉTIER
+      </h2>
+
+      <div class="context-box">
+        Ce dossier n’a pas pour but de séparer artificiellement la science et le
+        métier. Au contraire, il sert à montrer qu’un geste professionnel
+        s’appuie souvent sur des phénomènes physiques qu’il faut comprendre au
+        moins en partie.
+      </div>
+
+      <h3>Associer le phénomène, l’usage et la décision</h3>
+
+      <table class="table-compact">
+        <tr>
+          <th style="width: 28%">Situation métier</th>
+          <th style="width: 24%">Phénomène en jeu</th>
+          <th style="width: 24%">Pourquoi c’est utile de le comprendre</th>
+          <th>Décision ou vigilance possible</th>
+        </tr>
+        <tr>
+          <td>Utiliser un niveau laser</td>
+          <td>
+            <div class="dotted-lines"></div>
+          </td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+          <td>
+            <div class="dotted-lines"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Évaluer une nuisance sonore</td>
+          <td>
+            <div class="dotted-lines"></div>
+          </td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+          <td>
+            <div class="dotted-lines"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Repérer un pont thermique</td>
+          <td>
+            <div class="dotted-lines"></div>
+          </td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+          <td>
+            <div class="dotted-lines"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Choisir une protection contre un bruit</td>
+          <td>
+            <div class="dotted-lines"></div>
+          </td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+          <td>
+            <div class="dotted-lines"></div>
+          </td>
+        </tr>
+      </table>
+
+      <h3>Question de synthèse intermédiaire</h3>
+
+      <p>
+        1) Explique pourquoi “comprendre” ne veut pas dire ici “faire de la
+        théorie pour la théorie”, mais plutôt “mieux agir, mieux justifier et
+        mieux sécuriser”.
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines large"></div>
+
+      <p>
+        2) Choisis une situation professionnelle réelle que tu connais. Montre
+        comment une meilleure compréhension du son ou de la lumière pourrait
+        améliorer l’efficacité, la précision ou la sécurité.
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+
+      <div class="trace-ecrite">
+        La physique n’est pas là pour “surplomber” le métier. Elle aide à
+        interpréter une situation, à argumenter un choix, à éviter une erreur,
+        ou à mieux comprendre le fonctionnement d’un outil, d’un matériau, d’un
+        signal ou d’un risque.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Passerelle BP - Ondes</div>
+        <div>Page 9</div>
+      </div>
+    </div>
+
+    <!-- PAGE 10 -->
+    <div class="page">
+      <h2>10. SÉCURITÉ : PASSER DU CONSTAT À LA PRÉVENTION ARGUMENTÉE</h2>
+
+      <div class="context-box">
+        Bruit, UV, laser, manque d’éclairement, surface brillante, réflexion
+        parasite, transmission de nuisance par structure : tous ces phénomènes
+        peuvent concerner un professionnel du bâtiment.
+      </div>
+
+      <h3>Étude de plusieurs cas</h3>
+
+      <div class="mini-box">
+        <strong>Cas A</strong> : une machine produit un niveau sonore élevé dans
+        une zone fermée.<br />
+        <strong>Cas B</strong> : un télémètre ou un niveau laser est utilisé à
+        hauteur du visage dans une zone de passage.<br />
+        <strong>Cas C</strong> : une soudure est réalisée à proximité d’autres
+        intervenants.<br />
+        <strong>Cas D</strong> : un couloir ou un local technique reste trop
+        sombre pour un travail précis.
+      </div>
+
+      <p>
+        1) Pour chacun de ces cas, identifie le type de risque principal :
+        auditif, visuel, organisationnel, erreur de travail, coactivité,
+        fatigue, etc.
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+
+      <p>
+        2) Explique pourquoi une bonne prévention ne consiste pas seulement à
+        distribuer un EPI. Tu peux évoquer l’organisation, le balisage, le choix
+        du matériel, l’information et l’analyse préalable.
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines large"></div>
+
+      <table class="table-compact">
+        <tr>
+          <th style="width: 26%">Situation</th>
+          <th style="width: 22%">Risque principal</th>
+          <th style="width: 26%">Mesure de prévention collective</th>
+          <th>Mesure individuelle ou comportement attendu</th>
+        </tr>
+        <tr>
+          <td>Machine très bruyante</td>
+          <td><div class="dotted-lines"></div></td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+          <td>
+            <div class="dotted-lines"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Laser en zone de circulation</td>
+          <td><div class="dotted-lines"></div></td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+          <td>
+            <div class="dotted-lines"></div>
+          </td>
+        </tr>
+        <tr>
+          <td>Soudure à proximité</td>
+          <td><div class="dotted-lines"></div></td>
+          <td>
+            <div class="dotted-lines"></div>
+            <div class="dotted-lines"></div>
+          </td>
+          <td>
+            <div class="dotted-lines"></div>
+          </td>
+        </tr>
+      </table>
+
+      <div class="trace-ecrite">
+        Un raisonnement de niveau BP ne s’arrête pas à “il y a un danger”. Il va
+        jusqu’à : identifier le phénomène, comprendre le risque, choisir une
+        mesure cohérente, et pouvoir la justifier dans une situation réelle.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Passerelle BP - Ondes</div>
+        <div>Page 10</div>
+      </div>
+    </div>
+
+    <!-- PAGE 11 -->
+    <div class="page">
+      <h2>11. SYNTHÈSE PAR THÈME - THÈME 1 : CE QU’EST UNE ONDE</h2>
+
+      <div class="trace-ecrite">
+        <strong>NOTION CLÉ 1 - L’ONDE</strong><br />
+        Une onde est la propagation d’une perturbation. Elle transporte de
+        l’énergie, mais pas de matière. Cette idée permet de comprendre aussi
+        bien les phénomènes sonores que lumineux, tout en gardant à l’esprit que
+        ces deux familles ne fonctionnent pas exactement de la même manière.
+      </div>
+
+      <h3>Compléter la synthèse guidée</h3>
+
+      <div class="mini-box">
+        <p style="line-height: 2; margin: 0">
+          Une onde transporte de l’........................................ mais
+          ne transporte pas globalement de
+          ........................................ .<br />
+          Dans une propagation, ce qui se déplace réellement est une
+          ........................................ .<br />
+          Le son est une onde qui a besoin d’un
+          ........................................ .<br />
+          La lumière est une onde ........................................ qui
+          peut se propager même sans ........................................ .
+        </p>
+      </div>
+
+      <h3>Question de structuration</h3>
+
+      <p>
+        1) Pourquoi cette synthèse est-elle une bonne base commune avant de
+        séparer ensuite acoustique et optique ?
+      </p>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+
+      <p>
+        2) Quelle erreur de raisonnement évite-t-on en comprenant qu’une onde ne
+        transporte pas de matière ?
+      </p>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+
+      <h3>Formulation personnelle</h3>
+
+      <p>
+        Reformule la notion d’onde avec tes mots, mais sans simplifier à
+        l’excès. On attend une formulation claire, correcte et utilisable au
+        niveau BP.
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines large"></div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Synthèse thématique</div>
+        <div>Page 11</div>
+      </div>
+    </div>
+
+    <!-- PAGE 12 -->
+    <div class="page">
+      <h2>12. SYNTHÈSE PAR THÈME - THÈME 2 : LE SIGNAL SONORE</h2>
+
+      <div class="trace-ecrite">
+        <strong>NOTION CLÉ 2 - LE SON</strong><br />
+        Le son est lié à une vibration et nécessite un milieu matériel pour se
+        propager. Il peut être caractérisé par différentes grandeurs. Parmi
+        elles, la fréquence permet de distinguer grave et aigu. Le niveau sonore
+        permet d’analyser une nuisance ou un risque. Le comportement du signal
+        dépend aussi du milieu et de la situation.
+      </div>
+
+      <h3>Compléter la synthèse guidée</h3>
+
+      <div class="mini-box">
+        <p style="line-height: 2; margin: 0">
+          Un son est associé à une ........................................ .<br />
+          Il se propage dans un ........................................ .<br />
+          Un son grave correspond à une fréquence
+          ........................................ .<br />
+          Un son aigu correspond à une fréquence
+          ........................................ .<br />
+          Le niveau sonore s’exprime en ........................................
+          .<br />
+          Une analyse professionnelle ne repose pas seulement sur le ressenti,
+          mais aussi sur la ........................................ et le
+          ........................................ .
+        </p>
+      </div>
+
+      <h3>Questionnement d’ouverture vers le dossier acoustique</h3>
+
+      <p>
+        1) Pourquoi faudra-t-il aller plus loin que “grave / aigu” et “fort /
+        faible” dans le prochain dossier ?
+      </p>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+
+      <p>
+        2) Donne deux questions auxquelles le dossier acoustique devra répondre
+        pour être vraiment utile à un professionnel.
+      </p>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines"></div>
+
+      <div class="warning-box">
+        <strong>Cap vers la suite :</strong><br />
+        Le dossier acoustique détaillera notamment propagation, vitesse,
+        longueur d’onde, son pur / son complexe, mesures, atténuation,
+        interprétation de résultats et sécurité auditive.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Synthèse thématique</div>
+        <div>Page 12</div>
+      </div>
+    </div>
+
+    <!-- PAGE 13 -->
+    <div class="page">
+      <h2>13. SYNTHÈSE PAR THÈME - THÈME 3 : LE SIGNAL LUMINEUX</h2>
+
+      <div class="trace-ecrite">
+        <strong>NOTION CLÉ 3 - LA LUMIÈRE</strong><br />
+        La lumière est une onde électromagnétique. Elle peut être visible ou
+        invisible. Sa perception ne suffit pas à elle seule à juger son effet ou
+        son danger. Selon les situations, il faut tenir compte de la nature du
+        rayonnement, de sa direction, de son interaction avec les matériaux, de
+        son éclairement, ou de son potentiel de risque.
+      </div>
+
+      <h3>Compléter la synthèse guidée</h3>
+
+      <div class="mini-box">
+        <p style="line-height: 2; margin: 0">
+          La lumière peut se propager même sans
+          ........................................ .<br />
+          Une partie de la lumière est ........................................
+          par l’œil humain.<br />
+          D’autres rayonnements sont invisibles, comme les
+          ........................................ et les
+          ........................................ .<br />
+          Une réflexion scientifique ne s’arrête pas à “je vois / je ne vois
+          pas”, car un rayonnement peut être
+          ........................................ sans être directement perçu.
+        </p>
+      </div>
+
+      <h3>Questionnement d’ouverture vers le dossier optique</h3>
+
+      <p>
+        1) Pourquoi un professionnel a-t-il intérêt à distinguer un problème
+        d’éclairement, un problème de sécurité laser, et un problème lié à la
+        réflexion sur une surface ?
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+
+      <p>
+        2) Donne deux questions de niveau BP auxquelles le dossier optique devra
+        répondre.
+      </p>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines"></div>
+
+      <div class="warning-box">
+        <strong>Cap vers la suite :</strong><br />
+        Le dossier optique détaillera notamment sécurité laser, réflexion,
+        réfraction, longueur d’onde, spectre électromagnétique, classement
+        visible / UV / IR, éclairement, et quelques usages métier.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Synthèse thématique</div>
+        <div>Page 13</div>
+      </div>
+    </div>
+
+    <!-- PAGE 14 -->
+    <div class="page">
+      <h2>14. SYNTHÈSE PAR THÈME - THÈME 4 : SCIENCE, MÉTIER ET SÉCURITÉ</h2>
+
+      <div class="trace-ecrite">
+        <strong>NOTION CLÉ 4 - ANALYSER POUR MIEUX AGIR</strong><br />
+        En BP, la science n’est pas séparée du terrain. Elle aide à comprendre
+        une situation, justifier un choix, repérer un risque, éviter une erreur
+        et améliorer la qualité d’une intervention. Sur chantier, son et lumière
+        peuvent être à la fois des outils et des sources de danger.
+      </div>
+
+      <h3>Compléter la synthèse guidée</h3>
+
+      <div class="mini-box">
+        <p style="line-height: 2; margin: 0">
+          Comprendre un phénomène permet de mieux
+          ........................................ .<br />
+          Une prévention efficace ne se limite pas à
+          ........................................ .<br />
+          Elle suppose aussi d’identifier
+          ........................................ ,
+          ........................................ et
+          ........................................ .<br />
+          Dans une analyse professionnelle, il faut être capable de décrire,
+          comprendre, puis ........................................ .
+        </p>
+      </div>
+
+      <h3>Question finale de mise en cohérence</h3>
+
+      <p>
+        1) Explique en quelques lignes pourquoi ce dossier passerelle était
+        nécessaire avant d’entrer dans les deux dossiers spécialisés.
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+
+      <p>
+        2) Choisis une situation métier de ton domaine. Indique quelle partie du
+        futur travail sera surtout utile : acoustique, optique, ou les deux.
+        Justifie précisément.
+      </p>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+      <div class="dotted-lines xlarge"></div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Synthèse thématique</div>
+        <div>Page 14</div>
+      </div>
+    </div>
+
+    <!-- PAGE 15 -->
+    <div class="page" style="background: #f4f7f6">
+      <h2
+        style="
+          text-align: center;
+          background: #2c3e50;
+          border: none;
+          padding: 12px;
+          margin-top: 0;
+        "
+      >
+        GRANDE FICHE SYNTHÈSE FINALE
+      </h2>
+
+      <div class="grid-two">
+        <div class="card">
+          <div class="card-title">1. L’ONDE</div>
+          <ul>
+            <li>Propagation d’une perturbation.</li>
+            <li>Transport d’énergie, pas de matière.</li>
+            <li>Base commune pour raisonner sur plusieurs phénomènes.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-title">2. LE SON</div>
+          <ul>
+            <li>Onde liée à une vibration.</li>
+            <li>Besoin d’un milieu matériel.</li>
+            <li>Fréquence : grave / aigu.</li>
+            <li>Niveau sonore : analyse d’une nuisance ou d’un risque.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-title">3. LA LUMIÈRE</div>
+          <ul>
+            <li>Onde électromagnétique.</li>
+            <li>Peut se propager sans air.</li>
+            <li>Visible ou invisible.</li>
+            <li>Outil technique, mais aussi source possible de danger.</li>
+          </ul>
+        </div>
+
+        <div class="card">
+          <div class="card-title">4. LE MÉTIER</div>
+          <ul>
+            <li>Comprendre un phénomène aide à mieux agir.</li>
+            <li>La science sert à justifier, choisir, sécuriser.</li>
+            <li>Elle éclaire l’analyse des outils, matériaux et risques.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="spacer-8"></div>
+
+      <div class="trace-ecrite">
+        <strong>Formulation globale à retenir</strong><br />
+        En Brevet Professionnel, l’étude des ondes, du son et de la lumière ne
+        consiste pas à accumuler des définitions isolées. Elle consiste à
+        construire une lecture scientifique de situations professionnelles
+        concrètes. Le son et la lumière sont des phénomènes différents, mais ils
+        obligent tous deux à raisonner sur la propagation, la caractérisation du
+        signal, l’interaction avec le milieu, la perception, l’usage technique
+        et la prévention des risques.
+      </div>
+
+      <h3>Bilan personnel de fin de dossier</h3>
+
+      <p>1) Ce que j’ai mieux compris sur les ondes :</p>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+
+      <p>2) Ce que je pense devoir approfondir dans le dossier acoustique :</p>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+
+      <p>3) Ce que je pense devoir approfondir dans le dossier optique :</p>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+
+      <p>
+        4) Une situation professionnelle dans laquelle ces notions pourront me
+        servir :
+      </p>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines large"></div>
+      <div class="dotted-lines"></div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Grande fiche synthèse</div>
+        <div>Page 15</div>
+      </div>
+    </div>
+
+    <!-- PAGE 16 -->
+    <div class="page">
+      <h2>16. TRACE ÉCRITE FINALE - À COMPLÉTER INTÉGRALEMENT</h2>
+
+      <div class="mini-box">
+        <p style="line-height: 2; margin: 0">
+          Une onde est un phénomène de propagation d’une
+          ........................................ .<br />
+          Elle transporte de l’........................................ mais ne
+          transporte pas globalement de ........................................
+          .<br /><br />
+
+          Le son est une onde ........................................ .<br />
+          Il nécessite un ........................................ pour se
+          propager.<br />
+          Un son grave correspond à une fréquence
+          ........................................ .<br />
+          Un son aigu correspond à une fréquence
+          ........................................ .<br />
+          Le niveau sonore s’exprime en ........................................
+          .<br /><br />
+
+          La lumière est une onde ........................................ .<br />
+          Elle peut se propager même sans
+          ........................................ .<br />
+          Certains rayonnements sont visibles, d’autres sont
+          ........................................ .<br />
+          Les ........................................ peuvent être associés à
+          la chaleur.<br />
+          Les ........................................ peuvent être dangereux
+          pour la peau et les yeux.<br /><br />
+
+          En milieu professionnel, comprendre ces phénomènes permet de mieux
+          ........................................ ,
+          ........................................ et
+          ........................................ .
+        </p>
+      </div>
+
+      <h3>Engagement de l’apprenti</h3>
+      <p class="tagline">
+        Je sais maintenant ce que ce dossier a préparé. Dans les prochains
+        dossiers, je vais approfondir les notions spécifiques au son et à la
+        lumière.
+      </p>
+
+      <div class="signature-zone"></div>
+
+      <div class="trace-ecrite">
+        <strong>Clôture pédagogique :</strong><br />
+        Ce dossier passerelle ne remplace pas les approfondissements à venir. Il
+        sert à installer une base solide, cohérente et exigeante. Il doit te
+        permettre d’entrer dans les prochains cours non pas avec des notions
+        isolées, mais avec une vraie logique d’analyse.
+      </div>
+
+      <div class="footer-page">
+        <div>M. OZMINA</div>
+        <div>Clôture</div>
+        <div>Page 16</div>
+      </div>
+    </div>
+  </body>
+</html>

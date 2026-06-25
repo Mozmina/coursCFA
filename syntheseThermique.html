@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fiche synthèse CAP - Thermique</title>
+
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Oswald:wght@500;600;700&display=swap');
+
+      * {
+        box-sizing: border-box;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      :root {
+        --bleu: #0b3a67;
+        --bleu-clair: #eaf3fb;
+        --bleu-moyen: #0e5a94;
+        --jaune: #ffd31a;
+        --jaune-clair: #fff7d6;
+        --vert: #167447;
+        --vert-clair: #eaf7ef;
+        --orange: #c45f17;
+        --orange-clair: #fff0df;
+        --gris-fond: #f5f7fa;
+        --trait: #cbd5e1;
+        --texte: #0f172a;
+        --muted: #475569;
+      }
+
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #d9dde3;
+        font-family: 'Roboto', Arial, sans-serif;
+        color: var(--texte);
+      }
+
+      @page {
+        size: A4 landscape;
+        margin: 0;
+      }
+
+      .print-btn {
+        position: fixed;
+        right: 12px;
+        top: 12px;
+        z-index: 50;
+        border: 0;
+        border-radius: 8px;
+        background: var(--bleu);
+        color: white;
+        font-weight: 800;
+        padding: 8px 14px;
+        cursor: pointer;
+      }
+
+      .page {
+        width: 297mm;
+        height: 210mm;
+        margin: 0 auto;
+        background: linear-gradient(
+            90deg,
+            rgba(15, 23, 42, 0.025) 1px,
+            transparent 1px
+          ),
+          linear-gradient(rgba(15, 23, 42, 0.025) 1px, transparent 1px),
+          var(--gris-fond);
+        background-size: 7mm 7mm;
+        overflow: hidden;
+        position: relative;
+        padding: 4mm 6mm 4mm;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .header {
+        height: 25mm;
+        display: grid;
+        grid-template-columns: 44mm 1fr;
+        gap: 5mm;
+        align-items: center;
+        border-bottom: 2px solid var(--trait);
+        padding-bottom: 2mm;
+        margin-bottom: 3mm;
+        flex-shrink: 0;
+      }
+
+      .logo-box {
+        height: 17mm;
+        border: 1px solid var(--trait);
+        border-radius: 7px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2mm 4mm;
+      }
+
+      .logo-box img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+      }
+
+      .header-main {
+        display: grid;
+        grid-template-rows: auto auto;
+        gap: 2mm;
+      }
+
+      .title {
+        text-align: center;
+      }
+
+      .title h1 {
+        margin: 0;
+        font-family: 'Oswald', sans-serif;
+        color: var(--bleu);
+        font-size: 25pt;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        line-height: 1;
+      }
+
+      .title p {
+        margin: 1mm 0 0;
+        font-size: 9.2pt;
+        font-weight: 700;
+        color: var(--muted);
+      }
+
+      .infos {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 2mm;
+      }
+
+      .field {
+        height: 7mm;
+        background: white;
+        border: 1px solid var(--trait);
+        border-radius: 5px;
+        display: grid;
+        grid-template-columns: 19mm 1fr;
+        align-items: center;
+        padding: 0 2mm;
+        font-size: 8.3pt;
+      }
+
+      .field label {
+        font-weight: 900;
+        color: var(--bleu);
+      }
+
+      .field input {
+        border: 0;
+        border-bottom: 1px solid #94a3b8;
+        background: transparent;
+        width: 100%;
+        font: inherit;
+        outline: none;
+        height: 4mm;
+      }
+
+      .grid {
+        flex: 1;
+        min-height: 0;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        gap: 3mm;
+        margin-bottom: 3mm;
+      }
+
+      .card {
+        background: white;
+        border: 1px solid var(--trait);
+        border-radius: 8px;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+        box-shadow: 0 3px 8px rgba(15, 23, 42, 0.08);
+      }
+
+      .card-head {
+        height: 9.5mm;
+        min-height: 9.5mm;
+        display: flex;
+        align-items: center;
+        gap: 2.4mm;
+        padding: 0 3mm;
+        color: white;
+        font-weight: 900;
+        font-size: 9.8pt;
+      }
+
+      .n {
+        width: 6mm;
+        height: 6mm;
+        min-width: 6mm;
+        border-radius: 50%;
+        background: var(--jaune);
+        color: #1f2937;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 7.8pt;
+        font-weight: 900;
+      }
+
+      .b {
+        background: var(--bleu);
+      }
+
+      .g {
+        background: var(--vert);
+      }
+
+      .o {
+        background: var(--orange);
+      }
+
+      .bb {
+        background: var(--bleu-moyen);
+      }
+
+      .card-body {
+        padding: 2.6mm 3mm;
+        flex: 1;
+        min-height: 0;
+        font-size: 8.6pt;
+        line-height: 1.15;
+        display: flex;
+        flex-direction: column;
+        gap: 1.7mm;
+      }
+
+      p {
+        margin: 0;
+      }
+
+      strong {
+        font-weight: 900;
+      }
+
+      .formula {
+        border-left: 4px solid var(--bleu-moyen);
+        background: var(--bleu-clair);
+        border-radius: 5px;
+        text-align: center;
+        font-weight: 900;
+        font-size: 11.8pt;
+        padding: 1.6mm 2mm;
+      }
+
+      .formula.small {
+        font-size: 10pt;
+      }
+
+      .mini-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.6mm;
+      }
+
+      .calc,
+      .unit,
+      .step {
+        background: #f8fafc;
+        border: 1px solid var(--trait);
+        border-radius: 5px;
+        padding: 1.5mm;
+      }
+
+      .calc {
+        font-size: 8pt;
+      }
+
+      .warn,
+      .result {
+        background: var(--jaune-clair);
+        border: 1px solid #f1c232;
+        border-radius: 5px;
+        padding: 1.5mm 2mm;
+        font-weight: 900;
+        font-size: 8.2pt;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+        font-size: 7.9pt;
+        background: white;
+      }
+
+      th,
+      td {
+        border: 1px solid var(--trait);
+        padding: 1.2mm 1.2mm;
+        vertical-align: middle;
+        word-break: normal;
+        overflow-wrap: anywhere;
+      }
+
+      th {
+        background: var(--bleu-clair);
+        color: var(--bleu);
+        font-weight: 900;
+        text-align: center;
+      }
+
+      .center {
+        text-align: center;
+      }
+
+      .units {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5mm;
+      }
+
+      .unit {
+        font-size: 7.8pt;
+      }
+
+      .steps {
+        display: grid;
+        gap: 1.2mm;
+      }
+
+      .step {
+        display: grid;
+        grid-template-columns: 5.5mm 1fr;
+        gap: 1.5mm;
+        align-items: center;
+        font-size: 8pt;
+      }
+
+      .round {
+        width: 5mm;
+        height: 5mm;
+        border-radius: 50%;
+        background: var(--bleu);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        font-size: 7.5pt;
+      }
+
+      .footer {
+        position: absolute;
+        left: 6mm;
+        right: 6mm;
+        bottom: 1.3mm;
+        font-size: 7pt;
+        color: #64748b;
+        display: flex;
+        justify-content: space-between;
+        pointer-events: none;
+      }
+
+      @media print {
+        html,
+        body {
+          background: white;
+          width: 297mm;
+          height: 210mm;
+          overflow: hidden;
+        }
+
+        .page {
+          margin: 0;
+          box-shadow: none;
+        }
+
+        .print-btn {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <button class="print-btn" onclick="window.print()">Imprimer</button>
+
+    <main class="page">
+      <header class="header">
+        <div class="logo-box">
+          <img
+            src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+            alt="BTP CFA Marne"
+          />
+        </div>
+
+        <div class="header-main">
+          <div class="title">
+            <h1>Thermique</h1>
+            <p>Fiche de synthèse CAP - températures, transferts et isolation</p>
+          </div>
+
+          <div class="infos">
+            <div class="field">
+              <label>Date :</label>
+              <input id="dateField" type="text" />
+            </div>
+            <div class="field">
+              <label>Groupe :</label>
+              <input type="text" value="à compléter" />
+            </div>
+            <div class="field">
+              <label>Formateur :</label>
+              <input type="text" value="M. Ozmina" />
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <section class="grid">
+        <article class="card">
+          <div class="card-head b">
+            <span class="n">1</span>Conversion des températures
+          </div>
+
+          <div class="card-body">
+            <p>
+              Pour passer des degrés Celsius au Kelvin, on
+              <strong>ajoute 273</strong>. Pour revenir aux degrés Celsius, on
+              <strong>retire 273</strong>.
+            </p>
+
+            <div class="formula">K = °C + 273 | °C = K - 273</div>
+
+            <div class="mini-grid">
+              <div class="calc">
+                <strong>35°C</strong><br />35 + 273 = <strong>308 K</strong>
+              </div>
+              <div class="calc">
+                <strong>-10°C</strong><br />-10 + 273 = <strong>263 K</strong>
+              </div>
+              <div class="calc">
+                <strong>283 K</strong><br />283 - 273 = <strong>10°C</strong>
+              </div>
+              <div class="calc">
+                <strong>350 K</strong><br />350 - 273 = <strong>77°C</strong>
+              </div>
+            </div>
+
+            <div class="warn">
+              Réflexe : en thermique, la température peut être demandée en
+              Kelvin.
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head g">
+            <span class="n">2</span>Modes de transfert thermique
+          </div>
+
+          <div class="card-body">
+            <p>
+              La chaleur peut se transmettre de trois façons. Il faut identifier
+              ce qui transporte l'énergie thermique.
+            </p>
+
+            <table>
+              <colgroup>
+                <col style="width: 32%" />
+                <col style="width: 68%" />
+              </colgroup>
+              <tr>
+                <th>Mode</th>
+                <th>Principe à reconnaître</th>
+              </tr>
+              <tr>
+                <td><strong>Conduction</strong></td>
+                <td>De proche en proche, surtout dans un solide.</td>
+              </tr>
+              <tr>
+                <td><strong>Convection</strong></td>
+                <td>Par mouvement d'un fluide : air ou liquide.</td>
+              </tr>
+              <tr>
+                <td><strong>Rayonnement</strong></td>
+                <td>Par ondes, sans contact direct.</td>
+              </tr>
+            </table>
+
+            <div class="result">
+              Méthode : lire la situation, chercher le milieu concerné, puis
+              choisir le mode.
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head b">
+            <span class="n">3</span>Conductivité thermique λ
+          </div>
+
+          <div class="card-body">
+            <p>
+              La conductivité thermique <strong>λ</strong> indique si un
+              matériau laisse facilement passer la chaleur.
+            </p>
+
+            <div class="formula small">
+              Plus λ est petit, plus le matériau est isolant.
+            </div>
+
+            <table>
+              <colgroup>
+                <col style="width: 30%" />
+                <col style="width: 34%" />
+                <col style="width: 36%" />
+              </colgroup>
+              <tr>
+                <th>Matériau</th>
+                <th>λ en W/(m.K)</th>
+                <th>Conclusion</th>
+              </tr>
+              <tr>
+                <td class="center">A</td>
+                <td class="center">0,04</td>
+                <td>Plus isolant</td>
+              </tr>
+              <tr>
+                <td class="center">B</td>
+                <td class="center">0,08</td>
+                <td>Moins isolant</td>
+              </tr>
+            </table>
+
+            <div class="result">
+              Le matériau A est le plus isolant, car 0,04 est plus petit que
+              0,08.
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head o">
+            <span class="n">4</span>Résistance thermique R
+          </div>
+
+          <div class="card-body">
+            <p>
+              La résistance thermique mesure la capacité d'une paroi à
+              <strong>s'opposer au passage de la chaleur</strong>.
+            </p>
+
+            <div class="formula">R = e / λ</div>
+
+            <div class="units">
+              <div class="unit">
+                <strong>e</strong> : épaisseur en <strong>m</strong>
+              </div>
+              <div class="unit">
+                <strong>λ</strong> : conductivité en W/(m.K)
+              </div>
+              <div class="unit"><strong>R</strong> : résistance en m².K/W</div>
+              <div class="unit">
+                <strong>15 cm</strong> = <strong>0,15 m</strong>
+              </div>
+            </div>
+
+            <table>
+              <tr>
+                <th>Données</th>
+                <th>Calcul</th>
+                <th>Résultat</th>
+              </tr>
+              <tr>
+                <td>Laine de verre<br />e = 0,15 m<br />λ = 0,036</td>
+                <td>R = 0,15 / 0,036</td>
+                <td><strong>4,17 m².K/W</strong></td>
+              </tr>
+            </table>
+
+            <div class="warn">
+              Attention : convertir les cm en m avant d'utiliser la formule.
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head bb">
+            <span class="n">5</span>Trouver une épaisseur à ajouter
+          </div>
+
+          <div class="card-body">
+            <p>
+              Quand on cherche l'épaisseur d'un isolant, on calcule d'abord la
+              <strong>résistance manquante</strong>.
+            </p>
+
+            <div class="formula">e = R × λ</div>
+
+            <div class="steps">
+              <div class="step">
+                <div class="round">1</div>
+                <div>Objectif : <strong>2,00 m².K/W</strong>.</div>
+              </div>
+              <div class="step">
+                <div class="round">2</div>
+                <div>Résistance présente : <strong>0,20 m².K/W</strong>.</div>
+              </div>
+              <div class="step">
+                <div class="round">3</div>
+                <div>
+                  À ajouter : <strong>2,00 - 0,20 = 1,80 m².K/W</strong>.
+                </div>
+              </div>
+              <div class="step">
+                <div class="round">4</div>
+                <div>Épaisseur : <strong>e = 1,80 × λ</strong>.</div>
+              </div>
+            </div>
+
+            <div class="result">
+              Calcul final possible uniquement si le λ de l'isolant est connu.
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-head g">
+            <span class="n">6</span>Projet d'isolation d'un mur
+          </div>
+
+          <div class="card-body">
+            <p>
+              Pour un mur composé de plusieurs couches, les résistances
+              thermiques <strong>s'additionnent</strong>.
+            </p>
+
+            <div class="formula small">R totale = R1 + R2 + R3 + ...</div>
+
+            <table>
+              <colgroup>
+                <col style="width: 27%" />
+                <col style="width: 31%" />
+                <col style="width: 26%" />
+                <col style="width: 16%" />
+              </colgroup>
+              <tr>
+                <th>Couche</th>
+                <th>Données</th>
+                <th>Calcul</th>
+                <th>R</th>
+              </tr>
+              <tr>
+                <td>Parpaing</td>
+                <td>e = 20 cm = 0,20 m<br />λ = 0,95</td>
+                <td>0,20 / 0,95</td>
+                <td><strong>0,21</strong></td>
+              </tr>
+              <tr>
+                <td>Polystyrène</td>
+                <td>e = 10 cm = 0,10 m<br />λ = 0,035</td>
+                <td>0,10 / 0,035</td>
+                <td><strong>2,86</strong></td>
+              </tr>
+            </table>
+
+            <div class="result">
+              Résistance totale du mur : 0,21 + 2,86 =
+              <strong>3,07 m².K/W</strong>.
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <div class="footer">
+        <span>CAP - Sciences physiques - Thermique</span>
+        <span
+          >Conversions, transferts, conductivité et résistance thermique</span
+        >
+      </div>
+    </main>
+
+    <script>
+      const d = new Date();
+      const jj = String(d.getDate()).padStart(2, '0');
+      const mm = String(d.getMonth() + 1).padStart(2, '0');
+      const aaaa = d.getFullYear();
+      document.getElementById('dateField').value = `${jj}/${mm}/${aaaa}`;
+    </script>
+  </body>
+</html>
