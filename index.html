@@ -1,62 +1,921 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <title>Home</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <!--
-      Need a visual blank slate?
-      Remove all code in `styles.css`!
-    -->
-    <link rel="stylesheet" href="styles.css" />
-    <script type="module" src="script.js"></script>
-  </head>
-  <body>
-    <nav>
-      <a href="/" aria-current="page">Home</a>
-      <a href="/eval.html">evalBPMIGCSProba</a>
-      <a href="/evalprop.html">evalMAMITprop</a>
-      <a href="/visuel.html">visuel</a>
-      <a href="/coursOptique.html">CoursOptique</a>
-      <a href="/evalOptiqueCap.html">evalOptiqueCap</a>
-      <a href="/coursAlgo2.html">Cours Algo</a>
-      <a href="/evalAlgo.html">evalAlgoCap</a>
-      <a href="/courbeinterval.html">courbeinterval</a>
-      <a href="/courbeintervalv2.html">courbeintervalv2</a>
-      <a href="/coursOptiqueBP.html">Cours Optique BP</a>
-      <a href="/coursOptiqueBPv2.html">Cours Optique BPv2</a>
-      <a href="/coursVecteurBPELEC.html">coursVecteurBPELEC</a>
-      <a href="/tpproba.html">tpproba</a>
-      <a href="/coursCalculsCommerciaux.html">coursCalculsCommerciaux</a>
-      <a href="/activitéProbaCAP.html">activitéProbaCAP</a>
-      <a href="/activitéProbaCAPA3.html">activitéProbaCAPA3</a>
-      <a href="/coursEquationsCap.html">coursEquationsCap</a>
-      <a href="/coursSon.html">coursSon</a>
-      <a href="/coursSonBP.html">coursSonBP</a>
-      <a href="/lecture.html">lecture(ancien son)BP</a>
-      <a href="/CoursSyntheseOndes.html">CoursSyntheseOndes</a>
-      <a href="/activitéCourbeMit.html">activitéCourbeMit</a>
-      <a href="/activitéCourbeMA.html">activitéCourbeMA</a>
-      <a href="/Revision&CCF2.html">Revision&CCF2</a>
-      <a href="/ccf2approfondissement.html">ccf2approfondissement</a>
-      <a href="/evalEquaCAP.html">evalEquaCAP</a>
-      <a href="/OndesBP.html">OndesBP</a>
-      <a href="/conversionsBPMIGCS.html">conversionsBPMIGCS</a>
-      <a href="/DossierCompetition.html">DossierCompétition</a>
-      <a href="/produitencroix.html">produitencroix</a>
-      <a href="/qrcoderevisionBP.html">qrcoderevisionBP</a>
-      <a href="/coursThermiqueBP.html">coursThermiqueBP</a>
-      <a href="/syntheseThermique.html">syntheseThermique</a>
-      <a href="/evalThermique.html">evalThermique</a>
-      <a href="/SyntheseStats.html">SyntheseStats</a>
-      <a href="/electroTech.html">electrotech</a>
-      <a href="/electroTech2.html">electrotech2</a>
-      <a href="/algoV3V.html">AlgoV3V</a>
-      <a href="/tpcarreleur.html">tpcarreleur</a>
-      <a href="/tpvitesse.html">tpvitesse</a>
-    </nav>
-    <main>
-      <h1>Home page</h1>
-    </main>
-  </body>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ressources de mathématiques et sciences physiques pour les apprentis du BTP CFA.">
+  <title>Cours CFA - M. Ozmina</title>
+
+  <style>
+    :root {
+      --yellow: #f5c400;
+      --yellow-strong: #dcae00;
+      --ink: #20242a;
+      --ink-soft: #31363d;
+      --paper: #f3f4f5;
+      --surface: #ffffff;
+      --text: #24282d;
+      --muted: #6d747d;
+      --line: #dfe3e6;
+      --maths: #2563eb;
+      --sciences: #dc2626;
+      --mixte: #7c3aed;
+      --organisation: #0f766e;
+      --formation: #9a3412;
+      --radius: 14px;
+      --shadow: 0 10px 26px rgba(28, 34, 41, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      color-scheme: light;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--text);
+      background: var(--paper);
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+      line-height: 1.4;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .topbar {
+      color: white;
+      background: var(--ink);
+      border-bottom: 6px solid var(--yellow);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      width: min(1320px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 14px 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      gap: 15px;
+    }
+
+    .logo-box {
+      display: grid;
+      place-items: center;
+      width: 144px;
+      height: 52px;
+      flex: 0 0 144px;
+      padding: 7px 10px;
+      background: white;
+      border-radius: 9px;
+    }
+
+    .logo-box img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .brand-copy {
+      min-width: 0;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(1.35rem, 2.4vw, 2rem);
+      line-height: 1.05;
+      letter-spacing: -0.025em;
+    }
+
+    .brand-copy p {
+      margin: 5px 0 0;
+      color: #ced3d8;
+      font-size: 0.85rem;
+    }
+
+    .resource-total {
+      flex: 0 0 auto;
+      padding: 7px 11px;
+      text-align: center;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 9px;
+    }
+
+    .resource-total strong {
+      display: block;
+      color: var(--yellow);
+      font-size: 1.15rem;
+      line-height: 1;
+    }
+
+    .resource-total span {
+      display: block;
+      margin-top: 3px;
+      color: #d7dce1;
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .workspace {
+      width: min(1320px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 18px 0 40px;
+    }
+
+    .navigation {
+      position: sticky;
+      z-index: 10;
+      top: 0;
+      margin-bottom: 16px;
+      padding: 10px;
+      background: rgba(243,244,245,0.96);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(10px);
+    }
+
+    .navigation-inner {
+      width: min(1320px, 100%);
+      margin: 0 auto;
+    }
+
+    .level-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      overflow-x: auto;
+      scrollbar-width: thin;
+    }
+
+    .level-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 40px;
+      padding: 7px 14px;
+      white-space: nowrap;
+      color: var(--text);
+      font-weight: 850;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+
+    .level-button:hover {
+      border-color: var(--yellow-strong);
+    }
+
+    .level-button.active {
+      background: var(--yellow);
+      border-color: var(--yellow);
+      box-shadow: 0 5px 14px rgba(220,174,0,0.2);
+    }
+
+    .level-count {
+      display: inline-grid;
+      place-items: center;
+      min-width: 22px;
+      height: 22px;
+      padding: 0 6px;
+      font-size: 0.7rem;
+      background: rgba(32,36,42,0.1);
+      border-radius: 999px;
+    }
+
+    .tools-row {
+      display: grid;
+      grid-template-columns: minmax(240px, 1fr) 190px;
+      gap: 9px;
+      margin-top: 9px;
+    }
+
+    .search-input,
+    .type-select {
+      width: 100%;
+      min-height: 40px;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      outline: none;
+    }
+
+    .search-input {
+      padding: 0 12px;
+    }
+
+    .type-select {
+      padding: 0 10px;
+      cursor: pointer;
+    }
+
+    .search-input:focus,
+    .type-select:focus {
+      border-color: var(--yellow-strong);
+      box-shadow: 0 0 0 3px rgba(245,196,0,0.18);
+    }
+
+    .page-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+    }
+
+    .page-heading h2 {
+      margin: 0;
+      font-size: 1.35rem;
+      letter-spacing: -0.02em;
+    }
+
+    .page-heading p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    .subject-layout {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      align-items: start;
+    }
+
+    .subject-panel {
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 3px 12px rgba(28,34,41,0.04);
+    }
+
+    .subject-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 11px 13px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .subject-title {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      min-width: 0;
+    }
+
+    .subject-dot {
+      width: 10px;
+      height: 24px;
+      flex: 0 0 10px;
+      background: var(--subject-color);
+      border-radius: 999px;
+    }
+
+    .subject-header h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .subject-header span {
+      color: var(--muted);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .resource-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1px;
+      padding: 1px;
+      background: var(--line);
+    }
+
+    .resource-item {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      min-height: 50px;
+      background: var(--surface);
+    }
+
+    .resource-link {
+      display: flex;
+      align-items: center;
+      min-width: 0;
+      min-height: 50px;
+      padding: 7px 7px 7px 10px;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .resource-link:hover {
+      background: #fafafa;
+    }
+
+    .resource-name {
+      min-width: 0;
+    }
+
+    .resource-name strong {
+      display: block;
+      overflow: hidden;
+      font-size: 0.82rem;
+      line-height: 1.18;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .resource-name small {
+      display: block;
+      margin-top: 3px;
+      color: var(--subject-color);
+      font-size: 0.61rem;
+      font-weight: 900;
+      letter-spacing: 0.035em;
+      text-transform: uppercase;
+    }
+
+    .info-button {
+      display: grid;
+      place-items: center;
+      width: 30px;
+      height: 30px;
+      margin-right: 7px;
+      color: var(--muted);
+      font-weight: 900;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .info-button:hover,
+    .info-button:focus-visible {
+      color: var(--ink);
+      background: var(--paper);
+      border-color: var(--line);
+      outline: none;
+    }
+
+    .empty-state {
+      grid-column: 1 / -1;
+      padding: 34px 18px;
+      text-align: center;
+      color: var(--muted);
+      background: var(--surface);
+      border: 1px dashed #b9c0c7;
+      border-radius: var(--radius);
+    }
+
+    .archives {
+      margin-top: 14px;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .archives summary {
+      padding: 11px 13px;
+      font-size: 0.82rem;
+      font-weight: 850;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .archives-content {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      padding: 0 10px 10px;
+    }
+
+    .archive-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      min-height: 40px;
+      padding: 7px 9px;
+      color: inherit;
+      font-size: 0.76rem;
+      font-weight: 750;
+      text-decoration: none;
+      background: #fafafa;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .archive-link:hover {
+      border-color: #b8bec5;
+    }
+
+    dialog {
+      width: min(520px, calc(100% - 28px));
+      padding: 0;
+      color: var(--text);
+      background: var(--surface);
+      border: 0;
+      border-radius: 16px;
+      box-shadow: 0 24px 70px rgba(15,20,25,0.28);
+    }
+
+    dialog::backdrop {
+      background: rgba(17,21,26,0.58);
+      backdrop-filter: blur(2px);
+    }
+
+    .dialog-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 14px;
+      padding: 18px 18px 12px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .dialog-head h3 {
+      margin: 0;
+      font-size: 1.15rem;
+    }
+
+    .dialog-meta {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 750;
+    }
+
+    .close-button {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      flex: 0 0 34px;
+      font-size: 1.2rem;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      cursor: pointer;
+    }
+
+    .dialog-body {
+      padding: 16px 18px 18px;
+    }
+
+    .dialog-body p {
+      margin: 0 0 16px;
+      color: #4f5862;
+    }
+
+    .dialog-open {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 8px 14px;
+      color: var(--ink);
+      font-weight: 850;
+      text-decoration: none;
+      background: var(--yellow);
+      border-radius: 9px;
+    }
+
+    footer {
+      color: #cfd4d9;
+      background: var(--ink);
+      border-top: 5px solid var(--yellow);
+    }
+
+    .footer-inner {
+      width: min(1320px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 16px 0;
+      font-size: 0.78rem;
+    }
+
+    @media (max-width: 1050px) {
+      .resource-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .subject-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .archives-content {
+        grid-template-columns: 1fr;
+      }
+
+      .resource-total {
+        display: none;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .topbar-inner,
+      .workspace,
+      .footer-inner {
+        width: min(100% - 20px, 1320px);
+      }
+
+      .topbar-inner {
+        align-items: flex-start;
+      }
+
+      .brand {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .logo-box {
+        width: 132px;
+        height: 48px;
+        flex-basis: 48px;
+      }
+
+      .brand-copy p {
+        display: none;
+      }
+
+      .tools-row {
+        grid-template-columns: 1fr;
+      }
+
+      .navigation {
+        padding-inline: 10px;
+      }
+
+      .page-heading {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 3px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <div class="logo-box">
+          <img src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png" alt="BTP CFA Grand Est - Campus de la Marne">
+        </div>
+        <div class="brand-copy">
+          <h1>Cours CFA - M. Ozmina</h1>
+          <p>Accès rapide aux cours, activités, synthèses et évaluations.</p>
+        </div>
+      </div>
+
+      <div class="resource-total">
+        <strong id="total-count">40</strong>
+        <span>ressources</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="navigation" aria-label="Navigation des ressources">
+    <div class="navigation-inner">
+      <div id="level-row" class="level-row"></div>
+
+      <div class="tools-row">
+        <input
+          id="search-input"
+          class="search-input"
+          type="search"
+          placeholder="Rechercher une notion, un cours ou un métier..."
+          aria-label="Rechercher une ressource"
+        >
+
+        <select id="type-filter" class="type-select" aria-label="Filtrer par type">
+          <option value="all">Tous les types</option>
+        </select>
+      </div>
+    </div>
+  </nav>
+
+  <main class="workspace">
+    <div class="page-heading">
+      <h2 id="page-title">Niveau CAP</h2>
+      <p id="result-count" aria-live="polite"></p>
+    </div>
+
+    <div id="subject-layout" class="subject-layout"></div>
+
+    <details id="archives" class="archives">
+      <summary id="archive-summary">Anciennes versions</summary>
+      <div id="archives-content" class="archives-content"></div>
+    </details>
+  </main>
+
+  <dialog id="info-dialog">
+    <div class="dialog-head">
+      <div>
+        <h3 id="dialog-title"></h3>
+        <div id="dialog-meta" class="dialog-meta"></div>
+      </div>
+      <button id="dialog-close" class="close-button" type="button" aria-label="Fermer">×</button>
+    </div>
+    <div class="dialog-body">
+      <p id="dialog-description"></p>
+      <a id="dialog-open" class="dialog-open" href="#">Ouvrir la ressource</a>
+    </div>
+  </dialog>
+
+  <footer>
+    <div class="footer-inner">
+      M. Ozmina - Mathématiques et sciences physiques - BTP CFA Grand Est, Campus de la Marne
+    </div>
+  </footer>
+
+  <script>
+    const resources = [{"title":"Proportionnalité - Évaluation","level":"CAP","subject":"Mathématiques","type":"Évaluation","url":"/evalprop.html","description":"Évaluation sur les tableaux, les graphiques, le coefficient de proportionnalité et le dosage du béton."},{"title":"Algorithmique et logique","level":"CAP","subject":"Mathématiques","type":"Cours","url":"/coursAlgo2.html","description":"Variables, conditions et boucles appliquées à des situations professionnelles du BTP."},{"title":"Algorithmique - Évaluation","level":"CAP","subject":"Mathématiques","type":"Évaluation","url":"/evalAlgo.html","description":"Évaluation sur la lecture et la reconstruction d'algorithmes appliqués aux devis et au carrelage."},{"title":"Repérage, intervalles et variations","level":"CAP","subject":"Mathématiques","type":"Cours","url":"/courbeintervalv2.html","description":"Dossier sur les repères, les intervalles, les variations de courbes et les zones de tolérance."},{"title":"Probabilités - Investigation","level":"CAP","subject":"Mathématiques","type":"Activité","url":"/activitéProbaCAP.html","description":"Activité d'investigation fondée sur l'analyse de documents et la prise de décision."},{"title":"Probabilités - Fiche A3","level":"CAP","subject":"Mathématiques","type":"Ressource","url":"/activitéProbaCAPA3.html","description":"Fiche réponse grand format associée à l'activité d'investigation sur les probabilités."},{"title":"Équations du premier degré","level":"CAP","subject":"Mathématiques","type":"Cours","url":"/coursEquationsCap.html","description":"Cours progressif sur la résolution d'équations à partir de situations de chantier."},{"title":"Courbes - Maintenance thermique","level":"CAP","subject":"Mathématiques","type":"Activité","url":"/activitéCourbeMit.html","description":"Tracer et interpréter les températures d'une installation de chauffage."},{"title":"Courbes - Séchage d'une dalle","level":"CAP","subject":"Mathématiques","type":"Activité","url":"/activitéCourbeMA.html","description":"Analyser l'humidité et la résistance du béton pour choisir une date de pose."},{"title":"Révision CCF - Équations et algo","level":"CAP","subject":"Mathématiques","type":"Révision","url":"/Revision&CCF2.html","description":"Dossier complet de préparation au CCF sur les équations et l'algorithmique."},{"title":"CCF - Approfondissement","level":"CAP","subject":"Mathématiques","type":"Approfondissement","url":"/ccf2approfondissement.html","description":"Exercices supplémentaires pour approfondir la préparation au CCF."},{"title":"Équations - Évaluation","level":"CAP","subject":"Mathématiques","type":"Évaluation","url":"/evalEquaCAP.html","description":"Évaluation courte sur la résolution d'équations du premier degré."},{"title":"Produit en croix","level":"CAP","subject":"Mathématiques","type":"Cours","url":"/produitencroix.html","description":"Dossier contextualisé sur la proportionnalité et le produit en croix."},{"title":"Statistiques - Synthèse","level":"CAP","subject":"Mathématiques","type":"Synthèse","url":"/SyntheseStats.html","description":"Vocabulaire, effectifs, fréquences, moyennes et représentations graphiques."},{"title":"Carrelage - Aires et étude de prix","level":"CAP","subject":"Mathématiques","type":"Projet","url":"/tpcarreleur.html","description":"Dossier métier avec plans, catalogue, cahier des charges, calculs d'aires et devis."},{"title":"Optique - Signaux lumineux","level":"CAP","subject":"Sciences physiques","type":"Cours","url":"/coursOptique.html","description":"Sécurité laser, réflexion, réfraction, lumière blanche et synthèse additive."},{"title":"Lumière et ondes - Évaluation","level":"CAP","subject":"Sciences physiques","type":"Évaluation","url":"/evalOptiqueCap.html","description":"Évaluation sur l'optique, le son, la fréquence, les couleurs et la sécurité."},{"title":"Acoustique","level":"CAP","subject":"Sciences physiques","type":"Cours","url":"/coursSon.html","description":"Ondes sonores, fréquence, niveau en décibels et prévention des risques auditifs."},{"title":"Ondes, son et lumière - Synthèse","level":"CAP","subject":"Sciences physiques","type":"Révision","url":"/CoursSyntheseOndes.html","description":"Dossier de révision avec exercices, synthèse et préparation au CCF."},{"title":"Thermique - Synthèse","level":"CAP","subject":"Sciences physiques","type":"Synthèse","url":"/syntheseThermique.html","description":"Conversions, modes de transfert, conductivité et résistance thermique."},{"title":"Thermique - Évaluation","level":"CAP","subject":"Sciences physiques","type":"Évaluation","url":"/evalThermique.html","description":"Évaluation sur les températures, les transferts thermiques et les isolants."},{"title":"Électrotechnique - Puissance et énergie","level":"CAP","subject":"Sciences physiques","type":"Cours","url":"/electroTech2.html","description":"Tension, intensité, puissance, énergie et situations de calcul professionnelles."},{"title":"Vitesse moyenne - Enquête vidéo","level":"CAP","subject":"Sciences physiques","type":"Activité","url":"/tpvitesse.html","description":"Enquête scientifique à partir d'une vidéo, de distances et de durées mesurées."},{"title":"Probabilités - Évaluation","level":"BP","subject":"Mathématiques","type":"Évaluation","url":"/eval.html","description":"Évaluation BP MIGCS sur les probabilités, les fréquences et la loi des grands nombres."},{"title":"Calculs commerciaux et financiers","level":"BP","subject":"Mathématiques","type":"Cours","url":"/coursCalculsCommerciaux.html","description":"Prix, remises, TVA, marges et calculs commerciaux dans des situations professionnelles."},{"title":"Conversions métier - MIGCS","level":"BP","subject":"Mathématiques","type":"Cours","url":"/conversionsBPMIGCS.html","description":"Conversions d'unités appliquées aux installations thermiques et aux besoins du métier."},{"title":"Révisions BP - QR code","level":"BP","subject":"Mathématiques","type":"Révision","url":"/qrcoderevisionBP.html","description":"Fiche imprimable donnant accès aux révisions de mathématiques BP."},{"title":"Optique et signaux lumineux","level":"BP","subject":"Sciences physiques","type":"Cours","url":"/coursOptiqueBPv2.html","description":"Cours complet sur la lumière, les lentilles et les applications professionnelles."},{"title":"Vecteurs et forces","level":"BP","subject":"Sciences physiques","type":"Cours","url":"/coursVecteurBPELEC.html","description":"Représentation des vecteurs, forces, équilibre et applications en électrotechnique."},{"title":"Acoustique BP","level":"BP","subject":"Sciences physiques","type":"Cours","url":"/coursSonBP.html","description":"Étude approfondie du son, des niveaux sonores et des situations professionnelles."},{"title":"Passerelle BP - Ondes","level":"BP","subject":"Sciences physiques","type":"Cours","url":"/OndesBP.html","description":"Consolidation et approfondissement des notions d'ondes, de son et de lumière."},{"title":"Thermique du bâtiment","level":"BP","subject":"Sciences physiques","type":"Cours","url":"/coursThermiqueBP.html","description":"Température, transferts thermiques, isolation, expériences et applications BTP."},{"title":"Algorithmique - Vanne 3 voies","level":"BP","subject":"Mathématiques / Sciences","type":"Cours","url":"/algoV3V.html","description":"Variables, conditions et boucle de régulation appliquées à une vanne 3 voies motorisée."},{"title":"TP Probabilités - Trois thèmes","level":"Transversal","subject":"Mathématiques","type":"Activité","url":"/tpproba.html","description":"Modéliser des situations avec des dés, un arbre de probabilités et des données de chantier."},{"title":"Défi intergroupes - Audit de chantier","level":"Transversal","subject":"Mathématiques / Sciences","type":"Projet","url":"/DossierCompetition.html","description":"Projet collectif mêlant aires, volumes, proportions, données et argumentation."},{"title":"Planning des réunions bilans","level":"Transversal","subject":"Organisation","type":"Organisation","url":"/visuel.html","description":"Visuel d'organisation des réunions bilans du CFA."},{"title":"Notes sur la pratique réflexive","level":"Transversal","subject":"Formation","type":"Ressource","url":"/lecture.html","description":"Notes personnelles de lecture sur la réflexivité et la pratique professionnelle."},{"title":"Repérage et variations - Ancienne version","level":"CAP","subject":"Mathématiques","type":"Archive","url":"/courbeinterval.html","description":"Première version du dossier sur les graphiques, les intervalles et les tolérances.","archive":true},{"title":"Électrotechnique - Ancienne version","level":"CAP","subject":"Sciences physiques","type":"Archive","url":"/electroTech.html","description":"Première version du dossier sur la tension, l'intensité, la puissance et l'énergie.","archive":true},{"title":"Optique BP - Ancienne version","level":"BP","subject":"Sciences physiques","type":"Archive","url":"/coursOptiqueBP.html","description":"Première version du dossier BP consacré à l'optique et aux signaux lumineux.","archive":true}];
+
+    const subjectColors = {
+      "Mathématiques": "var(--maths)",
+      "Sciences physiques": "var(--sciences)",
+      "Mathématiques / Sciences": "var(--mixte)",
+      "Organisation": "var(--organisation)",
+      "Formation": "var(--formation)"
+    };
+
+    const subjectOrder = [
+      "Mathématiques",
+      "Sciences physiques",
+      "Mathématiques / Sciences",
+      "Organisation",
+      "Formation"
+    ];
+
+    const state = {
+      level: "CAP",
+      type: "all",
+      search: ""
+    };
+
+    const levelRow = document.getElementById("level-row");
+    const typeFilter = document.getElementById("type-filter");
+    const searchInput = document.getElementById("search-input");
+    const subjectLayout = document.getElementById("subject-layout");
+    const pageTitle = document.getElementById("page-title");
+    const resultCount = document.getElementById("result-count");
+    const archives = document.getElementById("archives");
+    const archivesContent = document.getElementById("archives-content");
+    const archiveSummary = document.getElementById("archive-summary");
+    const infoDialog = document.getElementById("info-dialog");
+
+    function normalize(value) {
+      return value
+        .toLocaleLowerCase("fr")
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function levelLabel(level) {
+      if (level === "CAP") return "Niveau CAP";
+      if (level === "BP") return "Niveau BP";
+      if (level === "Transversal") return "Ressources communes";
+      return "Toutes les ressources";
+    }
+
+    function currentNonArchiveResources() {
+      return resources.filter((item) => !item.archive);
+    }
+
+    function buildLevelButtons() {
+      const levels = [
+        { value: "CAP", label: "CAP" },
+        { value: "BP", label: "BP" },
+        { value: "Transversal", label: "Commun" },
+        { value: "all", label: "Tout voir" }
+      ];
+
+      levelRow.innerHTML = "";
+
+      levels.forEach((level) => {
+        const count = currentNonArchiveResources().filter((item) =>
+          level.value === "all" || item.level === level.value
+        ).length;
+
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = `level-button ${state.level === level.value ? "active" : ""}`;
+        button.dataset.level = level.value;
+        button.innerHTML = `
+          ${level.label}
+          <span class="level-count">${count}</span>
+        `;
+
+        button.addEventListener("click", () => {
+          state.level = level.value;
+          buildLevelButtons();
+          render();
+        });
+
+        levelRow.appendChild(button);
+      });
+    }
+
+    function buildTypeFilter() {
+      const types = [...new Set(currentNonArchiveResources().map((item) => item.type))]
+        .sort((a, b) => a.localeCompare(b, "fr"));
+
+      types.forEach((type) => {
+        const option = document.createElement("option");
+        option.value = type;
+        option.textContent = type;
+        typeFilter.appendChild(option);
+      });
+    }
+
+    function filteredResources() {
+      const query = normalize(state.search.trim());
+
+      return currentNonArchiveResources().filter((item) => {
+        const matchesLevel = state.level === "all" || item.level === state.level;
+        const matchesType = state.type === "all" || item.type === state.type;
+        const searchable = normalize([
+          item.title,
+          item.description,
+          item.level,
+          item.subject,
+          item.type
+        ].join(" "));
+        const matchesSearch = !query || searchable.includes(query);
+
+        return matchesLevel && matchesType && matchesSearch;
+      });
+    }
+
+    function openInformation(item) {
+      document.getElementById("dialog-title").textContent = item.title;
+      document.getElementById("dialog-meta").textContent =
+        `${item.level} - ${item.subject} - ${item.type}`;
+      document.getElementById("dialog-description").textContent = item.description;
+
+      const openLink = document.getElementById("dialog-open");
+      openLink.href = item.url;
+
+      infoDialog.showModal();
+    }
+
+    function createResourceItem(item) {
+      const wrapper = document.createElement("div");
+      wrapper.className = "resource-item";
+      wrapper.style.setProperty("--subject-color", subjectColors[item.subject] || "var(--ink)");
+
+      const link = document.createElement("a");
+      link.className = "resource-link";
+      link.href = item.url;
+      link.title = item.title;
+      link.innerHTML = `
+        <span class="resource-name">
+          <strong>${item.title}</strong>
+          <small>${item.type}</small>
+        </span>
+      `;
+
+      const infoButton = document.createElement("button");
+      infoButton.className = "info-button";
+      infoButton.type = "button";
+      infoButton.textContent = "i";
+      infoButton.setAttribute("aria-label", `Informations sur ${item.title}`);
+      infoButton.addEventListener("click", () => openInformation(item));
+
+      wrapper.append(link, infoButton);
+      return wrapper;
+    }
+
+    function createSubjectPanel(subject, items) {
+      const panel = document.createElement("section");
+      panel.className = "subject-panel";
+      panel.style.setProperty("--subject-color", subjectColors[subject] || "var(--ink)");
+
+      const header = document.createElement("div");
+      header.className = "subject-header";
+      header.innerHTML = `
+        <div class="subject-title">
+          <span class="subject-dot" aria-hidden="true"></span>
+          <h3>${subject}</h3>
+        </div>
+        <span>${items.length} ressource${items.length > 1 ? "s" : ""}</span>
+      `;
+
+      const list = document.createElement("div");
+      list.className = "resource-list";
+
+      items.forEach((item) => list.appendChild(createResourceItem(item)));
+
+      panel.append(header, list);
+      return panel;
+    }
+
+    function renderArchives() {
+      const items = resources.filter((item) =>
+        item.archive && (state.level === "all" || item.level === state.level)
+      );
+
+      archives.hidden = items.length === 0;
+      archivesContent.innerHTML = "";
+      archiveSummary.textContent =
+        `Anciennes versions (${items.length})`;
+
+      items.forEach((item) => {
+        const link = document.createElement("a");
+        link.className = "archive-link";
+        link.href = item.url;
+        link.innerHTML = `<span>${item.title}</span><span aria-hidden="true">→</span>`;
+        archivesContent.appendChild(link);
+      });
+    }
+
+    function render() {
+      const items = filteredResources();
+
+      pageTitle.textContent = levelLabel(state.level);
+      resultCount.textContent =
+        `${items.length} ressource${items.length > 1 ? "s" : ""} affichée${items.length > 1 ? "s" : ""}`;
+
+      subjectLayout.innerHTML = "";
+
+      if (!items.length) {
+        const empty = document.createElement("div");
+        empty.className = "empty-state";
+        empty.textContent = "Aucune ressource ne correspond à cette recherche.";
+        subjectLayout.appendChild(empty);
+        renderArchives();
+        return;
+      }
+
+      subjectOrder.forEach((subject) => {
+        const subjectItems = items.filter((item) => item.subject === subject);
+        if (subjectItems.length) {
+          subjectLayout.appendChild(createSubjectPanel(subject, subjectItems));
+        }
+      });
+
+      renderArchives();
+    }
+
+    typeFilter.addEventListener("change", () => {
+      state.type = typeFilter.value;
+      render();
+    });
+
+    searchInput.addEventListener("input", () => {
+      state.search = searchInput.value;
+      render();
+    });
+
+    document.getElementById("dialog-close").addEventListener("click", () => {
+      infoDialog.close();
+    });
+
+    infoDialog.addEventListener("click", (event) => {
+      const rect = infoDialog.getBoundingClientRect();
+      const outside =
+        event.clientX < rect.left ||
+        event.clientX > rect.right ||
+        event.clientY < rect.top ||
+        event.clientY > rect.bottom;
+
+      if (outside) infoDialog.close();
+    });
+
+    buildLevelButtons();
+    buildTypeFilter();
+    render();
+  </script>
+</body>
 </html>
