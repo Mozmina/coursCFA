@@ -9,7 +9,7 @@
   <style>
     :root {
       --yellow: #f5c400;
-      --yellow-dark: #d6a900;
+      --yellow-dark: #b68b00;
       --ink: #20242a;
       --paper: #f3f4f5;
       --surface: #ffffff;
@@ -208,6 +208,17 @@
       font-size: 1rem;
     }
 
+    .correction-card {
+      background: #fff9db;
+      border-color: #e2c95d;
+    }
+
+    .correction-card .icon {
+      color: var(--ink);
+      background: var(--yellow);
+      font-size: 1.15rem;
+    }
+
     .common-box {
       margin-top: 20px;
       padding: 14px 16px;
@@ -364,6 +375,16 @@
           <h3>Métiers du plâtre et de l’isolation</h3>
           <p>Calculer les surfaces de cloisons et d’isolation, puis préparer les quantités et le devis.</p>
           <span class="open"><span>Ouvrir le TP</span><span>→</span></span>
+        </span>
+      </a>
+
+      <a class="trade-card correction-card" href="/TPairesCorrection.html" style="--trade-color: var(--yellow-dark);">
+        <span class="color-bar" aria-hidden="true"></span>
+        <span class="card-content">
+          <span class="icon">✓</span>
+          <h3>Correction des cinq dossiers</h3>
+          <p>Retrouver les choix justifiés, les calculs de surfaces, les quantités et les devis corrigés.</p>
+          <span class="open"><span>Ouvrir la correction</span><span>→</span></span>
         </span>
       </a>
     </section>

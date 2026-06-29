@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="description" content="Correction complète des TP Aires et devis pour cinq métiers du bâtiment.">
+<title>Correction - TP Aires et devis</title>
+<style>
+:root{--yellow:#f5c400;--ink:#20242a;--paper:#f3f4f5;--surface:#fff;--text:#252a30;--muted:#66707a;--line:#dfe3e7;--blue:#2563eb;--orange:#c76b16;--green:#16805d;--red:#c43d36;--purple:#7651c7}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-width:320px;color:var(--text);background:var(--paper);font-family:Arial,Helvetica,sans-serif;line-height:1.45}a{color:inherit}header{color:#fff;background:var(--ink);border-bottom:7px solid var(--yellow)}.header-inner{display:flex;align-items:center;justify-content:space-between;gap:22px;width:min(1180px,calc(100% - 32px));margin:auto;padding:20px 0}.brand{display:flex;align-items:center;gap:18px}.logo-box{display:grid;place-items:center;width:145px;height:56px;padding:8px 11px;background:#fff;border-radius:10px}.logo-box img{width:100%;height:100%;object-fit:contain}h1{margin:0;font-size:clamp(1.6rem,4vw,2.55rem);line-height:1.05}.subtitle{margin:6px 0 0;color:#d4d9de}.header-actions{display:flex;gap:8px;flex-wrap:wrap}.button{border:0;border-radius:9px;padding:10px 13px;font-weight:800;cursor:pointer;text-decoration:none;background:var(--yellow);color:var(--ink)}.button.secondary{background:#fff;color:var(--ink)}main{width:min(1180px,calc(100% - 32px));margin:auto;padding:26px 0 50px}.intro{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;margin-bottom:18px;padding:18px;background:#fff;border:1px solid var(--line);border-radius:14px}.intro h2{margin:0 0 6px}.intro p{margin:0;color:var(--muted)}.formula-strip{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}.formula-chip{padding:7px 10px;background:#fff8d5;border:1px solid #ead271;border-radius:8px;font-weight:700;font-size:.83rem}.tabs{position:sticky;top:0;z-index:20;display:flex;gap:8px;overflow:auto;margin:0 0 18px;padding:10px;background:rgba(243,244,245,.96);border:1px solid var(--line);border-radius:12px;backdrop-filter:blur(7px)}.tab{flex:1 0 auto;border:1px solid var(--line);border-radius:9px;padding:10px 13px;background:#fff;color:var(--text);font-weight:900;cursor:pointer}.tab[aria-selected="true"]{color:#fff;background:var(--accent);border-color:var(--accent)}.panel{display:none}.panel.active{display:block}.trade-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:15px;padding:20px;color:#fff;background:linear-gradient(135deg,var(--accent),#20242a);border-radius:16px}.trade-head h2{margin:0;font-size:clamp(1.6rem,4vw,2.35rem)}.trade-head p{margin:5px 0 0;color:rgba(255,255,255,.82)}.trade-total{text-align:right}.trade-total span{display:block;font-size:.8rem;text-transform:uppercase}.trade-total strong{font-size:1.65rem}.section{margin:0 0 16px;padding:18px;background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 4px 14px rgba(25,31,38,.04)}.section h3{margin:0 0 12px;color:var(--accent);font-size:1.22rem}.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.choice{padding:14px;background:#f8fafb;border:1px solid var(--line);border-left:6px solid var(--accent);border-radius:10px}.choice h4{margin:0 0 5px}.choice p{margin:4px 0}.choice ul{margin:8px 0 0;padding-left:20px}.why-not{margin-top:10px;padding-top:9px;border-top:1px dashed #cbd1d7;color:#545e67;font-size:.9rem}.table-wrap{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.9rem}th,td{padding:8px 9px;border:1px solid #cfd5da;vertical-align:top}th{background:#eaf0f4;text-align:left}.calc td:nth-child(2){font-family:"Courier New",monospace}.money{text-align:right;white-space:nowrap}.strong{font-weight:900}.note{margin-top:11px;padding:10px 12px;background:#fff8d5;border-left:5px solid var(--yellow);border-radius:6px}.final-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.final-card{padding:13px;background:#f7f9fa;border:1px solid var(--line);border-radius:10px}.final-card span,.final-card small{display:block;color:var(--muted);font-size:.8rem}.final-card strong{display:block;margin-top:4px;font-size:1.25rem}.final-card.total{color:#fff;background:var(--accent);border-color:var(--accent)}.final-card.total span{color:rgba(255,255,255,.8)}.decision{margin:12px 0 0}.report{padding:14px;background:#f8fafb;border:1px solid var(--line);border-radius:10px}.report p{margin:7px 0}.badge{display:inline-block;margin-right:6px;padding:3px 8px;color:#fff;background:var(--accent);border-radius:999px;font-size:.76rem;font-weight:800}.rounding{font-size:.85rem;color:var(--muted)}footer{color:#cfd4d9;background:var(--ink);border-top:5px solid var(--yellow)}.footer-inner{width:min(1180px,calc(100% - 32px));margin:auto;padding:15px 0;font-size:.78rem}
+@media(max-width:800px){.intro,.grid-2{grid-template-columns:1fr}.formula-strip{justify-content:flex-start}.trade-head{align-items:flex-start;flex-direction:column}.trade-total{text-align:left}.final-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.header-inner{align-items:flex-start;flex-direction:column}.header-actions{width:100%}.button{flex:1;text-align:center}}
+@media(max-width:520px){main,.header-inner,.footer-inner{width:min(100% - 18px,1180px)}.final-grid{grid-template-columns:1fr}.section{padding:13px}.tabs{top:0}.logo-box{width:130px}}
+@media print{body{background:#fff}.no-print,header,footer,.tabs,.header-actions{display:none!important}main{width:100%;padding:0}.intro{display:none}.panel{display:none!important}.panel.active{display:block!important}.print-all .panel{display:block!important}.trade-head{break-after:avoid;print-color-adjust:exact;-webkit-print-color-adjust:exact}.section{box-shadow:none;break-inside:avoid}.panel{page-break-after:always}.table-wrap{overflow:visible}table{font-size:8.5pt}th,td{padding:5px}.final-card,.choice{print-color-adjust:exact;-webkit-print-color-adjust:exact}}
+</style>
+</head>
+<body>
+<header><div class="header-inner"><div class="brand"><div class="logo-box"><img src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png" alt="BTP CFA Grand Est - Campus de la Marne"></div><div><h1>Correction - TP Aires et devis</h1><p class="subtitle">Choix techniques, métrés, quantités et devis corrigés pour les cinq métiers.</p></div></div><div class="header-actions"><a class="button secondary" href="/tpaires.html">Retour aux TP</a><button class="button secondary" onclick="window.print()">Imprimer cet onglet</button><button class="button" onclick="printAll()">Imprimer toutes les corrections</button></div></div></header>
+<main>
+<section class="intro"><div><h2>Principes de correction</h2><p>On élimine d'abord les produits non conformes. Ensuite, on retient le produit conforme le moins coûteux, puis on calcule les conditionnements et le prix de vente.</p></div><div class="formula-strip"><span class="formula-chip">A rectangle = L × l</span><span class="formula-chip">A triangle = (b × h) ÷ 2</span><span class="formula-chip">A trapèze = ((B + b) × h) ÷ 2</span><span class="formula-chip">A disque = π × r²</span></div></section>
+<nav class="tabs no-print" aria-label="Choix de la correction">
+<button class="tab" data-tab="carreleur" aria-selected="true" style="--accent:var(--blue)">Carreleur</button>
+<button class="tab" data-tab="couvreur" aria-selected="false" style="--accent:var(--orange)">Couvreur</button>
+<button class="tab" data-tab="electricien" aria-selected="false" style="--accent:var(--red)">Électricien</button>
+<button class="tab" data-tab="macon" aria-selected="false" style="--accent:var(--green)">Maçon</button>
+<button class="tab" data-tab="mpi" aria-selected="false" style="--accent:var(--purple)">MPI</button>
+</nav>
+
+<section class="panel active" id="carreleur" style="--accent:var(--blue)">
+  <div class="trade-head"><div><h2>Carreleur</h2><p>Correction du chantier Lemaire - salle de bain et terrasse.</p></div><div class="trade-total"><span>Total proposé</span><strong>7 923,00 € TTC</strong></div></div>
+  <div class="section"><h3>1. Choix techniques</h3><div class="grid-2">
+    <div class="choice"><h4><span class="badge">Zone 1</span>AQUA-600</h4><p>Le produit est prévu pour un sol intérieur humide, antidérapant, au bon format et dans la teinte demandée.</p><p><strong>Pourquoi lui ?</strong> Il respecte toutes les contraintes et coûte moins cher que AQUA-PRO, dont la performance renforcée n'est pas nécessaire.</p><div class="why-not">INT-450 est destiné à un intérieur sec. FAI-3060 est une faïence murale.</div></div>
+    <div class="choice"><h4><span class="badge">Zone 2</span>TERR-PRO</h4><p>Le produit est prévu pour l'extérieur intensif, résiste au gel et convient aux passages fréquents.</p><p><strong>Pourquoi lui ?</strong> TERR-600 convient à une terrasse courante, mais ne garantit pas l'usage intensif demandé.</p><div class="why-not">EXT-ECO n'est pas garanti contre le gel. Les références intérieures sont éliminées avant la comparaison des prix.</div></div>
+  </div></div>
+  <div class="section"><h3>2. Métré et quantités</h3><div class="grid-2">
+    <div><div class="table-wrap"><table class="calc"><thead><tr><th>Salle de bain</th><th>Calcul</th><th>Résultat</th></tr></thead><tbody><tr><td>Grand rectangle</td><td>5,40 × 3,80</td><td class="strong">20,52 m²</td></tr><tr><td>Alcôve</td><td>1,20 × 0,80</td><td class="strong">0,96 m²</td></tr><tr><td>Baignoire à retirer</td><td>1,80 × 0,80</td><td class="strong">1,44 m²</td></tr><tr><td>Surface nette</td><td>20,52 + 0,96 - 1,44</td><td class="strong">20,04 m²</td></tr><tr><td>Avec 10 % de pertes</td><td>20,04 × 1,10</td><td class="strong">22,044 m²</td></tr><tr><td>Boîtes AQUA-600</td><td>22,044 ÷ 1,44 = 15,31</td><td class="strong">16 boîtes</td></tr><tr><td>Surface commandée</td><td>16 × 1,44</td><td class="strong">23,04 m²</td></tr></tbody></table></div><div class="note"><strong>Compléments :</strong> 1 primaire, 3 kits de protection à l'eau, 4 sacs de colle, 2 sacs de joint et 18,5 h de main-d'œuvre.</div></div>
+    <div><div class="table-wrap"><table class="calc"><thead><tr><th>Terrasse</th><th>Calcul</th><th>Résultat</th></tr></thead><tbody><tr><td>Rectangle</td><td>8,00 × 5,20</td><td class="strong">41,60 m²</td></tr><tr><td>Demi-disque</td><td>(3,14 × 2²) ÷ 2</td><td class="strong">6,28 m²</td></tr><tr><td>Jardinière à retirer</td><td>2,50 × 1,20</td><td class="strong">3,00 m²</td></tr><tr><td>Surface nette</td><td>41,60 + 6,28 - 3,00</td><td class="strong">44,88 m²</td></tr><tr><td>Avec 12 % de pertes</td><td>44,88 × 1,12</td><td class="strong">50,2656 m²</td></tr><tr><td>Boîtes TERR-PRO</td><td>50,2656 ÷ 1,08 = 46,54</td><td class="strong">47 boîtes</td></tr><tr><td>Surface commandée</td><td>47 × 1,08</td><td class="strong">50,76 m²</td></tr></tbody></table></div><div class="note"><strong>Compléments :</strong> 2 primaires, 9 sacs de colle, 5 sacs de joint et 29,5 h de main-d'œuvre.</div></div>
+  </div></div>
+  <div class="section"><h3>3. Tableau de chiffrage</h3><div class="table-wrap"><table><thead><tr><th>Désignation</th><th>Unité</th><th>Quantité</th><th>Prix achat unitaire HT</th><th>Coût achat HT</th><th>Prix vente HT</th></tr></thead><tbody><tr><td>Carrelage salle de bain AQUA-600</td><td>boîte</td><td>16</td><td>35,86 € / boîte</td><td class="money">573,76 €</td><td class="money strong">774,58 €</td></tr>
+<tr><td>Primaire intérieur</td><td>bidon</td><td>1</td><td>34,50 €</td><td class="money">34,50 €</td><td class="money strong">46,58 €</td></tr>
+<tr><td>Protection à l'eau</td><td>kit</td><td>3</td><td>58,00 €</td><td class="money">174,00 €</td><td class="money strong">234,90 €</td></tr>
+<tr><td>Colle intérieure</td><td>sac</td><td>4</td><td>23,50 €</td><td class="money">94,00 €</td><td class="money strong">126,90 €</td></tr>
+<tr><td>Joint hydrofuge</td><td>sac</td><td>2</td><td>16,80 €</td><td class="money">33,60 €</td><td class="money strong">45,36 €</td></tr>
+<tr><td>Main-d'œuvre salle de bain</td><td>h</td><td>18,5</td><td>34,00 €</td><td class="money">629,00 €</td><td class="money strong">849,15 €</td></tr>
+<tr><td>Carrelage terrasse TERR-PRO</td><td>boîte</td><td>47</td><td>42,66 € / boîte</td><td class="money">2 005,02 €</td><td class="money strong">2 706,78 €</td></tr>
+<tr><td>Primaire extérieur</td><td>bidon</td><td>2</td><td>39,00 €</td><td class="money">78,00 €</td><td class="money strong">105,30 €</td></tr>
+<tr><td>Colle extérieure</td><td>sac</td><td>9</td><td>31,90 €</td><td class="money">287,10 €</td><td class="money strong">387,59 €</td></tr>
+<tr><td>Joint extérieur</td><td>sac</td><td>5</td><td>21,50 €</td><td class="money">107,50 €</td><td class="money strong">145,13 €</td></tr>
+<tr><td>Main-d'œuvre terrasse</td><td>h</td><td>29,5</td><td>34,00 €</td><td class="money">1 003,00 €</td><td class="money strong">1 354,05 €</td></tr><tr><th colspan="4">Totaux</th><th class="money">5 019,48 €</th><th class="money">6 776,32 €</th></tr></tbody></table></div><p class="rounding">Convention : chaque montant est arrondi au centime. Le prix de vente HT est obtenu avec le coefficient 1,35.</p></div>
+  <div class="section"><h3>4. Calcul final</h3>
+    <div class="final-grid">
+      <div class="final-card"><span>Sous-total travaux HT</span><strong>6 776,32 €</strong></div>
+      <div class="final-card"><span>Remise de 5 %</span><strong>- 338,82 €</strong><small>Seuil dépassé</small></div>
+      <div class="final-card"><span>Transport HT</span><strong>165,00 €</strong></div>
+      <div class="final-card"><span>Total HT</span><strong>6 602,50 €</strong></div>
+      <div class="final-card"><span>TVA 20 %</span><strong>1 320,50 €</strong></div>
+      <div class="final-card total"><span>Total TTC</span><strong>7 923,00 €</strong></div>
+    </div>
+    <p class="decision"><strong>Remise :</strong> appliquée, car 6 776,32 € dépasse 6 500,00 €.</p>
+    </div>
+  <div class="section"><h3>5. Rapport corrigé</h3><div class="report"><p>Nous retenons AQUA-600 dans la salle de bain et TERR-PRO sur la terrasse. Les deux produits satisfont les contraintes techniques propres à leur zone.</p><p>Les quantités commandées comprennent les pertes et tous les conditionnements sont arrondis à l'entier supérieur.</p><p>Le sous-total dépasse 6 500,00 € HT : la remise de 5 % est appliquée avant le transport. Le montant final est de <strong>7 923,00 € TTC</strong>.</p></div></div>
+</section>
+<section class="panel" id="couvreur" style="--accent:var(--orange)">
+  <div class="trade-head"><div><h2>Couvreur</h2><p>Correction de la couverture de la maison et de l'extension.</p></div><div class="trade-total"><span>Total proposé</span><strong>15 684,30 € TTC</strong></div></div>
+  <div class="section"><h3>1. Choix techniques</h3><div class="grid-2">
+    <div class="choice"><h4><span class="badge">Zone 1</span>TUI-TR35</h4><p>Cette tuile accepte une pente de 35°, résiste au gel et possède la teinte rouge brun demandée.</p><div class="why-not">TUI-BET25 est grise. TUI-TR40 exige au moins 40°. ARD-30 est noire.</div></div>
+    <div class="choice"><h4><span class="badge">Zone 2</span>BAC-8A</h4><p>Le bac acier accepte une pente de 8°, convient à l'extérieur et possède une finition gris anthracite.</p><div class="why-not">PAN-SAND est aussi conforme, mais son isolation intégrée n'est pas demandée et augmente le coût. TUI-LOW exige 17° et OND-7 est noire.</div></div>
+  </div></div>
+  <div class="section"><h3>2. Métré et quantités</h3><div class="grid-2">
+    <div><div class="table-wrap"><table class="calc"><thead><tr><th>Toiture principale</th><th>Calcul</th><th>Résultat</th></tr></thead><tbody><tr><td>Un pan</td><td>12,00 × 5,60</td><td class="strong">67,20 m²</td></tr><tr><td>Deux pans</td><td>67,20 × 2</td><td class="strong">134,40 m²</td></tr><tr><td>Deux fenêtres</td><td>0,78 × 1,18 × 2</td><td class="strong">1,8408 m²</td></tr><tr><td>Surface nette</td><td>134,40 - 1,8408</td><td class="strong">132,5592 m²</td></tr><tr><td>Surface tuiles avec 8 %</td><td>132,5592 × 1,08</td><td class="strong">143,1639 m²</td></tr><tr><td>Tuiles</td><td>143,1639 × 10,5 = 1 503,22</td><td class="strong">1 504 tuiles</td></tr><tr><td>Écran</td><td>132,5592 ÷ 75 = 1,77</td><td class="strong">2 rouleaux</td></tr><tr><td>Liteaux</td><td>132,5592 × 3,20 ÷ 4 = 106,05</td><td class="strong">107 barres</td></tr><tr><td>Fixations</td><td>132,5592 ÷ 120 = 1,10</td><td class="strong">2 boîtes</td></tr></tbody></table></div><div class="note"><strong>Main-d'œuvre :</strong> 132,5592 × 0,72 + 8 = 103,4426 h.</div></div>
+    <div><div class="table-wrap"><table class="calc"><thead><tr><th>Toiture de l'extension</th><th>Calcul</th><th>Résultat</th></tr></thead><tbody><tr><td>Trapèze</td><td>((9,00 + 6,00) × 4,50) ÷ 2</td><td class="strong">33,75 m²</td></tr><tr><td>Sortie à retirer</td><td>0,60 × 0,60</td><td class="strong">0,36 m²</td></tr><tr><td>Surface nette</td><td>33,75 - 0,36</td><td class="strong">33,39 m²</td></tr><tr><td>Avec 10 % de pertes</td><td>33,39 × 1,10</td><td class="strong">36,729 m²</td></tr><tr><td>Panneaux BAC-8A</td><td>36,729 ÷ 4,50 = 8,16</td><td class="strong">9 panneaux</td></tr><tr><td>Kits de fixation</td><td>33,39 ÷ 25 = 1,34</td><td class="strong">2 kits</td></tr><tr><td>Rives et closoirs</td><td>Forfait de la zone</td><td class="strong">1 ensemble</td></tr></tbody></table></div><div class="note"><strong>Main-d'œuvre :</strong> 33,39 × 0,62 + 5 = 25,7018 h.</div></div>
+  </div></div>
+  <div class="section"><h3>3. Tableau de chiffrage</h3><div class="table-wrap"><table><thead><tr><th>Désignation</th><th>Unité</th><th>Quantité</th><th>Prix achat unitaire HT</th><th>Coût achat HT</th><th>Prix vente HT</th></tr></thead><tbody><tr><td>Tuiles TUI-TR35</td><td>tuile</td><td>1 504</td><td>1,85 €</td><td class="money">2 782,40 €</td><td class="money strong">3 756,24 €</td></tr>
+<tr><td>Écran de sous-toiture</td><td>rouleau 75 m²</td><td>2</td><td>118,00 €</td><td class="money">236,00 €</td><td class="money strong">318,60 €</td></tr>
+<tr><td>Liteaux</td><td>barre 4 m</td><td>107</td><td>4,40 €</td><td class="money">470,80 €</td><td class="money strong">635,58 €</td></tr>
+<tr><td>Fixations tuiles</td><td>boîte</td><td>2</td><td>54,00 €</td><td class="money">108,00 €</td><td class="money strong">145,80 €</td></tr>
+<tr><td>Main-d'œuvre zone 1</td><td>h</td><td>103,4426</td><td>38,00 €</td><td class="money">3 930,82 €</td><td class="money strong">5 306,61 €</td></tr>
+<tr><td>Bac acier BAC-8A</td><td>panneau</td><td>9</td><td>126,00 €</td><td class="money">1 134,00 €</td><td class="money strong">1 530,90 €</td></tr>
+<tr><td>Fixations bac acier</td><td>kit</td><td>2</td><td>68,00 €</td><td class="money">136,00 €</td><td class="money strong">183,60 €</td></tr>
+<tr><td>Rives et closoirs</td><td>ensemble</td><td>1</td><td>245,00 €</td><td class="money">245,00 €</td><td class="money strong">330,75 €</td></tr>
+<tr><td>Main-d'œuvre zone 2</td><td>h</td><td>25,7018</td><td>38,00 €</td><td class="money">976,67 €</td><td class="money strong">1 318,50 €</td></tr><tr><th colspan="4">Totaux</th><th class="money">10 019,69 €</th><th class="money">13 526,58 €</th></tr></tbody></table></div><p class="rounding">Convention : chaque montant est arrondi au centime. Le prix de vente HT est obtenu avec le coefficient 1,35.</p></div>
+  <div class="section"><h3>4. Calcul final</h3>
+    <div class="final-grid">
+      <div class="final-card"><span>Sous-total travaux HT</span><strong>13 526,58 €</strong></div>
+      <div class="final-card"><span>Remise de 5 %</span><strong>- 676,33 €</strong><small>Seuil dépassé</small></div>
+      <div class="final-card"><span>Transport HT</span><strong>220,00 €</strong></div>
+      <div class="final-card"><span>Total HT</span><strong>13 070,25 €</strong></div>
+      <div class="final-card"><span>TVA 20 %</span><strong>2 614,05 €</strong></div>
+      <div class="final-card total"><span>Total TTC</span><strong>15 684,30 €</strong></div>
+    </div>
+    <p class="decision"><strong>Remise :</strong> appliquée, car 13 526,58 € dépasse 8 000,00 €.</p>
+    </div>
+  <div class="section"><h3>5. Rapport corrigé</h3><div class="report"><p>La toiture principale reçoit la tuile TUI-TR35. La toiture basse reçoit le bac acier BAC-8A.</p><p>Les tuiles et panneaux sont calculés avec les pertes. L'écran, les liteaux, les fixations et la main-d'œuvre sont calculés sur les surfaces nettes, conformément aux règles du dossier.</p><p>Le sous-total dépasse 8 000,00 € HT. Après remise et transport, le montant est de <strong>15 684,30 € TTC</strong>.</p></div></div>
+</section>
+<section class="panel" id="electricien" style="--accent:var(--red)">
+  <div class="trade-head"><div><h2>Électricien</h2><p>Correction de l'étude d'éclairage de la salle et du quai.</p></div><div class="trade-total"><span>Total proposé</span><strong>3 745,40 € TTC</strong></div></div>
+  <div class="section"><h3>1. Choix techniques</h3><div class="grid-2">
+    <div class="choice"><h4><span class="badge">Zone 1</span>PAN-PRO19</h4><p>Le panneau est prévu pour l'intérieur, fonctionne en 4 000 K et respecte UGR 19.</p><div class="why-not">PAN-ECO et PAN-IP44 ont un UGR de 22. DAL-3000 est en 3 000 K.</div></div>
+    <div class="choice"><h4><span class="badge">Zone 2</span>REG-IP65</h4><p>La réglette atteint IP65, IK08 et 4 000 K. C'est le produit conforme le moins cher.</p><div class="why-not">REG-IP66 est plus performante mais inutilement plus chère. REG-IP44 est insuffisante. PROJ-3000 a une mauvaise température de couleur et seulement IK07.</div></div>
+  </div><div class="note">Dans ce dossier simplifié, la surface de couverture indiquée dans le catalogue est directement utilisée pour dimensionner le nombre de luminaires.</div></div>
+  <div class="section"><h3>2. Métré et quantités</h3><div class="grid-2">
+    <div><div class="table-wrap"><table class="calc"><thead><tr><th>Salle de formation</th><th>Calcul</th><th>Résultat</th></tr></thead><tbody><tr><td>Grand rectangle</td><td>10,00 × 7,00</td><td class="strong">70,00 m²</td></tr><tr><td>Partie à retirer</td><td>3,00 × 2,50</td><td class="strong">7,50 m²</td></tr><tr><td>Surface utile</td><td>70,00 - 7,50</td><td class="strong">62,50 m²</td></tr><tr><td>Panneaux</td><td>62,50 ÷ 8 = 7,81</td><td class="strong">8 luminaires</td></tr><tr><td>Câble</td><td>5 × 8 + 20</td><td class="strong">60 m - 1 couronne</td></tr><tr><td>Tube IRL</td><td>4 × 8 + 10</td><td class="strong">42 m - 1 botte</td></tr><tr><td>Protection et commande</td><td>1 par zone</td><td class="strong">1 disjoncteur + 1 commande</td></tr></tbody></table></div><div class="note"><strong>Main-d'œuvre :</strong> 1,10 × 8 + 2 = 10,8 h.</div></div>
+    <div><div class="table-wrap"><table class="calc"><thead><tr><th>Quai couvert</th><th>Calcul</th><th>Résultat</th></tr></thead><tbody><tr><td>Rectangle</td><td>12,00 × 5,00</td><td class="strong">60,00 m²</td></tr><tr><td>Demi-disque</td><td>(3,14 × 2,50²) ÷ 2</td><td class="strong">9,8125 m²</td></tr><tr><td>Surface utile</td><td>60,00 + 9,8125</td><td class="strong">69,8125 m²</td></tr><tr><td>Réglettes</td><td>69,8125 ÷ 10 = 6,98</td><td class="strong">7 luminaires</td></tr><tr><td>Câble</td><td>7 × 7 + 25</td><td class="strong">74 m - 1 couronne</td></tr><tr><td>Tube IRL</td><td>6 × 7 + 15</td><td class="strong">57 m - 2 bottes</td></tr><tr><td>Protection et commande</td><td>1 par zone</td><td class="strong">1 disjoncteur + 1 commande</td></tr></tbody></table></div><div class="note"><strong>Main-d'œuvre :</strong> 1,40 × 7 + 3 = 12,8 h.</div></div>
+  </div></div>
+  <div class="section"><h3>3. Tableau de chiffrage</h3><div class="table-wrap"><table><thead><tr><th>Désignation</th><th>Unité</th><th>Quantité</th><th>Prix achat unitaire HT</th><th>Coût achat HT</th><th>Prix vente HT</th></tr></thead><tbody><tr><td>Panneaux PAN-PRO19</td><td>unité</td><td>8</td><td>58,00 €</td><td class="money">464,00 €</td><td class="money strong">626,40 €</td></tr>
+<tr><td>Câble zone 1</td><td>couronne 100 m</td><td>1</td><td>86,00 €</td><td class="money">86,00 €</td><td class="money strong">116,10 €</td></tr>
+<tr><td>Tube IRL zone 1</td><td>botte 50 m</td><td>1</td><td>41,00 €</td><td class="money">41,00 €</td><td class="money strong">55,35 €</td></tr>
+<tr><td>Disjoncteur zone 1</td><td>unité</td><td>1</td><td>18,50 €</td><td class="money">18,50 €</td><td class="money strong">24,98 €</td></tr>
+<tr><td>Commande zone 1</td><td>ensemble</td><td>1</td><td>46,00 €</td><td class="money">46,00 €</td><td class="money strong">62,10 €</td></tr>
+<tr><td>Réglettes REG-IP65</td><td>unité</td><td>7</td><td>72,00 €</td><td class="money">504,00 €</td><td class="money strong">680,40 €</td></tr>
+<tr><td>Câble zone 2</td><td>couronne 100 m</td><td>1</td><td>86,00 €</td><td class="money">86,00 €</td><td class="money strong">116,10 €</td></tr>
+<tr><td>Tube IRL zone 2</td><td>botte 50 m</td><td>2</td><td>41,00 €</td><td class="money">82,00 €</td><td class="money strong">110,70 €</td></tr>
+<tr><td>Disjoncteur zone 2</td><td>unité</td><td>1</td><td>18,50 €</td><td class="money">18,50 €</td><td class="money strong">24,98 €</td></tr>
+<tr><td>Commande zone 2</td><td>ensemble</td><td>1</td><td>46,00 €</td><td class="money">46,00 €</td><td class="money strong">62,10 €</td></tr>
+<tr><td>Main-d'œuvre zone 1</td><td>h</td><td>10,8</td><td>36,00 €</td><td class="money">388,80 €</td><td class="money strong">524,88 €</td></tr>
+<tr><td>Main-d'œuvre zone 2</td><td>h</td><td>12,8</td><td>36,00 €</td><td class="money">460,80 €</td><td class="money strong">622,08 €</td></tr><tr><th colspan="4">Totaux</th><th class="money">2 241,60 €</th><th class="money">3 026,17 €</th></tr></tbody></table></div><p class="rounding">Convention : chaque montant est arrondi au centime. Le prix de vente HT est obtenu avec le coefficient 1,35.</p></div>
+  <div class="section"><h3>4. Calcul final</h3>
+    <div class="final-grid">
+      <div class="final-card"><span>Sous-total travaux HT</span><strong>3 026,17 €</strong></div>
+      <div class="final-card"><span>Remise de 5 %</span><strong>0,00 €</strong><small>Seuil non dépassé</small></div>
+      <div class="final-card"><span>Transport HT</span><strong>95,00 €</strong></div>
+      <div class="final-card"><span>Total HT</span><strong>3 121,17 €</strong></div>
+      <div class="final-card"><span>TVA 20 %</span><strong>624,23 €</strong></div>
+      <div class="final-card total"><span>Total TTC</span><strong>3 745,40 €</strong></div>
+    </div>
+    <p class="decision"><strong>Remise :</strong> non appliquée, car 3 026,17 € ne dépasse pas 3 500,00 €.</p>
+    </div>
+  <div class="section"><h3>5. Rapport corrigé</h3><div class="report"><p>La salle de formation reçoit 8 panneaux PAN-PRO19. Le quai reçoit 7 réglettes REG-IP65.</p><p>Les longueurs de câble et de tube sont calculées après avoir déterminé le nombre de luminaires. Chaque conditionnement est ensuite arrondi à l'entier supérieur.</p><p>Le seuil de remise n'est pas atteint. Le montant final est de <strong>3 745,40 € TTC</strong>.</p></div></div>
+</section>
+<section class="panel" id="macon" style="--accent:var(--green)">
+  <div class="trade-head"><div><h2>Maçon</h2><p>Correction du mur pignon et de la cloison intérieure.</p></div><div class="trade-total"><span>Total proposé</span><strong>5 510,50 € TTC</strong></div></div>
+  <div class="section"><h3>1. Choix techniques</h3><div class="grid-2">
+    <div class="choice"><h4><span class="badge">Zone 1</span>BLOC20-B40</h4><p>Le bloc mesure 20 cm, atteint B40, est porteur et convient à l'extérieur. C'est le moins cher parmi les produits conformes.</p><div class="why-not">BLOC20-B60 est plus résistant mais plus cher. BLOC15-B40 est trop mince. BLOC20-B20 n'est pas porteur.</div></div>
+    <div class="choice"><h4><span class="badge">Zone 2</span>CELL10</h4><p>Le béton cellulaire de 10 cm est non porteur, léger avec 65 kg/m² et facile à enduire.</p><div class="why-not">CELL15 ne respecte pas l'épaisseur et dépasse 80 kg/m². BRIQ10 et BLOC10 sont trop lourds.</div></div>
+  </div><div class="note"><strong>Règle des linteaux :</strong> longueur minimale = largeur de l'ouverture + 0,30 m.</div></div>
+  <div class="section"><h3>2. Métré et quantités</h3><div class="grid-2">
+    <div><div class="table-wrap"><table class="calc"><thead><tr><th>Mur pignon</th><th>Calcul</th><th>Résultat</th></tr></thead><tbody><tr><td>Rectangle</td><td>9,00 × 2,80</td><td class="strong">25,20 m²</td></tr><tr><td>Triangle</td><td>(9,00 × 2,40) ÷ 2</td><td class="strong">10,80 m²</td></tr><tr><td>Porte à retirer</td><td>3,00 × 2,25</td><td class="strong">6,75 m²</td></tr><tr><td>Fenêtre à retirer</td><td>1,20 × 1,00</td><td class="strong">1,20 m²</td></tr><tr><td>Surface nette</td><td>25,20 + 10,80 - 6,75 - 1,20</td><td class="strong">28,05 m²</td></tr><tr><td>Avec 5 % de pertes</td><td>28,05 × 1,05</td><td class="strong">29,4525 m²</td></tr><tr><td>Blocs</td><td>29,4525 × 10 = 294,53</td><td class="strong">295 blocs</td></tr><tr><td>Mortier</td><td>28,05 ÷ 1,80 = 15,58</td><td class="strong">16 sacs</td></tr><tr><td>Linteaux</td><td>3,00 + 0,30 et 1,20 + 0,30</td><td class="strong">3,60 m et 1,50 m</td></tr></tbody></table></div><div class="note"><strong>Main-d'œuvre :</strong> 28,05 × 0,85 + 4 = 27,8425 h.</div></div>
+    <div><div class="table-wrap"><table class="calc"><thead><tr><th>Cloison intérieure</th><th>Calcul</th><th>Résultat</th></tr></thead><tbody><tr><td>Partie A</td><td>6,00 × 2,60</td><td class="strong">15,60 m²</td></tr><tr><td>Retour B</td><td>4,00 × 2,60</td><td class="strong">10,40 m²</td></tr><tr><td>Porte à retirer</td><td>0,90 × 2,10</td><td class="strong">1,89 m²</td></tr><tr><td>Surface nette</td><td>15,60 + 10,40 - 1,89</td><td class="strong">24,11 m²</td></tr><tr><td>Avec 5 % de pertes</td><td>24,11 × 1,05</td><td class="strong">25,3155 m²</td></tr><tr><td>Blocs CELL10</td><td>25,3155 × 6,4 = 162,02</td><td class="strong">163 blocs</td></tr><tr><td>Colle</td><td>24,11 ÷ 7,00 = 3,44</td><td class="strong">4 sacs</td></tr><tr><td>Linteau</td><td>0,90 + 0,30</td><td class="strong">1 linteau de 1,20 m</td></tr></tbody></table></div><div class="note"><strong>Main-d'œuvre :</strong> 24,11 × 0,60 + 2 = 16,466 h.</div></div>
+  </div></div>
+  <div class="section"><h3>3. Tableau de chiffrage</h3><div class="table-wrap"><table><thead><tr><th>Désignation</th><th>Unité</th><th>Quantité</th><th>Prix achat unitaire HT</th><th>Coût achat HT</th><th>Prix vente HT</th></tr></thead><tbody><tr><td>Blocs porteurs BLOC20-B40</td><td>bloc</td><td>295</td><td>2,10 €</td><td class="money">619,50 €</td><td class="money strong">836,33 €</td></tr>
+<tr><td>Mortier mur pignon</td><td>sac</td><td>16</td><td>8,90 €</td><td class="money">142,40 €</td><td class="money strong">192,24 €</td></tr>
+<tr><td>Linteau garage LIN-360</td><td>unité</td><td>1</td><td>128,00 €</td><td class="money">128,00 €</td><td class="money strong">172,80 €</td></tr>
+<tr><td>Linteau fenêtre LIN-150</td><td>unité</td><td>1</td><td>42,00 €</td><td class="money">42,00 €</td><td class="money strong">56,70 €</td></tr>
+<tr><td>Blocs de cloison CELL10</td><td>bloc</td><td>163</td><td>4,20 €</td><td class="money">684,60 €</td><td class="money strong">924,21 €</td></tr>
+<tr><td>Colle béton cellulaire</td><td>sac</td><td>4</td><td>15,80 €</td><td class="money">63,20 €</td><td class="money strong">85,32 €</td></tr>
+<tr><td>Linteau porte intérieure LIN-120</td><td>unité</td><td>1</td><td>34,00 €</td><td class="money">34,00 €</td><td class="money strong">45,90 €</td></tr>
+<tr><td>Main-d'œuvre mur pignon</td><td>h</td><td>27,8425</td><td>35,00 €</td><td class="money">974,49 €</td><td class="money strong">1 315,56 €</td></tr>
+<tr><td>Main-d'œuvre cloison</td><td>h</td><td>16,466</td><td>35,00 €</td><td class="money">576,31 €</td><td class="money strong">778,02 €</td></tr><tr><th colspan="4">Totaux</th><th class="money">3 264,50 €</th><th class="money">4 407,08 €</th></tr></tbody></table></div><p class="rounding">Convention : chaque montant est arrondi au centime. Le prix de vente HT est obtenu avec le coefficient 1,35.</p></div>
+  <div class="section"><h3>4. Calcul final</h3>
+    <div class="final-grid">
+      <div class="final-card"><span>Sous-total travaux HT</span><strong>4 407,08 €</strong></div>
+      <div class="final-card"><span>Remise de 5 %</span><strong>0,00 €</strong><small>Seuil non dépassé</small></div>
+      <div class="final-card"><span>Transport HT</span><strong>185,00 €</strong></div>
+      <div class="final-card"><span>Total HT</span><strong>4 592,08 €</strong></div>
+      <div class="final-card"><span>TVA 20 %</span><strong>918,42 €</strong></div>
+      <div class="final-card total"><span>Total TTC</span><strong>5 510,50 €</strong></div>
+    </div>
+    <p class="decision"><strong>Remise :</strong> non appliquée, car 4 407,08 € ne dépasse pas 5 000,00 €.</p>
+    </div>
+  <div class="section"><h3>5. Rapport corrigé</h3><div class="report"><p>Le mur pignon est réalisé avec BLOC20-B40 et la cloison avec CELL10. Ces références sont les moins chères qui respectent toutes les contraintes.</p><p>Le mur pignon nécessite 295 blocs, 16 sacs de mortier et deux linteaux. La cloison nécessite 163 blocs, 4 sacs de colle et un linteau.</p><p>Le seuil de remise n'est pas atteint. Le montant final est de <strong>5 510,50 € TTC</strong>.</p></div></div>
+</section>
+<section class="panel" id="mpi" style="--accent:var(--purple)">
+  <div class="trade-head"><div><h2>Métiers du plâtre et de l'isolation</h2><p>Correction du doublage humide et de la cloison acoustique.</p></div><div class="trade-total"><span>Total proposé</span><strong>3 667,20 € TTC</strong></div></div>
+  <div class="section"><h3>1. Choix techniques</h3><div class="grid-2">
+    <div class="choice"><h4><span class="badge">Zone 1</span>PL-HYD13 + ISO-TH100</h4><p>La plaque est hydrofuge H1. L'isolant atteint exactement R = 3,15 m².K/W.</p><p><strong>Pourquoi ce duo ?</strong> Chaque produit respecte sa fonction et il est moins cher que les versions renforcées.</p><div class="why-not">PL-HYDPRO et ISO-TH120 sont conformes, mais leur performance supplémentaire n'est pas demandée.</div></div>
+    <div class="choice"><h4><span class="badge">Zone 2</span>PL-ACOU13 + ISO-AC45</h4><p>La plaque est acoustique. L'isolant acoustique mesure 45 mm, soit l'épaisseur minimale exigée.</p><div class="why-not">PL-ACOUPRO et ISO-AC70 sont plus performants, mais plus chers sans nécessité dans le cahier des charges.</div></div>
+  </div><div class="note">Une plaque et un isolant sont deux produits différents. Pour la cloison, les plaques couvrent deux faces, tandis que l'isolant ne couvre qu'une face.</div></div>
+  <div class="section"><h3>2. Métré et quantités</h3><div class="grid-2">
+    <div><div class="table-wrap"><table class="calc"><thead><tr><th>Doublage de la salle d'eau</th><th>Calcul</th><th>Résultat</th></tr></thead><tbody><tr><td>Mur A</td><td>6,20 × 2,50</td><td class="strong">15,50 m²</td></tr><tr><td>Mur B</td><td>4,10 × 2,50</td><td class="strong">10,25 m²</td></tr><tr><td>Porte à retirer</td><td>0,90 × 2,10</td><td class="strong">1,89 m²</td></tr><tr><td>Fenêtre à retirer</td><td>1,20 × 1,00</td><td class="strong">1,20 m²</td></tr><tr><td>Surface nette</td><td>15,50 + 10,25 - 1,89 - 1,20</td><td class="strong">22,66 m²</td></tr><tr><td>Avec 10 % de pertes</td><td>22,66 × 1,10</td><td class="strong">24,926 m²</td></tr><tr><td>Plaques</td><td>24,926 ÷ 3,00 = 8,31</td><td class="strong">9 plaques</td></tr><tr><td>Isolant</td><td>24,926 ÷ 2,88 = 8,65</td><td class="strong">9 paquets</td></tr><tr><td>Ossature</td><td>22,66 × 2,60 ÷ 3 = 19,64</td><td class="strong">20 barres</td></tr></tbody></table></div><div class="note"><strong>Autres quantités :</strong> 1 boîte de vis, 1 sac d'enduit, 1 rouleau de bande. Main-d'œuvre : 22,66 × 0,65 + 2 = 16,729 h.</div></div>
+    <div><div class="table-wrap"><table class="calc"><thead><tr><th>Cloison acoustique</th><th>Calcul</th><th>Résultat</th></tr></thead><tbody><tr><td>Cloison brute - une face</td><td>7,20 × 2,50</td><td class="strong">18,00 m²</td></tr><tr><td>Porte à retirer</td><td>0,90 × 2,10</td><td class="strong">1,89 m²</td></tr><tr><td>Surface nette - une face</td><td>18,00 - 1,89</td><td class="strong">16,11 m²</td></tr><tr><td>Plaques - deux faces</td><td>16,11 × 2</td><td class="strong">32,22 m²</td></tr><tr><td>Plaques avec 10 %</td><td>32,22 × 1,10</td><td class="strong">35,442 m²</td></tr><tr><td>Isolant avec 10 %</td><td>16,11 × 1,10</td><td class="strong">17,721 m²</td></tr><tr><td>Plaques</td><td>35,442 ÷ 3,00 = 11,81</td><td class="strong">12 plaques</td></tr><tr><td>Isolant</td><td>17,721 ÷ 5,40 = 3,28</td><td class="strong">4 rouleaux</td></tr><tr><td>Ossature</td><td>16,11 × 2,60 ÷ 3 = 13,96</td><td class="strong">14 barres</td></tr></tbody></table></div><div class="note"><strong>Autres quantités :</strong> 1 boîte de vis, 1 sac d'enduit, 1 rouleau de bande. Main-d'œuvre : 16,11 × 0,80 + 2 = 14,888 h.</div></div>
+  </div></div>
+  <div class="section"><h3>3. Tableau de chiffrage</h3><div class="table-wrap"><table><thead><tr><th>Désignation</th><th>Unité</th><th>Quantité</th><th>Prix achat unitaire HT</th><th>Coût achat HT</th><th>Prix vente HT</th></tr></thead><tbody><tr><td>Plaques hydrofuges PL-HYD13</td><td>plaque</td><td>9</td><td>16,20 €</td><td class="money">145,80 €</td><td class="money strong">196,83 €</td></tr>
+<tr><td>Isolant thermique ISO-TH100</td><td>paquet</td><td>9</td><td>27,50 €</td><td class="money">247,50 €</td><td class="money strong">334,13 €</td></tr>
+<tr><td>Ossature zone 1</td><td>barre de 3 m</td><td>20</td><td>4,80 €</td><td class="money">96,00 €</td><td class="money strong">129,60 €</td></tr>
+<tr><td>Vis zone 1</td><td>boîte de 500</td><td>1</td><td>18,60 €</td><td class="money">18,60 €</td><td class="money strong">25,11 €</td></tr>
+<tr><td>Enduit zone 1</td><td>sac</td><td>1</td><td>24,90 €</td><td class="money">24,90 €</td><td class="money strong">33,62 €</td></tr>
+<tr><td>Bandes zone 1</td><td>rouleau</td><td>1</td><td>11,80 €</td><td class="money">11,80 €</td><td class="money strong">15,93 €</td></tr>
+<tr><td>Plaques acoustiques PL-ACOU13</td><td>plaque</td><td>12</td><td>19,90 €</td><td class="money">238,80 €</td><td class="money strong">322,38 €</td></tr>
+<tr><td>Isolant acoustique ISO-AC45</td><td>rouleau</td><td>4</td><td>42,00 €</td><td class="money">168,00 €</td><td class="money strong">226,80 €</td></tr>
+<tr><td>Ossature zone 2</td><td>barre de 3 m</td><td>14</td><td>4,80 €</td><td class="money">67,20 €</td><td class="money strong">90,72 €</td></tr>
+<tr><td>Vis zone 2</td><td>boîte de 500</td><td>1</td><td>18,60 €</td><td class="money">18,60 €</td><td class="money strong">25,11 €</td></tr>
+<tr><td>Enduit zone 2</td><td>sac</td><td>1</td><td>24,90 €</td><td class="money">24,90 €</td><td class="money strong">33,62 €</td></tr>
+<tr><td>Bandes zone 2</td><td>rouleau</td><td>1</td><td>11,80 €</td><td class="money">11,80 €</td><td class="money strong">15,93 €</td></tr>
+<tr><td>Main-d'œuvre zone 1</td><td>h</td><td>16,729</td><td>34,00 €</td><td class="money">568,79 €</td><td class="money strong">767,86 €</td></tr>
+<tr><td>Main-d'œuvre zone 2</td><td>h</td><td>14,888</td><td>34,00 €</td><td class="money">506,19 €</td><td class="money strong">683,36 €</td></tr><tr><th colspan="4">Totaux</th><th class="money">2 148,88 €</th><th class="money">2 901,00 €</th></tr></tbody></table></div><p class="rounding">Convention : chaque montant est arrondi au centime. Le prix de vente HT est obtenu avec le coefficient 1,35.</p></div>
+  <div class="section"><h3>4. Calcul final</h3>
+    <div class="final-grid">
+      <div class="final-card"><span>Sous-total travaux HT</span><strong>2 901,00 €</strong></div>
+      <div class="final-card"><span>Remise de 5 %</span><strong>0,00 €</strong><small>Seuil non dépassé</small></div>
+      <div class="final-card"><span>Transport HT</span><strong>155,00 €</strong></div>
+      <div class="final-card"><span>Total HT</span><strong>3 056,00 €</strong></div>
+      <div class="final-card"><span>TVA 20 %</span><strong>611,20 €</strong></div>
+      <div class="final-card total"><span>Total TTC</span><strong>3 667,20 €</strong></div>
+    </div>
+    <p class="decision"><strong>Remise :</strong> non appliquée, car 2 901,00 € ne dépasse pas 4 000,00 €.</p>
+    </div>
+  <div class="section"><h3>5. Rapport corrigé</h3><div class="report"><p>Le doublage de la salle d'eau associe PL-HYD13 et ISO-TH100. La cloison acoustique associe PL-ACOU13 et ISO-AC45.</p><p>Les plaques et les isolants ont été calculés séparément avec leurs propres surfaces et leurs propres conditionnements.</p><p>Le seuil de remise n'est pas atteint. Le montant final est de <strong>3 667,20 € TTC</strong>.</p></div></div>
+</section>
+</main>
+<footer><div class="footer-inner">M. Ozmina - Mathématiques - BTP CFA Grand Est, Campus de la Marne</div></footer>
+<script>
+const tabs=[...document.querySelectorAll('.tab')];
+const panels=[...document.querySelectorAll('.panel')];
+function activate(id,updateHash=true){
+  tabs.forEach(t=>t.setAttribute('aria-selected',String(t.dataset.tab===id)));
+  panels.forEach(p=>p.classList.toggle('active',p.id===id));
+  if(updateHash) history.replaceState(null,'','#'+id);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+tabs.forEach(t=>t.addEventListener('click',()=>activate(t.dataset.tab)));
+const initial=location.hash.slice(1);
+if(panels.some(p=>p.id===initial)) activate(initial,false);
+function printAll(){document.body.classList.add('print-all');window.print();}
+window.addEventListener('afterprint',()=>document.body.classList.remove('print-all'));
+</script>
+</body></html>
