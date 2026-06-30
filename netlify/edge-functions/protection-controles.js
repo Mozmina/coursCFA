@@ -21,54 +21,102 @@ const encoder = new TextEncoder();
   Pages constituées uniquement d'un contrôle ou d'un corrigé sensible.
   Elles sont intégralement bloquées.
 */
-const FULL_PAGE_PATHS = new Set([
-  "/eval.html",
-  "/eval",
-
-  "/evalprop.html",
-  "/evalprop",
-
-  "/evalAlgo.html",
-  "/evalAlgo",
-
-  "/evalEquaCAP.html",
-  "/evalEquaCAP",
-
-  "/evalOptiqueCap.html",
-  "/evalOptiqueCap",
-
-  "/evalThermique.html",
-  "/evalThermique",
-
-  "/TPairesCorrection.html",
-  "/TPairesCorrection",
+const FULL_PAGE_FILES = new Set([
+  "eval.html",
+  "eval",
+  "evalprop.html",
+  "evalprop",
+  "evalalgo.html",
+  "evalalgo",
+  "evalequacap.html",
+  "evalequacap",
+  "evaloptiquecap.html",
+  "evaloptiquecap",
+  "evalthermique.html",
+  "evalthermique",
+  "tpairescorrection.html",
+  "tpairescorrection",
 ]);
 
 /*
-  Pages qui contiennent à la fois des révisions publiques et un contrôle privé.
+  Les pages mixtes sont reconnues à partir d'une version simplifiée du nom.
+  Cela fonctionne même si Netlify :
+  - retire l'extension .html ;
+  - modifie les majuscules ;
+  - encode & ou + ;
+  - transforme + en espace.
 */
-const MIXED_PAGE_MODES = new Map([
-  ["/Revision&CCF2.html", "revision-ccf2"],
-  ["/Revision&CCF2", "revision-ccf2"],
+function detectMixedMode(pathname) {
+  const simplified = normalizePath(pathname)
+    .replace(/\.html$/i, "")
+    .replace(/[^a-z0-9]/g, "");
 
-  ["/BPONDES_rev+synthese+contr.html", "bp-ondes"],
-  ["/BPONDES_rev+synthese+contr", "bp-ondes"],
-]);
+  if (simplified.endsWith("revisionccf2")) {
+    return "revision-ccf2";
+  }
+
+  if (
+    simplified.includes("bpondesrev") &&
+    simplified.includes("synthese") &&
+    simplified.includes("contr")
+  ) {
+    return "bp-ondes";
+  }
+
+  return "";
+}
+
+function detectMixedModeFromHtml(html) {
+  if (
+    /id=["']btn-ccf["']/i.test(html) &&
+    /id=["']ccf["']/i.test(html)
+  ) {
+    return "revision-ccf2";
+  }
+
+  if (
+    /data-target=["']controle["']/i.test(html) &&
+    /id=["']controle["']/i.test(html)
+  ) {
+    return "bp-ondes";
+  }
+
+  return "";
+}
+
+function isFullPagePath(pathname) {
+  const normalized = normalizePath(pathname);
+  const fileName = normalized.split("/").filter(Boolean).pop() ?? "";
+
+  return FULL_PAGE_FILES.has(fileName);
+}
 
 function normalizePath(pathname) {
-  let decodedPath = pathname;
+  let decodedPath = String(pathname ?? "");
 
-  try {
-    decodedPath = decodeURIComponent(pathname);
-  } catch {
-    decodedPath = pathname;
+  for (let pass = 0; pass < 2; pass += 1) {
+    try {
+      const nextValue = decodeURIComponent(decodedPath);
+
+      if (nextValue === decodedPath) {
+        break;
+      }
+
+      decodedPath = nextValue;
+    } catch {
+      break;
+    }
   }
+
+  decodedPath = decodedPath
+    .replace(/\\/g, "/")
+    .replace(/\s+/g, "+");
 
   if (decodedPath.length > 1 && decodedPath.endsWith("/")) {
     decodedPath = decodedPath.slice(0, -1);
   }
 
-  return decodedPath;
+  return decodedPath.toLowerCase();
 }
 
 function toBase64Url(bytes) {
@@ -534,7 +582,7 @@ function removeRangeByMarkers(html, startRegex, endMarker, placeholder) {
 
 function stripRevisionCcf(html, pathname) {
   let transformed = html.replace(
-    /<button\b(?=[^>]*\bid=["']btn-ccf["'])[^>]*>[\s\S]*?<\/button>/i,
+    /<(?:button|a)\b(?=[^>]*\bid=["']btn-ccf["'])[^>]*>[\s\S]*?<\/(?:button|a)>/i,
     lockedRevisionButton(pathname),
   );
 
@@ -550,7 +598,7 @@ function stripRevisionCcf(html, pathname) {
 
 function stripBpControl(html, pathname) {
   let transformed = html.replace(
-    /<button\b(?=[^>]*\bdata-target=["']controle["'])[^>]*>[\s\S]*?<\/button>/i,
+    /<(?:button|a)\b(?=[^>]*\bdata-target=["']controle["'])[^>]*>[\s\S]*?<\/(?:button|a)>/i,
     lockedBpButton(pathname),
   );
 
@@ -694,21 +742,87 @@ async function publicMixedPage(request, context, mode) {
     html = stripBpControl(html, pathname);
   }
 
-  return responseWithHtml(html, originResponse);
+  return responseWithHtml(html, originResponse, {
+    "X-CFA-Protection": mode,
+    "CDN-Cache-Control": "no-store",
+  });
 }
 
 export default async function protectionControles(request, context) {
   const url = new URL(request.url);
   const normalizedPath = normalizePath(url.pathname);
-  const mode = MIXED_PAGE_MODES.get(normalizedPath) ?? "";
-  const isMixedPage = Boolean(mode);
-  const isFullPage = FULL_PAGE_PATHS.has(normalizedPath);
+  let mode = detectMixedMode(normalizedPath);
+  let isMixedPage = Boolean(mode);
+  const isFullPage = isFullPagePath(normalizedPath);
 
   const password = Netlify.env.get("CONTROL_PASSWORD");
   const sessionSecret = Netlify.env.get("CONTROL_SESSION_SECRET");
 
   /*
-    Si la fonction est appelée sur un chemin non prévu, on laisse passer.
+    Détection de secours :
+    si l'adresse a été réécrite d'une façon inattendue par Netlify,
+    on inspecte le HTML et on reconnaît les boutons propres aux deux dossiers.
+  */
+  if (
+    !isFullPage &&
+    !isMixedPage &&
+    request.method === "GET" &&
+    !url.searchParams.has("deverrouiller") &&
+    !url.searchParams.has("ouvrir") &&
+    !url.searchParams.has("verrouiller")
+  ) {
+    const originResponse = await context.next();
+    const contentType = originResponse.headers.get("content-type") ?? "";
+
+    if (!contentType.includes("text/html")) {
+      return originResponse;
+    }
+
+    const originalHtml = await originResponse.text();
+    const detectedMode = detectMixedModeFromHtml(originalHtml);
+
+    if (!detectedMode) {
+      return responseWithHtml(originalHtml, originResponse);
+    }
+
+    mode = detectedMode;
+    isMixedPage = true;
+
+    const fallbackCookieValue = context.cookies.get(COOKIE_NAME);
+    const fallbackHasValidSession = sessionSecret
+      ? await sessionIsValid(fallbackCookieValue, sessionSecret)
+      : false;
+
+    if (fallbackHasValidSession) {
+      const unlockedHtml = injectUnlockButton(
+        originalHtml,
+        url.pathname,
+      );
+
+      return responseWithHtml(unlockedHtml, originResponse, {
+        "X-CFA-Protection": mode,
+        "CDN-Cache-Control": "no-store",
+      });
+    }
+
+    let protectedHtml = originalHtml;
+
+    if (mode === "revision-ccf2") {
+      protectedHtml = stripRevisionCcf(protectedHtml, url.pathname);
+    }
+
+    if (mode === "bp-ondes") {
+      protectedHtml = stripBpControl(protectedHtml, url.pathname);
+    }
+
+    return responseWithHtml(protectedHtml, originResponse, {
+      "X-CFA-Protection": mode,
+      "CDN-Cache-Control": "no-store",
+    });
+  }
+
+  /*
+    Une page ordinaire est laissée intacte.
   */
   if (!isFullPage && !isMixedPage) {
     return context.next();
