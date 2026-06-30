@@ -827,51 +827,12 @@ export default async function protectionControles(request, context) {
 }
 
 /*
-  Les variantes sans extension et avec encodage URL sont également couvertes.
+  La fonction est déclarée sur tous les chemins avec /*.
+  Elle laisse immédiatement passer les fichiers non concernés.
+  Cela évite les erreurs URLPattern provoquées par les caractères + et &
+  présents dans certains noms de fichiers.
 */
 export const config = {
   method: ["GET", "HEAD", "POST"],
-  path: [
-    "/eval.html",
-    "/eval",
-    "/eval/",
-
-    "/evalprop.html",
-    "/evalprop",
-    "/evalprop/",
-
-    "/evalAlgo.html",
-    "/evalAlgo",
-    "/evalAlgo/",
-
-    "/evalEquaCAP.html",
-    "/evalEquaCAP",
-    "/evalEquaCAP/",
-
-    "/evalOptiqueCap.html",
-    "/evalOptiqueCap",
-    "/evalOptiqueCap/",
-
-    "/evalThermique.html",
-    "/evalThermique",
-    "/evalThermique/",
-
-    "/TPairesCorrection.html",
-    "/TPairesCorrection",
-    "/TPairesCorrection/",
-
-    "/Revision&CCF2.html",
-    "/Revision&CCF2",
-    "/Revision&CCF2/",
-    "/Revision%26CCF2.html",
-    "/Revision%26CCF2",
-    "/Revision%26CCF2/",
-
-    "/BPONDES_rev+synthese+contr.html",
-    "/BPONDES_rev+synthese+contr",
-    "/BPONDES_rev+synthese+contr/",
-    "/BPONDES_rev%2Bsynthese%2Bcontr.html",
-    "/BPONDES_rev%2Bsynthese%2Bcontr",
-    "/BPONDES_rev%2Bsynthese%2Bcontr/",
-  ],
+  path: "/*",
 };
