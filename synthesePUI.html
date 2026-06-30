@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fiche synthèse - Puissance et rôle du fusible</title>
+
+  <style>
+    :root{
+      --jaune:#f2c230;
+      --jaune-clair:#fff7d6;
+      --gris:#2f3540;
+      --gris-clair:#eef1f4;
+      --bleu:#2878b8;
+      --rouge:#c0392b;
+      --vert:#2e8b57;
+      --blanc:#ffffff;
+    }
+
+    *{
+      box-sizing:border-box;
+    }
+
+    html, body{
+      margin:0;
+      padding:0;
+      background:#dfe4e8;
+      font-family:Arial, Helvetica, sans-serif;
+      color:var(--gris);
+    }
+
+    body{
+      padding:18px;
+    }
+
+    .page{
+      width:210mm;
+      min-height:297mm;
+      margin:0 auto;
+      background:var(--blanc);
+      padding:12mm 13mm 11mm;
+      box-shadow:0 8px 30px rgba(0,0,0,.18);
+      position:relative;
+      overflow:hidden;
+    }
+
+    .header{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:16px;
+      align-items:center;
+      border-bottom:5px solid var(--jaune);
+      padding-bottom:8px;
+      margin-bottom:12px;
+    }
+
+    .title-wrap h1{
+      margin:0;
+      font-size:25px;
+      line-height:1.1;
+      color:var(--gris);
+    }
+
+    .title-wrap p{
+      margin:5px 0 0;
+      font-size:14px;
+      color:#5a616b;
+      font-weight:700;
+    }
+
+    .logo{
+      width:128px;
+      height:auto;
+      display:block;
+    }
+
+    .identity{
+      display:grid;
+      grid-template-columns:1.4fr .7fr .7fr;
+      gap:10px;
+      margin-bottom:12px;
+      font-size:13px;
+      font-weight:700;
+    }
+
+    .field{
+      border:1.8px solid #aeb5bd;
+      border-radius:8px;
+      min-height:34px;
+      padding:8px 10px;
+      background:#fff;
+    }
+
+    .intro{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:12px;
+      margin-bottom:12px;
+    }
+
+    .card{
+      border:2px solid #d5dbe1;
+      border-radius:14px;
+      padding:12px;
+      background:#fff;
+      page-break-inside:avoid;
+    }
+
+    .card h2{
+      margin:0 0 9px;
+      font-size:17px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color:var(--gris);
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      background:var(--jaune);
+      color:#20242a;
+      font-weight:900;
+      flex:0 0 auto;
+    }
+
+    .formula-card{
+      background:linear-gradient(135deg, var(--jaune-clair), #fff);
+      border-color:var(--jaune);
+    }
+
+    .formula{
+      margin:10px auto 12px;
+      text-align:center;
+      font-size:34px;
+      font-weight:900;
+      letter-spacing:1px;
+      color:#20242a;
+      padding:13px;
+      border:3px solid var(--gris);
+      border-radius:14px;
+      background:#fff;
+      width:78%;
+    }
+
+    .formula small{
+      display:block;
+      font-size:12px;
+      margin-top:4px;
+      color:#6c737c;
+      letter-spacing:0;
+    }
+
+    .blanks{
+      display:grid;
+      gap:8px;
+      margin-top:5px;
+    }
+
+    .blank-line{
+      display:grid;
+      grid-template-columns:26px 1fr;
+      align-items:center;
+      gap:8px;
+      font-size:14px;
+      line-height:1.35;
+    }
+
+    .letter{
+      width:26px;
+      height:26px;
+      border-radius:7px;
+      background:var(--gris);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:900;
+    }
+
+    .write{
+      display:inline-block;
+      min-width:120px;
+      border-bottom:2px dotted #59616b;
+      height:18px;
+      vertical-align:bottom;
+    }
+
+    .circuit{
+      background:var(--gris-clair);
+      border-color:#b9c1c9;
+    }
+
+    .circuit svg{
+      width:100%;
+      height:168px;
+      display:block;
+    }
+
+    .legend{
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:6px;
+      font-size:11px;
+      text-align:center;
+      margin-top:3px;
+    }
+
+    .legend span{
+      background:#fff;
+      border-radius:7px;
+      padding:5px;
+      border:1px solid #c8ced5;
+      font-weight:700;
+    }
+
+    .section{
+      margin-bottom:12px;
+    }
+
+    .section-title{
+      display:flex;
+      align-items:center;
+      gap:9px;
+      margin:0 0 8px;
+      font-size:18px;
+    }
+
+    .section-title .bar{
+      width:9px;
+      height:27px;
+      background:var(--jaune);
+      border-radius:5px;
+    }
+
+    .application{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .mini-card{
+      border:2px solid #d6dce2;
+      border-radius:12px;
+      padding:11px;
+      min-height:142px;
+    }
+
+    .mini-card h3{
+      margin:0 0 8px;
+      font-size:15px;
+      color:var(--bleu);
+    }
+
+    .mini-card p{
+      margin:5px 0;
+      font-size:13.5px;
+      line-height:1.35;
+    }
+
+    .equation{
+      text-align:center;
+      font-weight:900;
+      font-size:18px;
+      margin:10px 0;
+      padding:8px;
+      background:var(--gris-clair);
+      border-radius:9px;
+    }
+
+    .answer-line{
+      border-bottom:2px dotted #6c737c;
+      display:inline-block;
+      min-width:90px;
+      height:17px;
+      vertical-align:bottom;
+    }
+
+    .warning{
+      border:2px solid var(--rouge);
+      background:#fff2ef;
+      border-radius:14px;
+      padding:12px 14px;
+      display:grid;
+      grid-template-columns:52px 1fr;
+      gap:12px;
+      align-items:center;
+      margin-bottom:12px;
+    }
+
+    .warning-icon{
+      width:52px;
+      height:52px;
+      border-radius:50%;
+      background:var(--rouge);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:30px;
+      font-weight:900;
+    }
+
+    .warning h2{
+      margin:0 0 5px;
+      font-size:18px;
+      color:var(--rouge);
+    }
+
+    .warning p{
+      margin:0;
+      font-size:14px;
+      line-height:1.45;
+      font-weight:700;
+    }
+
+    .bottom{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .remember{
+      background:#eef8f2;
+      border:2px solid var(--vert);
+      border-radius:14px;
+      padding:12px;
+    }
+
+    .remember h2{
+      margin:0 0 8px;
+      color:var(--vert);
+      font-size:17px;
+    }
+
+    .remember ul{
+      margin:0;
+      padding-left:20px;
+      font-size:13px;
+      line-height:1.45;
+    }
+
+    .memory{
+      background:#f7f8fa;
+      border:2px solid #bfc6ce;
+      border-radius:14px;
+      padding:12px;
+    }
+
+    .memory h2{
+      margin:0 0 8px;
+      font-size:17px;
+    }
+
+    .memory p{
+      margin:5px 0;
+      font-size:13.5px;
+      line-height:1.4;
+    }
+
+    .footer{
+      position:absolute;
+      left:13mm;
+      right:13mm;
+      bottom:6mm;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      font-size:10px;
+      color:#747b84;
+      border-top:1px solid #d9dee3;
+      padding-top:4px;
+    }
+
+    @media print{
+      @page{
+        size:A4 portrait;
+        margin:0;
+      }
+
+      html, body{
+        width:210mm;
+        height:297mm;
+        background:#fff;
+      }
+
+      body{
+        padding:0;
+      }
+
+      .page{
+        margin:0;
+        box-shadow:none;
+        width:210mm;
+        height:297mm;
+        min-height:297mm;
+      }
+
+      *{
+        -webkit-print-color-adjust:exact;
+        print-color-adjust:exact;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header class="header">
+      <div class="title-wrap">
+        <h1>Calculer une puissance pour comprendre le rôle d’un fusible</h1>
+        <p>Fiche synthèse à compléter - Électricité</p>
+      </div>
+      <img
+        class="logo"
+        src="https://classwise-reservation.netlify.app/Logo-BTPCFA51.png"
+        alt="Logo BTP CFA"
+      />
+    </header>
+
+    <section class="identity">
+      <div class="field">Nom : ............................................................</div>
+      <div class="field">Groupe : ....................</div>
+      <div class="field">Date : ....................</div>
+    </section>
+
+    <section class="intro">
+      <article class="card formula-card">
+        <h2><span class="badge">1</span> La formule de la puissance</h2>
+        <p>En courant électrique continu, la puissance d’un appareil est donnée par la relation :</p>
+
+        <div class="formula">
+          P = U × I
+          <small>Puissance = tension × intensité</small>
+        </div>
+
+        <div class="blanks">
+          <div class="blank-line">
+            <span class="letter">P</span>
+            <span>est la puissance exprimée en <span class="write"></span></span>
+          </div>
+          <div class="blank-line">
+            <span class="letter">U</span>
+            <span>est la tension exprimée en <span class="write"></span></span>
+          </div>
+          <div class="blank-line">
+            <span class="letter">I</span>
+            <span>est l’intensité exprimée en <span class="write"></span></span>
+          </div>
+        </div>
+      </article>
+
+      <article class="card circuit">
+        <h2><span class="badge">2</span> Le fusible protège le circuit</h2>
+
+        <svg viewBox="0 0 360 180" role="img" aria-label="Schéma simplifié d’un circuit électrique avec fusible">
+          <rect x="20" y="53" width="58" height="76" rx="9" fill="#ffffff" stroke="#2f3540" stroke-width="4"/>
+          <line x1="49" y1="67" x2="49" y2="92" stroke="#c0392b" stroke-width="5"/>
+          <line x1="38" y1="79" x2="60" y2="79" stroke="#c0392b" stroke-width="5"/>
+          <line x1="49" y1="103" x2="49" y2="119" stroke="#2f3540" stroke-width="5"/>
+
+          <path d="M78 72 H128" fill="none" stroke="#2878b8" stroke-width="5"/>
+          <rect x="128" y="57" width="72" height="30" rx="7" fill="#fff7d6" stroke="#2f3540" stroke-width="4"/>
+          <path d="M139 72 C148 55,158 89,168 72 C178 55,188 89,198 72" fill="none" stroke="#c0392b" stroke-width="3"/>
+          <text x="164" y="49" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3540">FUSIBLE</text>
+
+          <path d="M200 72 H256" fill="none" stroke="#2878b8" stroke-width="5"/>
+          <circle cx="293" cy="72" r="34" fill="#ffffff" stroke="#2f3540" stroke-width="4"/>
+          <path d="M277 88 L309 56 M277 56 L309 88" stroke="#f2c230" stroke-width="7" stroke-linecap="round"/>
+          <text x="293" y="119" text-anchor="middle" font-size="13" font-weight="700" fill="#2f3540">APPAREIL</text>
+
+          <path d="M327 72 V148 H49 V129" fill="none" stroke="#2878b8" stroke-width="5"/>
+          <polygon points="97,65 115,72 97,79" fill="#2878b8"/>
+          <text x="106" y="57" text-anchor="middle" font-size="12" font-weight="700" fill="#2878b8">courant</text>
+        </svg>
+
+        <div class="legend">
+          <span>Source</span>
+          <span>Fusible</span>
+          <span>Récepteur</span>
+        </div>
+      </article>
+    </section>
+
+    <section class="section">
+      <h2 class="section-title"><span class="bar"></span>Application de la formule</h2>
+
+      <div class="application">
+        <article class="mini-card">
+          <h3>Exemple 1 - Courant continu</h3>
+          <p>Un appareil fonctionne sous une tension de <strong>12 V</strong> et absorbe une intensité de <strong>5 A</strong>.</p>
+          <div class="equation">P = .......... × .......... = .......... W</div>
+          <p>La puissance de l’appareil est de <span class="answer-line"></span></p>
+        </article>
+
+        <article class="mini-card">
+          <h3>Exemple 2 - Appareil résistif sur secteur</h3>
+          <p>Pour un radiateur ou une résistance alimentée en <strong>230 V alternatif</strong>, on peut aussi utiliser :</p>
+          <div class="equation">P = U × I</div>
+          <p>Pour un radiateur de 2 300 W :</p>
+          <p><strong>I = P ÷ U =</strong> .......... ÷ .......... = <span class="answer-line"></span> A</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="warning">
+      <div class="warning-icon">!</div>
+      <div>
+        <h2>Pourquoi le fusible fond-il ?</h2>
+        <p>
+          Quand la puissance demandée devient trop importante, l’intensité
+          <span class="write" style="min-width:135px;"></span>
+          et le fusible peut fondre pour protéger les conducteurs et les appareils.
+        </p>
+      </div>
+    </section>
+
+    <section class="bottom">
+      <article class="remember">
+        <h2>À retenir</h2>
+        <ul>
+          <li>Plus un appareil demande de puissance, plus il peut faire circuler une forte intensité.</li>
+          <li>Le fusible coupe le circuit si l’intensité dépasse sa valeur prévue.</li>
+          <li>Un fusible protège contre les surintensités et les risques d’échauffement.</li>
+        </ul>
+      </article>
+
+      <article class="memory">
+        <h2>Phrase bilan à compléter</h2>
+        <p>
+          Le fusible est un dispositif de
+          <span class="write" style="min-width:110px;"></span>.
+        </p>
+        <p>
+          Il fond lorsque l’
+          <span class="write" style="min-width:105px;"></span>
+          devient trop importante.
+        </p>
+        <p>
+          Cela permet d’éviter la surchauffe du
+          <span class="write" style="min-width:100px;"></span>.
+        </p>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <span>Mathématiques - Sciences</span>
+      <span>Fiche synthèse - Puissance électrique et fusible</span>
+    </footer>
+  </main>
+</body>
+</html>
